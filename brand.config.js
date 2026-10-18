@@ -31,9 +31,9 @@ const brand = /** @type {const} */ ({
   /** Deep-link prefix, e.g. ratnaaura://auth/callback */
   scheme: 'ratnaaura',
   /** Google Play package ID (permanent after first upload!) */
-  androidPackage: 'com.velqorastudios.astronumero',
+  androidPackage: 'com.velqorastudios.ratnaaura',
   /** Apple bundle ID (for a future iOS version) */
-  iosBundleId: 'com.velqorastudios.astronumero',
+  iosBundleId: 'com.velqorastudios.ratnaaura',
   /** Support e-mail shown in the privacy policy and store listing */
   supportEmail: 'support@example.com',
   /** Users must be at least this old */

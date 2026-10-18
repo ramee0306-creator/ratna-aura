@@ -164,7 +164,7 @@ npx supabase functions deploy   # if server functions changed
 2. Run `npm run make-icons` (redraws the gem icon and splash in the new colours).
 3. If `scheme` changed, update the Redirect URLs in Supabase (step 4.8).
 
-⚠️ **The Android package ID (currently `com.velqorastudios.astronumero`) can never change after the first upload to
+⚠️ **The Android package ID (`com.velqorastudios.ratnaaura`) can never change after the first upload to
 Google Play.** Confirm the final name and package ID **before Milestone 9**.
 
 ## Publishing (Milestones 8–9, summary)
