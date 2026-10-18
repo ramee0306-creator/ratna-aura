@@ -5,22 +5,11 @@
 //   POST   /birth-profiles            -> create   (body: BirthProfileInput)
 //   PATCH  /birth-profiles?id=<uuid>  -> replace  (body: BirthProfileInput)
 //   DELETE /birth-profiles?id=<uuid>  -> delete
-import { type BirthDetails, splitForStorage, validateBirthProfile } from '../_shared/birth-details.ts';
-import { decryptJson, encryptJson, type KeyRing, keyRingFromEnv } from '../_shared/crypto.ts';
+import { splitForStorage, validateBirthProfile } from '../_shared/birth-details.ts';
+import { encryptJson } from '../_shared/crypto.ts';
 import { corsHeaders, errorResponse, json, readJson } from '../_shared/http.ts';
+import { keyRing, PROFILE_COLUMNS, type ProfileRow, toPublic, UUID } from '../_shared/profiles.ts';
 import { admin, getUser } from '../_shared/supabase.ts';
-
-type Row = { id: string; relation: string; is_primary: boolean; data_enc: string; created_at: string };
-
-let ring: KeyRing | null = null;
-const keyRing = async () => (ring ??= await keyRingFromEnv((name) => Deno.env.get(name)));
-
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-async function toPublic(row: Row, ownerId: string) {
-  const details = await decryptJson<BirthDetails>(await keyRing(), row.data_enc, ownerId);
-  return { id: row.id, relation: row.relation, isPrimary: row.is_primary, createdAt: row.created_at, ...details };
-}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
@@ -36,12 +25,12 @@ Deno.serve(async (req) => {
     if (req.method === 'GET') {
       const { data, error } = await db
         .from('birth_profiles')
-        .select('id, relation, is_primary, data_enc, created_at')
+        .select(PROFILE_COLUMNS)
         .eq('owner_id', user.id)
         .order('is_primary', { ascending: false })
         .order('created_at');
       if (error) throw error;
-      return json({ profiles: await Promise.all((data as Row[]).map((r) => toPublic(r, user.id))) });
+      return json({ profiles: await Promise.all((data as ProfileRow[]).map((r) => toPublic(r, user.id))) });
     }
 
     if (req.method === 'POST' || req.method === 'PATCH') {
@@ -63,13 +52,13 @@ Deno.serve(async (req) => {
         req.method === 'POST'
           ? db.from('birth_profiles').insert({ owner_id: user.id, ...columns, data_enc })
           : db.from('birth_profiles').update({ ...columns, data_enc }).eq('id', id).eq('owner_id', user.id);
-      const { data, error } = await query.select('id, relation, is_primary, data_enc, created_at').maybeSingle();
+      const { data, error } = await query.select(PROFILE_COLUMNS).maybeSingle();
       if (error) {
         if (error.message.includes('up to 20')) return errorResponse(409, 'You can save up to 20 profiles');
         throw error;
       }
       if (!data) return errorResponse(404, 'Profile not found');
-      return json({ profile: await toPublic(data as Row, user.id) }, req.method === 'POST' ? 201 : 200);
+      return json({ profile: await toPublic(data as ProfileRow, user.id) }, req.method === 'POST' ? 201 : 200);
     }
 
     if (req.method === 'DELETE') {

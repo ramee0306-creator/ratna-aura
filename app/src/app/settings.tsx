@@ -70,6 +70,7 @@ export default function SettingsScreen() {
       <View style={styles.footer}>
         <AppText variant="caption">{t('settings.publisher', { publisher: brand.publisher })}</AppText>
         <AppText variant="caption">{t('settings.version', { version: Constants.expoConfig?.version ?? '' })}</AppText>
+        <AppText variant="caption">{t('settings.credits')}</AppText>
       </View>
     </Screen>
   );

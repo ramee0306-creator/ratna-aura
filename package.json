@@ -15,13 +15,19 @@
     "lint": "npm run lint --workspace app",
     "check": "npm run typecheck && npm run lint && npm test",
     "make-icons": "node scripts/make-icons.mjs",
-    "bundle-functions": "node scripts/bundle-functions.mjs"
+    "bundle-functions": "node scripts/bundle-functions.mjs",
+    "sync-shared": "node scripts/sync-shared.mjs",
+    "build-cities": "node scripts/build-cities.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.10",
+    "@fusionstrings/swiss-eph": "^0.1.1",
+    "@photostructure/tz-lookup": "^11.7.0",
+    "all-the-cities": "^3.1.0",
+    "cities.json": "^1.1.65",
     "sharp": "^0.35.5",
     "vitest": "^5.0.5"
   }

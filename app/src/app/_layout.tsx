@@ -59,6 +59,7 @@ function RootNavigator() {
         <Stack.Screen name="index" />
         <Stack.Screen name="settings" />
         <Stack.Screen name="numerology" />
+        <Stack.Screen name="kundli" />
       </Stack.Protected>
 
       {/* Always reachable */}

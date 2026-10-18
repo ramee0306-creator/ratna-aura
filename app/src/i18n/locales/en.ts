@@ -1,4 +1,5 @@
 // English text. Every key here must also exist in hi.ts (TypeScript checks this).
+import kundli from './kundli.en';
 import numerology from './numerology.en';
 
 const en = {
@@ -100,6 +101,7 @@ const en = {
     deleted: 'Your account has been deleted.',
     publisher: 'Made by {{publisher}}',
     version: 'Version {{version}}',
+    credits: 'Birth places: GeoNames (CC BY 4.0). Planet positions: Swiss Ephemeris.',
   },
   privacy: {
     title: 'Privacy summary',
@@ -121,6 +123,7 @@ const en = {
     contact: 'Questions? Write to {{email}}',
   },
   numerology,
+  kundli,
 };
 
 export default en;

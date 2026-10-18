@@ -17,7 +17,7 @@ type Feature = { key: string; icon: IconName; href?: Href };
 
 // Tiles without a screen yet show "Soon"; they get one in a later milestone.
 const ASTROLOGY: Feature[] = [
-  { key: 'kundli', icon: 'star-four-points-outline' },
+  { key: 'kundli', icon: 'star-four-points-outline', href: '/kundli' },
   { key: 'rashifal', icon: 'zodiac-leo' },
   { key: 'panchang', icon: 'weather-sunset' },
   { key: 'matching', icon: 'hand-heart-outline' },

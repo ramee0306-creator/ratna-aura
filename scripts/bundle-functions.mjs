@@ -16,10 +16,13 @@ export const dashboardDir = join(root, 'supabase', 'dashboard');
 
 const IMPORT = /^import\s[\s\S]*?\sfrom\s+['"]([^'"]+)['"];?[ \t]*\n/gm;
 
-/** Names of the deployable functions (every folder except _shared). */
+/** Functions that need extra files (kundli needs its WebAssembly engine) are deployed by GitHub Actions only. */
+const NOT_PASTEABLE = new Set(['kundli']);
+
+/** Names of the functions that can be pasted into the dashboard (every folder except _shared). */
 export function functionNames() {
   return readdirSync(functionsDir, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && !d.name.startsWith('_'))
+    .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !NOT_PASTEABLE.has(d.name))
     .map((d) => d.name)
     .sort();
 }

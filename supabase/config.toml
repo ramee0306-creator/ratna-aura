@@ -9,3 +9,8 @@ verify_jwt = false
 
 [functions.delete-account]
 verify_jwt = false
+
+[functions.kundli]
+verify_jwt = false
+# The Swiss Ephemeris WebAssembly engine, copied here by "npm run sync-shared".
+static_files = ["./functions/kundli/swiss_eph.wasm"]

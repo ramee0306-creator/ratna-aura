@@ -1,0 +1,8 @@
+{
+  "name": "@ratna/kundli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ratna Aura kundli (Vedic birth chart) logic: signs, nakshatras, houses, navamsa, Vimshottari dasha. Pure TypeScript; the planet positions come from a swappable ephemeris.",
+  "main": "src/index.ts",
+  "types": "src/index.ts"
+}

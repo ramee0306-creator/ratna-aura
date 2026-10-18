@@ -1,6 +1,7 @@
 // AUTO-GENERATED from supabase/functions/birth-profiles — do not edit by hand.
 // Paste this whole file into the Supabase dashboard function editor.
 // Regenerate with: npm run bundle-functions
+import type { SupabaseClient } from 'npm:@supabase/supabase-js@2';
 import { createClient, type SupabaseClient, type User } from 'npm:@supabase/supabase-js@2';
 
 // ---- _shared/birth-details.ts ----
@@ -221,6 +222,33 @@ async function readJson(req: Request): Promise<unknown> {
   }
 }
 
+// ---- _shared/profiles.ts ----
+// Reading saved birth profiles (their personal details are stored encrypted).
+
+
+type ProfileRow = { id: string; relation: string; is_primary: boolean; data_enc: string; created_at: string };
+
+const PROFILE_COLUMNS = 'id, relation, is_primary, data_enc, created_at';
+
+type PublicProfile = BirthDetails & { id: string; relation: string; isPrimary: boolean; createdAt: string };
+
+let ring: KeyRing | null = null;
+const keyRing = async () => (ring ??= await keyRingFromEnv((name) => Deno.env.get(name)));
+
+async function toPublic(row: ProfileRow, ownerId: string): Promise<PublicProfile> {
+  const details = await decryptJson<BirthDetails>(await keyRing(), row.data_enc, ownerId);
+  return { id: row.id, relation: row.relation, isPrimary: row.is_primary, createdAt: row.created_at, ...details };
+}
+
+/** One profile belonging to this user, or null. */
+async function loadProfile(db: SupabaseClient, ownerId: string, id: string): Promise<PublicProfile | null> {
+  const { data, error } = await db.from('birth_profiles').select(PROFILE_COLUMNS).eq('id', id).eq('owner_id', ownerId).maybeSingle();
+  if (error) throw error;
+  return data ? toPublic(data as ProfileRow, ownerId) : null;
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 // ---- _shared/supabase.ts ----
 // Server-side Supabase access. Uses the SECRET service key, which exists only
 // on the Supabase server — it is never shipped inside the mobile app.
@@ -255,18 +283,6 @@ async function getUser(req: Request): Promise<User | null> {
 //   PATCH  /birth-profiles?id=<uuid>  -> replace  (body: BirthProfileInput)
 //   DELETE /birth-profiles?id=<uuid>  -> delete
 
-type Row = { id: string; relation: string; is_primary: boolean; data_enc: string; created_at: string };
-
-let ring: KeyRing | null = null;
-const keyRing = async () => (ring ??= await keyRingFromEnv((name) => Deno.env.get(name)));
-
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-async function toPublic(row: Row, ownerId: string) {
-  const details = await decryptJson<BirthDetails>(await keyRing(), row.data_enc, ownerId);
-  return { id: row.id, relation: row.relation, isPrimary: row.is_primary, createdAt: row.created_at, ...details };
-}
-
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
@@ -281,12 +297,12 @@ Deno.serve(async (req) => {
     if (req.method === 'GET') {
       const { data, error } = await db
         .from('birth_profiles')
-        .select('id, relation, is_primary, data_enc, created_at')
+        .select(PROFILE_COLUMNS)
         .eq('owner_id', user.id)
         .order('is_primary', { ascending: false })
         .order('created_at');
       if (error) throw error;
-      return json({ profiles: await Promise.all((data as Row[]).map((r) => toPublic(r, user.id))) });
+      return json({ profiles: await Promise.all((data as ProfileRow[]).map((r) => toPublic(r, user.id))) });
     }
 
     if (req.method === 'POST' || req.method === 'PATCH') {
@@ -308,13 +324,13 @@ Deno.serve(async (req) => {
         req.method === 'POST'
           ? db.from('birth_profiles').insert({ owner_id: user.id, ...columns, data_enc })
           : db.from('birth_profiles').update({ ...columns, data_enc }).eq('id', id).eq('owner_id', user.id);
-      const { data, error } = await query.select('id, relation, is_primary, data_enc, created_at').maybeSingle();
+      const { data, error } = await query.select(PROFILE_COLUMNS).maybeSingle();
       if (error) {
         if (error.message.includes('up to 20')) return errorResponse(409, 'You can save up to 20 profiles');
         throw error;
       }
       if (!data) return errorResponse(404, 'Profile not found');
-      return json({ profile: await toPublic(data as Row, user.id) }, req.method === 'POST' ? 201 : 200);
+      return json({ profile: await toPublic(data as ProfileRow, user.id) }, req.method === 'POST' ? 201 : 200);
     }
 
     if (req.method === 'DELETE') {

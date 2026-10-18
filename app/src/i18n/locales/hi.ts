@@ -1,5 +1,6 @@
 // हिन्दी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import kundli from './kundli.hi';
 import numerology from './numerology.hi';
 
 const hi: Translation = {
@@ -101,6 +102,7 @@ const hi: Translation = {
     deleted: 'आपका अकाउंट डिलीट कर दिया गया है।',
     publisher: '{{publisher}} द्वारा निर्मित',
     version: 'संस्करण {{version}}',
+    credits: 'जन्म स्थान: GeoNames (CC BY 4.0)। ग्रह स्थिति: स्विस एफ़ेमेरिस।',
   },
   privacy: {
     title: 'गोपनीयता सारांश',
@@ -120,6 +122,7 @@ const hi: Translation = {
     contact: 'कोई सवाल? {{email}} पर लिखें',
   },
   numerology,
+  kundli,
 };
 
 export default hi;

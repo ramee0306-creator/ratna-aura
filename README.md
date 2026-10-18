@@ -18,8 +18,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 |---|-----------|--------|
 | 1 | Project set-up, database, login (phone OTP + Google), consent, delete account | ✅ Done |
 | 2 | Numerology engine with tests + numerology screens | ✅ Done |
-| 3 | Kundli calculations with tests, North & South Indian charts | ⏳ Next |
-| 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | |
+| 3 | Kundli calculations with tests, North & South Indian charts | ✅ Done |
+| 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | ⏳ Next |
 | 5 | AI chat ("Ask AI") with free questions and credits (test payments) | |
 | 6 | AI astrologer / numerologist personas with per-minute / per-message billing | |
 | 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | |
@@ -39,13 +39,18 @@ app/                     ← the phone app (React Native + Expo, TypeScript)
   src/i18n/locales/      ← all text: en.ts (English), hi.ts (Hindi)
   src/auth/              ← sign-in, consent, phone-number checks
   src/numerology/        ← numerology forms, number cards, Lo Shu grid drawing
+  src/kundli/            ← kundli form checks, server calls, North/South Indian chart drawing
+  src/places/            ← birth-place search (cities.data.json is made by scripts/build-cities.mjs)
 packages/numerology/     ← all numerology maths (Chaldean & Pythagorean) + its tests
+packages/kundli/         ← kundli logic: signs, nakshatras, houses, navamsa, dasha + its tests
   .env.example           ← copy to app/.env and fill in (public Supabase values only)
 supabase/                ← the server
   migrations/            ← database tables and security rules
   functions/             ← server functions (run on Supabase, hold the secrets)
   functions/.env.example ← copy to supabase/functions/.env (server secrets, never in Git)
+  functions/kundli/      ← makes a kundli with the Swiss Ephemeris (the swappable, AGPL part)
   dashboard/             ← one-file copies of each function, to paste into the Supabase website
+.github/workflows/       ← automatic checks, and automatic server deployment
   tests/                 ← automatic tests for the database rules
 scripts/make-icons.mjs   ← draws the app icon from the brand colours
 ```
@@ -83,6 +88,24 @@ All the maths lives in `packages/numerology` and is checked by automatic tests w
 
 Numerology details (name, date of birth) are saved **only on the phone, encrypted**, separately for each signed-in person,
 and are removed by "Delete my account".
+
+## How the kundli is calculated
+
+- **Planet positions:** the Swiss Ephemeris (version 2.10, built-in Moshier mode, about 1″ accuracy) runs on the
+  server in `supabase/functions/kundli`. It is wrapped by `supabase/functions/_shared/swisseph.ts`, the **only**
+  AGPL part, which can be swapped for a licensed engine or a paid API without touching anything else.
+- **Zodiac:** sidereal, **Lahiri ayanamsa**; Rahu = mean lunar node, Ketu exactly opposite.
+- **Houses:** whole-sign houses from the lagna (the usual Indian method). Charts: birth chart (D1), navamsa (D9)
+  and Moon chart, each in **North Indian** or **South Indian** style.
+- **Dasha:** Vimshottari mahadashas and antardashas (years of 365.25 days) from the Moon's nakshatra.
+- **Birth time → Universal Time** uses the place's real time-zone history (for example India's +6:30 war time in 1942–45).
+- **Unknown birth time:** 12:00 noon is used and the app says the lagna may be wrong (the Moon chart is shown first).
+- **Birth places:** about 28,000 places — every Indian town in GeoNames plus every place abroad with 15,000+
+  people — with old names too (Bombay, Madras, Allahabad…). Built by `npm run build-cities`.
+- Tests compare the engine with real sky events (the 2024 equinox and solar eclipse, the 2020 Jupiter–Saturn
+  conjunction) and check the lagna against the textbook formula.
+
+Birth details are stored **encrypted** on the server; the kundli is calculated fresh each time and never stored.
 
 ## Rules about secrets (important)
 
@@ -194,9 +217,19 @@ npm run check        # all three
 ```bash
 git pull             # get the latest code
 npm install          # in case libraries changed
-npx supabase db push            # if there are new files in supabase/migrations
-npx supabase functions deploy   # if server functions changed
 ```
+
+**The server updates itself.** Whenever server code changes on GitHub, the *Deploy server* action
+(`.github/workflows/deploy-server.yml`) runs the tests, applies database changes and deploys all server
+functions. It needs two secrets, added once under GitHub → repository → **Settings → Secrets and variables →
+Actions**:
+
+| Secret | Where to get it |
+| --- | --- |
+| `SUPABASE_ACCESS_TOKEN` | supabase.com → your avatar → **Account preferences → Access Tokens → Generate new token** |
+| `SUPABASE_DB_PASSWORD` | the database password you saved when creating the project |
+
+You can follow each run in the repository's **Actions** tab, and start one by hand with **Run workflow**.
 
 ## Renaming the app
 
@@ -217,10 +250,12 @@ Google Play.** Confirm the final name and package ID **before Milestone 9**.
 
 ## Licences you must sort out before launch
 
-- **Swiss Ephemeris** (planet positions, added in Milestone 3) is free only under the **AGPL** licence, which would
-  require publishing the server's source code. The calculation code will sit in its own swappable module.
+- **Swiss Ephemeris** (planet positions) is free only under the **AGPL** licence, which would
+  require publishing the server's source code. It sits in its own swappable module
+  (`supabase/functions/_shared/swisseph.ts` + the `@fusionstrings/swiss-eph` WebAssembly build).
   **Before launch, either buy the Swiss Ephemeris professional licence** (from Astrodienst, one-time, roughly
   CHF 750; check https://www.astro.com/swisseph) **or switch that module to a paid astrology API.**
+- **Birth places** come from **GeoNames** (geonames.org), licensed **CC BY 4.0** — the app credits it in Settings.
 - Fonts (Cormorant Garamond, Tiro Devanagari Hindi, Poppins, Hind) are free under the SIL Open Font License. Icons are Material Design Icons (free, Apache/MIT).
   The app icon (a faceted gem with an emerald aura in a zodiac ring) is an original drawing made by
   `scripts/make-icons.mjs`; no copyrighted images are used.
