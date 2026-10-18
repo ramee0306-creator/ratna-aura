@@ -1,5 +1,6 @@
 // हिन्दी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import numerology from './numerology.hi';
 
 const hi: Translation = {
   common: {
@@ -118,6 +119,7 @@ const hi: Translation = {
     advice: 'ज्योतिष और अंक ज्योतिष की रीडिंग मार्गदर्शन और विचार के लिए हैं। ये चिकित्सा, कानूनी या वित्तीय सलाह नहीं हैं।',
     contact: 'कोई सवाल? {{email}} पर लिखें',
   },
+  numerology,
 };
 
 export default hi;

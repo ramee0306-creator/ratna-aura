@@ -1,4 +1,6 @@
 // English text. Every key here must also exist in hi.ts (TypeScript checks this).
+import numerology from './numerology.en';
+
 const en = {
   common: {
     continue: 'Continue',
@@ -118,6 +120,7 @@ const en = {
       'Astrology and numerology readings are for guidance and reflection. They are not medical, legal or financial advice.',
     contact: 'Questions? Write to {{email}}',
   },
+  numerology,
 };
 
 export default en;

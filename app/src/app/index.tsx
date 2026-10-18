@@ -1,5 +1,5 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { router } from 'expo-router';
+import { type Href, router } from 'expo-router';
 import type { ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
@@ -13,9 +13,9 @@ import { Wordmark } from '@/components/Wordmark';
 import { colors, radius, spacing } from '@/theme';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
-type Feature = { key: string; icon: IconName };
+type Feature = { key: string; icon: IconName; href?: Href };
 
-// Each tile becomes a real screen in a later milestone.
+// Tiles without a screen yet show "Soon"; they get one in a later milestone.
 const ASTROLOGY: Feature[] = [
   { key: 'kundli', icon: 'star-four-points-outline' },
   { key: 'rashifal', icon: 'zodiac-leo' },
@@ -23,11 +23,11 @@ const ASTROLOGY: Feature[] = [
   { key: 'matching', icon: 'hand-heart-outline' },
 ];
 const NUMEROLOGY: Feature[] = [
-  { key: 'coreNumbers', icon: 'numeric-9-circle-outline' },
-  { key: 'loShu', icon: 'grid' },
-  { key: 'nameCorrection', icon: 'format-letter-case' },
-  { key: 'mobileNumber', icon: 'cellphone' },
-  { key: 'compatibility', icon: 'cards-heart-outline' },
+  { key: 'coreNumbers', icon: 'numeric-9-circle-outline', href: '/numerology/core' },
+  { key: 'loShu', icon: 'grid', href: '/numerology/lo-shu' },
+  { key: 'nameCorrection', icon: 'format-letter-case', href: '/numerology/name-correction' },
+  { key: 'mobileNumber', icon: 'cellphone', href: '/numerology/vibrations' },
+  { key: 'compatibility', icon: 'cards-heart-outline', href: '/numerology/compatibility' },
 ];
 
 // Astrology is marked in gold, numerology in emerald, so the two halves are easy to tell apart.
@@ -45,17 +45,40 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
 
 function Tile({ feature, accent }: { feature: Feature; accent: string }) {
   const { t } = useTranslation();
-  return (
-    <View style={styles.tile} accessible accessibilityLabel={`${t(`home.${feature.key}`)}, ${t('common.comingSoon')}`}>
+  const ready = feature.href !== undefined;
+  const title = t(`home.${feature.key}`);
+  const content = (
+    <>
       <View style={styles.tileTop}>
         <MaterialCommunityIcons name={feature.icon} size={26} color={accent} />
-        <AppText style={styles.soon}>{t('common.comingSoon')}</AppText>
+        {ready ? (
+          <MaterialCommunityIcons name="chevron-right" size={22} color={colors.textFaint} />
+        ) : (
+          <AppText style={styles.soon}>{t('common.comingSoon')}</AppText>
+        )}
       </View>
-      <AppText variant="bodyStrong">{t(`home.${feature.key}`)}</AppText>
+      <AppText variant="bodyStrong">{title}</AppText>
       <AppText variant="caption" numberOfLines={2}>
         {t(`home.${feature.key}Hint`)}
       </AppText>
-    </View>
+    </>
+  );
+  if (!ready) {
+    return (
+      <View style={styles.tile} accessible accessibilityLabel={`${title}, ${t('common.comingSoon')}`}>
+        {content}
+      </View>
+    );
+  }
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={title}
+      onPress={() => router.push(feature.href!)}
+      style={({ pressed }) => [styles.tile, { borderColor: accent + '66' }, pressed && styles.pressed]}
+    >
+      {content}
+    </Pressable>
   );
 }
 
@@ -141,6 +164,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     backgroundColor: colors.surface + 'CC',
   },
+  pressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
   tileTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: spacing.sm },
   soon: {
     fontSize: 11,

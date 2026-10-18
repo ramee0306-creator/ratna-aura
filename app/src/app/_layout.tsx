@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 
 import { AuthProvider, useAuth } from '@/auth/AuthProvider';
 import { initI18n } from '@/i18n';
+import { NumerologyProvider } from '@/numerology/NumerologyProvider';
 import { colors } from '@/theme';
 
 SplashScreen.preventAutoHideAsync();
@@ -57,6 +58,7 @@ function RootNavigator() {
       <Stack.Protected guard={signedIn && !needsConsent} redirectTo={signedIn ? '/accept-terms' : '/welcome'}>
         <Stack.Screen name="index" />
         <Stack.Screen name="settings" />
+        <Stack.Screen name="numerology" />
       </Stack.Protected>
 
       {/* Always reachable */}
@@ -83,7 +85,9 @@ export default function RootLayout() {
     <ThemeProvider value={navTheme}>
       <StatusBar style="light" />
       <AuthProvider>
-        <RootNavigator />
+        <NumerologyProvider>
+          <RootNavigator />
+        </NumerologyProvider>
       </AuthProvider>
     </ThemeProvider>
   );

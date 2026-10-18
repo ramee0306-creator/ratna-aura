@@ -17,8 +17,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | # | Milestone | Status |
 |---|-----------|--------|
 | 1 | Project set-up, database, login (phone OTP + Google), consent, delete account | ✅ Done |
-| 2 | Numerology engine with tests + numerology screens | ⏳ Next |
-| 3 | Kundli calculations with tests, North & South Indian charts | |
+| 2 | Numerology engine with tests + numerology screens | ✅ Done |
+| 3 | Kundli calculations with tests, North & South Indian charts | ⏳ Next |
 | 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | |
 | 5 | AI chat ("Ask AI") with free questions and credits (test payments) | |
 | 6 | AI astrologer / numerologist personas with per-minute / per-message billing | |
@@ -38,6 +38,8 @@ app/                     ← the phone app (React Native + Expo, TypeScript)
   src/components/        ← buttons, cards, the night-sky background, etc.
   src/i18n/locales/      ← all text: en.ts (English), hi.ts (Hindi)
   src/auth/              ← sign-in, consent, phone-number checks
+  src/numerology/        ← numerology forms, number cards, Lo Shu grid drawing
+packages/numerology/     ← all numerology maths (Chaldean & Pythagorean) + its tests
   .env.example           ← copy to app/.env and fill in (public Supabase values only)
 supabase/                ← the server
   migrations/            ← database tables and security rules
@@ -59,6 +61,28 @@ Compared with Firebase:
 - You can choose the **Mumbai** region, keeping Indian users' data close and fast.
 
 ---
+
+## How the numerology is calculated
+
+All the maths lives in `packages/numerology` and is checked by automatic tests with worked examples
+(for example: born 14 Aug 1990 → Mulank 5, Bhagyank 5; "Amit Kumar" → Chaldean 25 → 7).
+
+| Feature | Method used |
+| --- | --- |
+| Mulank | Birth day reduced to 1–9 (29 → 11 → 2) |
+| Bhagyank | Every digit of DD MM YYYY added and reduced to 1–9 |
+| Life path (Pythagorean only) | Day, month, year reduced separately, master numbers 11/22/33 kept |
+| Name, soul urge, personality | Chaldean (Indian/Cheiro) or Pythagorean letter values — the user can switch |
+| Maturity | Destiny number + name number |
+| Personal year / month / day | Birth day + birth month + current year, then + month, then + day |
+| Lucky numbers, days, colours, gem | Planet of each number and the classical Vedic planetary friendships |
+| Lo Shu grid | Date digits (no zeros) + Bhagyank + Mulank (if the day has two digits) + optional Kua |
+| Name correction | Tries natural spelling changes (Amit → Amith, Kumar → Koomar) and keeps ones that suit the person better |
+| Mobile / vehicle / house / business | Digit totals (vehicle: digits only, letters shown separately); business names use Chaldean |
+| Compatibility | Planet friendships between both people's Mulank and Bhagyank, as a score out of 100 |
+
+Numerology details (name, date of birth) are saved **only on the phone, encrypted**, separately for each signed-in person,
+and are removed by "Delete my account".
 
 ## Rules about secrets (important)
 

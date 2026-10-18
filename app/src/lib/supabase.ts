@@ -18,7 +18,7 @@ export const isSupabaseConfigured = Boolean(url && publishableKey);
  */
 export const isDemoMode = !isSupabaseConfigured && process.env.EXPO_PUBLIC_DEMO_MODE === '1';
 
-export const supabase = createClient(url ?? 'https://not-configured.invalid', publishableKey ?? 'not-configured', {
+export const supabase = createClient(url || 'https://not-configured.invalid', publishableKey || 'not-configured', {
   auth: {
     // On the web preview the browser's own storage is used.
     ...(Platform.OS !== 'web' ? { storage: new LargeSecureStore() } : {}),

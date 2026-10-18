@@ -4,6 +4,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { createContext, type ReactNode, use, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { isDemoMode, isSupabaseConfigured, supabase } from '@/lib/supabase';
+import { clearUserData } from '@/lib/user-storage';
 
 import { clearPendingConsent, CURRENT_CONSENT_VERSION, getPendingConsent, savePendingConsent } from './consent';
 import { formatIndianMobile } from './phone';
@@ -25,6 +26,8 @@ type AuthContextValue = {
   /** Signed in, but has not yet accepted the current privacy notice / 18+ check */
   needsConsent: boolean;
   profile: Profile | null;
+  /** The signed-in user's id (used to keep each person's saved data separate) */
+  userId: string | null;
   /** Phone number or e-mail, for display */
   accountLabel: string | null;
   sendOtp: (phoneE164: string) => Promise<void>;
@@ -171,6 +174,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const deleteAccount = useCallback(async () => {
     if (isDemoMode) {
       await clearPendingConsent();
+      await clearUserData(DEMO_USER_ID);
       setDemoAccount(null);
       setDemoProfile(null);
       return;
@@ -178,9 +182,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.functions.invoke('delete-account', { body: { confirm: 'DELETE' } });
     if (error) throw error;
     await clearPendingConsent();
+    if (userId) await clearUserData(userId);
     // The account no longer exists on the server, so just forget the session on this phone.
     await supabase.auth.signOut({ scope: 'local' });
-  }, []);
+  }, [userId]);
 
   const value = useMemo<AuthContextValue>(() => {
     const signedIn = isDemoMode ? demoAccount !== null : session !== null;
@@ -190,6 +195,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       status,
       needsConsent: signedIn && !hasConsented(profile),
       profile,
+      userId: isDemoMode ? (demoAccount ? DEMO_USER_ID : null) : userId,
       accountLabel: isDemoMode
         ? demoAccount && formatIndianMobile(demoAccount)
         : session?.user.phone
@@ -204,6 +210,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [
     session,
+    userId,
     sessionLoaded,
     profile,
     profileLoaded,
