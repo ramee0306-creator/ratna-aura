@@ -14,7 +14,8 @@
     "typecheck": "npm run typecheck --workspace app",
     "lint": "npm run lint --workspace app",
     "check": "npm run typecheck && npm run lint && npm test",
-    "make-icons": "node scripts/make-icons.mjs"
+    "make-icons": "node scripts/make-icons.mjs",
+    "bundle-functions": "node scripts/bundle-functions.mjs"
   },
   "engines": {
     "node": ">=20"

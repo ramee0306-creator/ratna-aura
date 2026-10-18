@@ -43,6 +43,7 @@ supabase/                ← the server
   migrations/            ← database tables and security rules
   functions/             ← server functions (run on Supabase, hold the secrets)
   functions/.env.example ← copy to supabase/functions/.env (server secrets, never in Git)
+  dashboard/             ← one-file copies of each function, to paste into the Supabase website
   tests/                 ← automatic tests for the database rules
 scripts/make-icons.mjs   ← draws the app icon from the brand colours
 ```
@@ -139,6 +140,21 @@ A QR code appears. Open **Expo Go** on your phone and scan it (phone and compute
    - **Phone:** needs an SMS provider (e.g. Twilio Verify, or MSG91 through Supabase's "Send SMS hook"). In India, SMS senders must be **DLT-registered** (this takes a few days and costs a small fee). While waiting, add **test phone numbers with fixed OTPs** on the same Phone settings page.
 8. **Allow the app's return links** (Authentication → URL Configuration → Redirect URLs): add
    `ratnaaura://**` and `exp://**`.
+
+### No-terminal alternative (everything in the Supabase website)
+
+Steps 4–6 can also be done by copy-and-paste:
+
+- **Tables:** SQL Editor → New query → paste the whole of
+  `supabase/migrations/20261018000001_accounts_and_birth_profiles.sql` → **Run**.
+- **Encryption key:** Edge Functions → Secrets → add `DATA_ENCRYPTION_KEY`. To make a value, open any
+  browser's developer console and run
+  `btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32))))`.
+  Save a copy in your password manager.
+- **Functions:** Edge Functions → Deploy a new function → *Via Editor*. Create one called
+  `birth-profiles` and one called `delete-account`, pasting the matching file from `supabase/dashboard/`.
+  Then open each function's **Details** and turn **off** "Verify JWT" (the functions check the login themselves).
+- After changing anything in `supabase/functions/`, run `npm run bundle-functions` and paste the new copy.
 
 ## 5. Automatic checks
 
