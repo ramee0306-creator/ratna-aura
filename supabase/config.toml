@@ -1,0 +1,11 @@
+# Supabase CLI settings for this project.
+# Link to your online project with:  npx supabase link --project-ref <your-project-ref>
+project_id = "ratna-aura"
+
+# Our functions check the login token themselves (see _shared/supabase.ts),
+# which works with both the old and the new Supabase key formats.
+[functions.birth-profiles]
+verify_jwt = false
+
+[functions.delete-account]
+verify_jwt = false

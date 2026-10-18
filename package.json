@@ -1,0 +1,27 @@
+{
+  "name": "ratna-aura",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ratna Aura - Vedic astrology + numerology app by VELQORA STUDIOS",
+  "workspaces": [
+    "app",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "npm run start --workspace app",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "npm run typecheck --workspace app",
+    "lint": "npm run lint --workspace app",
+    "check": "npm run typecheck && npm run lint && npm test",
+    "make-icons": "node scripts/make-icons.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "sharp": "^0.35.5",
+    "vitest": "^5.0.5"
+  }
+}
