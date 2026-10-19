@@ -1,6 +1,5 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'Aw hmanga inbiakna',
     conversationHint: 'I zawhna sawi rawh; chhanna chu aw chhuahin chhiar a ni ang.',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'Ni tin arsi te zawt rawh, chhiar lovin.',
+    benefits: {
+      ask_one: 'Zawhna chhiar lovin AI zawt rawh (hman dan fel: ni khatah {{count}} thleng)',
+      ask_other: 'Zawhna chhiar lovin AI zawt rawh (hman dan fel: ni khatah {{count}} thleng)',
+      bonus: 'Bill hun tinah bonus credit, AI astrologer te tân',
+      keep: 'Premium a tawp hnu pawhin bonus credit chu i wallet-ah a awm reng',
+      cancel: 'Google Play-ah engtik lai pawhin tihtawp theih',
+    },
+    plans: {
+      monthly: 'Thla khat',
+      quarterly: 'Thla 3',
+      yearly: 'Kum khat',
+    },
+    billed: {
+      monthly: 'Thla tin {{price}} lak a ni',
+      quarterly: 'Thla 3 dan tinah {{price}} lak a ni',
+      yearly: 'Kum tin {{price}} lak a ni',
+    },
+    perMonth: '{{price}} / thla',
+    save: '{{percent}}% tlawm zawk',
+    bestValue: 'Hlawk ber',
+    bonus_one: 'Hun tinah bonus credit +{{count}}',
+    bonus_other: 'Hun tinah bonus credit +{{count}}',
+    trial_one: 'Ni {{count}} free',
+    trial_other: 'Ni {{count}} free',
+    startTrial: 'Free trial ṭan rawh',
+    subscribe: 'Kal zel rawh',
+    trialNote_one: 'Ni {{count}} chhung free, chumi hnuah {{price}}. Trial a tawp hmaa i tihtawp chuan engmah i pe lo vang.',
+    trialNote_other: 'Ni {{count}} chhung free, chumi hnuah {{price}}. Trial a tawp hmaa i tihtawp chuan engmah i pe lo vang.',
+    status: {
+      title: 'Premium i ni',
+      plan: 'Plan: {{plan}}',
+      renews: '{{date}} ah a thar leh ang',
+      ends: '{{date}} ah a tawp ang. A thar leh tawh lo vang.',
+      trialEnds: '{{date}} thleng free trial',
+      grace: 'I sum pek hnuhnung ber a kal thei lo. Google Play-in a ti leh mek — Premium vawng reng tûrin i sum pek dan thlak (update) rawh.',
+      leftToday_one: 'Vawiin Premium zawhna {{count}} a la awm',
+      leftToday_other: 'Vawiin Premium zawhna {{count}} a la awm',
+    },
+    manage: 'Subscription enkawl',
+    updatePayment: 'Sum pek dan thlak',
+    cancelTest: 'Test subscription tihtawp',
+    cancelledTest: 'Test subscription tihtawp a ni. Hun tawp thlengin Premium a awm reng ang.',
+    restore: 'Lei tawh te lak kir',
+    restored: 'Lei tawh te lak kir a ni.',
+    nothingToRestore: 'He Google account-ah hian subscription hman mek hmuh a ni lo.',
+    welcome: 'Premium-ah kan lo lawm a che! I bonus credit belh a ni tawh.',
+    welcomeTrial: 'I free trial a ṭan tawh. Premium hmang nuam rawh! Bonus credit chu sum i pek hmasak ber hun nen a lo awm ang.',
+    waiting: 'Sum pek dawn a ni. Premium hawn mek…',
+    slow: 'Sum pek dawn a ni. Minute khat chhungin Premium a ṭan ang — he screen-ah lo kir leh la, thar rawh.',
+    cancelled: 'Tihtawp a ni. Engmah i sen lo.',
+    failed: 'Subscription ṭan theih a ni lo. Engmah i sen lo.',
+    testMode: 'Test mode: sum engmah lak a ni lo va, Premium chu a ṭan nghal.',
+    off: 'Premium hi la hman theih a ni lo.',
+    androidOnly: 'Premium hi Google Play atanga Android app-ah lei theih a ni.',
+    fine: 'Man ah hian GST a tel. I tihtawp thlengin subscription hi man inang chiahin amah-in a thar leh ziah ang. A thar leh ni hma darkar 24 tal ah Google Play → Payments & subscriptions-ah engtik lai pawhin i tihtawp thei a, sum i pek hun chhung tawp thlengin Premium a awm reng ang. Free trial i neih chuan, trial a tawp hmaa i tihtawp loh chuan trial a tawp hunah sum lak i ni ang.',
+    banner: 'Premium la rawh',
+    bannerHint: 'Ni tin AI zawt rawh, chhiar lovin · thla khatah {{price}} aṭangin',
+    bannerActive: 'Premium hawn a ni',
+    askLine_one: 'Premium · vawiin zawhna {{count}} a la awm',
+    askLine_other: 'Premium · vawiin zawhna {{count}} a la awm',
+    askUpsell: 'Emaw Premium la la, ni tin zawt rawh',
+    usedToday: 'Vawiin Premium zawhna te i hmang zo tawh; naktukah an lo awm leh ang. Chu chen chu zawhna free leh credit te hman a ni ang.',
+  },
 };
 
 export default extra;

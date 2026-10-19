@@ -1,6 +1,5 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'Jingïakren da ka jingkren',
     conversationHint: 'Kren ia ka jingkylli jong phi; ka jingpyntip ka pule da ka jingkren.',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'Kylli ia ki khlur man la ka sngi, khlem da pyrkhat katno.',
+    benefits: {
+      ask_one: 'Kylli AI khlem da pyrkhat katno ki jingkylli (pyndonkam kaba biang: haduh {{count}} ha ka sngi)',
+      ask_other: 'Kylli AI khlem da pyrkhat katno ki jingkylli (pyndonkam kaba biang: haduh {{count}} ha ka sngi)',
+      bonus: 'Ki credit bonus man la ka por billing, na ka bynta ki AI astrologer',
+      keep: 'Ki credit bonus ki sah ha ka wallet jong phi, wat haba ka Premium ka la kut',
+      cancel: 'Cancel ha Google Play ha kano kano ka por',
+    },
+    plans: {
+      monthly: 'Shi bnai',
+      quarterly: '3 bnai',
+      yearly: 'Shi snem',
+    },
+    billed: {
+      monthly: 'Siew {{price}} man la u bnai',
+      quarterly: 'Siew {{price}} man la 3 bnai',
+      yearly: 'Siew {{price}} man la u snem',
+    },
+    perMonth: '{{price}} / bnai',
+    save: 'Pynsah {{percent}}%',
+    bestValue: 'Kaba kham bha tam',
+    bonus_one: '+{{count}} credit bonus man la ka por',
+    bonus_other: '+{{count}} credit bonus man la ka por',
+    trial_one: '{{count}} sngi free',
+    trial_other: '{{count}} sngi free',
+    startTrial: 'Sdang ia ka trial free',
+    subscribe: 'Ïaid shaphrang',
+    trialNote_one: 'Free ha {{count}} sngi, nadien {{price}}. Lada phi cancel shuwa ba ka trial ka kut, phi ym siew ei ei.',
+    trialNote_other: 'Free ha {{count}} sngi, nadien {{price}}. Lada phi cancel shuwa ba ka trial ka kut, phi ym siew ei ei.',
+    status: {
+      title: 'Phi dei Premium',
+      plan: 'Plan: {{plan}}',
+      renews: 'Ka pynthymmai ia lade ha {{date}}',
+      ends: 'Ka kut ha {{date}}. Kan ym pynthymmai shuh.',
+      trialEnds: 'Trial free haduh {{date}}',
+      grace: 'Ka jingsiew kaba kut jong phi ka ym lah ban leit. Google Play ka pyrshang shuh — kumpai pynkylla ia ka rukom siew jong phi ban sah ia ka Premium.',
+      leftToday_one: 'Don shuh {{count}} jingkylli Premium mynta ka sngi',
+      leftToday_other: 'Don shuh {{count}} jingkylli Premium mynta ka sngi',
+    },
+    manage: 'Pynbeit ia ka subscription',
+    updatePayment: 'Pynkylla ia ka rukom siew',
+    cancelTest: 'Cancel ia ka subscription test',
+    cancelledTest: 'Ka subscription test la cancel. Ka Premium ka sah haduh ba kut ka por.',
+    restore: 'Pynwan biang ia ki jingthied',
+    restored: 'Ki jingthied la pynwan biang.',
+    nothingToRestore: 'Ym shem ei ei ka subscription kaba dang kam na ka bynta kane ka Google account.',
+    welcome: 'Pdiang sngewbha sha Premium! Ki credit bonus jong phi la pynbun.',
+    welcomeTrial: 'Ka trial free jong phi ka la sdang. Kmen bad ka Premium! Ki credit bonus ki wan lem bad ka por kaba nyngkong ba phi siew.',
+    waiting: 'La ïoh ia ka jingsiew. Ka plie ia ka Premium…',
+    slow: 'La ïoh ia ka jingsiew. Ka Premium kan sdang ha shi minute — kylla shuh sha kane ka screen ban pynkylla.',
+    cancelled: 'La cancel. Ym la shim pisa na phi.',
+    failed: 'Ym lah ban sdang ia ka subscription. Ym la shim pisa na phi.',
+    testMode: 'Mode test: ym shim pisa bad ka Premium ka sdang mynta hi.',
+    off: 'Ka Premium kam pat don.',
+    androidOnly: 'Ka Premium ka lah ban thied ha ka app Android na Google Play.',
+    fine: 'Ki dor ki ïadon lem ka GST. Ka subscription ka pynthymmai da lade hi ha kajuh ka dor haduh ba phi cancel ia ka. Phi lah ban cancel ha kano kano ka por ha Google Play → Payments & subscriptions, ym duna ban 24 kynta shuwa ka sngi ba kan pynthymmai, bad ka Premium kan sah haduh ba kut ka por ba phi la siew. Lada phi don ka trial free, yn shim pisa na phi haba ka trial ka kut, lada phi ym cancel shuwa kata.',
+    banner: 'Long Premium',
+    bannerHint: 'Kylli AI man la ka sngi khlem da pyrkhat katno · na {{price}} shi bnai',
+    bannerActive: 'Ka Premium ka la plie',
+    askLine_one: 'Premium · don shuh {{count}} jingkylli mynta ka sngi',
+    askLine_other: 'Premium · don shuh {{count}} jingkylli mynta ka sngi',
+    askUpsell: 'Ne long Premium bad kylli man la ka sngi',
+    usedToday: 'Phi la pyndonkam kyllum ia ki jingkylli Premium jong mynta ka sngi; ki wan biang lashai. Haduh kata, yn pyndonkam ia ki jingkylli free bad ki credit.',
+  },
 };
 
 export default extra;
