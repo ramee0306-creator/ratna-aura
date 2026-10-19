@@ -1,6 +1,6 @@
 // Every language the app offers: English and the languages of India, in the order shown on the language screen.
 // A language appears in the app as soon as its translation is added in translations.ts.
-// To add one: add it here, add locales/<code>.ts, numerology.<code>.ts, kundli.<code>.ts, jyotish.<code>.ts and ai.<code>.ts
+// To add one: add it here, add locales/<code>.ts, numerology.<code>.ts, kundli.<code>.ts, jyotish.<code>.ts, ai.<code>.ts and extra.<code>.ts
 // (copies of the English files, translated), and import them in translations.ts.
 
 export type Script = 'latin' | 'devanagari' | 'other';

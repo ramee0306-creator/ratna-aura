@@ -200,7 +200,7 @@ The microphone needs the installed app (APK), not Expo Go.
 ## Languages
 
 - All text lives in `app/src/i18n/locales/`. **English (`en.ts`, `numerology.en.ts`, `kundli.en.ts`,
-  `jyotish.en.ts`, `ai.en.ts`) is the master copy**; every other language has the same five files.
+  `jyotish.en.ts`, `ai.en.ts`, `extra.en.ts`) is the master copy**; every other language has the same six files.
 - An automatic test (`app/src/i18n/translations.test.ts`) fails if any language is missing a text or drops a
   `{{placeholder}}`, so new English text can't be forgotten in another language.
 - Hindi and Marathi use the bundled Devanagari fonts; the other Indian scripts use the phone's own fonts
@@ -209,8 +209,8 @@ The microphone needs the installed app (APK), not Expo Go.
   ask a fluent speaker of each language to read through the app (especially astrology terms and the
   "guidance, not advice" wording).
 - Urdu, Kashmiri and Sindhi are written right to left; the app flips its layout for them (after reopening).
-- To add a language: add it to `app/src/i18n/languages.ts`, copy the five English files to `<code>.ts`,
-  `numerology.<code>.ts`, `kundli.<code>.ts`, `jyotish.<code>.ts`, `ai.<code>.ts`, translate them, and run `npm run sync-languages`.
+- To add a language: add it to `app/src/i18n/languages.ts`, copy the six English files to `<code>.ts`,
+  `numerology.<code>.ts`, `kundli.<code>.ts`, `jyotish.<code>.ts`, `ai.<code>.ts`, `extra.<code>.ts`, translate them, and run `npm run sync-languages`.
   The daily rashifal is written in every language on the list automatically.
 
 ## Rules about secrets (important)
