@@ -82,10 +82,10 @@ function Tile({ feature, accent }: { feature: Feature; accent: string }) {
   );
 }
 
-function BigCard({ icon, title, hint }: { icon: IconName; title: string; hint: string }) {
+function BigCard({ icon, title, hint, href }: { icon: IconName; title: string; hint: string; href?: Href }) {
   const { t } = useTranslation();
-  return (
-    <Card style={styles.bigCard}>
+  const content = (
+    <>
       <View style={styles.bigIcon}>
         <MaterialCommunityIcons name={icon} size={28} color={colors.backgroundDeep} />
       </View>
@@ -96,8 +96,18 @@ function BigCard({ icon, title, hint }: { icon: IconName; title: string; hint: s
         </View>
         <AppText variant="caption">{hint}</AppText>
       </View>
-      <AppText style={styles.soon}>{t('common.comingSoon')}</AppText>
-    </Card>
+      {href ? (
+        <MaterialCommunityIcons name="chevron-right" size={24} color={colors.goldBright} />
+      ) : (
+        <AppText style={styles.soon}>{t('common.comingSoon')}</AppText>
+      )}
+    </>
+  );
+  if (!href) return <Card style={styles.bigCard}>{content}</Card>;
+  return (
+    <Pressable accessibilityRole="button" accessibilityLabel={title} onPress={() => router.push(href)} style={({ pressed }) => pressed && styles.pressed}>
+      <Card style={styles.bigCard}>{content}</Card>
+    </Pressable>
   );
 }
 
@@ -140,7 +150,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.bigCards}>
-        <BigCard icon="chat-processing-outline" title={t('home.askAi')} hint={t('home.askAiHint')} />
+        <BigCard icon="chat-processing-outline" title={t('home.askAi')} hint={t('home.askAiHint')} href="/ask" />
         <BigCard icon="account-voice" title={t('home.talk')} hint={t('home.talkHint')} />
       </View>
     </Screen>

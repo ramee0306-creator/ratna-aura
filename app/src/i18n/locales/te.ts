@@ -1,5 +1,6 @@
 // తెలుగు. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import ai from './ai.en'; // TODO: translate (ai.te.ts)
 import jyotish from './jyotish.te';
 import kundli from './kundli.te';
 import numerology from './numerology.te';
@@ -140,6 +141,7 @@ const te: Translation = {
   numerology,
   kundli,
   jyotish,
+  ai,
 };
 
 export default te;

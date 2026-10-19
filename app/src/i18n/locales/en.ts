@@ -1,4 +1,5 @@
 // English text. Every key here must also exist in hi.ts (TypeScript checks this).
+import ai from './ai.en';
 import jyotish from './jyotish.en';
 import kundli from './kundli.en';
 import numerology from './numerology.en';
@@ -139,6 +140,7 @@ const en = {
   numerology,
   kundli,
   jyotish,
+  ai,
 };
 
 export default en;

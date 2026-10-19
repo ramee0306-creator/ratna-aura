@@ -1,5 +1,6 @@
 // बर' (बड़ो). Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import ai from './ai.en'; // TODO: translate (ai.brx.ts)
 import jyotish from './jyotish.brx';
 import kundli from './kundli.brx';
 import numerology from './numerology.brx';
@@ -140,6 +141,7 @@ const translation: Translation = {
   numerology,
   kundli,
   jyotish,
+  ai,
 };
 
 export default translation;

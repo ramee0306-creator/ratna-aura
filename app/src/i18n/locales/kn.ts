@@ -1,5 +1,6 @@
 // ಕನ್ನಡ. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import ai from './ai.en'; // TODO: translate (ai.kn.ts)
 import jyotish from './jyotish.kn';
 import kundli from './kundli.kn';
 import numerology from './numerology.kn';
@@ -140,6 +141,7 @@ const kn: Translation = {
   numerology,
   kundli,
   jyotish,
+  ai,
 };
 
 export default kn;

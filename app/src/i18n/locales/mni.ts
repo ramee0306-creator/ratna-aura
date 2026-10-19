@@ -1,5 +1,6 @@
 // মৈতৈলোন্ (Manipuri). Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import ai from './ai.en'; // TODO: translate (ai.mni.ts)
 import jyotish from './jyotish.mni';
 import kundli from './kundli.mni';
 import numerology from './numerology.mni';
@@ -140,6 +141,7 @@ const translation: Translation = {
   numerology,
   kundli,
   jyotish,
+  ai,
 };
 
 export default translation;

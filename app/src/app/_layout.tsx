@@ -63,6 +63,8 @@ function RootNavigator() {
         <Stack.Screen name="rashifal" />
         <Stack.Screen name="panchang" />
         <Stack.Screen name="milan" />
+        <Stack.Screen name="ask" />
+        <Stack.Screen name="credits" />
       </Stack.Protected>
 
       {/* Always reachable */}
