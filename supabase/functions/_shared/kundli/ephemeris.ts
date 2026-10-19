@@ -22,3 +22,12 @@ export interface Ephemeris {
   /** Lahiri ayanamsa in degrees. */
   ayanamsa(jdUt: number): number;
 }
+
+/** Sunrise, sunset, moonrise and moonset — needed for the panchang. */
+export interface RiseSetEphemeris {
+  /**
+   * The first rise or set of the Sun or Moon after `jdUt` at a place (upper edge of the disc, with the usual
+   * atmospheric refraction, as Indian panchangs use). Null if it does not happen (near the poles).
+   */
+  riseSet(jdUt: number, body: 'sun' | 'moon', latitude: number, longitude: number, event: 'rise' | 'set'): number | null;
+}

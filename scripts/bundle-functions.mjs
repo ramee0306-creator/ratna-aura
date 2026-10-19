@@ -10,14 +10,16 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { engineFunctions } from './sync-shared.mjs';
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const functionsDir = join(root, 'supabase', 'functions');
 export const dashboardDir = join(root, 'supabase', 'dashboard');
 
 const IMPORT = /^import\s[\s\S]*?\sfrom\s+['"]([^'"]+)['"];?[ \t]*\n/gm;
 
-/** Functions that need extra files (kundli needs its WebAssembly engine) are deployed by GitHub Actions only. */
-const NOT_PASTEABLE = new Set(['kundli']);
+/** Functions that need the WebAssembly astronomy engine are deployed by GitHub Actions only. */
+const NOT_PASTEABLE = new Set(engineFunctions());
 
 /** Names of the functions that can be pasted into the dashboard (every folder except _shared). */
 export function functionNames() {

@@ -1,0 +1,37 @@
+// The app's languages (code -> English name), so the server can write AI text in the user's language.
+// Must match app/src/i18n/languages.ts — languages.test.ts checks this.
+export const LANGUAGE_NAMES: Record<string, string> = {
+  en: 'English',
+  hi: 'Hindi',
+  bn: 'Bengali',
+  mr: 'Marathi',
+  te: 'Telugu',
+  ta: 'Tamil',
+  gu: 'Gujarati',
+  ur: 'Urdu',
+  kn: 'Kannada',
+  or: 'Odia',
+  ml: 'Malayalam',
+  pa: 'Punjabi',
+  as: 'Assamese',
+  mai: 'Maithili',
+  bho: 'Bhojpuri',
+  raj: 'Rajasthani',
+  hne: 'Chhattisgarhi',
+  mag: 'Magahi',
+  awa: 'Awadhi',
+  ne: 'Nepali',
+  kok: 'Konkani',
+  sat: 'Santali',
+  ks: 'Kashmiri',
+  sd: 'Sindhi',
+  doi: 'Dogri',
+  mni: 'Manipuri',
+  brx: 'Bodo',
+  tcy: 'Tulu',
+  sa: 'Sanskrit',
+  lus: 'Mizo',
+  kha: 'Khasi',
+};
+
+export const isLanguage = (code: unknown): code is string => typeof code === 'string' && Object.hasOwn(LANGUAGE_NAMES, code);

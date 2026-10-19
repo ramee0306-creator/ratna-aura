@@ -4,34 +4,13 @@
 //   -> { profile: { id, fullName, relation, birthDate, birthTime, birthPlace }, kundli }
 //
 // Nothing is stored: the chart is calculated fresh each time from the encrypted birth details.
-import { load } from 'npm:@fusionstrings/swiss-eph@0.1.1';
-
+import { ephemeris } from '../_shared/engine.ts';
 import { corsHeaders, errorResponse, json, readJson } from '../_shared/http.ts';
 import { buildKundli } from '../_shared/kundli/index.ts';
 import { loadProfile, UUID } from '../_shared/profiles.ts';
 import { admin, getUser } from '../_shared/supabase.ts';
-import { swissEphemeris } from '../_shared/swisseph.ts';
 
-// The WebAssembly engine is deployed next to this file (see config.toml → static_files).
-// If it is missing, fall back to the exact same file from the npm CDN, checked by its fingerprint.
-const WASM_SHA256 = '31d3406560fd39b91bc9dbfdff6c9111f170fde2db62ebe92581ae14e878744c';
-const WASM_CDN = 'https://cdn.jsdelivr.net/npm/@fusionstrings/swiss-eph@0.1.1/wasm/swiss_eph.wasm';
-
-async function wasmBytes(): Promise<Uint8Array> {
-  try {
-    return await Deno.readFile(new URL('./swiss_eph.wasm', import.meta.url));
-  } catch {
-    const bytes = new Uint8Array(await (await fetch(WASM_CDN)).arrayBuffer());
-    const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), (b) => b.toString(16).padStart(2, '0')).join('');
-    if (hash !== WASM_SHA256) throw new Error('Swiss Ephemeris download did not match its fingerprint');
-    return bytes;
-  }
-}
-
-let engine: ReturnType<typeof swissEphemeris> | null = null;
-async function ephemeris() {
-  return (engine ??= swissEphemeris(await load(await wasmBytes())));
-}
+const WASM = new URL('./swiss_eph.wasm', import.meta.url);
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
@@ -55,7 +34,7 @@ Deno.serve(async (req) => {
         longitude: profile.birthPlace.longitude,
         timezone: profile.birthPlace.timezone,
       },
-      await ephemeris(),
+      await ephemeris(WASM),
     );
     return json({ profile, kundli });
   } catch (err) {

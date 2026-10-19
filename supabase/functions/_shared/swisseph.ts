@@ -7,7 +7,7 @@
 // BEFORE PUBLIC LAUNCH: buy the professional licence, or replace this file with another
 // object implementing `Ephemeris` (e.g. a paid astrology API). See README → Licences.
 // ─────────────────────────────────────────────────────────────────────────────
-import type { Ephemeris, GrahaPositions } from './kundli/ephemeris.ts';
+import type { Ephemeris, GrahaPositions, RiseSetEphemeris } from './kundli/ephemeris.ts';
 
 /** The parts of the Swiss Ephemeris WebAssembly API that we use. */
 export type SwissEphLike = {
@@ -16,6 +16,10 @@ export type SwissEphLike = {
   swe_calc_ut(jdUt: number, body: number, flags: number): { returnCode: number; xx: ArrayLike<number>; error: string };
   swe_houses_ex(jdUt: number, flags: number, lat: number, lon: number, hsys: number): { returnCode: number; ascmc: ArrayLike<number> };
   swe_get_ayanamsa_ut(jdUt: number): number;
+  swe_rise_trans(
+    jdUt: number, body: number, star: string | null, flags: number, event: number,
+    geopos: [number, number, number], pressure: number, temperature: number,
+  ): { returnCode: number; tret: number; error: string };
 };
 
 // Constants from swephexp.h
@@ -25,6 +29,7 @@ const SEFLG_MOSEPH = 4; // built-in Moshier ephemeris: no data files needed, acc
 const SEFLG_SPEED = 256;
 const SEFLG_SIDEREAL = 64 * 1024;
 const SE_SIDM_LAHIRI = 1;
+const SE_CALC_RISE = 1, SE_CALC_SET = 2;
 
 const BODIES = {
   sun: SE_SUN,
@@ -41,7 +46,7 @@ export type SwissOptions = {
   node?: 'mean' | 'true';
 };
 
-export function swissEphemeris(swe: SwissEphLike, { node = 'mean' }: SwissOptions = {}): Ephemeris {
+export function swissEphemeris(swe: SwissEphLike, { node = 'mean' }: SwissOptions = {}): Ephemeris & RiseSetEphemeris {
   swe.swe_set_sid_mode(SE_SIDM_LAHIRI, 0, 0);
   const flags = SEFLG_MOSEPH | SEFLG_SPEED | SEFLG_SIDEREAL;
 
@@ -66,6 +71,13 @@ export function swissEphemeris(swe: SwissEphLike, { node = 'mean' }: SwissOption
     },
     ayanamsa(jd) {
       return swe.swe_get_ayanamsa_ut(jd);
+    },
+    riseSet(jd, body, latitude, longitude, event) {
+      // Upper edge of the disc with standard refraction (sea level, 1013.25 mbar, 15 °C).
+      const r = swe.swe_rise_trans(jd, body === 'sun' ? SE_SUN : SE_MOON, null, SEFLG_MOSEPH, event === 'rise' ? SE_CALC_RISE : SE_CALC_SET, [longitude, latitude, 0], 1013.25, 15);
+      if (r.returnCode === -2) return null; // the body stays above or below the horizon
+      if (r.returnCode < 0) throw new Error(`Swiss Ephemeris error: ${r.error}`);
+      return r.tret;
     },
   };
 }

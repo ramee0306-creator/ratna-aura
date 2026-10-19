@@ -14,3 +14,11 @@ verify_jwt = false
 verify_jwt = false
 # The Swiss Ephemeris WebAssembly engine, copied here by "npm run sync-shared".
 static_files = ["./functions/kundli/swiss_eph.wasm"]
+
+[functions.panchang]
+verify_jwt = false
+static_files = ["./functions/panchang/swiss_eph.wasm"]
+
+[functions.rashifal]
+verify_jwt = false
+static_files = ["./functions/rashifal/swiss_eph.wasm"]
