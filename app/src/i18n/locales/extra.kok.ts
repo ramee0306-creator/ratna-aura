@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF अहवाल, याद, खाजगी धोरण, पयशे भरप आनी आवाजाचो कोंकणी (देवनागरी) मजकूर (kok.ts त `extra` म्हणून).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्तरेखा वाचन',
     homeHint: 'तुमच्या तळहाताच्या फोटो वयल्यान हस्तरेखा',
     intro: 'तुमच्या तळहाताचो स्पश्ट फोटो काडात. आमचो AI हस्तरेखा वाचपी तुमची हृदय रेखा, मस्तक रेखा, आयुश्य रेखा, भाग्य रेखा आनी हाताचे पर्वत पळयता.',
+    priceNote_one: 'मोल: दर वाचनाक {{count}} क्रेडिट. पयलीं पयशे भरात, मागीर तुमच्या तळहाताचे फोटो काडात वा वेंचात.',
+    priceNote_other: 'मोल: दर वाचनाक {{count}} क्रेडिट. पयलीं पयशे भरात, मागीर तुमच्या तळहाताचे फोटो काडात वा वेंचात.',
     premiumNote: 'तुमच्या प्रीमियमांत आसपावता.',
     left: 'दावो हात',
     right: 'उजवो हात',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'काडून उडयात',
     tips: 'बऱ्या वाचना खातीर: बरो उजवाड, कॅमेराच्या मुखार उगडो तळहात, पुराय तळहात फोटोंत येवंक जाय.',
     second: 'चड पुराय वाचना खातीर दुसरो हातूय जोडात (जाय जाल्यार).',
+    start: 'तुमचें हस्तरेखा वाचन सुरू करात',
+    pay_one: '{{count}} क्रेडिट भरात आनी फुडें वचात',
+    pay_other: '{{count}} क्रेडिट भरात आनी फुडें वचात',
+    continuePremium: 'फुडें वचात (प्रीमियमांत आसपावता)',
+    paid: 'पयशे भरले. आतां तुमच्या तळहाताचो फोटो काडात वा वेंचात.',
+    read: 'म्हजो हात वाचात',
     reading: 'तुमचो हात वाचतात…',
+    notPalm: 'आमकां तळहात स्पश्ट दिसलो ना. तुमचे पयशे सुरक्षीत उरल्यात: उपकार करून चड स्पश्ट फोटो काडात आनी परत यत्न करात.',
+    retry: 'वाचन तयार जावंक शकलें ना. तुमचे पयशे सुरक्षीत उरल्यात: उपकार करून परत यत्न करात.',
     yours: 'तुमचें हस्तरेखा वाचन',
     earlier: 'आदलीं वाचनां',
     again: 'नवें वाचन',

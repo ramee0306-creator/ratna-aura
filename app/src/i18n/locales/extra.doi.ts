@@ -1,6 +1,5 @@
 // नमियें स्क्रीनें दा डोगरी पाठ: AI पर्सोना, PDF रिपोर्ट, याद करवाना, निजता, भुगतान, अवाज़ (doi.ts च `extra` दे रूप च शामल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्त रेखा',
     homeHint: 'हत्थ दी तली दी फोटो थमां हस्त रेखा',
     intro: 'अपनी हत्थ दी तली दी इक साफ फोटो खिच्चो। साढ़ा AI हस्त रेखा माहर तुंदे हत्थ दी दिल, दमाग, जीवन ते किस्मत दी रेखें ते पर्वतें गी दिखदा ऐ।',
+    priceNote_one: 'कीमत: हर रीडिंग आस्तै {{count}} क्रेडिट। पैह्लें भुगतान करो, फ्ही अपनी हत्थ दी तली दियां फोटुआं खिच्चो जां चुनो।',
+    priceNote_other: 'कीमत: हर रीडिंग आस्तै {{count}} क्रेडिट। पैह्लें भुगतान करो, फ्ही अपनी हत्थ दी तली दियां फोटुआं खिच्चो जां चुनो।',
     premiumNote: 'तुंदे Premium च शामल।',
     left: 'खब्बा हत्थ',
     right: 'सज्जा हत्थ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'हटाओ',
     tips: 'बधिया रीडिंग आस्तै: तेज़ लो, खुल्ली तली कैमरे आह्ली बक्खी, ते पूरी तली फोटो च।',
     second: 'होर पूरी रीडिंग आस्तै दूआ हत्थ बी जोड़ो (मर्ज़ी कन्नै)।',
+    start: 'अपनी हस्त रेखा रीडिंग शुरू करो',
+    pay_one: '{{count}} क्रेडिट देओ ते अग्गें बधो',
+    pay_other: '{{count}} क्रेडिट देओ ते अग्गें बधो',
+    continuePremium: 'अग्गें बधो (Premium च शामल)',
+    paid: 'भुगतान होई गेआ। हून अपनी हत्थ दी तली दी फोटो खिच्चो जां चुनो।',
+    read: 'मेरा हत्थ पढ़ो',
     reading: 'तुंदा हत्थ पढ़ेआ जा करदा ऐ…',
+    notPalm: 'असेंगी हत्थ दी तली साफ नेईं लब्भी। तुंदा भुगतान सांभेआ गेदा ऐ: किरपा करियै होर साफ फोटो खिच्चो ते फ्ही कोशश करो।',
+    retry: 'रीडिंग नेईं बनी सकी। तुंदा भुगतान सांभेआ गेदा ऐ: किरपा करियै फ्ही कोशश करो।',
     yours: 'तुंदी हस्त रेखा रीडिंग',
     earlier: 'पिछलियां रीडिंगां',
     again: 'नमीं रीडिंग',

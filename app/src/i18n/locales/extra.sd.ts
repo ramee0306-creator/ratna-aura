@@ -1,6 +1,5 @@
 // نون اسڪرينن (AI ڪردار، PDF رپورٽ، ياد ڏياريندڙ، رازداري، ادائگي، آواز) جو سنڌي متن (sd.ts ۾ `extra` طور شامل).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'دست شناسي',
     homeHint: 'هٿ جي تريءَ جي فوٽو مان هٿ جي ريکا',
     intro: 'پنهنجي هٿ جي تريءَ جي صاف فوٽو ڪڍو. اسان جو AI دست شناس اوهان جي هٿ جي دل، دماغ، زندگي ۽ قسمت جي ليڪن ۽ اڀارن کي ڏسي ٿو.',
+    priceNote_one: 'قيمت: هر ريڊنگ لاءِ {{count}} ڪريڊٽ. پهريان ادائگي ڪريو، پوءِ پنهنجي هٿ جي تريءَ جون فوٽوون ڪڍو يا چونڊيو.',
+    priceNote_other: 'قيمت: هر ريڊنگ لاءِ {{count}} ڪريڊٽ. پهريان ادائگي ڪريو، پوءِ پنهنجي هٿ جي تريءَ جون فوٽوون ڪڍو يا چونڊيو.',
     premiumNote: 'اوهان جي Premium ۾ شامل.',
     left: 'کاٻو هٿ',
     right: 'ساڄو هٿ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'هٽايو',
     tips: 'سٺي ريڊنگ لاءِ: تيز روشني، کليل تري ڪئميرا ڏانهن، ۽ سڄي تري فوٽو ۾.',
     second: 'وڌيڪ پوري ريڊنگ لاءِ ٻيو هٿ به شامل ڪريو (اختياري).',
+    start: 'پنهنجي هٿ جي ريڊنگ شروع ڪريو',
+    pay_one: '{{count}} ڪريڊٽ ادا ڪريو ۽ اڳتي وڌو',
+    pay_other: '{{count}} ڪريڊٽ ادا ڪريو ۽ اڳتي وڌو',
+    continuePremium: 'اڳتي وڌو (Premium ۾ شامل)',
+    paid: 'ادائگي ٿي وئي. هاڻي پنهنجي هٿ جي تريءَ جي فوٽو ڪڍو يا چونڊيو.',
+    read: 'منهنجو هٿ پڙهو',
     reading: 'اوهان جو هٿ پڙهيو پيو وڃي…',
+    notPalm: 'اسان کي هٿ جي تري صاف نظر نه آئي. اوهان جي ادائگي محفوظ آهي: مهرباني ڪري وڌيڪ صاف فوٽو ڪڍو ۽ ٻيهر ڪوشش ڪريو.',
+    retry: 'ريڊنگ ٺهي نه سگهي. اوهان جي ادائگي محفوظ آهي: مهرباني ڪري ٻيهر ڪوشش ڪريو.',
     yours: 'اوهان جي هٿ جي ريڊنگ',
     earlier: 'اڳوڻيون ريڊنگون',
     again: 'نئين ريڊنگ',

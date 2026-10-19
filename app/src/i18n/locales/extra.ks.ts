@@ -1,6 +1,5 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ہست ریکھا',
     homeHint: 'اَتھٕ تلُک فوٹو وُچھِتھ ہست ریکھا',
     intro: 'پننِس اَتھٕ تلُک اَکھ صاف فوٹو کٔڈِو۔ سون AI ہست ریکھا ماہِر چھُ تُہٕنٛدِس اَتھس مَنٛز دِلٕچ، دماغٕچ، زِندگی ہٕنٛز تہٕ قِسمتٕچ لکیرٕ تہٕ اُبھار وُچھان۔',
+    priceNote_one: 'قیمت: ہر ریڈنگ خٲطرٕ {{count}} کریڈٹ۔ گۄڈٕ کٔرِو ادائیگی، پتہٕ کٔڈِو یا ژٲرِو پننِس اَتھٕ تلُک فوٹو۔',
+    priceNote_other: 'قیمت: ہر ریڈنگ خٲطرٕ {{count}} کریڈٹ۔ گۄڈٕ کٔرِو ادائیگی، پتہٕ کٔڈِو یا ژٲرِو پننِس اَتھٕ تلُک فوٹو۔',
     premiumNote: 'تُہٕنٛدِس Premium مَنٛز شٲمِل۔',
     left: 'کھوٚوُر اَتھ',
     right: 'دۆچھُن اَتھ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ہٹٲوِو',
     tips: 'رٕژھ ریڈنگ خٲطرٕ: تیز گاش، کھُلہٕ اَتھٕ تَل کیمرس کُن، تہٕ پوٗرٕ اَتھٕ تَل فوٹوہس مَنٛز۔',
     second: 'پوٗرٕ ریڈنگ خٲطرٕ کٔرِو بیٚیِس اَتھس ہُند فوٹو تہِ شٲمِل (اختیٲری)۔',
+    start: 'پنٕنۍ ہست ریکھا ریڈنگ شروع کٔرِو',
+    pay_one: '{{count}} کریڈٹ دِیِو تہٕ برونٛہہ پکِو',
+    pay_other: '{{count}} کریڈٹ دِیِو تہٕ برونٛہہ پکِو',
+    continuePremium: 'برونٛہہ پکِو (Premium مَنٛز شٲمِل)',
+    paid: 'ادائیگی سپٕز۔ وۄنۍ کٔڈِو یا ژٲرِو پننِس اَتھٕ تلُک فوٹو۔',
+    read: 'میٲنۍ ہست ریکھا پٔرِو',
     reading: 'تُہٕنٛد اَتھ چھُ پرنہٕ یِوان…',
+    notPalm: 'أسۍ ہیوٚک نہٕ اَتھٕ تَل صاف وُچھِتھ۔ تُہٕنٛز ادائیگی چھےٚ محفوظ: مہربٲنی کٔرِتھ کٔڈِو اَکھ زیادٕ صاف فوٹو تہٕ دوبارٕ کوشش کٔرِو۔',
+    retry: 'ریڈنگ ہیچ نہٕ بنِتھ۔ تُہٕنٛز ادائیگی چھےٚ محفوظ: مہربٲنی کٔرِتھ دوبارٕ کوشش کٔرِو۔',
     yours: 'تُہٕنٛز ہست ریکھا ریڈنگ',
     earlier: 'برٛونٛہمِ ریڈنگ',
     again: 'نٔو ریڈنگ',

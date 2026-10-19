@@ -1,6 +1,5 @@
 // नूतनपटलानां संस्कृतपाठः: AI-पात्राणि, PDF-प्रतिवेदनम्, स्मारकम्, गोपनीयता, देयकम्, ध्वनिः (sa.ts मध्ये `extra` इति रूपेण सम्मिलितः)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्तरेखाविचारः',
     homeHint: 'करतलस्य चित्रात् हस्तरेखाविचारः',
     intro: 'स्वकरतलस्य स्पष्टं चित्रं गृह्णातु। अस्माकं AI-हस्तरेखाविद् भवतः हस्तस्य हृदय-मस्तिष्क-जीवन-भाग्यरेखाः पर्वतान् च पश्यति।',
+    priceNote_one: 'मूल्यम्: प्रतिविचारं {{count}} क्रेडिट्। प्रथमं देयं ददातु, ततः स्वकरतलस्य चित्राणि गृह्णातु चिनोतु वा।',
+    priceNote_other: 'मूल्यम्: प्रतिविचारं {{count}} क्रेडिट्स्। प्रथमं देयं ददातु, ततः स्वकरतलस्य चित्राणि गृह्णातु चिनोतु वा।',
     premiumNote: 'भवतः Premium-मध्ये अन्तर्भूतम्।',
     left: 'वामहस्तः',
     right: 'दक्षिणहस्तः',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'अपनयतु',
     tips: 'उत्तमविचाराय: प्रखरः प्रकाशः, कैमरां प्रति उन्मुखं विवृतं करतलं, चित्रे सम्पूर्णं करतलं च।',
     second: 'पूर्णतरविचाराय अन्यहस्तम् अपि योजयतु (ऐच्छिकम्)।',
+    start: 'स्वहस्तरेखाविचारम् आरभताम्',
+    pay_one: '{{count}} क्रेडिट् दत्त्वा अग्रे गच्छतु',
+    pay_other: '{{count}} क्रेडिट्स् दत्त्वा अग्रे गच्छतु',
+    continuePremium: 'अग्रे गच्छतु (Premium-मध्ये अन्तर्भूतम्)',
+    paid: 'देयं दत्तम्। इदानीं स्वकरतलस्य चित्रं गृह्णातु चिनोतु वा।',
+    read: 'मम हस्तं पठतु',
     reading: 'भवतः हस्तः पठ्यते…',
+    notPalm: 'करतलं स्पष्टं न दृष्टम्। भवतः देयं सुरक्षितम् अस्ति: कृपया स्पष्टतरं चित्रं गृहीत्वा पुनः प्रयतताम्।',
+    retry: 'विचारः सिद्धः न अभवत्। भवतः देयं सुरक्षितम् अस्ति: कृपया पुनः प्रयतताम्।',
     yours: 'भवतः हस्तरेखाविचारः',
     earlier: 'पूर्वविचाराः',
     again: 'नूतनः विचारः',

@@ -1,6 +1,5 @@
 // نئی اسکرینوں (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) کا اردو متن (ur.ts میں `extra` کے طور پر شامل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'دست شناسی',
     homeHint: 'ہتھیلی کی تصویر سے ہست ریکھا',
     intro: 'اپنی ہتھیلی کی صاف تصویر لیں۔ ہمارا AI دست شناس آپ کے ہاتھ کی دل، دماغ، زندگی اور قسمت کی لکیروں اور ابھاروں کو دیکھتا ہے۔',
+    priceNote_one: 'قیمت: فی ریڈنگ {{count}} کریڈٹ۔ پہلے ادائیگی کریں، پھر اپنی ہتھیلی کی تصویریں لیں یا منتخب کریں۔',
+    priceNote_other: 'قیمت: فی ریڈنگ {{count}} کریڈٹ۔ پہلے ادائیگی کریں، پھر اپنی ہتھیلی کی تصویریں لیں یا منتخب کریں۔',
     premiumNote: 'آپ کے Premium میں شامل۔',
     left: 'بایاں ہاتھ',
     right: 'دایاں ہاتھ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ہٹائیں',
     tips: 'اچھی ریڈنگ کے لیے: تیز روشنی، کھلی ہتھیلی کیمرے کی طرف، اور پوری ہتھیلی تصویر میں۔',
     second: 'زیادہ مکمل ریڈنگ کے لیے دوسرا ہاتھ بھی شامل کریں (اختیاری)۔',
+    start: 'اپنی دست شناسی شروع کریں',
+    pay_one: '{{count}} کریڈٹ ادا کریں اور آگے بڑھیں',
+    pay_other: '{{count}} کریڈٹ ادا کریں اور آگے بڑھیں',
+    continuePremium: 'آگے بڑھیں (Premium میں شامل)',
+    paid: 'ادائیگی ہو گئی۔ اب اپنی ہتھیلی کی تصویر لیں یا منتخب کریں۔',
+    read: 'میرا ہاتھ دیکھیں',
     reading: 'آپ کا ہاتھ دیکھا جا رہا ہے…',
+    notPalm: 'ہمیں ہتھیلی صاف نظر نہیں آئی۔ آپ کی ادائیگی محفوظ ہے: براہِ کرم زیادہ صاف تصویر لیں اور دوبارہ کوشش کریں۔',
+    retry: 'ریڈنگ نہیں بن سکی۔ آپ کی ادائیگی محفوظ ہے: براہِ کرم دوبارہ کوشش کریں۔',
     yours: 'آپ کے ہاتھ کی ریڈنگ',
     earlier: 'پچھلی ریڈنگز',
     again: 'نئی ریڈنگ',

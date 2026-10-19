@@ -1,6 +1,5 @@
 // নতুন স্ক্ৰীনসমূহৰ অসমীয়া পাঠ (AI পাৰ্ছোনা, PDF ৰিপ’ৰ্ট, ৰিমাইণ্ডাৰ, গোপনীয়তা, পেমেণ্ট, ভইচ); as.ts ত `extra` হিচাপে অন্তৰ্ভুক্ত।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'হস্তৰেখা',
     homeHint: 'আপোনাৰ হাতৰ তলুৱাৰ ফটোৰ পৰা হস্তৰেখা বিচাৰ',
     intro: 'আপোনাৰ হাতৰ তলুৱাৰ এখন স্পষ্ট ফটো লওক। আমাৰ AI হস্তৰেখা বিশেষজ্ঞই আপোনাৰ হৃদয় ৰেখা, মস্তিষ্ক ৰেখা, জীৱন ৰেখা আৰু ভাগ্য ৰেখা আৰু হাতৰ পৰ্বতবোৰ চায়।',
+    priceNote_one: 'মূল্য: প্ৰতিটো পাঠৰ বাবে {{count}}টা ক্ৰেডিট। প্ৰথমে পৰিশোধ কৰক, তাৰ পিছত আপোনাৰ হাতৰ তলুৱাৰ ফটো তোলক বা বাছক।',
+    priceNote_other: 'মূল্য: প্ৰতিটো পাঠৰ বাবে {{count}}টা ক্ৰেডিট। প্ৰথমে পৰিশোধ কৰক, তাৰ পিছত আপোনাৰ হাতৰ তলুৱাৰ ফটো তোলক বা বাছক।',
     premiumNote: 'আপোনাৰ প্ৰিমিয়ামত অন্তৰ্ভুক্ত।',
     left: 'বাওঁ হাত',
     right: 'সোঁ হাত',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'আঁতৰাওক',
     tips: 'ভাল পাঠৰ বাবে: উজ্জ্বল পোহৰ, মুকলি তলুৱা কেমেৰাৰ ফালে, গোটেই তলুৱাখন ফটোত।',
     second: 'অধিক সম্পূৰ্ণ পাঠৰ বাবে আনখন হাতৰো ফটো যোগ কৰক (ইচ্ছা কৰিলে)।',
+    start: 'আপোনাৰ হস্তৰেখা পাঠ আৰম্ভ কৰক',
+    pay_one: '{{count}}টা ক্ৰেডিট দি আগবাঢ়ক',
+    pay_other: '{{count}}টা ক্ৰেডিট দি আগবাঢ়ক',
+    continuePremium: 'আগবাঢ়ক (প্ৰিমিয়ামত অন্তৰ্ভুক্ত)',
+    paid: 'পৰিশোধ হ’ল। এতিয়া আপোনাৰ হাতৰ তলুৱাৰ ফটো তোলক বা বাছক।',
+    read: 'মোৰ হাত পঢ়ক',
     reading: 'আপোনাৰ হাত পঢ়ি আছোঁ…',
+    notPalm: 'আমি তলুৱাখন স্পষ্টকৈ দেখা নাপালোঁ। আপোনাৰ পৰিশোধ সুৰক্ষিত আছে: অনুগ্ৰহ কৰি অধিক স্পষ্ট ফটো তুলি আকৌ চেষ্টা কৰক।',
+    retry: 'পাঠটো প্ৰস্তুত কৰিব পৰা নগ’ল। আপোনাৰ পৰিশোধ সুৰক্ষিত আছে: অনুগ্ৰহ কৰি আকৌ চেষ্টা কৰক।',
     yours: 'আপোনাৰ হস্তৰেখা পাঠ',
     earlier: 'আগৰ পাঠসমূহ',
     again: 'নতুন পাঠ',
