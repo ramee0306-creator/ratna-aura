@@ -53,6 +53,14 @@ const extra = {
     fullPolicy: 'Full privacy policy',
     terms: 'Terms of use',
   },
+  store: {
+    waiting: 'Payment received. Adding your credits…',
+    added: 'Your credits have been added. Thank you!',
+    slow: 'Payment received. Your credits will appear in a minute — pull back to this screen to refresh.',
+    cancelled: 'Purchase cancelled. You were not charged.',
+    failed: 'The purchase could not be completed. You were not charged.',
+    androidOnly: 'Credits can be bought in the Android app from Google Play.',
+  },
 };
 
 export default extra;

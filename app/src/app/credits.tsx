@@ -1,9 +1,10 @@
 import { useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { buyTestPack, type CreditPack, getCredits, type PaymentsMode, type Wallet } from '@/ai/api';
+import { useAuth } from '@/auth/AuthProvider';
 import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
 import { Button } from '@/components/Button';
@@ -11,6 +12,7 @@ import { Card } from '@/components/Card';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { ApiError } from '@/kundli/api';
+import { buyFromStore, storeBillingAvailable, storePrices } from '@/payments/billing';
 import { colors, spacing } from '@/theme';
 
 export default function CreditsScreen() {
@@ -18,7 +20,18 @@ export default function CreditsScreen() {
   const [data, setData] = useState<{ wallet: Wallet; packs: CreditPack[]; mode: PaymentsMode } | null>(null);
   const [failed, setFailed] = useState(false);
   const [buying, setBuying] = useState<string | null>(null);
-  const [message, setMessage] = useState<{ text: string; tone: 'success' | 'error' } | null>(null);
+  const [message, setMessage] = useState<{ text: string; tone: 'success' | 'error' | 'info' } | null>(null);
+  const [prices, setPrices] = useState<Record<string, string>>({});
+  const { userId } = useAuth();
+  const live = data?.mode === 'live';
+
+  // In live mode, show Google Play's own local prices.
+  useEffect(() => {
+    if (!live || !userId || !data) return;
+    storePrices(userId, data.packs.map((p) => p.id))
+      .then(setPrices)
+      .catch(() => undefined);
+  }, [live, userId, data]);
 
   const load = useCallback(() => {
     setFailed(false);
@@ -32,11 +45,32 @@ export default function CreditsScreen() {
     setBuying(pack.id);
     setMessage(null);
     try {
-      const wallet = await buyTestPack(pack);
-      setData((d) => (d ? { ...d, wallet } : d));
-      setMessage({ text: t('ai.credits.bought', { count: pack.credits }), tone: 'success' });
+      if (!live) {
+        const wallet = await buyTestPack(pack);
+        setData((d) => (d ? { ...d, wallet } : d));
+        setMessage({ text: t('ai.credits.bought', { count: pack.credits }), tone: 'success' });
+        return;
+      }
+      const before = data?.wallet.credits ?? 0;
+      if ((await buyFromStore(userId!, pack.id)) === 'cancelled') {
+        setMessage({ text: t('extra.store.cancelled'), tone: 'info' });
+        return;
+      }
+      // The server adds the credits when Google Play confirms the payment: wait for it.
+      setMessage({ text: t('extra.store.waiting'), tone: 'info' });
+      for (let i = 0; i < 15; i++) {
+        await new Promise((r) => setTimeout(r, 2000));
+        const fresh = await getCredits();
+        if (fresh.wallet.credits > before) {
+          setData(fresh);
+          setMessage({ text: t('extra.store.added'), tone: 'success' });
+          return;
+        }
+      }
+      setMessage({ text: t('extra.store.slow'), tone: 'info' });
     } catch (err) {
-      setMessage({ text: t(err instanceof ApiError && err.status === 429 ? 'ai.credits.limit' : 'ai.credits.failed'), tone: 'error' });
+      const limit = err instanceof ApiError && err.status === 429;
+      setMessage({ text: t(limit ? 'ai.credits.limit' : live ? 'extra.store.failed' : 'ai.credits.failed'), tone: 'error' });
     } finally {
       setBuying(null);
     }
@@ -68,21 +102,21 @@ export default function CreditsScreen() {
           </Card>
           <AppText variant="caption">{t('ai.credits.intro')}</AppText>
           {message ? <Notice tone={message.tone} text={message.text} /> : null}
-          {data.mode === 'test' ? (
+          {data.mode === 'off' || (live && !storeBillingAvailable) ? (
+            <Notice tone="info" text={t(live ? 'extra.store.androidOnly' : 'ai.credits.off')} />
+          ) : (
             <>
-              <Notice tone="info" text={t('ai.credits.testMode')} />
+              {!live ? <Notice tone="info" text={t('ai.credits.testMode')} /> : null}
               {data.packs.map((pack) => (
                 <Card key={pack.id} style={styles.pack}>
                   <View style={styles.flex}>
                     <AppText variant="bodyStrong">{t('ai.credits.pack', { count: pack.credits })}</AppText>
-                    <AppText variant="caption">{t('ai.credits.price', { price: pack.priceInr })}</AppText>
+                    <AppText variant="caption">{prices[pack.id] ?? t('ai.credits.price', { price: pack.priceInr })}</AppText>
                   </View>
                   <Button title={t('ai.credits.buy')} onPress={() => buy(pack)} loading={buying === pack.id} disabled={buying !== null} />
                 </Card>
               ))}
             </>
-          ) : (
-            <Notice tone="info" text={t('ai.credits.off')} />
           )}
         </View>
       )}

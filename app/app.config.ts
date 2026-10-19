@@ -7,7 +7,7 @@ const config: ExpoConfig = {
   name: brand.appName,
   slug: brand.slug,
   owner: undefined,
-  version: '0.1.0',
+  version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
   scheme: brand.scheme,
@@ -19,7 +19,8 @@ const config: ExpoConfig = {
   },
   android: {
     package: brand.androidPackage,
-    versionCode: 1,
+    // Each Google Play upload needs a higher number; build-aab.yml sets it from the GitHub run number.
+    versionCode: Number(process.env.ANDROID_VERSION_CODE ?? 1),
     adaptiveIcon: {
       backgroundColor: brand.colors.background,
       foregroundImage: './assets/images/android-icon-foreground.png',
@@ -28,6 +29,12 @@ const config: ExpoConfig = {
     predictiveBackGestureEnabled: false,
     // Birth data is personal: never include it in Android cloud backups.
     allowBackup: false,
+    // Permissions the app does not need (fewer questions on Google Play's Data safety form).
+    blockedPermissions: [
+      'android.permission.SYSTEM_ALERT_WINDOW',
+      'android.permission.READ_EXTERNAL_STORAGE',
+      'android.permission.WRITE_EXTERNAL_STORAGE',
+    ],
   },
   web: {
     output: 'single',
@@ -39,6 +46,7 @@ const config: ExpoConfig = {
     'expo-localization',
     'expo-font',
     'expo-web-browser',
+    './plugins/withReleaseSigning',
     ['expo-notifications', { icon: './assets/images/android-icon-monochrome.png', color: brand.colors.gold }],
     [
       'expo-splash-screen',

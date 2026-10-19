@@ -26,8 +26,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | 5 | AI chat ("Ask AI") with free questions and credits (test payments) | ✅ Done |
 | 6 | AI astrologer / numerologist personas with per-minute / per-message billing | ✅ Done |
 | 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | ✅ Done |
-| 8 | Debug APK to install on your phone | ⏳ Next |
-| 9 | Signed release (AAB) for Google Play + store listing + checklist | |
+| 8 | Debug APK to install on your phone | ✅ Done (GitHub → Actions → Build APK) |
+| 9 | Signed release (AAB) for Google Play + store listing + checklist | ✅ Done (needs your Play account + upload key) |
 | 10 | Voice conversations | |
 
 ---
@@ -58,11 +58,15 @@ supabase/                ← the server
   functions/panchang/    ← the panchang for a date and place
   functions/rashifal/    ← the daily rashifal, written by AI once per day, sign and language
   functions/ask/         ← Ask AI: answers from the person's kundli and numbers
-  functions/credits/     ← question credits (test-mode purchases for now)
+  functions/credits/     ← question credits (test-mode purchases)
+  functions/revenuecat/  ← adds credits when Google Play (via RevenueCat) confirms a purchase
+  functions/persona/     ← chats with the AI personas
+  functions/admin/       ← admin panel data and settings
   dashboard/             ← one-file copies of each function, to paste into the Supabase website
 .github/workflows/       ← automatic checks, and automatic server deployment
   tests/                 ← automatic tests for the database rules
 scripts/make-icons.mjs   ← draws the app icon from the brand colours
+docs/                    ← privacy policy, terms, store listing, Data safety answers, launch checklist
 ```
 
 ### Why Supabase?
@@ -353,11 +357,41 @@ You can follow each run in the repository's **Actions** tab, and start one by ha
 ⚠️ **The Android package ID (`com.velqorastudios.ratnaaura`) can never change after the first upload to
 Google Play.** Confirm the final name and package ID **before Milestone 9**.
 
-## Publishing (Milestones 8–9, summary)
+## Publishing (Milestones 8–9)
 
-- Builds will be made with Expo's cloud builder (EAS), which needs a free Expo account (we'll ask first).
-- Google Play needs a developer account (one-time **$25**) and a signed **AAB** file.
-- Milestone 9 adds the store listing text and a checklist for the Data Safety form, content rating and payments.
+### Install on your phone (APK, free, no accounts)
+GitHub → **Actions** → **Build APK** → **Run workflow**. After ~20 minutes open the finished run → **Artifacts** →
+`ratna-aura-apk` (a .zip). On your Android phone, unzip it, open the `.apk` and allow "install unknown apps" when
+asked. This test build is signed with a test key, so it cannot go on Google Play.
+
+### Google Play (AAB)
+1. ⚠️ **Decide the package ID now — it can never change after the first upload** (`brand.config.js` →
+   `androidPackage`, currently `com.velqorastudios.ratnaaura`).
+2. **Upload key (once).** On any computer with Java (or ask Claude in Chrome / a developer friend):
+   ```bash
+   keytool -genkeypair -v -keystore upload.jks -alias upload -keyalg RSA -keysize 2048 -validity 10000
+   base64 -w0 upload.jks > upload.jks.base64      # on macOS: base64 -i upload.jks -o upload.jks.base64
+   ```
+   Keep `upload.jks` and both passwords in your password manager. Add GitHub secrets
+   `ANDROID_UPLOAD_KEYSTORE_BASE64` (contents of the .base64 file), `ANDROID_UPLOAD_STORE_PASSWORD`,
+   `ANDROID_UPLOAD_KEY_ALIAS` (`upload`) and `ANDROID_UPLOAD_KEY_PASSWORD`. Never commit the key.
+3. GitHub → **Actions** → **Build for Google Play** → **Run workflow** → download `ratna-aura-aab` → upload the
+   `.aab` in Play Console (Internal testing first). Each run gets a higher version code automatically.
+4. Store texts and forms: [`docs/store-listing.md`](docs/store-listing.md), [`docs/data-safety.md`](docs/data-safety.md),
+   and the full [`docs/launch-checklist.md`](docs/launch-checklist.md).
+
+### Real payments (Google Play billing through RevenueCat)
+1. Play Console → Monetize → Products → **In-app products**: create one-time products with ids **`q10`**, **`q30`**,
+   **`q100`** (they must equal the pack ids in `app_settings.credit_packs`) and your prices.
+2. revenuecat.com → new project → add a **Google Play** app (package ID above; follow their service-account steps).
+   Import the three products.
+3. RevenueCat → **API keys**: copy the **public Android SDK key** (starts with `goog_`) into GitHub → Settings →
+   Secrets and variables → Actions → **Variables** → `REVENUECAT_ANDROID_KEY`.
+4. RevenueCat → Integrations → **Webhooks**: URL `https://rthnktnardwvpngivlpg.supabase.co/functions/v1/revenuecat`,
+   Authorization header = a long random secret. Put the same secret in Supabase → Edge Functions → Secrets as
+   `REVENUECAT_WEBHOOK_SECRET`.
+5. Rebuild the app (Build for Google Play), then Admin panel → Payments → **Live**.
+Credits are added by the server only after RevenueCat confirms the Google Play payment, once per order.
 
 ---
 

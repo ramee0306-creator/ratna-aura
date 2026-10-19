@@ -26,7 +26,7 @@ type Check = (value: unknown) => boolean;
 const isPack = (p: unknown) => {
   const x = p as { id?: unknown; credits?: unknown; priceInr?: unknown };
   return (
-    !!x && typeof x.id === 'string' && /^[a-z0-9]{1,20}$/.test(x.id) &&
+    !!x && typeof x.id === 'string' && /^[a-z0-9_.]{1,40}$/.test(x.id) &&
     Number.isInteger(x.credits) && (x.credits as number) > 0 && (x.credits as number) <= 10_000 &&
     typeof x.priceInr === 'number' && x.priceInr > 0 && x.priceInr <= 100_000
   );

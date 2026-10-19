@@ -17,6 +17,8 @@ env:
   EXPO_PUBLIC_SUPABASE_URL: https://rthnktnardwvpngivlpg.supabase.co
   EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_CKtaMD3h3I-O_1MbvXg3AA_nkjndLDv
   EXPO_PUBLIC_DEMO_MODE: '0'
+  # Optional: RevenueCat's public Android key (repository variable) turns on Google Play purchases.
+  EXPO_PUBLIC_REVENUECAT_ANDROID_KEY: ${{ vars.REVENUECAT_ANDROID_KEY }}
 
 jobs:
   apk:

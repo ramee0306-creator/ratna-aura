@@ -36,3 +36,6 @@ static_files = ["./functions/persona/swiss_eph.wasm"]
 
 [functions.admin]
 verify_jwt = false
+
+[functions.revenuecat]
+verify_jwt = false
