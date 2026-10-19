@@ -1,5 +1,6 @@
 // छत्तीसगढ़ी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import jyotish from './jyotish.en'; // TODO: translate (jyotish.hne.ts)
 import kundli from './kundli.hne';
 import numerology from './numerology.hne';
 
@@ -138,6 +139,7 @@ const translation: Translation = {
   },
   numerology,
   kundli,
+  jyotish,
 };
 
 export default translation;

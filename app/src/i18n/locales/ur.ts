@@ -1,5 +1,6 @@
 // اردو. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import jyotish from './jyotish.en'; // TODO: translate (jyotish.ur.ts)
 import kundli from './kundli.ur';
 import numerology from './numerology.ur';
 
@@ -138,6 +139,7 @@ const translation: Translation = {
   },
   numerology,
   kundli,
+  jyotish,
 };
 
 export default translation;

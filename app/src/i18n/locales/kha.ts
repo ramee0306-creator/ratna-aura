@@ -1,5 +1,6 @@
 // Ka Ktien Khasi. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import jyotish from './jyotish.en'; // TODO: translate (jyotish.kha.ts)
 import kundli from './kundli.kha';
 import numerology from './numerology.kha';
 
@@ -138,6 +139,7 @@ const translation: Translation = {
   },
   numerology,
   kundli,
+  jyotish,
 };
 
 export default translation;

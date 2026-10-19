@@ -44,6 +44,8 @@ async function call<T>(name: string, options: { method: 'GET' | 'POST' | 'DELETE
 // ---- demo mode ----
 const demoProfiles: BirthProfile[] = [];
 const demoKundli = () => require('./demo-kundli.json') as Kundli;
+/** A second sample (Jaipur, 3 Feb 1993, 06:15), so Kundli Milan can be tried in demo mode. */
+export const demoSecondKundli = () => require('./demo-kundli-2.json') as Kundli;
 
 export async function listProfiles(): Promise<BirthProfile[]> {
   if (isDemoMode) return [...demoProfiles];

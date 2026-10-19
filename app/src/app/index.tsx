@@ -13,14 +13,14 @@ import { Wordmark } from '@/components/Wordmark';
 import { colors, radius, spacing } from '@/theme';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
-type Feature = { key: string; icon: IconName; href?: Href };
+type Feature = { key: string; icon: IconName; href?: Href; hint?: string };
 
-// Tiles without a screen yet show "Soon"; they get one in a later milestone.
+// Tiles without a screen yet would show "Soon".
 const ASTROLOGY: Feature[] = [
   { key: 'kundli', icon: 'star-four-points-outline', href: '/kundli' },
-  { key: 'rashifal', icon: 'zodiac-leo' },
-  { key: 'panchang', icon: 'weather-sunset' },
-  { key: 'matching', icon: 'hand-heart-outline' },
+  { key: 'rashifal', icon: 'zodiac-leo', href: '/rashifal', hint: 'jyotish.rashifal.homeHint' },
+  { key: 'panchang', icon: 'weather-sunset', href: '/panchang' },
+  { key: 'matching', icon: 'hand-heart-outline', href: '/milan' },
 ];
 const NUMEROLOGY: Feature[] = [
   { key: 'coreNumbers', icon: 'numeric-9-circle-outline', href: '/numerology/core' },
@@ -59,7 +59,7 @@ function Tile({ feature, accent }: { feature: Feature; accent: string }) {
       </View>
       <AppText variant="bodyStrong">{title}</AppText>
       <AppText variant="caption" numberOfLines={2}>
-        {t(`home.${feature.key}Hint`)}
+        {t(feature.hint ?? `home.${feature.key}Hint`)}
       </AppText>
     </>
   );

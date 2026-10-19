@@ -1,5 +1,6 @@
 // हिन्दी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import jyotish from './jyotish.en'; // TODO: translate (jyotish.hi.ts)
 import kundli from './kundli.hi';
 import numerology from './numerology.hi';
 
@@ -136,6 +137,7 @@ const hi: Translation = {
   },
   numerology,
   kundli,
+  jyotish,
 };
 
 export default hi;

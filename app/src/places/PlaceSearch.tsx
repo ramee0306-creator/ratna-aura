@@ -10,15 +10,25 @@ import { colors, radius, spacing } from '@/theme';
 import { type Place, searchPlaces } from './search';
 
 /** Type-ahead search over the built-in city list. */
-export function PlaceSearch({ value, onChange }: { value: Place | null; onChange: (place: Place | null) => void }) {
+export function PlaceSearch({
+  value,
+  onChange,
+  label,
+}: {
+  value: Place | null;
+  onChange: (place: Place | null) => void;
+  /** Defaults to "Place of birth" */
+  label?: string;
+}) {
   const { t } = useTranslation();
+  const title = label ?? t('kundli.form.place');
   const [query, setQuery] = useState('');
   const results = useMemo(() => searchPlaces(query), [query]);
 
   if (value) {
     return (
       <View style={styles.wrap}>
-        <AppText variant="label">{t('kundli.form.place')}</AppText>
+        <AppText variant="label">{title}</AppText>
         <Pressable accessibilityRole="button" onPress={() => onChange(null)} style={[styles.row, styles.chosen]}>
           <MaterialCommunityIcons name="map-marker" size={20} color={colors.gold} />
           <AppText style={styles.flex}>{value.label}</AppText>
@@ -31,7 +41,7 @@ export function PlaceSearch({ value, onChange }: { value: Place | null; onChange
   return (
     <View style={styles.wrap}>
       <TextField
-        label={t('kundli.form.place')}
+        label={title}
         placeholder={t('kundli.form.placePlaceholder')}
         value={query}
         onChangeText={setQuery}

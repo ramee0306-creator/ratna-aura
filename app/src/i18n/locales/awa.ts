@@ -1,5 +1,6 @@
 // अवधी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
+import jyotish from './jyotish.en'; // TODO: translate (jyotish.awa.ts)
 import kundli from './kundli.awa';
 import numerology from './numerology.awa';
 
@@ -138,6 +139,7 @@ const translation: Translation = {
   },
   numerology,
   kundli,
+  jyotish,
 };
 
 export default translation;
