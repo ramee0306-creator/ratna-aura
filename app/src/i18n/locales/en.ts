@@ -93,7 +93,7 @@ const en = {
     askAi: 'Ask AI',
     askAiHint: 'Questions answered from your kundli and numbers',
     talk: 'Talk to an Astrologer',
-    talkHint: 'AI astrologers & numerologists, in Hindi or English',
+    talkHint: 'AI astrologers & numerologists, in your language',
   },
   settings: {
     title: 'Settings',
