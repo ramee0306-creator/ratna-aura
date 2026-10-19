@@ -1,5 +1,5 @@
-// Rewrites app/src/i18n/translations.ts so it imports every language whose three
-// translation files exist (locales/<code>.ts, numerology.<code>.ts, kundli.<code>.ts),
+// Rewrites app/src/i18n/translations.ts so it imports every language whose four
+// translation files exist (locales/<code>.ts, numerology.<code>.ts, kundli.<code>.ts, jyotish.<code>.ts),
 // in the order of app/src/i18n/languages.ts.
 //
 //   npm run sync-languages
@@ -14,7 +14,7 @@ const i18n = join(root, 'app', 'src', 'i18n');
 const locales = join(i18n, 'locales');
 
 const codes = [...readFileSync(join(i18n, 'languages.ts'), 'utf8').matchAll(/\{ code: '([^']+)'/g)].map((m) => m[1]);
-const ready = codes.filter((c) => ['', 'numerology.', 'kundli.'].every((p) => existsSync(join(locales, `${p}${c}.ts`))));
+const ready = codes.filter((c) => ['', 'numerology.', 'kundli.', 'jyotish.'].every((p) => existsSync(join(locales, `${p}${c}.ts`))));
 
 const ident = (code) => `lang_${code.replace(/-/g, '_')}`;
 const lines = [

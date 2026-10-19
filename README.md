@@ -22,8 +22,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | 1 | Project set-up, database, login (phone OTP + Google), consent, delete account | ✅ Done |
 | 2 | Numerology engine with tests + numerology screens | ✅ Done |
 | 3 | Kundli calculations with tests, North & South Indian charts | ✅ Done |
-| 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | ⏳ Next |
-| 5 | AI chat ("Ask AI") with free questions and credits (test payments) | |
+| 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | ✅ Done |
+| 5 | AI chat ("Ask AI") with free questions and credits (test payments) | ⏳ Next |
 | 6 | AI astrologer / numerologist personas with per-minute / per-message billing | |
 | 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | |
 | 8 | Debug APK to install on your phone | |
@@ -43,15 +43,19 @@ app/                     ← the phone app (React Native + Expo, TypeScript)
   src/auth/              ← sign-in, consent, phone-number checks
   src/numerology/        ← numerology forms, number cards, Lo Shu grid drawing
   src/kundli/            ← kundli form checks, server calls, North/South Indian chart drawing
+  src/jyotish/           ← server calls for the panchang and daily rashifal (+ demo samples)
   src/places/            ← birth-place search (cities.data.json is made by scripts/build-cities.mjs)
 packages/numerology/     ← all numerology maths (Chaldean & Pythagorean) + its tests
-packages/kundli/         ← kundli logic: signs, nakshatras, houses, navamsa, dasha + its tests
+packages/kundli/         ← kundli logic: signs, nakshatras, houses, navamsa, dasha, panchang,
+                           Kundli Milan + its tests
   .env.example           ← copy to app/.env and fill in (public Supabase values only)
 supabase/                ← the server
   migrations/            ← database tables and security rules
   functions/             ← server functions (run on Supabase, hold the secrets)
   functions/.env.example ← copy to supabase/functions/.env (server secrets, never in Git)
   functions/kundli/      ← makes a kundli with the Swiss Ephemeris (the swappable, AGPL part)
+  functions/panchang/    ← the panchang for a date and place
+  functions/rashifal/    ← the daily rashifal, written by AI once per day, sign and language
   dashboard/             ← one-file copies of each function, to paste into the Supabase website
 .github/workflows/       ← automatic checks, and automatic server deployment
   tests/                 ← automatic tests for the database rules
@@ -110,10 +114,30 @@ and are removed by "Delete my account".
 
 Birth details are stored **encrypted** on the server; the kundli is calculated fresh each time and never stored.
 
+## How the panchang, Kundli Milan and rashifal work
+
+- **Panchang** (server, Swiss Ephemeris) for any date and place: vara, tithi and paksha, nakshatra, yoga,
+  karana — each with its exact end time — sunrise/sunset (upper edge of the Sun with refraction, as Indian
+  panchangs use), moonrise/moonset, the Moon and Sun signs, the lunar month in both the **amanta** and
+  **purnimanta** systems (with adhika months), Vikram and Shaka samvat, **Rahu Kaal, Yamaganda, Gulika**
+  (eighths of the daytime by weekday), **Abhijit** and **Brahma muhurta**. Like printed panchangs, the day runs
+  from sunrise to sunrise. Tests compare it with published panchangs (Hanuman Jayanti and Janmashtami 2024,
+  Adhik Shravan 2023) to within 2 minutes.
+- **Kundli Milan** (in the app, from two saved kundlis): the 8 kootas of Ashtakoota gun milan out of 36 (Varna 1,
+  Vashya 2, Tara 3, Yoni 4, Graha Maitri 5, Gana 6, Bhakoot 7, Nadi 8) from both people's Moon, with the usual
+  Nadi and Bhakoot dosha exceptions, plus **Manglik** (Mars in house 1, 2, 4, 7, 8 or 12 from the lagna or the
+  Moon). Regional traditions differ in a few table cells; we use the tables most panchangs use. The wording
+  stays calm: a score is a traditional guide, not a verdict.
+- **Daily rashifal**: written by Claude (AI) from the day's real planet positions counted from each Moon sign,
+  the first time anyone asks for that day, sign and language, then saved and shared with everyone. The AI is
+  told to stay gentle and practical: no fear, no medical/legal/financial advice, no black magic or paid
+  remedies. Every reading carries the **AI** badge. Which model writes it is a setting in the database
+  (`app_settings` → `rashifal_model`), so it can be switched to a cheaper model without an app update.
+
 ## Languages
 
-- All text lives in `app/src/i18n/locales/`. **English (`en.ts`, `numerology.en.ts`, `kundli.en.ts`) is the master
-  copy**; every other language has the same three files.
+- All text lives in `app/src/i18n/locales/`. **English (`en.ts`, `numerology.en.ts`, `kundli.en.ts`,
+  `jyotish.en.ts`) is the master copy**; every other language has the same four files.
 - An automatic test (`app/src/i18n/translations.test.ts`) fails if any language is missing a text or drops a
   `{{placeholder}}`, so new English text can't be forgotten in another language.
 - Hindi and Marathi use the bundled Devanagari fonts; the other Indian scripts use the phone's own fonts
@@ -122,8 +146,9 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
   ask a fluent speaker of each language to read through the app (especially astrology terms and the
   "guidance, not advice" wording).
 - Urdu, Kashmiri and Sindhi are written right to left; the app flips its layout for them (after reopening).
-- To add a language: add it to `app/src/i18n/languages.ts`, copy the three English files to `<code>.ts`,
-  `numerology.<code>.ts`, `kundli.<code>.ts`, translate them, and run `npm run sync-languages`.
+- To add a language: add it to `app/src/i18n/languages.ts`, copy the four English files to `<code>.ts`,
+  `numerology.<code>.ts`, `kundli.<code>.ts`, `jyotish.<code>.ts`, translate them, and run `npm run sync-languages`.
+  The daily rashifal is written in every language on the list automatically.
 
 ## Rules about secrets (important)
 
@@ -210,8 +235,8 @@ A QR code appears. Open **Expo Go** on your phone and scan it (phone and compute
 
 Steps 4–6 can also be done by copy-and-paste:
 
-- **Tables:** SQL Editor → New query → paste the whole of
-  `supabase/migrations/20261018000001_accounts_and_birth_profiles.sql` → **Run**.
+- **Tables:** SQL Editor → New query → paste the whole of each file in `supabase/migrations/`, oldest first
+  → **Run**.
 - **Encryption key:** Edge Functions → Secrets → add `DATA_ENCRYPTION_KEY`. To make a value, open any
   browser's developer console and run
   `btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32))))`.
@@ -220,6 +245,24 @@ Steps 4–6 can also be done by copy-and-paste:
   `birth-profiles` and one called `delete-account`, pasting the matching file from `supabase/dashboard/`.
   Then open each function's **Details** and turn **off** "Verify JWT" (the functions check the login themselves).
 - After changing anything in `supabase/functions/`, run `npm run bundle-functions` and paste the new copy.
+- `kundli`, `panchang` and `rashifal` need the astronomy engine file next to them, so they can only be
+  deployed by the automatic *Deploy server* action (see [Updating](#6-updating)).
+
+### Turning on the daily rashifal (Claude API key)
+
+The rashifal is written by Claude, Anthropic's AI. It needs a paid API key, kept **only on the server**:
+
+1. Go to https://console.anthropic.com and sign up (Google sign-in works).
+2. **Settings → Billing**: add a payment card and buy a small amount of credit (e.g. $10). Under
+   **Settings → Limits**, set a **monthly spend limit** (e.g. $50) so a bill can never surprise you.
+3. **Settings → API Keys → Create Key**, name it `ratna-aura-server`, and copy it (it starts with `sk-ant-`).
+   Never paste it into the app, a chat or Git.
+4. Supabase website → your project → **Edge Functions → Secrets** → **Add new secret**: name
+   `ANTHROPIC_API_KEY`, value = the key → **Save**.
+
+That's all: the next time someone opens a rashifal, it is written and saved. Until then the app says the
+daily rashifal is "not switched on yet". To use a cheaper model, run in the SQL Editor:
+`update app_settings set value = '"claude-sonnet-5-5"' where key = 'rashifal_model';`
 
 ## 5. Automatic checks
 
@@ -287,8 +330,8 @@ These are **rough estimates** to plan with. Prices change, so check each provide
 
 **Assumptions:** half of users use their 3 free AI questions; 5% become paying users and ask ~30 AI questions
 and send ~40 persona-chat messages a month. One "Ask AI" answer ≈ 5,000 tokens in (chart + numbers + safety
-rules + question) and ≈ 1,000 tokens out. Rashifal is generated once per sign per day (2 languages) and shared
-by everyone, so its cost does not grow with users.
+rules + question) and ≈ 1,000 tokens out. Rashifal is generated once per sign per day per language that people
+actually use, and shared by everyone, so its cost does not grow with users.
 
 ### AI model choice (one setting, can be changed any time)
 
@@ -307,7 +350,7 @@ Prompt caching (re-using the fixed safety rules) lowers these further. We'll mea
 | Supabase (Pro plan: database, login, functions, backups) | $25 | $25–60 (may need a bigger database add-on) |
 | AI: "Ask AI" (~3,000 / ~30,000 answers) | Opus $120 · Sonnet $60 · Haiku $3 | Opus $1,200 · Sonnet $600 · Haiku $30 |
 | AI: persona chats (~2,000 / ~20,000 messages, paid by users) | Opus $90 · Sonnet $45 · Haiku $3 | Opus $900 · Sonnet $450 · Haiku $25 |
-| AI: daily/weekly/monthly rashifal (fixed) | ≈ $35 (Opus) / $18 (Sonnet) | same |
+| AI: daily rashifal (fixed; ≈ $0.03 per reading with Opus, 12 per language per day) | ≈ $70 Opus / $35 Sonnet if ~6 languages are used; up to ≈ $400 / $200 if all 31 are | same |
 | SMS OTP (~2 logins per user; less if many use Google sign-in) | $5–100 (MSG91 ≈ ₹0.2/SMS; Twilio Verify ≈ $0.05) | $50–1,000 |
 | Push notifications (Expo) | free | free |
 | Expo cloud builds (EAS) | free tier | free tier (or $19 plan for faster builds) |
