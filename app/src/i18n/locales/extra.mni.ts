@@ -1,5 +1,6 @@
 // অনৌবা স্ক্রীনশিংগী মৈতৈলোন্ পাউ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডর, প্রাইভেসি, পেমেন্ট, ভইস); mni.ts দা `extra` ওইনা হাপচিল্লি।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'খুৎ য়েংবা (হস্তরেখা)',
     homeHint: 'নহাক্কী খুৎকী মনুংগী ফোটো অমদগী হস্তরেখা',
     intro: 'নহাক্কী খুৎকী মনুংগী মখা ফজনা উবা ফোটো অমা লৌবিয়ু। ঐখোয়গী AI খুৎ য়েংবা মীনা নহাক্কী হৃদয় রেখা, মস্তিষ্ক রেখা, জীবন রেখা অমসুং ভাগ্য রেখা অমসুং খুৎকী পর্বতশিং য়েংই।',
-    priceNote_one: 'মমল: পাংবা অমদা ক্রেডিট {{count}}। ফোটো লৌরবা মতুংদা, পাংবা হৌদ্রিঙৈদা পেমেন্ট তৌগনি।',
-    priceNote_other: 'মমল: পাংবা অমদা ক্রেডিট {{count}}। ফোটো লৌরবা মতুংদা, পাংবা হৌদ্রিঙৈদা পেমেন্ট তৌগনি।',
     premiumNote: 'নহাক্কী প্রিমিয়মদা য়াওরি।',
     left: 'অৱৈ খুৎ',
     right: 'যেৎ খুৎ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'লৌথোকপা',
     tips: 'ফবা পাংবা অমগীদমক: মঙাল ফজনা, খুৎকী মনুং হাংদোক্লগা কেমেরাগী মায়োক্তা, খুৎকী মনুং অপুনবা ফোটোদা।',
     second: 'হেন্না মপুংফানবা পাংবা অমগীদমক অতোপ্পা খুৎ অদুসু হাপচিনবিয়ু (পাম্বদি)।',
-    ready: 'নহাক্কী ফোটোশিং শেমলে',
-    pay_one: 'ক্রেডিট {{count}} পীরগা ঐগী খুৎ পাংবিয়ু',
-    pay_other: 'ক্রেডিট {{count}} পীরগা ঐগী খুৎ পাংবিয়ু',
-    readPremium: 'ঐগী খুৎ পাংবিয়ু (প্রিমিয়মদা য়াওরি)',
     reading: 'নহাক্কী খুৎ পাংলি…',
-    notPalm: 'ঐখোয়না খুৎকী মনুং মখা ফজনা উবা ঙমদে, মরম অদুনা নহাক্তা চার্জ তৌদ্রে।',
     yours: 'নহাক্কী খুৎ য়েংবগী মহৈ',
     earlier: 'হন্নগী পাংবশিং',
     again: 'অনৌবা পাংবা',

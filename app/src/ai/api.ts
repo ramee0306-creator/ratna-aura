@@ -91,9 +91,9 @@ export async function ask(input: { question: string; language: string; profileId
 }
 
 export const DEMO_PLANS: Plan[] = [
-  { id: 'monthly', productId: 'premium:monthly', months: 1, priceInr: 199, bonusCredits: 20, trialDays: 0 },
-  { id: 'quarterly', productId: 'premium:quarterly', months: 3, priceInr: 499, bonusCredits: 60, trialDays: 0 },
-  { id: 'yearly', productId: 'premium:yearly', months: 12, priceInr: 1499, bonusCredits: 240, trialDays: 7 },
+  { id: 'monthly', productId: 'premium:monthly', months: 1, priceInr: 299, bonusCredits: 20, trialDays: 0 },
+  { id: 'quarterly', productId: 'premium:quarterly', months: 3, priceInr: 749, bonusCredits: 60, trialDays: 0 },
+  { id: 'yearly', productId: 'premium:yearly', months: 12, priceInr: 2249, bonusCredits: 240, trialDays: 7 },
 ];
 
 export async function getCredits(): Promise<{ wallet: Wallet; packs: CreditPack[]; plans: Plan[]; mode: PaymentsMode }> {
@@ -101,9 +101,9 @@ export async function getCredits(): Promise<{ wallet: Wallet; packs: CreditPack[
     return {
       wallet: { ...demo.wallet },
       packs: [
-        { id: 'q10', credits: 10, priceInr: 49 },
-        { id: 'q30', credits: 30, priceInr: 129 },
-        { id: 'q100', credits: 100, priceInr: 349 },
+        { id: 'q10', credits: 10, priceInr: 74 },
+        { id: 'q30', credits: 30, priceInr: 194 },
+        { id: 'q100', credits: 100, priceInr: 524 },
       ],
       plans: DEMO_PLANS,
       mode: 'test',

@@ -1,5 +1,6 @@
 // ਨਵੀਆਂ ਸਕ੍ਰੀਨਾਂ ਦਾ ਪੰਜਾਬੀ ਪਾਠ: AI ਪਰਸੋਨਾ, PDF ਰਿਪੋਰਟ, ਰਿਮਾਈਂਡਰ, ਪਰਦੇਦਾਰੀ, ਭੁਗਤਾਨ, ਆਵਾਜ਼ (pa.ts ਵਿੱਚ `extra` ਵਜੋਂ ਸ਼ਾਮਲ)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ਹਸਤ ਰੇਖਾ',
     homeHint: 'ਤੁਹਾਡੀ ਹਥੇਲੀ ਦੀ ਫ਼ੋਟੋ ਤੋਂ ਹਸਤ ਰੇਖਾ',
     intro: 'ਆਪਣੀ ਹਥੇਲੀ ਦੀ ਸਾਫ਼ ਫ਼ੋਟੋ ਖਿੱਚੋ। ਸਾਡਾ AI ਹਸਤ ਰੇਖਾ ਮਾਹਿਰ ਤੁਹਾਡੀ ਦਿਲ ਰੇਖਾ, ਦਿਮਾਗ਼ ਰੇਖਾ, ਜੀਵਨ ਰੇਖਾ ਅਤੇ ਭਾਗ ਰੇਖਾ, ਅਤੇ ਹੱਥ ਦੇ ਪਰਬਤਾਂ ਨੂੰ ਵੇਖਦਾ ਹੈ।',
-    priceNote_one: 'ਕੀਮਤ: ਹਰ ਰੀਡਿੰਗ ਲਈ {{count}} ਕ੍ਰੈਡਿਟ। ਤੁਸੀਂ ਫ਼ੋਟੋਆਂ ਖਿੱਚਣ ਤੋਂ ਬਾਅਦ, ਰੀਡਿੰਗ ਤੋਂ ਪਹਿਲਾਂ ਭੁਗਤਾਨ ਕਰਦੇ ਹੋ।',
-    priceNote_other: 'ਕੀਮਤ: ਹਰ ਰੀਡਿੰਗ ਲਈ {{count}} ਕ੍ਰੈਡਿਟ। ਤੁਸੀਂ ਫ਼ੋਟੋਆਂ ਖਿੱਚਣ ਤੋਂ ਬਾਅਦ, ਰੀਡਿੰਗ ਤੋਂ ਪਹਿਲਾਂ ਭੁਗਤਾਨ ਕਰਦੇ ਹੋ।',
     premiumNote: 'ਤੁਹਾਡੇ ਪ੍ਰੀਮੀਅਮ ਵਿੱਚ ਸ਼ਾਮਲ।',
     left: 'ਖੱਬਾ ਹੱਥ',
     right: 'ਸੱਜਾ ਹੱਥ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ਹਟਾਓ',
     tips: 'ਚੰਗੀ ਰੀਡਿੰਗ ਲਈ: ਤੇਜ਼ ਰੋਸ਼ਨੀ, ਕੈਮਰੇ ਵੱਲ ਖੁੱਲ੍ਹੀ ਹਥੇਲੀ, ਅਤੇ ਪੂਰੀ ਹਥੇਲੀ ਫ਼ੋਟੋ ਵਿੱਚ।',
     second: 'ਹੋਰ ਪੂਰੀ ਰੀਡਿੰਗ ਲਈ ਦੂਜੇ ਹੱਥ ਦੀ ਫ਼ੋਟੋ ਵੀ ਜੋੜੋ (ਵਿਕਲਪਿਕ)।',
-    ready: 'ਤੁਹਾਡੀਆਂ ਫ਼ੋਟੋਆਂ ਤਿਆਰ ਹਨ',
-    pay_one: '{{count}} ਕ੍ਰੈਡਿਟ ਦਿਓ ਅਤੇ ਮੇਰਾ ਹੱਥ ਪੜ੍ਹੋ',
-    pay_other: '{{count}} ਕ੍ਰੈਡਿਟ ਦਿਓ ਅਤੇ ਮੇਰਾ ਹੱਥ ਪੜ੍ਹੋ',
-    readPremium: 'ਮੇਰਾ ਹੱਥ ਪੜ੍ਹੋ (ਪ੍ਰੀਮੀਅਮ ਵਿੱਚ ਸ਼ਾਮਲ)',
     reading: 'ਤੁਹਾਡਾ ਹੱਥ ਪੜ੍ਹਿਆ ਜਾ ਰਿਹਾ ਹੈ…',
-    notPalm: 'ਸਾਨੂੰ ਹਥੇਲੀ ਸਾਫ਼ ਨਹੀਂ ਦਿਸੀ, ਇਸ ਲਈ ਤੁਹਾਡੇ ਤੋਂ ਕੁਝ ਨਹੀਂ ਲਿਆ ਗਿਆ।',
     yours: 'ਤੁਹਾਡੀ ਹਸਤ ਰੇਖਾ ਰੀਡਿੰਗ',
     earlier: 'ਪਿਛਲੀਆਂ ਰੀਡਿੰਗਾਂ',
     again: 'ਨਵੀਂ ਰੀਡਿੰਗ',

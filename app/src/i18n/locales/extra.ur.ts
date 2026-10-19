@@ -1,5 +1,6 @@
 // نئی اسکرینوں (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) کا اردو متن (ur.ts میں `extra` کے طور پر شامل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'دست شناسی',
     homeHint: 'ہتھیلی کی تصویر سے ہست ریکھا',
     intro: 'اپنی ہتھیلی کی صاف تصویر لیں۔ ہمارا AI دست شناس آپ کے ہاتھ کی دل، دماغ، زندگی اور قسمت کی لکیروں اور ابھاروں کو دیکھتا ہے۔',
-    priceNote_one: 'قیمت: فی ریڈنگ {{count}} کریڈٹ۔ آپ تصویریں لینے کے بعد، ریڈنگ سے پہلے ادائیگی کرتے ہیں۔',
-    priceNote_other: 'قیمت: فی ریڈنگ {{count}} کریڈٹ۔ آپ تصویریں لینے کے بعد، ریڈنگ سے پہلے ادائیگی کرتے ہیں۔',
     premiumNote: 'آپ کے Premium میں شامل۔',
     left: 'بایاں ہاتھ',
     right: 'دایاں ہاتھ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ہٹائیں',
     tips: 'اچھی ریڈنگ کے لیے: تیز روشنی، کھلی ہتھیلی کیمرے کی طرف، اور پوری ہتھیلی تصویر میں۔',
     second: 'زیادہ مکمل ریڈنگ کے لیے دوسرا ہاتھ بھی شامل کریں (اختیاری)۔',
-    ready: 'آپ کی تصویریں تیار ہیں',
-    pay_one: '{{count}} کریڈٹ ادا کریں اور میرا ہاتھ دیکھیں',
-    pay_other: '{{count}} کریڈٹ ادا کریں اور میرا ہاتھ دیکھیں',
-    readPremium: 'میرا ہاتھ دیکھیں (Premium میں شامل)',
     reading: 'آپ کا ہاتھ دیکھا جا رہا ہے…',
-    notPalm: 'ہمیں ہتھیلی صاف نظر نہیں آئی، اس لیے آپ سے کچھ نہیں لیا گیا۔',
     yours: 'آپ کے ہاتھ کی ریڈنگ',
     earlier: 'پچھلی ریڈنگز',
     again: 'نئی ریڈنگ',

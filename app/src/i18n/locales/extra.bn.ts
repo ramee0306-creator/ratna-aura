@@ -1,5 +1,6 @@
 // নতুন স্ক্রিনগুলির বাংলা পাঠ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডার, গোপনীয়তা, পেমেন্ট, ভয়েস); bn.ts-এ `extra` হিসেবে যুক্ত।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'হস্তরেখা বিচার',
     homeHint: 'আপনার হাতের তালুর ছবি থেকে হস্তরেখা',
     intro: 'আপনার হাতের তালুর একটি স্পষ্ট ছবি তুলুন। আমাদের AI হস্তরেখাবিদ আপনার হৃদয় রেখা, মস্তিষ্ক রেখা, জীবন রেখা ও ভাগ্য রেখা এবং হাতের পর্বতগুলি দেখে।',
-    priceNote_one: 'দাম: প্রতিটি বিচারের জন্য {{count}}টি ক্রেডিট। ছবি তোলার পরে, বিচার শুরুর আগে আপনি পেমেন্ট করবেন।',
-    priceNote_other: 'দাম: প্রতিটি বিচারের জন্য {{count}}টি ক্রেডিট। ছবি তোলার পরে, বিচার শুরুর আগে আপনি পেমেন্ট করবেন।',
     premiumNote: 'আপনার প্রিমিয়ামে অন্তর্ভুক্ত।',
     left: 'বাঁ হাত',
     right: 'ডান হাত',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'সরান',
     tips: 'ভালো বিচারের জন্য: উজ্জ্বল আলো, খোলা তালু ক্যামেরার দিকে, পুরো তালু ছবিতে।',
     second: 'আরও পূর্ণ বিচারের জন্য অন্য হাতের ছবিও যোগ করুন (ঐচ্ছিক)।',
-    ready: 'আপনার ছবি তৈরি',
-    pay_one: '{{count}}টি ক্রেডিট দিয়ে আমার হাত দেখুন',
-    pay_other: '{{count}}টি ক্রেডিট দিয়ে আমার হাত দেখুন',
-    readPremium: 'আমার হাত দেখুন (প্রিমিয়ামে অন্তর্ভুক্ত)',
     reading: 'আপনার হাত দেখা হচ্ছে…',
-    notPalm: 'হাতের তালু স্পষ্ট দেখা যায়নি, তাই আপনার কাছ থেকে কিছু কাটা হয়নি।',
     yours: 'আপনার হস্তরেখা বিচার',
     earlier: 'আগের বিচারগুলি',
     again: 'নতুন বিচার',

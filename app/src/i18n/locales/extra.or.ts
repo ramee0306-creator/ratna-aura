@@ -1,5 +1,6 @@
 // ନୂଆ ସ୍କ୍ରିନଗୁଡ଼ିକର ଓଡ଼ିଆ ପାଠ (AI ପର୍ସୋନା, PDF ରିପୋର୍ଟ, ରିମାଇଣ୍ଡର, ଗୋପନୀୟତା, ପେମେଣ୍ଟ, ଭଏସ୍); or.ts ରେ `extra` ଭାବେ ଅନ୍ତର୍ଭୁକ୍ତ।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ହସ୍ତରେଖା',
     homeHint: 'ଆପଣଙ୍କ ପାପୁଲିର ଫଟୋରୁ ହସ୍ତରେଖା',
     intro: 'ଆପଣଙ୍କ ପାପୁଲିର ଏକ ସ୍ପଷ୍ଟ ଫଟୋ ଉଠାନ୍ତୁ। ଆମର AI ହସ୍ତରେଖା ବିଶେଷଜ୍ଞ ଆପଣଙ୍କ ହୃଦୟ ରେଖା, ମସ୍ତିଷ୍କ ରେଖା, ଜୀବନ ରେଖା ଓ ଭାଗ୍ୟ ରେଖା ଏବଂ ହାତର ପର୍ବତଗୁଡ଼ିକୁ ଦେଖେ।',
-    priceNote_one: 'ଦାମ: ପ୍ରତି ପଠନ ପାଇଁ {{count}}ଟି କ୍ରେଡିଟ୍। ଫଟୋ ଉଠାଇବା ପରେ, ପଠନ ପୂର୍ବରୁ ଆପଣ ଦେୟ ଦିଅନ୍ତି।',
-    priceNote_other: 'ଦାମ: ପ୍ରତି ପଠନ ପାଇଁ {{count}}ଟି କ୍ରେଡିଟ୍। ଫଟୋ ଉଠାଇବା ପରେ, ପଠନ ପୂର୍ବରୁ ଆପଣ ଦେୟ ଦିଅନ୍ତି।',
     premiumNote: 'ଆପଣଙ୍କ ପ୍ରିମିୟମ୍ ରେ ସାମିଲ।',
     left: 'ବାମ ହାତ',
     right: 'ଡାହାଣ ହାତ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ହଟାନ୍ତୁ',
     tips: 'ଭଲ ପଠନ ପାଇଁ: ଉଜ୍ଜ୍ୱଳ ଆଲୋକ, କ୍ୟାମେରା ଆଡ଼କୁ ଖୋଲା ପାପୁଲି, ଏବଂ ପୂରା ପାପୁଲି ଫଟୋରେ।',
     second: 'ଅଧିକ ସମ୍ପୂର୍ଣ୍ଣ ପଠନ ପାଇଁ ଅନ୍ୟ ହାତର ଫଟୋ ମଧ୍ୟ ଯୋଡ଼ନ୍ତୁ (ଇଚ୍ଛାଧୀନ)।',
-    ready: 'ଆପଣଙ୍କ ଫଟୋ ପ୍ରସ୍ତୁତ',
-    pay_one: '{{count}}ଟି କ୍ରେଡିଟ୍ ଦେଇ ମୋ ହାତ ପଢ଼ନ୍ତୁ',
-    pay_other: '{{count}}ଟି କ୍ରେଡିଟ୍ ଦେଇ ମୋ ହାତ ପଢ଼ନ୍ତୁ',
-    readPremium: 'ମୋ ହାତ ପଢ଼ନ୍ତୁ (ପ୍ରିମିୟମ୍ ରେ ସାମିଲ)',
     reading: 'ଆପଣଙ୍କ ହାତ ପଢ଼ାଯାଉଛି…',
-    notPalm: 'ଆମେ ପାପୁଲି ସ୍ପଷ୍ଟ ଦେଖିପାରିଲୁ ନାହିଁ, ତେଣୁ ଆପଣଙ୍କଠାରୁ କିଛି କଟା ଯାଇନାହିଁ।',
     yours: 'ଆପଣଙ୍କ ହସ୍ତରେଖା ପଠନ',
     earlier: 'ପୂର୍ବ ପଠନଗୁଡ଼ିକ',
     again: 'ନୂଆ ପଠନ',

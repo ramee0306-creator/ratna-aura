@@ -1,10 +1,12 @@
-// Palm reading (hast rekha) from photos, paid before the reading is made.
+// Palm reading (hast rekha): pay first, then send the photos.
 //
-//   GET  /palm                          -> { price, premiumIncludes, wallet, readings: [{ id, createdAt, reading }] }
-//   POST /palm { photos, language }     -> { id, createdAt, reading, wallet }
-//        photos: [{ hand: 'left'|'right', mediaType: 'image/jpeg', data: <base64> }] (one or two)
+//   GET  /palm                                    -> { price, premiumIncludes, wallet, ticket, readings: [{ id, createdAt, reading }] }
+//   POST /palm { action: 'pay' }                  -> { ticket, wallet }   one paid reading (an unused one is reused)
 //        -> 402 { error, wallet }                 not enough credits
-//        -> 422 { notPalm: true, message, wallet } no clear palm in the photos (credits given back)
+//   POST /palm { ticket, photos, language }       -> { id, createdAt, reading, wallet }
+//        photos: [{ hand: 'left'|'right', mediaType: 'image/jpeg', data: <base64> }] (one or two)
+//        -> 409                                   no unused paid ticket (pay first)
+//        -> 422 { notPalm: true, message, ticket } no clear palm in the photos (the ticket stays: try again)
 //
 // The photos go to Claude for this one reading and are never stored. The reading is stored encrypted.
 import { chatErrorResponse } from '../_shared/chat-errors.ts';
@@ -13,9 +15,8 @@ import { decryptJson, encryptJson } from '../_shared/crypto.ts';
 import { corsHeaders, errorResponse, json, readJson } from '../_shared/http.ts';
 import { isLanguage, LANGUAGE_NAMES } from '../_shared/languages.ts';
 import { cleanReading, PALM_SCHEMA, palmSystem, parsePhotos } from '../_shared/palm.ts';
-import { keyRing } from '../_shared/profiles.ts';
+import { keyRing, UUID } from '../_shared/profiles.ts';
 import { admin, getUser } from '../_shared/supabase.ts';
-import { keyHash } from '../_shared/unlocks.ts';
 import { featurePrices, getWallet, premiumIncludesTools } from '../_shared/wallet.ts';
 
 /** Readings per user per day (also for Premium, where readings are included). */
@@ -58,7 +59,9 @@ Deno.serve(async (req) => {
 
   if (req.method === 'GET') {
     try {
-      return json({ price: price ?? null, premiumIncludes, wallet: await getWallet(user.id), readings: await recentReadings(user.id) });
+      const { data: open, error } = await db.from('palm_tickets').select('id').eq('user_id', user.id).is('used_at', null).limit(1).maybeSingle();
+      if (error) throw error;
+      return json({ price: price ?? null, premiumIncludes, wallet: await getWallet(user.id), ticket: open?.id ?? null, readings: await recentReadings(user.id) });
     } catch (err) {
       console.error('palm list failed', err);
       return errorResponse(500, 'Something went wrong. Please try again.');
@@ -66,29 +69,35 @@ Deno.serve(async (req) => {
   }
   if (req.method !== 'POST') return errorResponse(405, 'Method not allowed');
 
-  const body = ((await readJson(req)) ?? {}) as { photos?: unknown; language?: unknown };
+  const body = ((await readJson(req)) ?? {}) as { action?: unknown; ticket?: unknown; photos?: unknown; language?: unknown };
+
+  if (body.action === 'pay') {
+    if (price === undefined) return errorResponse(503, 'Palm reading is not available right now');
+    if ((await readingsToday(user.id)) >= READINGS_PER_DAY) return errorResponse(429, 'Daily limit reached. Please try again tomorrow.');
+    const { data: ticket, error } = await db.rpc('buy_palm_ticket', { p_user: user.id, p_price: price, p_premium_included: premiumIncludes });
+    if (error) {
+      console.error('palm payment failed', error);
+      return errorResponse(500, 'Something went wrong. Please try again. You were not charged.');
+    }
+    const wallet = await getWallet(user.id);
+    if (!ticket) return json({ error: 'Not enough credits', wallet }, 402);
+    return json({ ticket, wallet });
+  }
+
+  if (typeof body.ticket !== 'string' || !UUID.test(body.ticket)) return errorResponse(400, 'Pay first');
   if (!isLanguage(body.language)) return errorResponse(400, 'unknown language');
   const photos = parsePhotos(body.photos);
   if (typeof photos === 'string') return errorResponse(400, photos);
-  if (price === undefined) return errorResponse(503, 'Palm reading is not available right now');
-  if ((await readingsToday(user.id)) >= READINGS_PER_DAY) return errorResponse(429, 'Daily limit reached. Please try again tomorrow.');
+  const ticket = body.ticket;
 
-  // Pay first (each reading is its own unlock), then read; any failure gives the credits back.
-  const id = crypto.randomUUID();
-  const hash = await keyHash('palm', id);
-  const { data: status, error: payError } = await db.rpc('unlock_feature', {
-    p_user: user.id,
-    p_feature: 'palm',
-    p_key_hash: hash,
-    p_price: price,
-    p_premium_included: premiumIncludes,
-  });
-  if (payError) {
-    console.error('palm payment failed', payError);
-    return errorResponse(500, 'Something went wrong. Please try again. You were not charged.');
+  // Use the paid ticket; if the reading cannot be made, give it back so the user can try again.
+  const { data: usable, error: ticketError } = await db.rpc('use_palm_ticket', { p_user: user.id, p_ticket: ticket });
+  if (ticketError) {
+    console.error('palm ticket failed', ticketError);
+    return errorResponse(500, 'Something went wrong. Please try again.');
   }
-  if (status === 'none') return json({ error: 'Not enough credits', wallet: await getWallet(user.id) }, 402);
-  const refund = () => db.rpc('undo_unlock', { p_user: user.id, p_feature: 'palm', p_key_hash: hash });
+  if (!usable) return errorResponse(409, 'Please pay for the reading first');
+  const release = () => db.rpc('release_palm_ticket', { p_user: user.id, p_ticket: ticket });
 
   try {
     const result = await generateJson({
@@ -112,8 +121,8 @@ Deno.serve(async (req) => {
     const reading = cleanReading(result.data);
     if (!reading) throw new Error('The AI answer was empty');
     if (!reading.isPalm) {
-      await refund();
-      return json({ notPalm: true, message: reading.reading, wallet: await getWallet(user.id) }, 422);
+      await release();
+      return json({ notPalm: true, message: reading.reading, ticket }, 422);
     }
     const { data: row, error } = await db
       .from('palm_readings')
@@ -123,7 +132,7 @@ Deno.serve(async (req) => {
     if (error) throw error;
     return json({ id: row.id, createdAt: row.created_at, reading: reading.reading, wallet: await getWallet(user.id) });
   } catch (err) {
-    await refund();
+    await release();
     return chatErrorResponse(err, 'palm');
   }
 });

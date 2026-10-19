@@ -1,5 +1,6 @@
 // ᱱᱟᱶᱟ ᱥᱠᱨᱤᱱ ᱠᱚ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱛᱟᱲᱤ ᱚᱞ (AI ᱯᱚᱨᱥᱳᱱᱟ, PDF ᱨᱤᱯᱳᱨᱴ, ᱨᱤᱢᱟᱭᱱᱰᱟᱨ, ᱜᱚᱯᱚᱱ, ᱯᱮᱢᱮᱱᱴ, ᱥᱟᱰᱮ); sat.ts ᱨᱮ `extra` ᱞᱮᱠᱟ ᱥᱮᱞᱮᱫ ᱠᱟᱱᱟ᱾
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ᱛᱤ ᱨᱮᱠᱷᱟ ᱯᱟᱲᱦᱟᱣ',
     homeHint: 'ᱟᱢᱟᱜ ᱛᱤ ᱛᱟᱞᱟ ᱨᱮᱱᱟᱜ ᱯᱷᱚᱴᱳ ᱠᱷᱚᱱ ᱦᱚᱥᱛᱚ ᱨᱮᱠᱷᱟ',
     intro: 'ᱟᱢᱟᱜ ᱛᱤ ᱛᱟᱞᱟ ᱨᱮᱱᱟᱜ ᱢᱤᱫ ᱯᱷᱟᱨᱪᱟ ᱯᱷᱚᱴᱳ ᱦᱟᱛᱟᱣ ᱢᱮ᱾ ᱟᱞᱮᱭᱟᱜ AI ᱛᱤ ᱨᱮᱠᱷᱟ ᱯᱟᱲᱦᱟᱣᱤᱭᱟᱹ ᱫᱚ ᱟᱢᱟᱜ ᱦᱤᱨᱫᱳᱭ ᱨᱮᱠᱷᱟ, ᱢᱚᱥᱛᱤᱥᱠ ᱨᱮᱠᱷᱟ, ᱡᱤᱣᱤ ᱨᱮᱠᱷᱟ ᱟᱨ ᱵᱷᱟᱜᱭᱚ ᱨᱮᱠᱷᱟ ᱟᱨ ᱛᱤ ᱨᱮᱱᱟᱜ ᱯᱚᱨᱵᱚᱛ ᱠᱚ ᱧᱮᱞᱟ᱾',
-    priceNote_one: 'ᱜᱚᱱᱚᱝ: ᱢᱤᱫ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱠᱨᱮᱰᱤᱴ {{count}}᱾ ᱯᱷᱚᱴᱳ ᱦᱟᱛᱟᱣ ᱛᱟᱭᱚᱢ ᱟᱨ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱦᱟ ᱨᱮ ᱟᱢ ᱯᱟᱭᱥᱟ ᱮᱢ ᱟᱢ᱾',
-    priceNote_other: 'ᱜᱚᱱᱚᱝ: ᱢᱤᱫ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱠᱨᱮᱰᱤᱴ {{count}}᱾ ᱯᱷᱚᱴᱳ ᱦᱟᱛᱟᱣ ᱛᱟᱭᱚᱢ ᱟᱨ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱦᱟ ᱨᱮ ᱟᱢ ᱯᱟᱭᱥᱟ ᱮᱢ ᱟᱢ᱾',
     premiumNote: 'ᱟᱢᱟᱜ ᱯᱨᱤᱢᱤᱭᱟᱢ ᱨᱮ ᱥᱮᱞᱮᱫ ᱢᱮᱱᱟᱜ ᱟ᱾',
     left: 'ᱞᱮᱸᱜᱟ ᱛᱤ',
     right: 'ᱡᱚᱡᱚᱢ ᱛᱤ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ᱚᱪᱚᱜ ᱢᱮ',
     tips: 'ᱵᱮᱥ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱹᱜᱤᱫ: ᱢᱟᱨᱟᱝ ᱢᱟᱨᱥᱟᱞ, ᱡᱷᱤᱡ ᱛᱤ ᱛᱟᱞᱟ ᱠᱮᱢᱮᱨᱟ ᱥᱮᱫ, ᱯᱩᱨᱟᱹ ᱛᱤ ᱛᱟᱞᱟ ᱯᱷᱚᱴᱳ ᱨᱮ᱾',
     second: 'ᱟᱨᱦᱚᱸ ᱯᱩᱨᱟᱹ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱮᱴᱟᱜ ᱛᱤ ᱦᱚᱸ ᱥᱮᱞᱮᱫ ᱢᱮ (ᱟᱢ ᱠᱩᱥᱤ)᱾',
-    ready: 'ᱟᱢᱟᱜ ᱯᱷᱚᱴᱳ ᱠᱚ ᱛᱮᱭᱟᱨ ᱜᱮᱭᱟ',
-    pay_one: 'ᱠᱨᱮᱰᱤᱴ {{count}} ᱮᱢ ᱠᱟᱛᱮ ᱤᱧᱟᱜ ᱛᱤ ᱯᱟᱲᱦᱟᱣ ᱢᱮ',
-    pay_other: 'ᱠᱨᱮᱰᱤᱴ {{count}} ᱮᱢ ᱠᱟᱛᱮ ᱤᱧᱟᱜ ᱛᱤ ᱯᱟᱲᱦᱟᱣ ᱢᱮ',
-    readPremium: 'ᱤᱧᱟᱜ ᱛᱤ ᱯᱟᱲᱦᱟᱣ ᱢᱮ (ᱯᱨᱤᱢᱤᱭᱟᱢ ᱨᱮ ᱥᱮᱞᱮᱫ)',
     reading: 'ᱟᱢᱟᱜ ᱛᱤ ᱯᱟᱲᱦᱟᱣ ᱠᱟᱱᱟ…',
-    notPalm: 'ᱛᱤ ᱛᱟᱞᱟ ᱫᱚ ᱯᱷᱟᱨᱪᱟ ᱵᱟᱝ ᱧᱮᱞᱚᱜ ᱠᱟᱱᱟ, ᱚᱱᱟᱛᱮ ᱪᱮᱫ ᱦᱚᱸ ᱠᱷᱚᱨᱚᱪ ᱵᱟᱝ ᱦᱩᱭ ᱞᱮᱱᱟ᱾',
     yours: 'ᱟᱢᱟᱜ ᱛᱤ ᱨᱮᱠᱷᱟ ᱯᱟᱲᱦᱟᱣ',
     earlier: 'ᱞᱟᱦᱟ ᱨᱮᱭᱟᱜ ᱯᱟᱲᱦᱟᱣ ᱠᱚ',
     again: 'ᱱᱟᱶᱟ ᱯᱟᱲᱦᱟᱣ',

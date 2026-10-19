@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइन्डर, गोपनीयता, भुक्तानी र आवाजको नेपाली पाठ (ne.ts मा `extra` को रूपमा समावेश)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्तरेखा',
     homeHint: 'हत्केलाको फोटोबाट हस्तरेखा',
     intro: 'आफ्नो हत्केलाको स्पष्ट फोटो खिच्नुहोस्। हाम्रो AI हस्तरेखा विशेषज्ञले तपाईंको हातको हृदय, मस्तिष्क, जीवन र भाग्य रेखा तथा पर्वतहरू हेर्छ।',
-    priceNote_one: 'मूल्य: प्रति हेराइ {{count}} क्रेडिट। तपाईंले फोटो खिचेपछि, हेराइ सुरु हुनुअघि भुक्तानी गर्नुहुन्छ।',
-    priceNote_other: 'मूल्य: प्रति हेराइ {{count}} क्रेडिट। तपाईंले फोटो खिचेपछि, हेराइ सुरु हुनुअघि भुक्तानी गर्नुहुन्छ।',
     premiumNote: 'तपाईंको Premium मा समावेश।',
     left: 'देब्रे हात',
     right: 'दाहिने हात',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'हटाउनुहोस्',
     tips: 'राम्रो हेराइका लागि: उज्यालो प्रकाश, क्यामेरातिर फर्केको खुला हत्केला, र पूरै हत्केला फोटोमा।',
     second: 'अझ पूर्ण हेराइका लागि अर्को हात पनि थप्नुहोस् (ऐच्छिक)।',
-    ready: 'तपाईंका फोटोहरू तयार छन्',
-    pay_one: '{{count}} क्रेडिट तिर्नुहोस् र मेरो हात हेर्नुहोस्',
-    pay_other: '{{count}} क्रेडिट तिर्नुहोस् र मेरो हात हेर्नुहोस्',
-    readPremium: 'मेरो हात हेर्नुहोस् (Premium मा समावेश)',
     reading: 'तपाईंको हात हेरिँदैछ…',
-    notPalm: 'हामीले हत्केला स्पष्ट देख्न सकेनौं, त्यसैले तपाईंबाट कुनै शुल्क लिइएन।',
     yours: 'तपाईंको हस्तरेखा हेराइ',
     earlier: 'अघिल्ला हेराइहरू',
     again: 'नयाँ हेराइ',

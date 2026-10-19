@@ -1,5 +1,6 @@
 // बर\' (बड़ो) राव: पार्सोना, रिपोर्ट, रिमाइन्डार, प्राइभेसि, पेमेन्ट आरो आवाजनि बर\' (brx.ts-आव `extra` महरै हाबनाय)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्तरेखा',
     homeHint: 'नोंथाङनि आखाइ थालानि फटोनिफ्राय हस्तरेखा',
     intro: 'नोंथाङनि आखाइ थालानि मोनसे साफा फटो ला। जोंनि AI हस्तरेखा नायग्राया नोंथाङनि हृदय रेखा, मस्तिष्क रेखा, जीवन रेखा आरो भाग्य रेखा आरो आखाइनि पर्वतफोरखौ नायो।',
-    priceNote_one: 'बेसेन: नायनाय मोनसेनि थाखाय {{count}} क्रेडिट। फटो लानाय उनाव, नायनायनि सिगाङाव नोंथाङआ रां होगोन।',
-    priceNote_other: 'बेसेन: नायनाय मोनसेनि थाखाय {{count}} क्रेडिट। फटो लानाय उनाव, नायनायनि सिगाङाव नोंथाङआ रां होगोन।',
     premiumNote: 'नोंथाङनि प्रिमियामआव हाबनाय दं।',
     left: 'आगसि आखाइ',
     right: 'आगदा आखाइ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'होखार',
     tips: 'मोजां नायनायनि थाखाय: गोबां सोरां, आखाइ थाला खेवनानै केमेरानि फार्से, गासै आखाइ थाला फटोआव।',
     second: 'बांसिन आबुं नायनायनि थाखाय गुबुन आखाइखौबो हाबो (लुबैयोब्ला)।',
-    ready: 'नोंथाङनि फटोफोर थियारि जाबाय',
-    pay_one: '{{count}} क्रेडिट हो आरो आंनि आखाइ नाय',
-    pay_other: '{{count}} क्रेडिट हो आरो आंनि आखाइ नाय',
-    readPremium: 'आंनि आखाइ नाय (प्रिमियामआव हाबनाय दं)',
     reading: 'नोंथाङनि आखाइ नायगासिनो दं…',
-    notPalm: 'जोंआ आखाइ थालाखौ मोजाङै नुनो हायाखै, बेनिखाय नोंथाङनिफ्राय रां लानाय जायाखै।',
     yours: 'नोंथाङनि हस्तरेखा',
     earlier: 'सिगाङनि नायनायफोर',
     again: 'गोदान नायनाय',

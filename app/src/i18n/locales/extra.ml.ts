@@ -1,5 +1,6 @@
 // നാഴികക്കല്ല് 6–10-ൽ ചേർത്ത മലയാളം പാഠം (പെർസോണകൾ, റിപ്പോർട്ട്, ഓർമ്മപ്പെടുത്തൽ, സ്വകാര്യത, പേയ്മെന്റ്, ശബ്ദം).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'കൈനോട്ടം',
     homeHint: 'കൈപ്പത്തിയുടെ ഫോട്ടോയിൽ നിന്ന് ഹസ്തരേഖാ ഫലം',
     intro: 'നിങ്ങളുടെ കൈപ്പത്തിയുടെ വ്യക്തമായ ഫോട്ടോ എടുക്കൂ. ഞങ്ങളുടെ AI നിങ്ങളുടെ ഹൃദയരേഖ, ശിരോരേഖ, ആയുർരേഖ, ഭാഗ്യരേഖ എന്നിവയും കൈയിലെ പർവതങ്ങളും നോക്കും.',
-    priceNote_one: 'വില: ഓരോ കൈനോട്ടത്തിനും {{count}} ക്രെഡിറ്റ്. ഫോട്ടോകൾ എടുത്ത ശേഷം, ഫലം പറയുന്നതിന് മുമ്പാണ് പണമടയ്ക്കേണ്ടത്.',
-    priceNote_other: 'വില: ഓരോ കൈനോട്ടത്തിനും {{count}} ക്രെഡിറ്റുകൾ. ഫോട്ടോകൾ എടുത്ത ശേഷം, ഫലം പറയുന്നതിന് മുമ്പാണ് പണമടയ്ക്കേണ്ടത്.',
     premiumNote: 'നിങ്ങളുടെ പ്രീമിയത്തിൽ ഉൾപ്പെടുന്നു.',
     left: 'ഇടതു കൈ',
     right: 'വലതു കൈ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'നീക്കം ചെയ്യൂ',
     tips: 'നല്ല ഫലത്തിന്: നല്ല വെളിച്ചം, ക്യാമറയ്ക്ക് നേരെ തുറന്ന കൈപ്പത്തി, കൈപ്പത്തി മുഴുവൻ ഫോട്ടോയിൽ വരണം.',
     second: 'കൂടുതൽ പൂർണ്ണമായ ഫലത്തിന് മറ്റേ കൈയും ചേർക്കൂ (ഐച്ഛികം).',
-    ready: 'നിങ്ങളുടെ ഫോട്ടോകൾ തയ്യാറാണ്',
-    pay_one: '{{count}} ക്രെഡിറ്റ് നൽകി എന്റെ കൈ നോക്കൂ',
-    pay_other: '{{count}} ക്രെഡിറ്റുകൾ നൽകി എന്റെ കൈ നോക്കൂ',
-    readPremium: 'എന്റെ കൈ നോക്കൂ (പ്രീമിയത്തിൽ ഉൾപ്പെടുന്നു)',
     reading: 'നിങ്ങളുടെ കൈ നോക്കുന്നു…',
-    notPalm: 'കൈപ്പത്തി വ്യക്തമായി കാണാൻ കഴിഞ്ഞില്ല, അതിനാൽ നിങ്ങളിൽ നിന്ന് പണം ഈടാക്കിയിട്ടില്ല.',
     yours: 'നിങ്ങളുടെ കൈനോട്ട ഫലം',
     earlier: 'മുൻ ഫലങ്ങൾ',
     again: 'പുതിയ കൈനോട്ടം',

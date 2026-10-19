@@ -62,3 +62,50 @@ describe('paid tools', () => {
     await expect(asUser(db, alice, () => db.query(`select * from public.palm_readings`))).rejects.toThrow();
   });
 });
+
+describe('palm reading tickets (pay first, then photos)', () => {
+  let db: PGlite;
+  let alice: string;
+  const buy = async (user: string, price = 30, premiumIncluded = true) =>
+    (await asServer(db, () => db.query<{ t: string | null }>(`select public.buy_palm_ticket($1, $2, $3) as t`, [user, price, premiumIncluded]))).rows[0].t;
+  const use = async (user: string, ticket: string) =>
+    (await asServer(db, () => db.query<{ u: boolean }>(`select public.use_palm_ticket($1, $2) as u`, [user, ticket]))).rows[0].u;
+
+  beforeEach(async () => {
+    db = await freshDatabase();
+    alice = await createUser(db);
+  });
+
+  it('needs enough credits and takes them once for one reading', async () => {
+    expect(await buy(alice)).toBeNull();
+    await give(db, alice, 40);
+    const ticket = (await buy(alice))!;
+    expect(ticket).toMatch(/^[0-9a-f-]{36}$/);
+    expect(await credits(db, alice)).toBe(10);
+    // Paying again before using it gives the same ticket, without charging again.
+    expect(await buy(alice)).toBe(ticket);
+    expect(await credits(db, alice)).toBe(10);
+  });
+
+  it('a ticket is used once; a failed reading gives it back', async () => {
+    await give(db, alice, 30);
+    const ticket = (await buy(alice))!;
+    expect(await use(alice, ticket)).toBe(true);
+    expect(await use(alice, ticket)).toBe(false);
+    await asServer(db, () => db.query(`select public.release_palm_ticket($1, $2)`, [alice, ticket]));
+    expect(await use(alice, ticket)).toBe(true);
+    // Used up: the next reading must be paid again.
+    expect(await buy(alice)).toBeNull();
+  });
+
+  it("cannot use someone else's ticket, and Premium readings cost nothing", async () => {
+    const bob = await createUser(db);
+    await give(db, alice, 30);
+    const ticket = (await buy(alice))!;
+    expect(await use(bob, ticket)).toBe(false);
+    await asServer(db, () => db.query(`select public.set_subscription($1, 'monthly', 'active', now() + interval '30 days', true, false, 'test', null)`, [bob]));
+    expect(await buy(bob)).not.toBeNull();
+    expect(await credits(db, bob)).toBe(0);
+    await expect(asUser(db, alice, () => db.query(`select * from public.palm_tickets`))).rejects.toThrow();
+  });
+});

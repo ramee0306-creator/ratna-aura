@@ -1,5 +1,6 @@
 // नमियें स्क्रीनें दा डोगरी पाठ: AI पर्सोना, PDF रिपोर्ट, याद करवाना, निजता, भुगतान, अवाज़ (doi.ts च `extra` दे रूप च शामल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्त रेखा',
     homeHint: 'हत्थ दी तली दी फोटो थमां हस्त रेखा',
     intro: 'अपनी हत्थ दी तली दी इक साफ फोटो खिच्चो। साढ़ा AI हस्त रेखा माहर तुंदे हत्थ दी दिल, दमाग, जीवन ते किस्मत दी रेखें ते पर्वतें गी दिखदा ऐ।',
-    priceNote_one: 'कीमत: हर रीडिंग आस्तै {{count}} क्रेडिट। तुस फोटो खिच्चने परैंत, रीडिंग शा पैह्लें भुगतान करदे ओ।',
-    priceNote_other: 'कीमत: हर रीडिंग आस्तै {{count}} क्रेडिट। तुस फोटो खिच्चने परैंत, रीडिंग शा पैह्लें भुगतान करदे ओ।',
     premiumNote: 'तुंदे Premium च शामल।',
     left: 'खब्बा हत्थ',
     right: 'सज्जा हत्थ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'हटाओ',
     tips: 'बधिया रीडिंग आस्तै: तेज़ लो, खुल्ली तली कैमरे आह्ली बक्खी, ते पूरी तली फोटो च।',
     second: 'होर पूरी रीडिंग आस्तै दूआ हत्थ बी जोड़ो (मर्ज़ी कन्नै)।',
-    ready: 'तुंदियां फोटुआं त्यार न',
-    pay_one: '{{count}} क्रेडिट देओ ते मेरा हत्थ पढ़ो',
-    pay_other: '{{count}} क्रेडिट देओ ते मेरा हत्थ पढ़ो',
-    readPremium: 'मेरा हत्थ पढ़ो (Premium च शामल)',
     reading: 'तुंदा हत्थ पढ़ेआ जा करदा ऐ…',
-    notPalm: 'असेंगी तली साफ नेईं दिक्खी, इस करी तुंदे कोला किश नेईं लैता गेआ।',
     yours: 'तुंदी हस्त रेखा रीडिंग',
     earlier: 'पिछलियां रीडिंगां',
     again: 'नमीं रीडिंग',

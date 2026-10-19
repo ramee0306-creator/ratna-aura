@@ -422,9 +422,10 @@ Premium includes every tool (`premium_includes_tools`). Prices are in `app_setti
 (Admin panel → Tool prices; 0 = free). The server records unlocks in `unlocks` (only a hash of what was unlocked)
 through `functions/unlock`.
 
-**Palm reading** (`/palm`, `functions/palm`): the user takes or chooses one or two palm photos (the price is shown
-on the screen first), then pays, then Claude reads the palm from the photos. If the photos don't show a clear palm,
-the credits are given back. Photos are never stored; readings are stored encrypted. Limit: 5 readings a day.
+**Palm reading** (`/palm`, `functions/palm`): the user pays first (the price is on the tile and the screen),
+then takes or chooses one or two palm photos, then Claude reads the palm. Paying gives a "ticket" (`palm_tickets`)
+that one reading uses up; if the photos don't show a clear palm or the AI fails, the ticket stays, so the user can
+try again without paying twice. Photos are never stored; readings are stored encrypted. Limit: 5 readings a day.
 
 ### Premium subscription
 The **Premium** screen (home banner, Settings, Credits, and Ask AI when questions run out) offers three plans.

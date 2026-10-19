@@ -1,5 +1,6 @@
 // নতুন স্ক্ৰীনসমূহৰ অসমীয়া পাঠ (AI পাৰ্ছোনা, PDF ৰিপ’ৰ্ট, ৰিমাইণ্ডাৰ, গোপনীয়তা, পেমেণ্ট, ভইচ); as.ts ত `extra` হিচাপে অন্তৰ্ভুক্ত।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'হস্তৰেখা',
     homeHint: 'আপোনাৰ হাতৰ তলুৱাৰ ফটোৰ পৰা হস্তৰেখা বিচাৰ',
     intro: 'আপোনাৰ হাতৰ তলুৱাৰ এখন স্পষ্ট ফটো লওক। আমাৰ AI হস্তৰেখা বিশেষজ্ঞই আপোনাৰ হৃদয় ৰেখা, মস্তিষ্ক ৰেখা, জীৱন ৰেখা আৰু ভাগ্য ৰেখা আৰু হাতৰ পৰ্বতবোৰ চায়।',
-    priceNote_one: 'মূল্য: প্ৰতিটো পাঠৰ বাবে {{count}}টা ক্ৰেডিট। ফটো তোলাৰ পিছত, পাঠৰ আগতে আপুনি পইচা দিব।',
-    priceNote_other: 'মূল্য: প্ৰতিটো পাঠৰ বাবে {{count}}টা ক্ৰেডিট। ফটো তোলাৰ পিছত, পাঠৰ আগতে আপুনি পইচা দিব।',
     premiumNote: 'আপোনাৰ প্ৰিমিয়ামত অন্তৰ্ভুক্ত।',
     left: 'বাওঁ হাত',
     right: 'সোঁ হাত',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'আঁতৰাওক',
     tips: 'ভাল পাঠৰ বাবে: উজ্জ্বল পোহৰ, মুকলি তলুৱা কেমেৰাৰ ফালে, গোটেই তলুৱাখন ফটোত।',
     second: 'অধিক সম্পূৰ্ণ পাঠৰ বাবে আনখন হাতৰো ফটো যোগ কৰক (ইচ্ছা কৰিলে)।',
-    ready: 'আপোনাৰ ফটো সাজু',
-    pay_one: '{{count}}টা ক্ৰেডিট দি মোৰ হাত পঢ়ক',
-    pay_other: '{{count}}টা ক্ৰেডিট দি মোৰ হাত পঢ়ক',
-    readPremium: 'মোৰ হাত পঢ়ক (প্ৰিমিয়ামত অন্তৰ্ভুক্ত)',
     reading: 'আপোনাৰ হাত পঢ়ি আছোঁ…',
-    notPalm: 'আমি হাতৰ তলুৱা স্পষ্টকৈ দেখা নাপালোঁ, সেয়েহে আপোনাৰ পৰা একো কটা হোৱা নাই।',
     yours: 'আপোনাৰ হস্তৰেখা পাঠ',
     earlier: 'আগৰ পাঠসমূহ',
     again: 'নতুন পাঠ',

@@ -1,5 +1,6 @@
 // ತುಳು (ಕನ್ನಡ ಲಿಪಿ): ಪರ್ಸೋನಾ, ರಿಪೋರ್ಟ್, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿದ ಪಾಠ (tcy.ts ಡ್ `extra` ಆದ್ ಸೇರ್ದುಂಡು).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ಹಸ್ತರೇಖೆ ಫಲ',
     homeHint: 'ಈರೆನ ಅಂಗೈದ ಫೋಟೋಡ್ದ್ ಹಸ್ತರೇಖೆ',
     intro: 'ಈರೆನ ಅಂಗೈದ ಸ್ಪಷ್ಟವಾಯಿನ ಫೋಟೋ ದೆಪ್ಪುಲೆ. ನಮ್ಮ AI ಈರೆನ ಹೃದಯ ರೇಖೆ, ಮಸ್ತಿಷ್ಕ ರೇಖೆ, ಆಯುಷ್ಯ ರೇಖೆ, ಭಾಗ್ಯ ರೇಖೆ ಬೊಕ್ಕ ಕೈದ ಪರ್ವತೊಲೆನ್ ತೂಪುಂಡು.',
-    priceNote_one: 'ಬಿಲೆ: ಒಂಜಿ ಫಲೊಗು {{count}} ಕ್ರೆಡಿಟ್. ಫೋಟೋಲೆನ್ ದೆತ್ತಿ ಬೊಕ್ಕ, ಫಲ ಪನ್ಪುನ ದುಂಬು ಈರ್ ಪಾವತಿ ಮಲ್ಪೊಡು.',
-    priceNote_other: 'ಬಿಲೆ: ಒಂಜಿ ಫಲೊಗು {{count}} ಕ್ರೆಡಿಟ್‌ಲು. ಫೋಟೋಲೆನ್ ದೆತ್ತಿ ಬೊಕ್ಕ, ಫಲ ಪನ್ಪುನ ದುಂಬು ಈರ್ ಪಾವತಿ ಮಲ್ಪೊಡು.',
     premiumNote: 'ಈರೆನ ಪ್ರೀಮಿಯಂಡ್ ಸೇರ್ದುಂಡು.',
     left: 'ಎಡತ ಕೈ',
     right: 'ಬಲತ ಕೈ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ರದ್ದು ಮಲ್ಪುಲೆ',
     tips: 'ಎಡ್ಡೆ ಫಲೊಗು: ಎಡ್ಡೆ ಬೊಲ್ಪು, ಅಂಗೈ ಕ್ಯಾಮೆರಾದ ಎದುರು ಬಿಡಿಸದ್ ಉಪ್ಪೊಡು, ಪೂರ್ತಿ ಅಂಗೈ ಫೋಟೋಡ್ ಬರೊಡು.',
     second: 'ಇನ್ನಲಾ ಪೂರ್ತಿ ಫಲೊಗು ಬೇತೆ ಕೈನ್‌ಲಾ ಸೇರಾಲೆ (ಐಚ್ಛಿಕ).',
-    ready: 'ಈರೆನ ಫೋಟೋಲು ತಯಾರ್ ಉಂಡು',
-    pay_one: '{{count}} ಕ್ರೆಡಿಟ್ ಪಾವತಿ ಮಲ್ತ್ ಎನ್ನ ಕೈ ತೂಲೆ',
-    pay_other: '{{count}} ಕ್ರೆಡಿಟ್‌ಲು ಪಾವತಿ ಮಲ್ತ್ ಎನ್ನ ಕೈ ತೂಲೆ',
-    readPremium: 'ಎನ್ನ ಕೈ ತೂಲೆ (ಪ್ರೀಮಿಯಂಡ್ ಸೇರ್ದುಂಡು)',
     reading: 'ಈರೆನ ಹಸ್ತರೇಖೆ ತೂವೊಂದುಂಡು…',
-    notPalm: 'ಅಂಗೈ ಸ್ಪಷ್ಟವಾದ್ ತೋಜಿಜಿ, ಅಯಿಕ್ ಈರೆಗ್ ಶುಲ್ಕ ಹಾಕ್ಯೆಜ್ಜಿ.',
     yours: 'ಈರೆನ ಹಸ್ತರೇಖೆ ಫಲ',
     earlier: 'ದುಂಬುದ ಫಲೊಲು',
     again: 'ಪೊಸ ಫಲ',

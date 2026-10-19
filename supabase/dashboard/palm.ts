@@ -1064,35 +1064,6 @@ function cleanReading(value: unknown): { isPalm: boolean; reading: string } | nu
   return { isPalm: v.isPalm, reading: v.reading.trim().slice(0, 12000) };
 }
 
-// ---- _shared/unlocks.ts ----
-// Paid tools: which tools cost credits, their prices, and the hash that names what was unlocked.
-const FEATURES = ['kundli', 'milan', 'rashifal', 'panchang', 'numbers', 'loshu', 'name', 'vibrations', 'compatibility', 'palm'] as const;
-type Feature = (typeof FEATURES)[number];
-type Prices = Record<Feature, number>;
-
-const isFeature = (value: unknown): value is Feature => typeof value === 'string' && (FEATURES as readonly string[]).includes(value);
-
-/** Prices from app_settings.feature_prices; a missing or broken price means the tool is not sold (null). */
-function cleanPrices(raw: unknown): Partial<Prices> {
-  const out: Partial<Prices> = {};
-  if (!raw || typeof raw !== 'object') return out;
-  for (const f of FEATURES) {
-    const v = (raw as Record<string, unknown>)[f];
-    if (Number.isInteger(v) && (v as number) >= 0 && (v as number) <= 1000) out[f] = v as number;
-  }
-  return out;
-}
-
-/** What the app says was unlocked (e.g. "name|1990-05-14"): 1–300 characters. */
-const isUnlockKey = (value: unknown): value is string => typeof value === 'string' && value.length >= 1 && value.length <= 300;
-
-/** sha-256 (hex) of the feature and key, so names and numbers are not stored. */
-async function keyHash(feature: Feature, key: string): Promise<string> {
-  const bytes = new TextEncoder().encode(`${feature}\u0000${key.normalize('NFC').trim().toLowerCase()}`);
-  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
-  return Array.from(digest, (b) => b.toString(16).padStart(2, '0')).join('');
-}
-
 // ---- _shared/subscriptions.ts ----
 // Premium subscription plans and RevenueCat subscription events. No network here, so it can be tested.
 // Docs: https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields
@@ -1174,6 +1145,35 @@ const periodEnd = (months: number, from = new Date()) => {
   return end.toISOString();
 };
 
+// ---- _shared/unlocks.ts ----
+// Paid tools: which tools cost credits, their prices, and the hash that names what was unlocked.
+const FEATURES = ['kundli', 'milan', 'rashifal', 'panchang', 'numbers', 'loshu', 'name', 'vibrations', 'compatibility', 'palm'] as const;
+type Feature = (typeof FEATURES)[number];
+type Prices = Record<Feature, number>;
+
+const isFeature = (value: unknown): value is Feature => typeof value === 'string' && (FEATURES as readonly string[]).includes(value);
+
+/** Prices from app_settings.feature_prices; a missing or broken price means the tool is not sold (null). */
+function cleanPrices(raw: unknown): Partial<Prices> {
+  const out: Partial<Prices> = {};
+  if (!raw || typeof raw !== 'object') return out;
+  for (const f of FEATURES) {
+    const v = (raw as Record<string, unknown>)[f];
+    if (Number.isInteger(v) && (v as number) >= 0 && (v as number) <= 1000) out[f] = v as number;
+  }
+  return out;
+}
+
+/** What the app says was unlocked (e.g. "name|1990-05-14"): 1–300 characters. */
+const isUnlockKey = (value: unknown): value is string => typeof value === 'string' && value.length >= 1 && value.length <= 300;
+
+/** sha-256 (hex) of the feature and key, so names and numbers are not stored. */
+async function keyHash(feature: Feature, key: string): Promise<string> {
+  const bytes = new TextEncoder().encode(`${feature}\u0000${key.normalize('NFC').trim().toLowerCase()}`);
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+  return Array.from(digest, (b) => b.toString(16).padStart(2, '0')).join('');
+}
+
 // ---- _shared/wallet.ts ----
 // Question credits: how many a user has, and the price list.
 
@@ -1247,13 +1247,15 @@ async function creditPacks(): Promise<CreditPack[]> {
 }
 
 // ---- palm/index.ts ----
-// Palm reading (hast rekha) from photos, paid before the reading is made.
+// Palm reading (hast rekha): pay first, then send the photos.
 //
-//   GET  /palm                          -> { price, premiumIncludes, wallet, readings: [{ id, createdAt, reading }] }
-//   POST /palm { photos, language }     -> { id, createdAt, reading, wallet }
-//        photos: [{ hand: 'left'|'right', mediaType: 'image/jpeg', data: <base64> }] (one or two)
+//   GET  /palm                                    -> { price, premiumIncludes, wallet, ticket, readings: [{ id, createdAt, reading }] }
+//   POST /palm { action: 'pay' }                  -> { ticket, wallet }   one paid reading (an unused one is reused)
 //        -> 402 { error, wallet }                 not enough credits
-//        -> 422 { notPalm: true, message, wallet } no clear palm in the photos (credits given back)
+//   POST /palm { ticket, photos, language }       -> { id, createdAt, reading, wallet }
+//        photos: [{ hand: 'left'|'right', mediaType: 'image/jpeg', data: <base64> }] (one or two)
+//        -> 409                                   no unused paid ticket (pay first)
+//        -> 422 { notPalm: true, message, ticket } no clear palm in the photos (the ticket stays: try again)
 //
 // The photos go to Claude for this one reading and are never stored. The reading is stored encrypted.
 
@@ -1297,7 +1299,9 @@ Deno.serve(async (req) => {
 
   if (req.method === 'GET') {
     try {
-      return json({ price: price ?? null, premiumIncludes, wallet: await getWallet(user.id), readings: await recentReadings(user.id) });
+      const { data: open, error } = await db.from('palm_tickets').select('id').eq('user_id', user.id).is('used_at', null).limit(1).maybeSingle();
+      if (error) throw error;
+      return json({ price: price ?? null, premiumIncludes, wallet: await getWallet(user.id), ticket: open?.id ?? null, readings: await recentReadings(user.id) });
     } catch (err) {
       console.error('palm list failed', err);
       return errorResponse(500, 'Something went wrong. Please try again.');
@@ -1305,29 +1309,35 @@ Deno.serve(async (req) => {
   }
   if (req.method !== 'POST') return errorResponse(405, 'Method not allowed');
 
-  const body = ((await readJson(req)) ?? {}) as { photos?: unknown; language?: unknown };
+  const body = ((await readJson(req)) ?? {}) as { action?: unknown; ticket?: unknown; photos?: unknown; language?: unknown };
+
+  if (body.action === 'pay') {
+    if (price === undefined) return errorResponse(503, 'Palm reading is not available right now');
+    if ((await readingsToday(user.id)) >= READINGS_PER_DAY) return errorResponse(429, 'Daily limit reached. Please try again tomorrow.');
+    const { data: ticket, error } = await db.rpc('buy_palm_ticket', { p_user: user.id, p_price: price, p_premium_included: premiumIncludes });
+    if (error) {
+      console.error('palm payment failed', error);
+      return errorResponse(500, 'Something went wrong. Please try again. You were not charged.');
+    }
+    const wallet = await getWallet(user.id);
+    if (!ticket) return json({ error: 'Not enough credits', wallet }, 402);
+    return json({ ticket, wallet });
+  }
+
+  if (typeof body.ticket !== 'string' || !UUID.test(body.ticket)) return errorResponse(400, 'Pay first');
   if (!isLanguage(body.language)) return errorResponse(400, 'unknown language');
   const photos = parsePhotos(body.photos);
   if (typeof photos === 'string') return errorResponse(400, photos);
-  if (price === undefined) return errorResponse(503, 'Palm reading is not available right now');
-  if ((await readingsToday(user.id)) >= READINGS_PER_DAY) return errorResponse(429, 'Daily limit reached. Please try again tomorrow.');
+  const ticket = body.ticket;
 
-  // Pay first (each reading is its own unlock), then read; any failure gives the credits back.
-  const id = crypto.randomUUID();
-  const hash = await keyHash('palm', id);
-  const { data: status, error: payError } = await db.rpc('unlock_feature', {
-    p_user: user.id,
-    p_feature: 'palm',
-    p_key_hash: hash,
-    p_price: price,
-    p_premium_included: premiumIncludes,
-  });
-  if (payError) {
-    console.error('palm payment failed', payError);
-    return errorResponse(500, 'Something went wrong. Please try again. You were not charged.');
+  // Use the paid ticket; if the reading cannot be made, give it back so the user can try again.
+  const { data: usable, error: ticketError } = await db.rpc('use_palm_ticket', { p_user: user.id, p_ticket: ticket });
+  if (ticketError) {
+    console.error('palm ticket failed', ticketError);
+    return errorResponse(500, 'Something went wrong. Please try again.');
   }
-  if (status === 'none') return json({ error: 'Not enough credits', wallet: await getWallet(user.id) }, 402);
-  const refund = () => db.rpc('undo_unlock', { p_user: user.id, p_feature: 'palm', p_key_hash: hash });
+  if (!usable) return errorResponse(409, 'Please pay for the reading first');
+  const release = () => db.rpc('release_palm_ticket', { p_user: user.id, p_ticket: ticket });
 
   try {
     const result = await generateJson({
@@ -1351,8 +1361,8 @@ Deno.serve(async (req) => {
     const reading = cleanReading(result.data);
     if (!reading) throw new Error('The AI answer was empty');
     if (!reading.isPalm) {
-      await refund();
-      return json({ notPalm: true, message: reading.reading, wallet: await getWallet(user.id) }, 422);
+      await release();
+      return json({ notPalm: true, message: reading.reading, ticket }, 422);
     }
     const { data: row, error } = await db
       .from('palm_readings')
@@ -1362,7 +1372,7 @@ Deno.serve(async (req) => {
     if (error) throw error;
     return json({ id: row.id, createdAt: row.created_at, reading: reading.reading, wallet: await getWallet(user.id) });
   } catch (err) {
-    await refund();
+    await release();
     return chatErrorResponse(err, 'palm');
   }
 });

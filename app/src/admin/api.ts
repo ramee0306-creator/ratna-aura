@@ -28,9 +28,9 @@ const demoSettings: Record<string, unknown> = {
   payments_mode: 'test',
   feature_prices: { kundli: 40, milan: 30, rashifal: 10, panchang: 5, numbers: 20, loshu: 20, name: 30, vibrations: 10, compatibility: 20, palm: 30 },
   credit_packs: [
-    { id: 'q10', credits: 10, priceInr: 49 },
-    { id: 'q30', credits: 30, priceInr: 129 },
-    { id: 'q100', credits: 100, priceInr: 349 },
+    { id: 'q10', credits: 10, priceInr: 74 },
+    { id: 'q30', credits: 30, priceInr: 194 },
+    { id: 'q100', credits: 100, priceInr: 524 },
   ],
 };
 

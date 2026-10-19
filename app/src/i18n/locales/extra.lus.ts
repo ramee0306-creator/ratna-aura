@@ -1,5 +1,6 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'Kutphah Chhiarna',
     homeHint: 'I kutphah thlalak atanga hast rekha',
     intro: 'I kutphah thlalak chiang tak la rawh. Kan AI kutphah chhiartu chuan i thinlung line, lu line, nun line leh vanneihna line te leh i kut tlang (mount) te a en ang.',
-    priceNote_one: 'Man: chhiar vawi khatah credit {{count}}. Thlalak i lak zawh hnuah, chhiar hmain i pe ang.',
-    priceNote_other: 'Man: chhiar vawi khatah credit {{count}}. Thlalak i lak zawh hnuah, chhiar hmain i pe ang.',
     premiumNote: 'I Premium-ah a tel.',
     left: 'Kut vei',
     right: 'Kut ding',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'Paih',
     tips: 'Chhiar ṭha nân: êng chhuak tak, kutphah zau camera lam hawi, kutphah pumpui thlalakah.',
     second: 'Chhiar famkim zawk nân kut dang pawh belh rawh (i duh chuan).',
-    ready: 'I thlalak te a inpeih e',
-    pay_one: 'Credit {{count}} pe la ka kutphah chhiar rawh',
-    pay_other: 'Credit {{count}} pe la ka kutphah chhiar rawh',
-    readPremium: 'Ka kutphah chhiar rawh (Premium-ah a tel)',
     reading: 'I kutphah chhiar mek…',
-    notPalm: 'Kutphah chiang takin kan hmu thei lo, chuvangin engmah i sen lo.',
     yours: 'I kutphah chhiarna',
     earlier: 'Chhiar tawh te',
     again: 'Chhiar thar',

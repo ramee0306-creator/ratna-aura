@@ -160,7 +160,7 @@ export default function AdminScreen() {
                 />
               </View>
             ))}
-            <AppText variant="caption">0 = free. 1 credit ≈ ₹3.5–₹4.9 depending on the pack. Premium includes every tool.</AppText>
+            <AppText variant="caption">0 = free. 1 credit ≈ ₹5.2–₹7.4 depending on the pack. Premium includes every tool.</AppText>
           </Card>
 
           <AppText variant="overline">Gift credits</AppText>

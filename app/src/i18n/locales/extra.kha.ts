@@ -1,5 +1,6 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'Jingpule Kti',
     homeHint: 'Hast rekha na ka dur ka pdeng kti jong phi',
     intro: 'Shim ia ka dur ba shai jong ka pdeng kti jong phi. U nongpule kti AI jong ngi u khmih ia ki line jong ka dohnud, ka jabieng, ka jingim bad ka fate, bad ki lum (mount) jong ka kti jong phi.',
-    priceNote_one: 'Ka dor: {{count}} credit na ka bynta kawei ka jingpule. Phi siew hadien ba phi la shim ia ki dur, shuwa ka jingpule.',
-    priceNote_other: 'Ka dor: {{count}} credit na ka bynta kawei ka jingpule. Phi siew hadien ba phi la shim ia ki dur, shuwa ka jingpule.',
     premiumNote: 'Ka ïadon lem ha ka Premium jong phi.',
     left: 'Ka kti diang',
     right: 'Ka kti kamon',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'Weng',
     tips: 'Na ka bynta ka jingpule ba bha: ka jingshai ba khraw, ka pdeng kti ba plie pyrshah ia ka camera, baroh ka pdeng kti ha ka dur.',
     second: 'Pynbun ruh ia kawei pat ka kti (lada phi kwah) na ka bynta ka jingpule kaba kham dap.',
-    ready: 'Ki dur jong phi ki la khreh',
-    pay_one: 'Siew {{count}} credit bad pule ia ka kti jong nga',
-    pay_other: 'Siew {{count}} credit bad pule ia ka kti jong nga',
-    readPremium: 'Pule ia ka kti jong nga (ka ïadon lem ha ka Premium)',
     reading: 'Ka pule ia ka kti jong phi…',
-    notPalm: 'Ngim lah ban khmih shai ia ka pdeng kti, te ym la shim pisa na phi.',
     yours: 'Ka jingpule kti jong phi',
     earlier: 'Ki jingpule kiba mynshuwa',
     again: 'Jingpule thymmai',

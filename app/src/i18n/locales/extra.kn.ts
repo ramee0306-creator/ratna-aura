@@ -1,5 +1,6 @@
 // ಮೈಲಿಗಲ್ಲು 6–10 ರಲ್ಲಿ ಸೇರಿಸಿದ ಕನ್ನಡ ಪಠ್ಯ (ಪರ್ಸೋನಾಗಳು, ವರದಿ, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ಹಸ್ತರೇಖೆ ವಿಶ್ಲೇಷಣೆ',
     homeHint: 'ನಿಮ್ಮ ಅಂಗೈಯ ಫೋಟೋದಿಂದ ಹಸ್ತರೇಖೆ ಭವಿಷ್ಯ',
     intro: 'ನಿಮ್ಮ ಅಂಗೈಯ ಸ್ಪಷ್ಟ ಫೋಟೋ ತೆಗೆಯಿರಿ. ನಮ್ಮ AI ನಿಮ್ಮ ಹೃದಯ ರೇಖೆ, ಮಸ್ತಿಷ್ಕ ರೇಖೆ, ಆಯುಷ್ಯ ರೇಖೆ, ಭಾಗ್ಯ ರೇಖೆ ಮತ್ತು ಕೈಯ ಪರ್ವತಗಳನ್ನು ನೋಡುತ್ತದೆ.',
-    priceNote_one: 'ಬೆಲೆ: ಪ್ರತಿ ವಿಶ್ಲೇಷಣೆಗೆ {{count}} ಕ್ರೆಡಿಟ್. ಫೋಟೋಗಳನ್ನು ತೆಗೆದ ನಂತರ, ವಿಶ್ಲೇಷಣೆಗೆ ಮೊದಲು ನೀವು ಪಾವತಿಸುತ್ತೀರಿ.',
-    priceNote_other: 'ಬೆಲೆ: ಪ್ರತಿ ವಿಶ್ಲೇಷಣೆಗೆ {{count}} ಕ್ರೆಡಿಟ್‌ಗಳು. ಫೋಟೋಗಳನ್ನು ತೆಗೆದ ನಂತರ, ವಿಶ್ಲೇಷಣೆಗೆ ಮೊದಲು ನೀವು ಪಾವತಿಸುತ್ತೀರಿ.',
     premiumNote: 'ನಿಮ್ಮ ಪ್ರೀಮಿಯಂನಲ್ಲಿ ಸೇರಿದೆ.',
     left: 'ಎಡಗೈ',
     right: 'ಬಲಗೈ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ತೆಗೆದುಹಾಕಿ',
     tips: 'ಉತ್ತಮ ವಿಶ್ಲೇಷಣೆಗೆ: ಚೆನ್ನಾದ ಬೆಳಕು, ಕ್ಯಾಮೆರಾದ ಕಡೆಗೆ ತೆರೆದ ಅಂಗೈ, ಇಡೀ ಅಂಗೈ ಫೋಟೋದಲ್ಲಿ ಬರಲಿ.',
     second: 'ಇನ್ನಷ್ಟು ಪೂರ್ಣ ವಿಶ್ಲೇಷಣೆಗೆ ಇನ್ನೊಂದು ಕೈಯನ್ನೂ ಸೇರಿಸಿ (ಐಚ್ಛಿಕ).',
-    ready: 'ನಿಮ್ಮ ಫೋಟೋಗಳು ಸಿದ್ಧವಾಗಿವೆ',
-    pay_one: '{{count}} ಕ್ರೆಡಿಟ್ ಪಾವತಿಸಿ, ನನ್ನ ಹಸ್ತರೇಖೆ ನೋಡಿ',
-    pay_other: '{{count}} ಕ್ರೆಡಿಟ್‌ಗಳನ್ನು ಪಾವತಿಸಿ, ನನ್ನ ಹಸ್ತರೇಖೆ ನೋಡಿ',
-    readPremium: 'ನನ್ನ ಹಸ್ತರೇಖೆ ನೋಡಿ (ಪ್ರೀಮಿಯಂನಲ್ಲಿ ಸೇರಿದೆ)',
     reading: 'ನಿಮ್ಮ ಹಸ್ತರೇಖೆ ನೋಡಲಾಗುತ್ತಿದೆ…',
-    notPalm: 'ಅಂಗೈ ಸ್ಪಷ್ಟವಾಗಿ ಕಾಣಿಸಲಿಲ್ಲ, ಆದ್ದರಿಂದ ನಿಮಗೆ ಶುಲ್ಕ ವಿಧಿಸಿಲ್ಲ.',
     yours: 'ನಿಮ್ಮ ಹಸ್ತರೇಖೆ ವಿಶ್ಲೇಷಣೆ',
     earlier: 'ಹಿಂದಿನ ವಿಶ್ಲೇಷಣೆಗಳು',
     again: 'ಹೊಸ ವಿಶ್ಲೇಷಣೆ',

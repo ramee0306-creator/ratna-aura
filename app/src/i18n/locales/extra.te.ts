@@ -1,5 +1,6 @@
 // మిలెస్టోన్ 6–10 లో చేర్చిన తెలుగు పాఠ్యం (పర్సనాలు, నివేదిక, రిమైండర్, గోప్యత, చెల్లింపులు, వాయిస్).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'హస్తరేఖ పఠనం',
     homeHint: 'మీ అరచేతి ఫోటో నుండి హస్తరేఖ ఫలితం',
     intro: 'మీ అరచేతిని స్పష్టంగా ఫోటో తీయండి. మా AI మీ అరచేతిలోని హృదయ రేఖ, మస్తిష్క రేఖ, ఆయుష్షు రేఖ, భాగ్య రేఖలను, చేతిలోని పర్వతాలను పరిశీలిస్తుంది.',
-    priceNote_one: 'ధర: ప్రతి పఠనానికి {{count}} క్రెడిట్. ఫోటోలు తీసిన తర్వాత, పఠనానికి ముందు మీరు చెల్లిస్తారు.',
-    priceNote_other: 'ధర: ప్రతి పఠనానికి {{count}} క్రెడిట్లు. ఫోటోలు తీసిన తర్వాత, పఠనానికి ముందు మీరు చెల్లిస్తారు.',
     premiumNote: 'మీ ప్రీమియంలో భాగం.',
     left: 'ఎడమ చేయి',
     right: 'కుడి చేయి',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'తీసివేయండి',
     tips: 'మంచి పఠనం కోసం: బాగా వెలుతురు, కెమెరా వైపు తెరిచిన అరచేయి, అరచేయి మొత్తం ఫోటోలో రావాలి.',
     second: 'మరింత పూర్తి పఠనం కోసం మరో చేతిని కూడా జోడించండి (ఐచ్ఛికం).',
-    ready: 'మీ ఫోటోలు సిద్ధంగా ఉన్నాయి',
-    pay_one: '{{count}} క్రెడిట్ చెల్లించి నా చేతి రేఖలు చదవండి',
-    pay_other: '{{count}} క్రెడిట్లు చెల్లించి నా చేతి రేఖలు చదవండి',
-    readPremium: 'నా చేతి రేఖలు చదవండి (ప్రీమియంలో భాగం)',
     reading: 'మీ చేతి రేఖలను చదువుతున్నాం…',
-    notPalm: 'అరచేయి స్పష్టంగా కనిపించలేదు, అందుకే మీకు ఛార్జ్ చేయలేదు.',
     yours: 'మీ హస్తరేఖ పఠనం',
     earlier: 'మునుపటి పఠనాలు',
     again: 'కొత్త పఠనం',

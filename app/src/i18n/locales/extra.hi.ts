@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइंडर, गोपनीयता, भुगतान और आवाज़ का हिन्दी पाठ (hi.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्त रेखा',
     homeHint: 'आपकी हथेली की फ़ोटो से हस्त रेखा',
     intro: 'अपनी हथेली की साफ़ फ़ोटो लें। हमारा AI हस्त रेखा विशेषज्ञ आपकी हृदय रेखा, मस्तिष्क रेखा, जीवन रेखा और भाग्य रेखा तथा हाथ के पर्वतों को देखता है।',
-    priceNote_one: 'कीमत: हर रीडिंग के लिए {{count}} क्रेडिट। आप फ़ोटो लेने के बाद, रीडिंग से पहले भुगतान करते हैं।',
-    priceNote_other: 'कीमत: हर रीडिंग के लिए {{count}} क्रेडिट। आप फ़ोटो लेने के बाद, रीडिंग से पहले भुगतान करते हैं।',
     premiumNote: 'आपके प्रीमियम में शामिल।',
     left: 'बायाँ हाथ',
     right: 'दायाँ हाथ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'हटाएँ',
     tips: 'अच्छी रीडिंग के लिए: तेज़ रोशनी, खुली हथेली कैमरे की ओर, और पूरी हथेली फ़ोटो में।',
     second: 'और पूरी रीडिंग के लिए दूसरे हाथ की फ़ोटो भी जोड़ें (वैकल्पिक)।',
-    ready: 'आपकी फ़ोटो तैयार हैं',
-    pay_one: '{{count}} क्रेडिट देकर मेरा हाथ पढ़ें',
-    pay_other: '{{count}} क्रेडिट देकर मेरा हाथ पढ़ें',
-    readPremium: 'मेरा हाथ पढ़ें (प्रीमियम में शामिल)',
     reading: 'आपकी हथेली पढ़ी जा रही है…',
-    notPalm: 'हमें हथेली साफ़ नहीं दिखी, इसलिए आपसे कोई शुल्क नहीं लिया गया।',
     yours: 'आपकी हस्त रेखा रीडिंग',
     earlier: 'पिछली रीडिंग',
     again: 'नई रीडिंग',

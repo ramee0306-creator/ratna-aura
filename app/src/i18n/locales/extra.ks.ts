@@ -1,5 +1,6 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -176,11 +177,10 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
+    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'ہست ریکھا',
     homeHint: 'اَتھٕ تلُک فوٹو وُچھِتھ ہست ریکھا',
     intro: 'پننِس اَتھٕ تلُک اَکھ صاف فوٹو کٔڈِو۔ سون AI ہست ریکھا ماہِر چھُ تُہٕنٛدِس اَتھس مَنٛز دِلٕچ، دماغٕچ، زِندگی ہٕنٛز تہٕ قِسمتٕچ لکیرٕ تہٕ اُبھار وُچھان۔',
-    priceNote_one: 'قیمت: پرٛتھ ریڈنگس {{count}} کریڈٹ۔ توٚہؠ چھِو فوٹو کڈنہٕ پتہٕ، ریڈنگہِ برٛونٛہہ ادائیگی کران۔',
-    priceNote_other: 'قیمت: پرٛتھ ریڈنگس {{count}} کریڈٹ۔ توٚہؠ چھِو فوٹو کڈنہٕ پتہٕ، ریڈنگہِ برٛونٛہہ ادائیگی کران۔',
     premiumNote: 'تُہٕنٛدِس Premium مَنٛز شٲمِل۔',
     left: 'کھوٚوُر اَتھ',
     right: 'دۆچھُن اَتھ',
@@ -189,12 +189,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'ہٹٲوِو',
     tips: 'رٕژھ ریڈنگ خٲطرٕ: تیز گاش، کھُلہٕ اَتھٕ تَل کیمرس کُن، تہٕ پوٗرٕ اَتھٕ تَل فوٹوہس مَنٛز۔',
     second: 'پوٗرٕ ریڈنگ خٲطرٕ کٔرِو بیٚیِس اَتھس ہُند فوٹو تہِ شٲمِل (اختیٲری)۔',
-    ready: 'تُہٕنٛدۍ فوٹو چھِ تیار',
-    pay_one: '{{count}} کریڈٹ دِیِو تہٕ میون اَتھ پَرِو',
-    pay_other: '{{count}} کریڈٹ دِیِو تہٕ میون اَتھ پَرِو',
-    readPremium: 'میون اَتھ پَرِو (Premium مَنٛز شٲمِل)',
     reading: 'تُہٕنٛد اَتھ چھُ پرنہٕ یِوان…',
-    notPalm: 'اَسہِ آو نہٕ اَتھٕ تَل صاف نظرِ، امہِ موجوٗب آو نہٕ تُہٕ کھوتہٕ کینٛہہ نِیتھ۔',
     yours: 'تُہٕنٛز ہست ریکھا ریڈنگ',
     earlier: 'برٛونٛہمِ ریڈنگ',
     again: 'نٔو ریڈنگ',
