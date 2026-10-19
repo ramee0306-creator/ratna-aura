@@ -29,5 +29,7 @@ uploading anything.
 - [ ] In-app products (Monetize → Products → In-app products): `q10`, `q30`, `q100` as **one-time** products.
 - [ ] Subscription `premium` with base plans `monthly`, `quarterly`, `yearly` (+ 7-day free-trial offer on `yearly`);
       prices must match `subscription_plans` in the Admin panel. Turn on the grace period.
+- [ ] Store screenshots: the app blocks screenshots, so take them from the web demo or a build made with
+      `ALLOW_SCREENSHOTS=1` (README → Screenshots are blocked).
 - [ ] Store listing (`docs/store-listing.md`), Data safety (`docs/data-safety.md`), content rating, target audience 18+.
 - [ ] GitHub → Actions → *Build for Google Play* → upload the `.aab` to **Internal testing** first, then closed testing.

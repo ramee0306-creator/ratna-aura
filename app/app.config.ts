@@ -47,6 +47,7 @@ const config: ExpoConfig = {
     'expo-font',
     'expo-web-browser',
     './plugins/withReleaseSigning',
+    './plugins/withSecureScreen',
     [
       'expo-speech-recognition',
       {

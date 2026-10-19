@@ -376,6 +376,11 @@ GitHub → **Actions** → **Build APK** → **Run workflow**. After ~20 minutes
 `ratna-aura-apk` (a .zip). On your Android phone, unzip it, open the `.apk` and allow "install unknown apps" when
 asked. This test build is signed with a test key, so it cannot go on Google Play.
 
+### Screenshots are blocked
+The Android app blocks screenshots and screen recording (`app/plugins/withSecureScreen.js`): captures come out
+black and the app is hidden in the "recent apps" preview. For Play Store screenshots, use the web demo, or build
+once with the environment variable `ALLOW_SCREENSHOTS=1`.
+
 ### Google Play (AAB)
 1. ⚠️ **Decide the package ID now — it can never change after the first upload** (`brand.config.js` →
    `androidPackage`, currently `com.velqorastudios.ratnaaura`).
