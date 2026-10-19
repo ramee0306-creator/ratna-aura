@@ -4,15 +4,9 @@ import { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import { LANGUAGES, type LanguageCode } from './languages';
-import bn from './locales/bn';
-import en, { type Translation } from './locales/en';
-import gu from './locales/gu';
-import hi from './locales/hi';
+import { TRANSLATIONS } from './translations';
 
 export { dateLocale, type LanguageCode } from './languages';
-
-/** Every finished translation. Languages in languages.ts without a file here are not offered yet. */
-const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = { en, hi, bn, gu };
 
 /** The languages offered on the language screen, in display order. */
 export const AVAILABLE_LANGUAGES = LANGUAGES.filter((l) => TRANSLATIONS[l.code]);
