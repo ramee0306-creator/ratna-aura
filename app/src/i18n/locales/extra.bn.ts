@@ -1,5 +1,6 @@
 // নতুন স্ক্রিনগুলির বাংলা পাঠ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডার, গোপনীয়তা, পেমেন্ট, ভয়েস); bn.ts-এ `extra` হিসেবে যুক্ত।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'প্রেম ও বিবাহ', text: 'আপনার কুণ্ডলীর মাধ্যমে সম্পর্ক, বিবাহ ও পরিবার, আন্তরিকতা ও যত্নের সঙ্গে।' },
       shastri: { role: 'ঐতিহ্যবাহী পণ্ডিত', text: 'পঞ্জিকা, মুহূর্ত (শুভ সময়), উৎসব এবং সহজ ঐতিহ্যবাহী উপায়।' },
       tara: { role: 'কর্মজীবন ও পড়াশোনা', text: 'জ্যোতিষ ও সংখ্যার মাধ্যমে কাজ, পড়াশোনা ও জীবনের পথ।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

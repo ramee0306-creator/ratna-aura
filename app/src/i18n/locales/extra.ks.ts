@@ -1,5 +1,6 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ماے تہٕ خانٛدر', text: 'تُہٕنٛزِ کُنڈلی ہِنٛدِ ذریعہٕ رِشتہٕ، خانٛدر تہٕ کۄٹُم، اپنایَت تہٕ فکر سٕتؠ۔' },
       shastri: { role: 'رِوایتی پنڈت', text: 'پنچانگ، مہورت (ژھوکھ وَقت)، تہوار تہٕ سادٕ رِوایتی اُپاے۔' },
       tara: { role: 'کیریر تہٕ تعلیم', text: 'جوتِش تہٕ نمبرَن ہِنٛدِ ذریعہٕ کٲم، تعلیم تہٕ زندگی ہُند رُخ۔' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

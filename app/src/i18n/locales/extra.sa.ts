@@ -1,5 +1,6 @@
 // नूतनपटलानां संस्कृतपाठः: AI-पात्राणि, PDF-प्रतिवेदनम्, स्मारकम्, गोपनीयता, देयकम्, ध्वनिः (sa.ts मध्ये `extra` इति रूपेण सम्मिलितः)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम विवाहश्च', text: 'भवतः कुण्डल्या सम्बन्धाः, विवाहः, कुटुम्बं च, स्नेहेन आदरेण च।' },
       shastri: { role: 'पारम्परिकः पण्डितः', text: 'पञ्चाङ्गम्, मुहूर्तः (शुभसमयः), उत्सवाः सरलाः पारम्परिकोपायाः च।' },
       tara: { role: 'वृत्तिः अध्ययनं च', text: 'ज्योतिषेण अङ्कैः च कार्यं, अध्ययनं, जीवनदिशा च।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

@@ -1,5 +1,6 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'Hmangaihna leh inneihna', text: 'I chart hmangin inlaichînna, inneihna leh chhungkua chungchang, ngilneihna leh fimkhurna nen.' },
       shastri: { role: 'Hnam dan pandit', text: 'Panchang, muhurta (hun ṭha), kuthnghah leh hnam dan anga tihdan ngaihnawm.' },
       tara: { role: 'Hnathawh leh zirna', text: 'Astrology leh number hmangin hnathawh, zirna leh nunphung kawng.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

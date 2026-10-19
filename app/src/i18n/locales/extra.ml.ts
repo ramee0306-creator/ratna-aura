@@ -1,5 +1,6 @@
 // നാഴികക്കല്ല് 6–10-ൽ ചേർത്ത മലയാളം പാഠം (പെർസോണകൾ, റിപ്പോർട്ട്, ഓർമ്മപ്പെടുത്തൽ, സ്വകാര്യത, പേയ്മെന്റ്, ശബ്ദം).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'പ്രണയം & വിവാഹം', text: 'നിങ്ങളുടെ ജാതകത്തിലൂടെ ബന്ധങ്ങൾ, വിവാഹം, കുടുംബം എന്നിവയെക്കുറിച്ച് സ്നേഹത്തോടെയും കരുതലോടെയും.' },
       shastri: { role: 'പരമ്പരാഗത പണ്ഡിതൻ', text: 'പഞ്ചാംഗം, മുഹൂർത്തം (നല്ല സമയങ്ങൾ), ഉത്സവങ്ങൾ, ലളിതമായ പരമ്പരാഗത പരിഹാരങ്ങൾ.' },
       tara: { role: 'തൊഴിൽ & പഠനം', text: 'ജോലി, പഠനം, ജീവിതദിശ — ജ്യോതിഷത്തിലൂടെയും സംഖ്യകളിലൂടെയും.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

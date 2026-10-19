@@ -1,5 +1,6 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'Ka jingieit bad marriage', text: 'Ki jingïasnoh, marriage bad ka kur ka khat da ka chart jong phi, bad ka jingieit bad ka jingkyrmen.' },
       shastri: { role: 'Pandit ka dustur', text: 'Panchang, muhurta (ki por ba bha), ki festival bad ki jingïarap ba sngew ka dustur.' },
       tara: { role: 'Ka kam bad ka jingpule', text: 'Ka kam, ka jingpule bad ka lynti ka jingim da astrology bad ki nambar.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

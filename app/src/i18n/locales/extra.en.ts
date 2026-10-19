@@ -27,6 +27,13 @@ const extra = {
       meera: { role: 'Love & marriage', text: 'Relationships, marriage and family through your chart, with warmth and care.' },
       shastri: { role: 'Traditional pandit', text: 'Panchang, muhurta (good timings), festivals and simple traditional remedies.' },
       tara: { role: 'Career & studies', text: 'Work, studies and life direction through astrology and numbers.' },
+      devraj: { role: 'Lal Kitab expert', text: 'Lal Kitab readings with simple, low-cost upay (remedies) you can do at home.' },
+      kavya: { role: 'KP & prashna', text: 'KP system and prashna: clear views on yes-or-no questions and timing.' },
+      gopal: { role: 'Vastu Shastra', text: 'Vastu for your home, shop or office, with easy changes and no demolition.' },
+      lakshmi: { role: 'Wealth & business', text: 'Money, savings and business through your chart, and good periods to begin.' },
+      arjun: { role: 'Foreign travel & abroad', text: 'Study abroad, visas, jobs overseas and settling abroad through your chart.' },
+      savitri: { role: 'Children & family', text: 'Children, their studies and nature, and peace in the family, with a mother’s care.' },
+      rudra: { role: 'Shani, Rahu & Ketu', text: 'Sade Sati, Dhaiya, Rahu–Ketu and planetary transits, explained without fear.' },
     },
   },
   report: {

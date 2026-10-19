@@ -29,8 +29,9 @@ vehicle number vibrations, and compatibility.
 🤖 **Ask AI** — ask questions about your chart and numbers and get thoughtful answers in your language. Your first
 3 questions are free.
 
-🧘 **Talk to AI astrologers** — chat with five AI guides, each with a specialty: Vedic astrology, numerology, love &
-marriage, traditional panchang & muhurta, and career. They are clearly AI — never pretending to be human.
+🧘 **Talk to AI astrologers** — chat with twelve AI guides, each with a specialty: Vedic astrology, numerology, love &
+marriage, panchang & muhurta, career, Lal Kitab, KP & prashna, Vastu, wealth, foreign travel, children & family,
+and Shani–Rahu–Ketu. They are clearly AI — never pretending to be human.
 
 🔒 **Private by design** — birth details and chats are encrypted; delete your account and data any time from Settings.
 

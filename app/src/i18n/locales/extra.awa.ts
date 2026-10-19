@@ -1,5 +1,6 @@
 // नए स्क्रीन (AI पर्सोना, PDF रिपोर्ट, याद दिलावै वाला, निजता, भुगतान, आवाज) कै अवधी पाठ (awa.ts मा `extra` के रूप मा सामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम अउर बियाह', text: 'आपकै कुंडली से रिस्ता, बियाह अउर परिवार कै बात, अपनापन अउर फिकिर के साथ।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पतरा (पंचांग), मुहूरत (नीक समय), तीज-तिउहार अउर सीधे-सादे पारंपरिक उपाय।' },
       tara: { role: 'करियर अउर पढ़ाई', text: 'ज्योतिष अउर अंकन से काम, पढ़ाई अउर जिनगी कै राह के बारे मा।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

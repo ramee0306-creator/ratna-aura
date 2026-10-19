@@ -1,5 +1,6 @@
 // மைல்கல் 6–10-இல் சேர்க்கப்பட்ட தமிழ் உரை (பர்சனாக்கள், அறிக்கை, நினைவூட்டல், தனியுரிமை, பணம் செலுத்துதல், குரல்).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'காதல் & திருமணம்', text: 'உங்கள் ஜாதகம் வழியாக உறவுகள், திருமணம், குடும்பம் பற்றி அன்புடனும் அக்கறையுடனும்.' },
       shastri: { role: 'பாரம்பரிய பண்டிதர்', text: 'பஞ்சாங்கம், முகூர்த்தம் (நல்ல நேரங்கள்), பண்டிகைகள், எளிய பாரம்பரிய பரிகாரங்கள்.' },
       tara: { role: 'தொழில் & படிப்பு', text: 'வேலை, படிப்பு, வாழ்க்கைப் பாதை — ஜோதிடம் மற்றும் எண்கள் வழியாக.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

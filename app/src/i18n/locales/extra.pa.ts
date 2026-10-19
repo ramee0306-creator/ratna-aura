@@ -1,5 +1,6 @@
 // ਨਵੀਆਂ ਸਕ੍ਰੀਨਾਂ ਦਾ ਪੰਜਾਬੀ ਪਾਠ: AI ਪਰਸੋਨਾ, PDF ਰਿਪੋਰਟ, ਰਿਮਾਈਂਡਰ, ਪਰਦੇਦਾਰੀ, ਭੁਗਤਾਨ, ਆਵਾਜ਼ (pa.ts ਵਿੱਚ `extra` ਵਜੋਂ ਸ਼ਾਮਲ)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ਪਿਆਰ ਅਤੇ ਵਿਆਹ', text: 'ਤੁਹਾਡੀ ਕੁੰਡਲੀ ਰਾਹੀਂ ਰਿਸ਼ਤੇ, ਵਿਆਹ ਅਤੇ ਪਰਿਵਾਰ ਬਾਰੇ, ਪਿਆਰ ਅਤੇ ਫ਼ਿਕਰ ਨਾਲ।' },
       shastri: { role: 'ਪਰੰਪਰਾਗਤ ਪੰਡਿਤ', text: 'ਪੰਚਾਂਗ, ਮਹੂਰਤ (ਸ਼ੁਭ ਸਮਾਂ), ਤਿਉਹਾਰ ਅਤੇ ਸਰਲ ਪਰੰਪਰਾਗਤ ਉਪਾਅ।' },
       tara: { role: 'ਕਰੀਅਰ ਅਤੇ ਪੜ੍ਹਾਈ', text: 'ਜੋਤਿਸ਼ ਅਤੇ ਅੰਕਾਂ ਰਾਹੀਂ ਕੰਮ, ਪੜ੍ਹਾਈ ਅਤੇ ਜੀਵਨ ਦੀ ਦਿਸ਼ਾ।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

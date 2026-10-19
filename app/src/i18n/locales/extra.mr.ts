@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF अहवाल, स्मरण, गोपनीयता, पेमेंट आणि आवाजाचा मराठी मजकूर (mr.ts मध्ये `extra` म्हणून समाविष्ट).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम आणि विवाह', text: 'तुमच्या कुंडलीतून नातेसंबंध, विवाह आणि कुटुंब — जिव्हाळ्याने आणि काळजीने.' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पंचांग, मुहूर्त (शुभ वेळ), सण आणि साधे पारंपरिक उपाय.' },
       tara: { role: 'करिअर आणि शिक्षण', text: 'ज्योतिष आणि अंकांद्वारे काम, शिक्षण आणि जीवनाची दिशा.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

@@ -1,5 +1,6 @@
 // नूंवी स्क्रीनां रो राजस्थानी पाठ: AI पर्सोना, PDF रिपोर्ट, याद दिरावण, निजता, भुगतान, आवाज (raj.ts में `extra` रै रूप में सामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम अर ब्याव', text: 'आपरी कुंडली सूं रिस्ता, ब्याव अर परिवार रै बारै में, हेत अर संभाळ साथै।' },
       shastri: { role: 'परंपरागत पंडित', text: 'पंचांग, मुहूरत (सुभ टैम), तिंवार अर सरल परंपरागत उपाय।' },
       tara: { role: 'कैरियर अर पढ़ाई', text: 'ज्योतिष अर अंकां सूं काम, पढ़ाई अर जीवण री दिसा।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

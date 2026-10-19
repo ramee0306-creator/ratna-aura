@@ -1,5 +1,6 @@
 // ᱱᱟᱶᱟ ᱥᱠᱨᱤᱱ ᱠᱚ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱛᱟᱲᱤ ᱚᱞ (AI ᱯᱚᱨᱥᱳᱱᱟ, PDF ᱨᱤᱯᱳᱨᱴ, ᱨᱤᱢᱟᱭᱱᱰᱟᱨ, ᱜᱚᱯᱚᱱ, ᱯᱮᱢᱮᱱᱴ, ᱥᱟᱰᱮ); sat.ts ᱨᱮ `extra` ᱞᱮᱠᱟ ᱥᱮᱞᱮᱫ ᱠᱟᱱᱟ᱾
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ᱨᱩᱠᱷᱤᱭᱟᱹ ᱟᱨ ᱵᱟᱯᱞᱟ', text: 'ᱟᱢᱟᱜ ᱠᱩᱱᱰᱞᱤ ᱛᱮ ᱥᱚᱢᱵᱚᱱᱫᱷᱚ, ᱵᱟᱯᱞᱟ ᱟᱨ ᱯᱚᱨᱤᱵᱟᱨ ᱵᱟᱵᱚᱛ, ᱢᱚᱛᱮ ᱟᱨ ᱡᱟᱛᱚᱱ ᱥᱟᱶ᱾' },
       shastri: { role: 'ᱨᱤᱛᱤ ᱨᱮᱱᱟᱜ ᱯᱚᱱᱰᱤᱛ', text: 'ᱯᱚᱸᱪᱟᱸᱜ, ᱢᱩᱦᱩᱨᱛᱚ (ᱵᱮᱥ ᱚᱠᱛᱚ), ᱯᱚᱨᱚᱵ ᱟᱨ ᱥᱚᱡᱷᱮ ᱨᱤᱛᱤ ᱨᱮᱱᱟᱜ ᱩᱯᱟᱭ ᱠᱚ᱾' },
       tara: { role: 'ᱠᱟᱹᱢᱤ ᱟᱨ ᱞᱟᱹᱠᱛᱤ ᱯᱟᱲᱦᱟᱣ', text: 'ᱡᱳᱛᱤᱥ ᱟᱨ ᱟᱸᱠ ᱛᱮ ᱠᱟᱹᱢᱤ, ᱯᱟᱲᱦᱟᱣ ᱟᱨ ᱡᱤᱣᱤ ᱨᱮᱱᱟᱜ ᱪᱟᱞᱟᱜ ᱵᱟᱵᱚᱛ᱾' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

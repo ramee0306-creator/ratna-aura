@@ -1,5 +1,6 @@
 // छत्तीसगढ़ी पाठ: पर्सोना, रिपोर्ट, रिमाइंडर, प्राइवेसी, भुगतान अउ आवाज (hne.ts मं `extra` के रूप मं शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम अउ बिहाव', text: 'आपके चार्ट के जरिया ले रिश्ता, बिहाव अउ परिवार, मया अउ फिकर के संग।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पंचांग, मुहूर्त (सुघ्घर बखत), तिहार अउ सरल पारंपरिक उपाय।' },
       tara: { role: 'करियर अउ पढ़ई', text: 'ज्योतिष अउ अंक के जरिया ले काम, पढ़ई अउ जिनगी के रद्दा।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

@@ -1,5 +1,6 @@
 // অনৌবা স্ক্রীনশিংগী মৈতৈলোন্ পাউ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডর, প্রাইভেসি, পেমেন্ট, ভইস); mni.ts দা `extra` ওইনা হাপচিল্লি।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'নুংশিবা অমসুং বিবাহ', text: 'নহাক্কী কুণ্ডলীগী মতাংদা সম্পর্ক, বিবাহ অমসুং ইমা-ইপা-ইপমশিং, নুংশিবা অমসুং কেয়ার ফংনা।' },
       shastri: { role: 'অরিবা পণ্ডিত', text: 'পঞ্চাঙ্গ, মুহূর্ত (ফজবা মতম), লাইহরাউবা অমসুং ফগৎহন্নবা লম্বী ঙাক-ঙাকশিং।' },
       tara: { role: 'কেরিয়র অমসুং ইশিংনবা', text: 'জ্যোতিষ অমসুং মশিংগী মতাংদা কাম, ইশিংনবা অমসুং মীয়ামগী লম্বী।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

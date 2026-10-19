@@ -1,5 +1,6 @@
 // नया स्क्रीन (AI पर्सोना, PDF रिपोर्ट, याद दिलावे वाला, प्राइवेसी, भुगतान, आवाज) के भोजपुरी पाठ (bho.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम आ बियाह', text: 'रउरा कुंडली से रिश्ता, बियाह आ परिवार के बात, अपनापन आ फिकिर के साथ।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पंचांग, मुहूर्त (नीमन समय), तीज-तिहवार आ सीधा-सादा पारंपरिक उपाय।' },
       tara: { role: 'करियर आ पढ़ाई', text: 'ज्योतिष आ अंक से काम, पढ़ाई आ जिनिगी के राह के बारे में।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

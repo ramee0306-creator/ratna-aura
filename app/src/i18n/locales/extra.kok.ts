@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF अहवाल, याद, खाजगी धोरण, पयशे भरप आनी आवाजाचो कोंकणी (देवनागरी) मजकूर (kok.ts त `extra` म्हणून).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'मोग आनी लग्न', text: 'तुमच्या कुंडली वरवीं नातीं, लग्न आनी कुटुंब — मोगान आनी काळजीन.' },
       shastri: { role: 'पारंपरीक पंडित', text: 'पंचांग, मुहूर्त (बरो वेळ), सण आनी सादे पारंपरीक उपाय.' },
       tara: { role: 'करियर आनी शिकप', text: 'ज्योतिश आनी अंकां वरवीं काम, शिकप आनी जिणेची दिशा.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

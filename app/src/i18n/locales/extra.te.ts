@@ -1,5 +1,6 @@
 // మిలెస్టోన్ 6–10 లో చేర్చిన తెలుగు పాఠ్యం (పర్సనాలు, నివేదిక, రిమైండర్, గోప్యత, చెల్లింపులు, వాయిస్).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ప్రేమ & వివాహం', text: 'మీ జాతకం ద్వారా బంధాలు, వివాహం, కుటుంబం గురించి ఆప్యాయతతో, శ్రద్ధతో.' },
       shastri: { role: 'సంప్రదాయ పండితుడు', text: 'పంచాంగం, ముహూర్తం (మంచి సమయాలు), పండుగలు, సులభమైన సంప్రదాయ పరిహారాలు.' },
       tara: { role: 'కెరీర్ & చదువులు', text: 'ఉద్యోగం, చదువులు, జీవిత దిశ — జ్యోతిష్యం, సంఖ్యల ద్వారా.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

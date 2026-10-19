@@ -1,5 +1,6 @@
 // નવી સ્ક્રીનોનો ગુજરાતી પાઠ: AI પર્સોના, PDF રિપોર્ટ, રિમાઇન્ડર, ગોપનીયતા, ચુકવણી, અવાજ (gu.ts માં `extra` તરીકે સામેલ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'પ્રેમ અને લગ્ન', text: 'તમારી કુંડળી દ્વારા સંબંધો, લગ્ન અને પરિવાર વિશે, સ્નેહ અને કાળજીથી.' },
       shastri: { role: 'પરંપરાગત પંડિત', text: 'પંચાંગ, મુહૂર્ત (શુભ સમય), તહેવારો અને સરળ પરંપરાગત ઉપાયો.' },
       tara: { role: 'કારકિર્દી અને અભ્યાસ', text: 'જ્યોતિષ અને અંકો દ્વારા કામ, અભ્યાસ અને જીવનની દિશા.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

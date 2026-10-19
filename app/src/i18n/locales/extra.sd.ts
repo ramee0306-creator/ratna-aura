@@ -1,5 +1,6 @@
 // نون اسڪرينن (AI ڪردار، PDF رپورٽ، ياد ڏياريندڙ، رازداري، ادائگي، آواز) جو سنڌي متن (sd.ts ۾ `extra` طور شامل).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'پيار ۽ شادي', text: 'اوهان جي ڪُنڊلي ذريعي رشتا، شادي ۽ ڪٽنب، پنهنجائپ ۽ خيال سان.' },
       shastri: { role: 'روايتي پنڊت', text: 'پنچانگ، مهورت (سٺا وقت)، تهوار ۽ سادا روايتي اُپاءَ.' },
       tara: { role: 'ڪيريئر ۽ تعليم', text: 'جوتش ۽ انگن ذريعي ڪم، تعليم ۽ زندگيءَ جي رخ بابت.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

@@ -1,5 +1,6 @@
 // ಮೈಲಿಗಲ್ಲು 6–10 ರಲ್ಲಿ ಸೇರಿಸಿದ ಕನ್ನಡ ಪಠ್ಯ (ಪರ್ಸೋನಾಗಳು, ವರದಿ, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ಪ್ರೇಮ & ವಿವಾಹ', text: 'ನಿಮ್ಮ ಜಾತಕದ ಮೂಲಕ ಸಂಬಂಧ, ಮದುವೆ ಮತ್ತು ಕುಟುಂಬದ ಬಗ್ಗೆ, ಪ್ರೀತಿ ಮತ್ತು ಕಾಳಜಿಯಿಂದ.' },
       shastri: { role: 'ಸಾಂಪ್ರದಾಯಿಕ ಪಂಡಿತ', text: 'ಪಂಚಾಂಗ, ಮುಹೂರ್ತ (ಒಳ್ಳೆಯ ಸಮಯಗಳು), ಹಬ್ಬಗಳು ಮತ್ತು ಸರಳ ಸಾಂಪ್ರದಾಯಿಕ ಪರಿಹಾರಗಳು.' },
       tara: { role: 'ವೃತ್ತಿ & ಅಧ್ಯಯನ', text: 'ಕೆಲಸ, ಅಧ್ಯಯನ ಮತ್ತು ಜೀವನದ ದಿಕ್ಕು — ಜ್ಯೋತಿಷ್ಯ ಮತ್ತು ಸಂಖ್ಯೆಗಳ ಮೂಲಕ.' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

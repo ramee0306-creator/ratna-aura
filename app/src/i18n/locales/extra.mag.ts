@@ -1,5 +1,6 @@
 // मगही पाठ: पर्सोना, रिपोर्ट, रिमाइंडर, प्राइवेसी, भुगतान आउ आवाज (mag.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम आउ सादी-बियाह', text: 'अपने के चार्ट के सहारे रिस्ता, सादी-बियाह आउ परिवार, पियार आउ फिकिर के साथ।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पतरा (पंचांग), मुहूर्त (सुभ समय), तिहार आउ सीधा-सादा पारंपरिक उपाय।' },
       tara: { role: 'करियर आउ पढ़ाई', text: 'ज्योतिष आउ अंक के सहारे काम, पढ़ाई आउ जिनगी के रस्ता।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

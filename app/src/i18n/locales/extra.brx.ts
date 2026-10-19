@@ -1,5 +1,6 @@
 // बर\' (बड़ो) राव: पार्सोना, रिपोर्ट, रिमाइन्डार, प्राइभेसि, पेमेन्ट आरो आवाजनि बर\' (brx.ts-आव `extra` महरै हाबनाय)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -31,6 +32,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'सोमोन्दै आरो हाबा', text: 'नोंथाङनि चार्टजों सोमोन्दै, हाबा आरो बिखुङ, गोजोन लामाजों।' },
       shastri: { role: 'पारम्परिक पंडित', text: 'पंचांग, मुहूर्त (गोजाम समाय), उत्सवफोर आरो सोलोंथाय पारम्परिक उपाय।' },
       tara: { role: 'खामानि आरो फोरोंनाय', text: 'ज्योतिष आरो अनजिमाजों खामानि, फोरोंनाय आरो जिउनि लामा।' },
+      devraj: extraEnglish.personas.about.devraj, // TODO: translate
+      kavya: extraEnglish.personas.about.kavya, // TODO: translate
+      gopal: extraEnglish.personas.about.gopal, // TODO: translate
+      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
+      arjun: extraEnglish.personas.about.arjun, // TODO: translate
+      savitri: extraEnglish.personas.about.savitri, // TODO: translate
+      rudra: extraEnglish.personas.about.rudra, // TODO: translate
     },
   },
   report: {

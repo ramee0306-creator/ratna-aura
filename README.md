@@ -161,14 +161,18 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
 
 ## AI personas ("Talk to an Astrologer")
 
-Five AI characters, each with a specialty and speaking style: **Acharya Vidya** (Vedic astrology), **Guru Anand**
-(numerology), **Meera** (love & marriage), **Pandit Shastri** (panchang, muhurta, remedies) and **Tara** (career &
-studies). They are always shown with the **AI** badge, introduce themselves as AI and never claim to be human;
-all the Ask AI safety rules apply. Their instructions are in `supabase/functions/_shared/personas.ts`.
+Twelve AI characters, each with an illustrated portrait, a specialty and a speaking style: **Acharya Vidya**
+(Vedic astrology), **Guru Anand** (numerology), **Meera** (love & marriage), **Pandit Shastri** (panchang, muhurta,
+remedies), **Tara** (career & studies), **Pandit Devraj** (Lal Kitab), **Kavya** (KP system & prashna), **Acharya
+Gopal** (Vastu), **Lakshmi** (wealth & business), **Arjun** (foreign travel & abroad), **Amma Savitri** (children &
+family) and **Rudra** (Shani, Rahu & Ketu). They write like a caring astrologer chatting, not like a robot, but are
+always shown with the **AI** badge, introduce themselves as AI and never claim to be human; all the Ask AI safety
+rules apply. Their instructions are in `supabase/functions/_shared/personas.ts`, their names, portraits and prices
+in `app/src/ai/personas.ts` (a test checks both agree).
 
-- **Per message** (Vidya, Anand, Shastri): 1 credit per message.
-- **Per minute** (Meera, Tara): the user starts a 5, 10 or 15 minute session (1 credit per minute) and chats freely
-  until it ends (fair-use cap: 4 messages per minute).
+- **Per message** (Vidya, Anand, Shastri, Gopal, Arjun: 1 credit; Devraj, Rudra: 2 credits per message).
+- **Per minute** (Meera, Tara, Lakshmi, Savitri: 1 credit a minute; Kavya: 2): the user starts a 5, 10 or 15 minute
+  session and chats freely until it ends (fair-use cap: 4 messages per minute).
 - Personas use credits only (the 3 free questions are for Ask AI). If the AI fails, the credit is given back.
 
 ## Reports, reminders, admin panel, privacy (Milestone 7)
