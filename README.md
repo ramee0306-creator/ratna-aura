@@ -1,8 +1,10 @@
 # Ratna Aura
 
 A Vedic astrology + numerology app for Android (iOS later), by **VELQORA STUDIOS**.
-Available in **12 languages**: English, हिन्दी, मराठी, বাংলা, తెలుగు, தமிழ், ગુજરાતી, ಕನ್ನಡ, മലയാളം, ଓଡ଼ିଆ,
-ਪੰਜਾਬੀ and অসমীয়া. The first screen on a new phone asks which language the person is comfortable in.
+Available in **English and 30 Indian languages**: all 22 official languages of India (Hindi, Bengali, Marathi,
+Telugu, Tamil, Gujarati, Urdu, Kannada, Odia, Malayalam, Punjabi, Assamese, Maithili, Nepali, Konkani, Santali,
+Kashmiri, Sindhi, Dogri, Manipuri, Bodo, Sanskrit) plus Bhojpuri, Rajasthani, Chhattisgarhi, Magahi, Awadhi, Tulu,
+Mizo and Khasi. The first screen on a new phone asks which language the person is comfortable in.
 
 > The name, logo words, package ID and colours all live in **one file: [`brand.config.js`](brand.config.js)**.
 > See [Renaming the app](#renaming-the-app).
@@ -119,9 +121,9 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
 - The translations were written by AI and checked automatically, **not yet by native speakers**. Before launch,
   ask a fluent speaker of each language to read through the app (especially astrology terms and the
   "guidance, not advice" wording).
-- To add a language (e.g. Urdu or Konkani): add it to `app/src/i18n/languages.ts`, copy the three English files to
-  `<code>.ts`, `numerology.<code>.ts`, `kundli.<code>.ts`, translate them, and import them in
-  `app/src/i18n/translations.ts`.
+- Urdu, Kashmiri and Sindhi are written right to left; the app flips its layout for them (after reopening).
+- To add a language: add it to `app/src/i18n/languages.ts`, copy the three English files to `<code>.ts`,
+  `numerology.<code>.ts`, `kundli.<code>.ts`, translate them, and run `npm run sync-languages`.
 
 ## Rules about secrets (important)
 

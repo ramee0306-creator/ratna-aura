@@ -1,4 +1,4 @@
-// Every language the app offers, in the order shown on the language screen.
+// Every language the app offers: English and the languages of India, in the order shown on the language screen.
 // A language appears in the app as soon as its translation is added in translations.ts.
 // To add one: add it here, add locales/<code>.ts, numerology.<code>.ts and kundli.<code>.ts
 // (copies of the English files, translated), and import them in translations.ts.
@@ -9,7 +9,7 @@ type Language = {
   code: string;
   nativeName: string;
   englishName: string;
-  region: 'india' | 'world';
+  region: 'india';
   script: Script;
   /** Written right to left (Urdu, Arabic …) */
   rtl?: boolean;
@@ -48,48 +48,6 @@ export const LANGUAGES = [
   { code: 'sa', nativeName: 'संस्कृतम्', englishName: 'Sanskrit', region: 'india', script: 'devanagari' },
   { code: 'lus', nativeName: 'Mizo ṭawng', englishName: 'Mizo', region: 'india', script: 'latin' },
   { code: 'kha', nativeName: 'Ka Ktien Khasi', englishName: 'Khasi', region: 'india', script: 'latin' },
-
-  // ---- World languages ----
-  { code: 'es', nativeName: 'Español', englishName: 'Spanish', region: 'world', script: 'latin' },
-  { code: 'zh', nativeName: '简体中文', englishName: 'Chinese (Simplified)', region: 'world', script: 'other' },
-  { code: 'zh-TW', nativeName: '繁體中文', englishName: 'Chinese (Traditional)', region: 'world', script: 'other' },
-  { code: 'ar', nativeName: 'العربية', englishName: 'Arabic', region: 'world', script: 'other', rtl: true },
-  { code: 'fr', nativeName: 'Français', englishName: 'French', region: 'world', script: 'latin' },
-  { code: 'pt', nativeName: 'Português', englishName: 'Portuguese', region: 'world', script: 'latin' },
-  { code: 'ru', nativeName: 'Русский', englishName: 'Russian', region: 'world', script: 'other' },
-  { code: 'id', nativeName: 'Bahasa Indonesia', englishName: 'Indonesian', region: 'world', script: 'latin' },
-  { code: 'de', nativeName: 'Deutsch', englishName: 'German', region: 'world', script: 'latin' },
-  { code: 'ja', nativeName: '日本語', englishName: 'Japanese', region: 'world', script: 'other' },
-  { code: 'sw', nativeName: 'Kiswahili', englishName: 'Swahili', region: 'world', script: 'latin' },
-  { code: 'tr', nativeName: 'Türkçe', englishName: 'Turkish', region: 'world', script: 'latin' },
-  { code: 'ko', nativeName: '한국어', englishName: 'Korean', region: 'world', script: 'other' },
-  { code: 'vi', nativeName: 'Tiếng Việt', englishName: 'Vietnamese', region: 'world', script: 'latin' },
-  { code: 'fa', nativeName: 'فارسی', englishName: 'Persian', region: 'world', script: 'other', rtl: true },
-  { code: 'it', nativeName: 'Italiano', englishName: 'Italian', region: 'world', script: 'latin' },
-  { code: 'th', nativeName: 'ไทย', englishName: 'Thai', region: 'world', script: 'other' },
-  { code: 'fil', nativeName: 'Filipino', englishName: 'Filipino', region: 'world', script: 'latin' },
-  { code: 'ms', nativeName: 'Bahasa Melayu', englishName: 'Malay', region: 'world', script: 'latin' },
-  { code: 'pl', nativeName: 'Polski', englishName: 'Polish', region: 'world', script: 'latin' },
-  { code: 'uk', nativeName: 'Українська', englishName: 'Ukrainian', region: 'world', script: 'other' },
-  { code: 'nl', nativeName: 'Nederlands', englishName: 'Dutch', region: 'world', script: 'latin' },
-  { code: 'si', nativeName: 'සිංහල', englishName: 'Sinhala', region: 'world', script: 'other' },
-  { code: 'my', nativeName: 'မြန်မာ', englishName: 'Burmese', region: 'world', script: 'other' },
-  { code: 'km', nativeName: 'ខ្មែរ', englishName: 'Khmer', region: 'world', script: 'other' },
-  { code: 'ps', nativeName: 'پښتو', englishName: 'Pashto', region: 'world', script: 'other', rtl: true },
-  { code: 'am', nativeName: 'አማርኛ', englishName: 'Amharic', region: 'world', script: 'other' },
-  { code: 'ha', nativeName: 'Hausa', englishName: 'Hausa', region: 'world', script: 'latin' },
-  { code: 'yo', nativeName: 'Yorùbá', englishName: 'Yoruba', region: 'world', script: 'latin' },
-  { code: 'zu', nativeName: 'isiZulu', englishName: 'Zulu', region: 'world', script: 'latin' },
-  { code: 'ro', nativeName: 'Română', englishName: 'Romanian', region: 'world', script: 'latin' },
-  { code: 'el', nativeName: 'Ελληνικά', englishName: 'Greek', region: 'world', script: 'other' },
-  { code: 'he', nativeName: 'עברית', englishName: 'Hebrew', region: 'world', script: 'other', rtl: true },
-  { code: 'cs', nativeName: 'Čeština', englishName: 'Czech', region: 'world', script: 'latin' },
-  { code: 'hu', nativeName: 'Magyar', englishName: 'Hungarian', region: 'world', script: 'latin' },
-  { code: 'sv', nativeName: 'Svenska', englishName: 'Swedish', region: 'world', script: 'latin' },
-  { code: 'bg', nativeName: 'Български', englishName: 'Bulgarian', region: 'world', script: 'other' },
-  { code: 'da', nativeName: 'Dansk', englishName: 'Danish', region: 'world', script: 'latin' },
-  { code: 'fi', nativeName: 'Suomi', englishName: 'Finnish', region: 'world', script: 'latin' },
-  { code: 'nb', nativeName: 'Norsk', englishName: 'Norwegian', region: 'world', script: 'latin' },
 ] as const satisfies readonly Language[];
 
 export type LanguageCode = (typeof LANGUAGES)[number]['code'];
@@ -100,24 +58,11 @@ export const isSupported = (code: string | null | undefined): code is LanguageCo
 
 export const isRtl = (code: string) => languageInfo(code)?.rtl === true;
 
-/** Locale used for dates and numbers, e.g. "hi-IN" for Indian languages, "fr" for French. */
-export function dateLocale(code: string): string {
-  const info = languageInfo(code);
-  if (!info) return 'en-IN';
-  return info.region === 'india' ? `${code}-IN` : code;
-}
+/** Locale used for dates and numbers, e.g. "hi-IN". */
+export const dateLocale = (code: string) => (isSupported(code) ? `${code}-IN` : 'en-IN');
 
-/** Picks one of our languages from the phone's settings, e.g. Chinese in Taiwan -> "zh-TW". */
-export function fromDeviceLocale(locale: { languageCode?: string | null; regionCode?: string | null; languageTag?: string }): LanguageCode | null {
+/** Picks one of our languages from the phone's settings (e.g. a phone set to Tamil -> "ta"). */
+export function fromDeviceLocale(locale: { languageCode?: string | null }): LanguageCode | null {
   const lang = locale.languageCode?.toLowerCase();
-  if (!lang) return null;
-  if (lang === 'zh') {
-    const traditional = /Hant/.test(locale.languageTag ?? '') || ['TW', 'HK', 'MO'].includes(locale.regionCode ?? '');
-    return traditional ? 'zh-TW' : 'zh';
-  }
-  if (lang === 'no' || lang === 'nn') return 'nb';
-  if (lang === 'tl') return 'fil';
-  if (lang === 'iw') return 'he';
-  if (lang === 'in') return 'id';
   return isSupported(lang) ? lang : null;
 }

@@ -33,18 +33,6 @@ import lang_tcy from './locales/tcy';
 import lang_sa from './locales/sa';
 import lang_lus from './locales/lus';
 import lang_kha from './locales/kha';
-import lang_es from './locales/es';
-import lang_zh from './locales/zh';
-import lang_zh_TW from './locales/zh-TW';
-import lang_ar from './locales/ar';
-import lang_fr from './locales/fr';
-import lang_pt from './locales/pt';
-import lang_ru from './locales/ru';
-import lang_id from './locales/id';
-import lang_de from './locales/de';
-import lang_ja from './locales/ja';
-import lang_tr from './locales/tr';
-import lang_vi from './locales/vi';
 
 export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'en': lang_en,
@@ -78,16 +66,4 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'sa': lang_sa,
   'lus': lang_lus,
   'kha': lang_kha,
-  'es': lang_es,
-  'zh': lang_zh,
-  'zh-TW': lang_zh_TW,
-  'ar': lang_ar,
-  'fr': lang_fr,
-  'pt': lang_pt,
-  'ru': lang_ru,
-  'id': lang_id,
-  'de': lang_de,
-  'ja': lang_ja,
-  'tr': lang_tr,
-  'vi': lang_vi,
 };
