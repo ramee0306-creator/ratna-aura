@@ -21,7 +21,8 @@ type ErrorKey = 'failed' | 'notEnabled' | 'busy' | 'declined' | 'tooLong';
 
 function errorKey(err: unknown): ErrorKey {
   if (!(err instanceof ApiError)) return 'failed';
-  if (err.status === 503) return err.message.includes('busy') ? 'busy' : 'notEnabled';
+  if (err.status === 429) return 'busy';
+  if (err.status === 503) return 'notEnabled';
   if (err.status === 422) return 'declined';
   if (err.status === 400) return 'tooLong';
   return 'failed';
