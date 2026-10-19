@@ -23,8 +23,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | 2 | Numerology engine with tests + numerology screens | ✅ Done |
 | 3 | Kundli calculations with tests, North & South Indian charts | ✅ Done |
 | 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | ✅ Done |
-| 5 | AI chat ("Ask AI") with free questions and credits (test payments) | ⏳ Next |
-| 6 | AI astrologer / numerologist personas with per-minute / per-message billing | |
+| 5 | AI chat ("Ask AI") with free questions and credits (test payments) | ✅ Done |
+| 6 | AI astrologer / numerologist personas with per-minute / per-message billing | ⏳ Next |
 | 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | |
 | 8 | Debug APK to install on your phone | |
 | 9 | Signed release (AAB) for Google Play + store listing + checklist | |
@@ -44,6 +44,7 @@ app/                     ← the phone app (React Native + Expo, TypeScript)
   src/numerology/        ← numerology forms, number cards, Lo Shu grid drawing
   src/kundli/            ← kundli form checks, server calls, North/South Indian chart drawing
   src/jyotish/           ← server calls for the panchang and daily rashifal (+ demo samples)
+  src/ai/                ← server calls for Ask AI and question credits
   src/places/            ← birth-place search (cities.data.json is made by scripts/build-cities.mjs)
 packages/numerology/     ← all numerology maths (Chaldean & Pythagorean) + its tests
 packages/kundli/         ← kundli logic: signs, nakshatras, houses, navamsa, dasha, panchang,
@@ -56,6 +57,8 @@ supabase/                ← the server
   functions/kundli/      ← makes a kundli with the Swiss Ephemeris (the swappable, AGPL part)
   functions/panchang/    ← the panchang for a date and place
   functions/rashifal/    ← the daily rashifal, written by AI once per day, sign and language
+  functions/ask/         ← Ask AI: answers from the person's kundli and numbers
+  functions/credits/     ← question credits (test-mode purchases for now)
   dashboard/             ← one-file copies of each function, to paste into the Supabase website
 .github/workflows/       ← automatic checks, and automatic server deployment
   tests/                 ← automatic tests for the database rules
@@ -135,10 +138,27 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
   the model is a setting in the database (`app_settings` → `rashifal_model`), so it can be changed without an
   app update.
 
+## How "Ask AI" works
+
+- The person picks whose chart to ask about (or "General"). The server rebuilds that kundli, adds the running
+  dasha, Manglik status and numerology numbers, and sends this summary with the question to Claude
+  (**Haiku 5.5** by default; `app_settings` → `chat_model`). The answer comes back in the app's language.
+- **Safety rules** are in `supabase/functions/_shared/ask.ts` (tested): honest that it is an AI, guidance only,
+  no medical/legal/financial advice, no fear or death/disaster predictions, no black magic or paid remedies.
+  If the AI senses distress, the app shows the free **Tele-MANAS** helpline (14416 / 1-800-891-4416) with a call button.
+- **Credits:** every user gets **3 free questions** (`app_settings` → `free_questions`), then 1 credit per question.
+  If the AI fails, the question is given back. All credit changes go through database functions only the server
+  can call, and each is recorded in `credit_ledger`.
+- Questions and answers are stored **encrypted** (same key as birth details) and deleted with the account.
+- **Payments are in TEST MODE** (`app_settings` → `payments_mode` = `test`): "Buy" adds credits without taking money
+  (max 5 test purchases a day per user). ⚠️ **Before launch**, Google Play billing replaces this (Milestone 9);
+  until then you can set `payments_mode` to `off` to hide buying. Pack sizes and ₹ prices are placeholders in
+  `app_settings` → `credit_packs`.
+
 ## Languages
 
 - All text lives in `app/src/i18n/locales/`. **English (`en.ts`, `numerology.en.ts`, `kundli.en.ts`,
-  `jyotish.en.ts`) is the master copy**; every other language has the same four files.
+  `jyotish.en.ts`, `ai.en.ts`) is the master copy**; every other language has the same five files.
 - An automatic test (`app/src/i18n/translations.test.ts`) fails if any language is missing a text or drops a
   `{{placeholder}}`, so new English text can't be forgotten in another language.
 - Hindi and Marathi use the bundled Devanagari fonts; the other Indian scripts use the phone's own fonts
@@ -147,8 +167,8 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
   ask a fluent speaker of each language to read through the app (especially astrology terms and the
   "guidance, not advice" wording).
 - Urdu, Kashmiri and Sindhi are written right to left; the app flips its layout for them (after reopening).
-- To add a language: add it to `app/src/i18n/languages.ts`, copy the four English files to `<code>.ts`,
-  `numerology.<code>.ts`, `kundli.<code>.ts`, `jyotish.<code>.ts`, translate them, and run `npm run sync-languages`.
+- To add a language: add it to `app/src/i18n/languages.ts`, copy the five English files to `<code>.ts`,
+  `numerology.<code>.ts`, `kundli.<code>.ts`, `jyotish.<code>.ts`, `ai.<code>.ts`, translate them, and run `npm run sync-languages`.
   The daily rashifal is written in every language on the list automatically.
 
 ## Rules about secrets (important)
