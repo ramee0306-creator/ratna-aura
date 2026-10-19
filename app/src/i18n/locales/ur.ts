@@ -1,6 +1,6 @@
 // اردو. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.ur.ts)
+import ai from './ai.ur';
 import jyotish from './jyotish.ur';
 import kundli from './kundli.ur';
 import numerology from './numerology.ur';

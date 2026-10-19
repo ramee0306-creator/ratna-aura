@@ -15,7 +15,7 @@ const ai: DeepStringRecord<typeof aiEn> = {
     send: 'भेजैं',
     thinking: 'AI कुंडली पढ़त अहै…',
     newChat: 'नई बातचीत',
-    suggestionsTitle: 'आप इ पूछि सकत हौ',
+    suggestionsTitle: 'आप इ पूछि सकत हैं',
     suggestions: {
       career: 'हमार कुंडली हमरे करियर के बारे मा का कहत है?',
       marriage: 'हमार कुंडली बियाह अउर रिस्तन के बारे मा का कहत है?',

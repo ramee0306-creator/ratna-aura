@@ -1,6 +1,6 @@
 // سنڌي. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.sd.ts)
+import ai from './ai.sd';
 import jyotish from './jyotish.sd';
 import kundli from './kundli.sd';
 import numerology from './numerology.sd';
