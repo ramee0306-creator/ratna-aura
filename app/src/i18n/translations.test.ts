@@ -31,3 +31,11 @@ it('offers at least English and Hindi', () => {
   expect(TRANSLATIONS.en).toBeDefined();
   expect(TRANSLATIONS.hi).toBeDefined();
 });
+
+it('fills extra plural forms (Russian "few"/"many", Arabic "two"…) from "other"', async () => {
+  const { withAllPluralForms } = await import('./plural');
+  expect(withAllPluralForms({ a: { n_one: '1 item', n_other: '{{count}} items' }, b: 'x' })).toEqual({
+    a: { n_one: '1 item', n_other: '{{count}} items', n_zero: '{{count}} items', n_two: '{{count}} items', n_few: '{{count}} items', n_many: '{{count}} items' },
+    b: 'x',
+  });
+});

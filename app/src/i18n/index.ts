@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 import { I18nManager, Platform } from 'react-native';
 
 import { fromDeviceLocale, isRtl, LANGUAGES, type LanguageCode } from './languages';
+import { withAllPluralForms } from './plural';
 import { TRANSLATIONS } from './translations';
 
 export { dateLocale, languageInfo, type LanguageCode } from './languages';
@@ -50,7 +51,9 @@ export async function initI18n(): Promise<void> {
   applyDirection(lng);
 
   await i18n.use(initReactI18next).init({
-    resources: Object.fromEntries(Object.entries(TRANSLATIONS).map(([code, translation]) => [code, { translation }])),
+    resources: Object.fromEntries(
+      Object.entries(TRANSLATIONS).map(([code, translation]) => [code, { translation: withAllPluralForms(translation) }]),
+    ),
     lng,
     fallbackLng: 'en',
     // Our codes such as "zh-TW" are used exactly as written.
