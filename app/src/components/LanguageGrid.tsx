@@ -1,4 +1,5 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
@@ -6,38 +7,69 @@ import { AVAILABLE_LANGUAGES, type LanguageCode } from '@/i18n';
 import { colors, radius, spacing } from '@/theme';
 
 import { AppText } from './AppText';
+import { TextField } from './TextField';
 
-/** Every offered language as a card, each written in its own script. */
+const plain = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+
+/** Every offered language as a card, each written in its own script, with search. */
 export function LanguageGrid({ onChoose }: { onChoose: (code: LanguageCode) => void }) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [query, setQuery] = useState('');
+  const q = plain(query.trim());
+  const matches = AVAILABLE_LANGUAGES.filter(
+    (l) => !q || plain(l.englishName).includes(q) || plain(l.nativeName).includes(q) || l.code === q,
+  );
+  const groups = [
+    { title: t('language.india'), items: matches.filter((l) => l.region === 'india') },
+    { title: t('language.world'), items: matches.filter((l) => l.region === 'world') },
+  ].filter((g) => g.items.length > 0);
+
   return (
-    <View style={styles.grid} accessibilityRole="radiogroup">
-      {AVAILABLE_LANGUAGES.map((lang) => {
-        const active = i18n.language === lang.code;
-        return (
-          <Pressable
-            key={lang.code}
-            accessibilityRole="radio"
-            accessibilityState={{ selected: active }}
-            accessibilityLabel={`${lang.nativeName}, ${lang.englishName}`}
-            onPress={() => onChoose(lang.code)}
-            style={({ pressed }) => [styles.card, active && styles.active, pressed && styles.pressed]}
-          >
-            <View style={styles.text}>
-              <AppText variant="heading" style={{ color: active ? colors.goldBright : colors.text }}>
-                {lang.nativeName}
-              </AppText>
-              {lang.code !== 'en' ? <AppText variant="caption">{lang.englishName}</AppText> : null}
-            </View>
-            {active ? <MaterialCommunityIcons name="check-circle" size={22} color={colors.gold} /> : null}
-          </Pressable>
-        );
-      })}
+    <View style={styles.wrap}>
+      {AVAILABLE_LANGUAGES.length > 8 ? (
+        <TextField label={t('language.search')} value={query} onChangeText={setQuery} autoCorrect={false} placeholder="Hindi, தமிழ், Español…" />
+      ) : null}
+      {groups.length === 0 ? <AppText variant="caption">{t('language.noMatch')}</AppText> : null}
+      {groups.map((group) => (
+        <View key={group.title} style={styles.wrap}>
+          {groups.length > 1 || AVAILABLE_LANGUAGES.some((l) => l.region === 'world') ? (
+            <AppText variant="overline">{group.title}</AppText>
+          ) : null}
+          <View style={styles.grid} accessibilityRole="radiogroup">
+            {group.items.map((lang) => {
+              const active = i18n.language === lang.code;
+              return (
+                <Pressable
+                  key={lang.code}
+                  accessibilityRole="radio"
+                  accessibilityState={{ selected: active }}
+                  accessibilityLabel={`${lang.nativeName}, ${lang.englishName}`}
+                  onPress={() => onChoose(lang.code)}
+                  style={({ pressed }) => [styles.card, active && styles.active, pressed && styles.pressed]}
+                >
+                  <View style={styles.text}>
+                    <AppText variant="heading" style={{ color: active ? colors.goldBright : colors.text }} numberOfLines={1}>
+                      {lang.nativeName}
+                    </AppText>
+                    {lang.nativeName !== lang.englishName ? <AppText variant="caption">{lang.englishName}</AppText> : null}
+                  </View>
+                  {active ? <MaterialCommunityIcons name="check-circle" size={22} color={colors.gold} /> : null}
+                </Pressable>
+              );
+            })}
+          </View>
+        </View>
+      ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  wrap: { gap: spacing.md },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
   card: {
     flexBasis: '47%',

@@ -25,6 +25,11 @@ const en = {
     title: 'Which language are you comfortable in?',
     subtitle: 'The whole app, and your readings, will be in this language. You can change it any time in Settings.',
     note: 'Translations are new. If something reads oddly, please tell us.',
+    india: 'Languages of India',
+    world: 'World languages',
+    search: 'Search languages',
+    noMatch: 'No language matches.',
+    restart: 'Please close and reopen Ratna Aura to finish switching to this language.',
   },
   consent: {
     title: 'Before we begin',

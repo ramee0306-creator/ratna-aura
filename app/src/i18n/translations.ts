@@ -14,4 +14,17 @@ import pa from './locales/pa';
 import ta from './locales/ta';
 import te from './locales/te';
 
-export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = { en, hi, mr, bn, te, ta, gu, kn, ml, or, pa, as: assamese };
+export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
+  en,
+  hi,
+  mr,
+  bn,
+  te,
+  ta,
+  gu,
+  kn,
+  ml,
+  or,
+  pa,
+  as: assamese,
+};

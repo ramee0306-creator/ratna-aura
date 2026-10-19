@@ -5,8 +5,9 @@ import { colors, fonts } from '@/theme';
 
 type Variant = 'display' | 'title' | 'heading' | 'body' | 'bodyStrong' | 'caption' | 'label' | 'overline';
 
-const DEVANAGARI = /[ऀ-ॿ]/; // Hindi, Marathi
-const OTHER_INDIC = /[ঀ-ൿ]/; // Bengali, Assamese, Gurmukhi, Gujarati, Odia, Tamil, Telugu, Kannada, Malayalam
+const DEVANAGARI = /[\u0900-\u097F]/; // Hindi, Marathi, Nepali, Sanskrit, Konkani …
+/** Any letter outside Latin and Devanagari: Bengali, Tamil, Urdu, Arabic, Chinese, Cyrillic, Thai … */
+const OTHER_SCRIPT = /[^\u0000-\u024F\u0300-\u036F\u0900-\u097F\u1E00-\u1EFF\u2000-\u2BFF\uFE00-\uFE0F]/;
 
 /** The plain text inside children such as "a", 3 or ["a", " · ", "b"]. */
 function textOf(children: ReactNode): string {
@@ -18,12 +19,12 @@ function textOf(children: ReactNode): string {
 /**
  * Text in the app's fonts. Indian scripts get matching fonts and no extra letter-spacing
  * (spacing breaks up joined letters such as ज्योतिष). Devanagari uses the bundled Hind / Tiro
- * Devanagari fonts; other Indian scripts use the phone's own fonts (Noto on Android), which
- * cover them beautifully without making the app bigger.
+ * Devanagari fonts; every other script (Tamil, Urdu, Arabic, Chinese, Cyrillic …) uses the
+ * phone's own fonts (Noto on Android), which cover them beautifully without making the app bigger.
  */
 export function AppText({ variant = 'body', style, children, ...rest }: TextProps & { variant?: Variant }) {
   const text = textOf(children);
-  const script = DEVANAGARI.test(text) ? hindi : OTHER_INDIC.test(text) ? indic : null;
+  const script = DEVANAGARI.test(text) ? hindi : OTHER_SCRIPT.test(text) ? indic : null;
   return (
     <Text style={[styles.base, styles[variant], script?.[variant], style]} {...rest}>
       {children}

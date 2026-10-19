@@ -1,5 +1,7 @@
 import { brand } from '@brand';
 
+import { languageInfo } from '@/i18n/languages';
+
 export const colors = brand.colors;
 
 /**
@@ -29,7 +31,8 @@ export const MAX_CONTENT_WIDTH = 520;
  * Devanagari; other Indian scripts use the phone's own font.
  */
 export function chartFont(language: string, weight: 'regular' | 'medium' | 'semibold' = 'regular'): string | undefined {
-  if (language === 'en' || language === 'hi' || language === 'mr') {
+  const script = languageInfo(language)?.script;
+  if (script === 'latin' || script === 'devanagari') {
     return weight === 'semibold' ? fonts.bodySemiBold : weight === 'medium' ? fonts.bodyMedium : fonts.body;
   }
   return undefined;

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import Svg, { G, Line, Polygon, Rect, Text as SvgText } from 'react-native-svg';
 
+import { languageInfo } from '@/i18n/languages';
 import { chartFont, colors, fonts } from '@/theme';
 
 export type ChartStyle = 'north' | 'south';
@@ -124,7 +125,7 @@ function SouthChart({ boxes, title }: { boxes: ChartBox[]; title: string }) {
           </G>
         );
       })}
-      <SvgText x={200} y={200} fill={colors.gold} fontSize={22} fontFamily={i18n.language === 'en' ? fonts.displaySemi : chartFont(i18n.language, 'semibold')} textAnchor="middle" alignmentBaseline="middle">
+      <SvgText x={200} y={200} fill={colors.gold} fontSize={22} fontFamily={languageInfo(i18n.language)?.script === 'latin' ? fonts.displaySemi : chartFont(i18n.language, 'semibold')} textAnchor="middle" alignmentBaseline="middle">
         {title}
       </SvgText>
     </>
