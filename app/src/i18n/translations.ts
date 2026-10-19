@@ -29,6 +29,7 @@ import lang_sd from './locales/sd';
 import lang_doi from './locales/doi';
 import lang_mni from './locales/mni';
 import lang_brx from './locales/brx';
+import lang_tcy from './locales/tcy';
 import lang_sa from './locales/sa';
 import lang_lus from './locales/lus';
 import lang_kha from './locales/kha';
@@ -68,6 +69,7 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'doi': lang_doi,
   'mni': lang_mni,
   'brx': lang_brx,
+  'tcy': lang_tcy,
   'sa': lang_sa,
   'lus': lang_lus,
   'kha': lang_kha,
