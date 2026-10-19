@@ -35,8 +35,8 @@ describe('rashifal & app settings database rules', () => {
   it('app settings start with the AI models and are hidden from the app', async () => {
     const { rows } = await db.query(`select key, value from public.app_settings order by key`);
     expect(rows).toEqual([
-      { key: 'chat_model', value: 'claude-opus-5-5' },
-      { key: 'rashifal_model', value: 'claude-opus-5-5' },
+      { key: 'chat_model', value: 'claude-haiku-5-5' },
+      { key: 'rashifal_model', value: 'claude-haiku-5-5' },
     ]);
     await expect(asUser(db, alice, () => db.query(`select * from public.app_settings`))).rejects.toThrow(/permission denied/);
   });

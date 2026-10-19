@@ -4,8 +4,9 @@ import Anthropic from 'npm:@anthropic-ai/sdk@0.131.0';
 
 import { admin } from './supabase.ts';
 
-/** The model used unless the admin changes it (app_settings table) or the AI_MODEL secret is set. */
-export const DEFAULT_MODEL = 'claude-opus-5-5';
+/** The model used unless the admin changes it (app_settings table) or the AI_MODEL secret is set.
+ *  Haiku is the cheapest Claude model (about ₹0.1 per rashifal); Sonnet or Opus write richer text for more. */
+export const DEFAULT_MODEL = 'claude-haiku-5-5';
 
 export class AiNotConfigured extends Error {}
 /** Claude declined to write this (safety). */
@@ -25,6 +26,8 @@ export async function modelFor(feature: 'rashifal' | 'chat'): Promise<string> {
   return fromTable || Deno.env.get('AI_MODEL') || DEFAULT_MODEL;
 }
 
+export const hasServerFallback = (model: string) => !model.startsWith('claude-haiku');
+
 /** Asks Claude for a JSON answer that follows `schema`. */
 export async function generateJson(opts: {
   model: string;
@@ -40,9 +43,9 @@ export async function generateJson(opts: {
     messages: [{ role: 'user', content: opts.prompt }],
     // Short, everyday writing: low effort is enough and keeps it quick and cheap.
     output_config: { effort: 'low', format: { type: 'json_schema', schema: opts.schema } },
-    // If the safety system declines, let the API retry on its recommended fallback model.
-    betas: ['server-side-fallback-2026-07-01'],
-    fallbacks: 'default',
+    // On Opus/Sonnet, if the safety system declines, the API retries on its recommended fallback model.
+    // Haiku has no server-side fallback (the option would be ignored or rejected), so it is left out there.
+    ...(hasServerFallback(opts.model) ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' as const } : {}),
   });
   if (response.stop_reason === 'refusal') throw new AiRefused('Claude declined this request');
   if (response.stop_reason === 'max_tokens') throw new Error('The AI answer was cut off');

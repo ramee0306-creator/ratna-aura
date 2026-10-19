@@ -131,8 +131,9 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
 - **Daily rashifal**: written by Claude (AI) from the day's real planet positions counted from each Moon sign,
   the first time anyone asks for that day, sign and language, then saved and shared with everyone. The AI is
   told to stay gentle and practical: no fear, no medical/legal/financial advice, no black magic or paid
-  remedies. Every reading carries the **AI** badge. Which model writes it is a setting in the database
-  (`app_settings` → `rashifal_model`), so it can be switched to a cheaper model without an app update.
+  remedies. Every reading carries the **AI** badge. It uses **Claude Haiku 5.5**, the cheapest Claude model;
+  the model is a setting in the database (`app_settings` → `rashifal_model`), so it can be changed without an
+  app update.
 
 ## Languages
 
@@ -261,7 +262,8 @@ The rashifal is written by Claude, Anthropic's AI. It needs a paid API key, kept
    `ANTHROPIC_API_KEY`, value = the key → **Save**.
 
 That's all: the next time someone opens a rashifal, it is written and saved. Until then the app says the
-daily rashifal is "not switched on yet". To use a cheaper model, run in the SQL Editor:
+daily rashifal is "not switched on yet". It is written by Claude Haiku (about ₹0.1 per reading). For richer
+writing at higher cost, run in the SQL Editor:
 `update app_settings set value = '"claude-sonnet-5-5"' where key = 'rashifal_model';`
 
 ## 5. Automatic checks
@@ -350,7 +352,7 @@ Prompt caching (re-using the fixed safety rules) lowers these further. We'll mea
 | Supabase (Pro plan: database, login, functions, backups) | $25 | $25–60 (may need a bigger database add-on) |
 | AI: "Ask AI" (~3,000 / ~30,000 answers) | Opus $120 · Sonnet $60 · Haiku $3 | Opus $1,200 · Sonnet $600 · Haiku $30 |
 | AI: persona chats (~2,000 / ~20,000 messages, paid by users) | Opus $90 · Sonnet $45 · Haiku $3 | Opus $900 · Sonnet $450 · Haiku $25 |
-| AI: daily rashifal (fixed; ≈ $0.03 per reading with Opus, 12 per language per day) | ≈ $70 Opus / $35 Sonnet if ~6 languages are used; up to ≈ $400 / $200 if all 31 are | same |
+| AI: daily rashifal (fixed; 12 readings per language per day; **Haiku is the current setting**) | Haiku ≈ $2–10 · Sonnet ≈ $35–200 · Opus ≈ $70–400 (≈ 6 to all 31 languages in use) | same |
 | SMS OTP (~2 logins per user; less if many use Google sign-in) | $5–100 (MSG91 ≈ ₹0.2/SMS; Twilio Verify ≈ $0.05) | $50–1,000 |
 | Push notifications (Expo) | free | free |
 | Expo cloud builds (EAS) | free tier | free tier (or $19 plan for faster builds) |
