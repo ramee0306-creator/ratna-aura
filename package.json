@@ -17,7 +17,8 @@
     "make-icons": "node scripts/make-icons.mjs",
     "bundle-functions": "node scripts/bundle-functions.mjs",
     "sync-shared": "node scripts/sync-shared.mjs",
-    "build-cities": "node scripts/build-cities.mjs"
+    "build-cities": "node scripts/build-cities.mjs",
+    "sync-languages": "node scripts/sync-languages.mjs"
   },
   "engines": {
     "node": ">=20"
