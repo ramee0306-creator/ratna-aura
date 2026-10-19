@@ -25,7 +25,7 @@ const brand = /** @type {const} */ ({
     hi: 'ज्योतिष और अंक ज्योतिष, सुंदर मार्गदर्शन',
   },
   /** Company name shown in Settings and on the store */
-  publisher: 'VELQORA STUDIOS',
+  publisher: 'Raksha',
   /** Lower-case id used for the Expo project, links and file names */
   slug: 'ratna-aura',
   /** Deep-link prefix, e.g. ratnaaura://auth/callback */

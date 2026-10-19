@@ -1,6 +1,6 @@
 # Ratna Aura
 
-A Vedic astrology + numerology app for Android (iOS later), by **VELQORA STUDIOS**.
+A Vedic astrology + numerology app for Android (iOS later), by **Raksha**.
 Available in **English and 30 Indian languages**: all 22 official languages of India (Hindi, Bengali, Marathi,
 Telugu, Tamil, Gujarati, Urdu, Kannada, Odia, Malayalam, Punjabi, Assamese, Maithili, Nepali, Konkani, Santali,
 Kashmiri, Sindhi, Dogri, Manipuri, Bodo, Sanskrit) plus Bhojpuri, Rajasthani, Chhattisgarhi, Magahi, Awadhi, Tulu,

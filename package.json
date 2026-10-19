@@ -2,7 +2,7 @@
   "name": "ratna-aura",
   "version": "0.1.0",
   "private": true,
-  "description": "Ratna Aura - Vedic astrology + numerology app by VELQORA STUDIOS",
+  "description": "Ratna Aura - Vedic astrology + numerology app by Raksha",
   "workspaces": [
     "app",
     "packages/*"
