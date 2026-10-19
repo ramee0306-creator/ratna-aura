@@ -1,0 +1,46 @@
+# Creates the Google Play UPLOAD KEY once (README → Publishing → Upload key), so no computer setup is needed.
+# GitHub → Actions → "Make upload key" → Run workflow. Then open the finished run → Artifacts → "upload-key":
+#   1. Save upload.jks and passwords.txt in your password manager (this is the only copy).
+#   2. Add the 4 GitHub secrets listed in passwords.txt (Settings → Secrets and variables → Actions).
+#   3. Delete the "upload-key" artifact (trash icon on the run page). It also deletes itself after 1 day.
+# For safety it only runs while this repository is PRIVATE: artifacts of public repositories can be downloaded by anyone.
+name: Make upload key
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  key:
+    if: github.event.repository.private == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Create the key
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir out
+          PASS="$(openssl rand -base64 30 | tr -dc 'A-Za-z0-9' | head -c 32)"
+          keytool -genkeypair -keystore out/upload.jks -storetype PKCS12 -alias upload -keyalg RSA -keysize 2048 \
+            -validity 10000 -storepass "$PASS" -keypass "$PASS" -dname "CN=Ratna Aura, O=Raksha, C=IN"
+          base64 -w0 out/upload.jks > out/upload.jks.base64
+          {
+            echo "Ratna Aura - Google Play upload key. Keep this file and upload.jks in your password manager."
+            echo
+            echo "Add these 4 repository secrets (GitHub -> Settings -> Secrets and variables -> Actions -> New repository secret):"
+            echo "  ANDROID_UPLOAD_KEYSTORE_BASE64 = the whole contents of upload.jks.base64"
+            echo "  ANDROID_UPLOAD_STORE_PASSWORD  = $PASS"
+            echo "  ANDROID_UPLOAD_KEY_ALIAS       = upload"
+            echo "  ANDROID_UPLOAD_KEY_PASSWORD    = $PASS"
+          } > out/passwords.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: upload-key
+          path: out/
+          retention-days: 1

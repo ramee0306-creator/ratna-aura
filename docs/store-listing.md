@@ -56,4 +56,4 @@ For adults (18+). If you are going through a hard time, Tele-MANAS is free and a
 
 ## Contact details
 - E-mail: velqorasupport99@gmail.com
-- Privacy policy URL: (where you publish `docs/privacy-policy.md`)
+- Privacy policy URL: https://ramee0306-creator.github.io/ratna-aura/privacy.html

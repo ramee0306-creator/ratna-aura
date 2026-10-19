@@ -1,6 +1,6 @@
 // ନୂଆ ସ୍କ୍ରିନଗୁଡ଼ିକର ଓଡ଼ିଆ ପାଠ (AI ପର୍ସୋନା, PDF ରିପୋର୍ଟ, ରିମାଇଣ୍ଡର, ଗୋପନୀୟତା, ପେମେଣ୍ଟ, ଭଏସ୍); or.ts ରେ `extra` ଭାବେ ଅନ୍ତର୍ଭୁକ୍ତ।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'ଏହା ଏକ ନମୁନା ପଠନ (ଡେମୋ ମୋଡ୍, AI ନାହିଁ)। ପ୍ରକୃତ ଆପ୍ ରେ AI ହସ୍ତରେଖା ବିଶେଷଜ୍ଞ ଆପଣଙ୍କ ହୃଦୟ, ମସ୍ତିଷ୍କ, ଜୀବନ ଓ ଭାଗ୍ୟ ରେଖା ଏବଂ ହାତର ପର୍ବତଗୁଡ଼ିକର ବର୍ଣ୍ଣନା କରେ, ଏବଂ ପରମ୍ପରା ଅନୁସାରେ ସେଗୁଡ଼ିକ ଆପଣଙ୍କ ସ୍ୱଭାବ, ସମ୍ପର୍କ ଓ କାମ ବିଷୟରେ କ’ଣ ସୂଚାଏ ତାହା କୁହେ।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

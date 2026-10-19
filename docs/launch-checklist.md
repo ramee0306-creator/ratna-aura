@@ -1,6 +1,6 @@
 # Launch checklist (before the first Google Play release)
 
-⚠️ **The package ID `com.velqorastudios.ratnaaura` can NEVER change after the first upload to Google Play.**
+⚠️ **The package ID `Raksha.RatnaAura` can NEVER change after the first upload to Google Play.**
 If you want a different one (for example with "raksha" in it), change `androidPackage` in `brand.config.js` *before*
 uploading anything.
 
@@ -16,9 +16,9 @@ uploading anything.
 - [ ] Make yourself admin (README → Milestone 7) and check the Admin panel numbers.
 - [ ] Publish the Google sign-in (OAuth consent screen → "In production") so anyone can sign in.
 - [ ] Phone OTP: SMS provider with DLT registration, or keep Google sign-in only at launch.
-- [ ] **Swiss Ephemeris licence** (AGPL) — buy the professional licence or switch to a paid astrology API.
-- [ ] Lawyer review of `docs/privacy-policy.md` and `docs/terms-of-use.md`; publish them at public web addresses and
-      put the links in `brand.config.js`.
+- [x] **Swiss Ephemeris licence**: the app is open source under the AGPL (`LICENSE`); make the repository public.
+- [ ] Lawyer review of `docs/privacy-policy.md` and `docs/terms-of-use.md`. They are published by GitHub Pages
+      (Settings → Pages → Source: GitHub Actions) at https://ramee0306-creator.github.io/ratna-aura/privacy.html.
 - [ ] Native-speaker review of the translations (at least Hindi and your main markets).
 - [ ] Test on a real phone: sign-in, kundli, PDF, rashifal, panchang, milan, Ask AI, personas, purchase, delete account.
 

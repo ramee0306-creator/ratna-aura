@@ -1,6 +1,6 @@
 // নতুন স্ক্রিনগুলির বাংলা পাঠ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডার, গোপনীয়তা, পেমেন্ট, ভয়েস); bn.ts-এ `extra` হিসেবে যুক্ত।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'এটি একটি নমুনা বিচার (ডেমো মোড, AI নেই)। আসল অ্যাপে AI হস্তরেখাবিদ আপনার হৃদয়, মস্তিষ্ক, জীবন ও ভাগ্য রেখা এবং হাতের পর্বতগুলির বর্ণনা দেয়, এবং ঐতিহ্য অনুযায়ী সেগুলি আপনার স্বভাব, সম্পর্ক ও কাজ সম্পর্কে কী ইঙ্গিত দেয় তা জানায়।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

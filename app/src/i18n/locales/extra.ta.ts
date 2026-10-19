@@ -1,6 +1,6 @@
 // மைல்கல் 6–10-இல் சேர்க்கப்பட்ட தமிழ் உரை (பர்சனாக்கள், அறிக்கை, நினைவூட்டல், தனியுரிமை, பணம் செலுத்துதல், குரல்).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'இது ஒரு மாதிரிப் பலன் (டெமோ முறை, AI இல்லை). உண்மையான செயலியில், AI கைரேகை நிபுணர் உங்கள் இதய, புத்தி, ஆயுள், விதி ரேகைகளையும் கையின் மேடுகளையும் விவரித்து, அவை பாரம்பரியமாக உங்கள் இயல்பு, உறவுகள், வேலை பற்றி என்ன சொல்கின்றன என்பதை விளக்கும்.',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

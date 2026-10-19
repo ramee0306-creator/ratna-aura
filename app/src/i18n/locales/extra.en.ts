@@ -216,6 +216,9 @@ const extra = {
     failed: 'Could not send the report. Please try again.',
     close: 'Close',
   },
+  legal: {
+    source: 'Open source (GNU AGPL v3): view the source code',
+  },
 };
 
 export default extra;

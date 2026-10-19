@@ -1,6 +1,6 @@
 // बर\' (बड़ो) राव: पार्सोना, रिपोर्ट, रिमाइन्डार, प्राइभेसि, पेमेन्ट आरो आवाजनि बर\' (brx.ts-आव `extra` महरै हाबनाय)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'बेयो मोनसे नमुना नायनाय (डेमो मोड, AI गैया)। आसल एपआव, AI हस्तरेखा नायग्राया नोंथाङनि हृदय, मस्तिष्क, जीवन आरो भाग्य रेखा आरो आखाइनि पर्वतफोरखौ बेखेवना होयो, आरो पारम्परिक बादियै बेफोरआ नोंथाङनि आखु, सोमोन्दो आरो खामानिनि सोमोन्दै मा इंगित होयो बेखौबो बुंयो।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

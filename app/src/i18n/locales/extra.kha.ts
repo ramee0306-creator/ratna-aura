@@ -1,6 +1,6 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'Kane ka dei ka jingpule nuksa (demo mode, ym don AI). Ha ka app shisha, u nongpule kti AI u batai ia ki line jong ka dohnud, ka jabieng, ka jingim bad ka fate bad ki lum jong ka kti jong phi, bad kaei ba ki pynpaw kum ka dustur shaphang ka mynsiem, ki jingïadei bad ka kam jong phi.',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

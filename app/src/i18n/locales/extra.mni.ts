@@ -1,6 +1,6 @@
 // অনৌবা স্ক্রীনশিংগী মৈতৈলোন্ পাউ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডর, প্রাইভেসি, পেমেন্ট, ভইস); mni.ts দা `extra` ওইনা হাপচিল্লি।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'মসি খন্দোকপা পাংবা অমনি (ডেমো মোড, AI লৈতে)। অসলী এপতা, AI খুৎ য়েংবা মীনা নহাক্কী হৃদয়, মস্তিষ্ক, জীবন অমসুং ভাগ্য রেখাশিং অমসুং খুৎকী পর্বতশিং ফোংদোকই, অমসুং চৎনবী মতৌদা মখোয়না নহাক্কী মওং-মতৌ, মরি লৈনবা অমসুং থবককী মরমদা করি তাক্লিবগে হায়দোকই।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

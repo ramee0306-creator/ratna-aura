@@ -31,14 +31,16 @@ const brand = /** @type {const} */ ({
   /** Deep-link prefix, e.g. ratnaaura://auth/callback */
   scheme: 'ratnaaura',
   /** Google Play package ID (permanent after first upload!) */
-  androidPackage: 'com.velqorastudios.ratnaaura',
+  androidPackage: 'Raksha.RatnaAura',
   /** Apple bundle ID (for a future iOS version) */
-  iosBundleId: 'com.velqorastudios.ratnaaura',
+  iosBundleId: 'Raksha.RatnaAura',
   /** Support e-mail shown in the privacy policy and store listing */
   supportEmail: 'velqorasupport99@gmail.com',
   /** Public web addresses of the full privacy policy and terms (docs/*.md), once published. Empty = not shown. */
-  privacyPolicyUrl: '',
-  termsUrl: '',
+  privacyPolicyUrl: 'https://ramee0306-creator.github.io/ratna-aura/privacy.html',
+  termsUrl: 'https://ramee0306-creator.github.io/ratna-aura/terms.html',
+  /** The app's source code (it is open source under the GNU AGPL v3, as the Swiss Ephemeris requires). */
+  sourceCodeUrl: 'https://github.com/ramee0306-creator/ratna-aura',
   /** Users must be at least this old */
   minimumAge: 18,
 

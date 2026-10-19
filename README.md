@@ -366,7 +366,7 @@ You can follow each run in the repository's **Actions** tab, and start one by ha
 2. Run `npm run make-icons` (redraws the gem icon and splash in the new colours).
 3. If `scheme` changed, update the Redirect URLs in Supabase (step 4.8).
 
-⚠️ **The Android package ID (`com.velqorastudios.ratnaaura`) can never change after the first upload to
+⚠️ **The Android package ID (`Raksha.RatnaAura`) can never change after the first upload to
 Google Play.** Confirm the final name and package ID **before Milestone 9**.
 
 ## Publishing (Milestones 8–9)
@@ -383,15 +383,12 @@ once with the environment variable `ALLOW_SCREENSHOTS=1`.
 
 ### Google Play (AAB)
 1. ⚠️ **Decide the package ID now — it can never change after the first upload** (`brand.config.js` →
-   `androidPackage`, currently `com.velqorastudios.ratnaaura`).
-2. **Upload key (once).** On any computer with Java (or ask Claude in Chrome / a developer friend):
-   ```bash
-   keytool -genkeypair -v -keystore upload.jks -alias upload -keyalg RSA -keysize 2048 -validity 10000
-   base64 -w0 upload.jks > upload.jks.base64      # on macOS: base64 -i upload.jks -o upload.jks.base64
-   ```
-   Keep `upload.jks` and both passwords in your password manager. Add GitHub secrets
-   `ANDROID_UPLOAD_KEYSTORE_BASE64` (contents of the .base64 file), `ANDROID_UPLOAD_STORE_PASSWORD`,
-   `ANDROID_UPLOAD_KEY_ALIAS` (`upload`) and `ANDROID_UPLOAD_KEY_PASSWORD`. Never commit the key.
+   `androidPackage`, currently `Raksha.RatnaAura`).
+2. **Upload key (once).** While the repository is still private: GitHub → **Actions** → **Make upload key** →
+   **Run workflow**. Open the finished run → Artifacts → `upload-key`: keep `upload.jks` and `passwords.txt` in your
+   password manager, add the 4 secrets it lists (`ANDROID_UPLOAD_KEYSTORE_BASE64`, `ANDROID_UPLOAD_STORE_PASSWORD`,
+   `ANDROID_UPLOAD_KEY_ALIAS`, `ANDROID_UPLOAD_KEY_PASSWORD`), then delete the artifact. Never commit the key.
+   (Play App Signing keeps the real signing key at Google; a lost upload key can be reset through Play support.)
 3. GitHub → **Actions** → **Build for Google Play** → **Run workflow** → download `ratna-aura-aab` → upload the
    `.aab` in Play Console (Internal testing first). Each run gets a higher version code automatically.
 4. Store texts and forms: [`docs/store-listing.md`](docs/store-listing.md), [`docs/data-safety.md`](docs/data-safety.md),
@@ -438,13 +435,13 @@ mode a plan starts at once without payment (a plan with a trial starts as a tria
 
 ---
 
-## Licences you must sort out before launch
+## Licences
 
-- **Swiss Ephemeris** (planet positions) is free only under the **AGPL** licence, which would
-  require publishing the server's source code. It sits in its own swappable module
-  (`supabase/functions/_shared/swisseph.ts` + the `@fusionstrings/swiss-eph` WebAssembly build).
-  **Before launch, either buy the Swiss Ephemeris professional licence** (from Astrodienst, one-time, roughly
-  CHF 750; check https://www.astro.com/swisseph) **or switch that module to a paid astrology API.**
+- **Ratna Aura is open source under the GNU AGPL v3** (`LICENSE`), because it uses the **Swiss Ephemeris**
+  (planet positions), which is free only under that licence. So the repository is public, the app links to its
+  source code (Settings), and anyone may reuse the code under the same licence. Secrets are never in the code
+  (they live in GitHub and Supabase secrets). If you ever want a closed app instead, buy the Swiss Ephemeris
+  professional licence from Astrodienst (https://www.astro.com/swisseph) first.
 - **Birth places** come from **GeoNames** (geonames.org), licensed **CC BY 4.0** — the app credits it in Settings.
 - Fonts (Cormorant Garamond, Tiro Devanagari Hindi, Poppins, Hind) are free under the SIL Open Font License. Icons are Material Design Icons (free, Apache/MIT).
   The app icon (a faceted gem with an emerald aura in a zodiac ring) is an original drawing made by

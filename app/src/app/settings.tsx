@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Switch, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, Switch, View } from 'react-native';
 
 import { useAuth } from '@/auth/AuthProvider';
 import { AppText } from '@/components/AppText';
@@ -156,6 +156,11 @@ export default function SettingsScreen() {
         <AppText variant="caption">{t('settings.publisher', { publisher: brand.publisher })}</AppText>
         <AppText variant="caption">{t('settings.version', { version: Constants.expoConfig?.version ?? '' })}</AppText>
         <AppText variant="caption">{t('settings.credits')}</AppText>
+        <Pressable accessibilityRole="link" onPress={() => Linking.openURL(brand.sourceCodeUrl)} hitSlop={8}>
+          <AppText variant="caption" style={{ color: colors.gold }}>
+            {t('extra.legal.source')}
+          </AppText>
+        </Pressable>
       </View>
     </Screen>
   );

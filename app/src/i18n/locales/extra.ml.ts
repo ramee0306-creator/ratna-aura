@@ -1,6 +1,6 @@
 // നാഴികക്കല്ല് 6–10-ൽ ചേർത്ത മലയാളം പാഠം (പെർസോണകൾ, റിപ്പോർട്ട്, ഓർമ്മപ്പെടുത്തൽ, സ്വകാര്യത, പേയ്മെന്റ്, ശബ്ദം).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'ഇതൊരു മാതൃകാ ഫലമാണ് (ഡെമോ മോഡ്, AI ഇല്ല). യഥാർത്ഥ ആപ്പിൽ, AI നിങ്ങളുടെ ഹൃദയരേഖ, ശിരോരേഖ, ആയുർരേഖ, ഭാഗ്യരേഖ എന്നിവയും കൈയിലെ പർവതങ്ങളും വിവരിച്ച്, അവ പരമ്പരാഗതമായി നിങ്ങളുടെ സ്വഭാവം, ബന്ധങ്ങൾ, ജോലി എന്നിവയെക്കുറിച്ച് എന്ത് സൂചിപ്പിക്കുന്നു എന്ന് പറയും.',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

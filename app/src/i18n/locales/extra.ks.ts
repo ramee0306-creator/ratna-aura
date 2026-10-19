@@ -1,6 +1,6 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'یہِ چھےٚ اَکھ نمونہٕ ریڈنگ (ڈیمو موڈ، کانٛہہ AI نہٕ)۔ اصلی ایپس مَنٛز چھُ AI ہست ریکھا ماہِر تُہٕنٛدِس اَتھس مَنٛز دِلٕچ، دماغٕچ، زِندگی ہٕنٛز تہٕ قِسمتٕچ لکیرٕ تہٕ اُبھار بیان کران، تہٕ یہِ تہِ زِ روایتی طور کیاہ چھِ یِم تُہٕنٛدِس مِزاجس، رِشتَن تہٕ کامہِ مُتعلِق اِشارٕ دِوان۔',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

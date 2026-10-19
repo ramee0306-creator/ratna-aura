@@ -1,6 +1,6 @@
 // नए स्क्रीन (AI पर्सोना, PDF रिपोर्ट, याद दिलावै वाला, निजता, भुगतान, आवाज) कै अवधी पाठ (awa.ts मा `extra` के रूप मा सामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'इ एक नमूना रीडिंग अहै (डेमो मोड, AI नाहीं)। असली ऐप मा AI हस्तरेखा बाँचै वाला आपकै दिल, दिमाग, जीवन अउर भाग्य रेखा अउर हाथ कै परबत के बारे मा बतावत है, अउर परंपरा के हिसाब से इ सब आपके सुभाव, रिस्ता अउर काम के बारे मा का इसारा करत हैं।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

@@ -1,6 +1,6 @@
 // नूंवी स्क्रीनां रो राजस्थानी पाठ: AI पर्सोना, PDF रिपोर्ट, याद दिरावण, निजता, भुगतान, आवाज (raj.ts में `extra` रै रूप में सामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'आ एक नमूना रीडिंग है (डेमो मोड, AI कोनी)। असली ऐप में AI हस्तरेखा बांचणियो आपरी हिरदै, मगज, जीवन अर भाग्य री रेखावां अर हाथ रा परबतां रो बखाण करै, अर परंपरा मुजब ऐ आपरै सुभाव, रिस्तां अर काम बाबत कांई इसारो करै।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

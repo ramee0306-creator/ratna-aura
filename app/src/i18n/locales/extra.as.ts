@@ -1,6 +1,6 @@
 // নতুন স্ক্ৰীনসমূহৰ অসমীয়া পাঠ (AI পাৰ্ছোনা, PDF ৰিপ’ৰ্ট, ৰিমাইণ্ডাৰ, গোপনীয়তা, পেমেণ্ট, ভইচ); as.ts ত `extra` হিচাপে অন্তৰ্ভুক্ত।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'এইটো এটা নমুনা পাঠ (ডেমো মোড, AI নাই)। প্ৰকৃত এপত, AI হস্তৰেখা বিশেষজ্ঞই আপোনাৰ হৃদয়, মস্তিষ্ক, জীৱন আৰু ভাগ্য ৰেখা আৰু হাতৰ পৰ্বতবোৰ বৰ্ণনা কৰে, আৰু পৰম্পৰাগতভাৱে সেইবোৰে আপোনাৰ স্বভাৱ, সম্পৰ্ক আৰু কামৰ বিষয়ে কি ইংগিত দিয়ে সেয়া কয়।',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

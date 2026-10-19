@@ -1,6 +1,6 @@
 // ತುಳು (ಕನ್ನಡ ಲಿಪಿ): ಪರ್ಸೋನಾ, ರಿಪೋರ್ಟ್, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿದ ಪಾಠ (tcy.ts ಡ್ `extra` ಆದ್ ಸೇರ್ದುಂಡು).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'ಉಂದು ಒಂಜಿ ಮಾದರಿ ಫಲ (ಡೆಮೊ ಮೋಡ್, AI ಇಜ್ಜಿ). ನಿಜವಾಯಿನ ಆ್ಯಪ್‌ಡ್, AI ಈರೆನ ಹೃದಯ, ಮಸ್ತಿಷ್ಕ, ಆಯುಷ್ಯ ಬೊಕ್ಕ ಭಾಗ್ಯ ರೇಖೆಲೆನ್ ಬೊಕ್ಕ ಕೈದ ಪರ್ವತೊಲೆನ್ ವಿವರಿಸದ್, ಅವು ಸಂಪ್ರದಾಯ ಪ್ರಕಾರ ಈರೆನ ಸ್ವಭಾವ, ಸಂಬಂಧೊಲು ಬೊಕ್ಕ ಕೆಲಸದ ಬಗ್ಗೆ ದಾದ ಸೂಚನೆ ಕೊರ್ಪುಂಡು ಪಂಡ್ದ್ ಪನ್ಪುಂಡು.',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;

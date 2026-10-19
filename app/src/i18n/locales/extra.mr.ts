@@ -1,6 +1,6 @@
 // AI पर्सोना, PDF अहवाल, स्मरण, गोपनीयता, पेमेंट आणि आवाजाचा मराठी मजकूर (mr.ts मध्ये `extra` म्हणून समाविष्ट).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
+import extraEnglish from './extra.en'; // TODO: translate flag + legal (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -208,6 +208,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     demoReading: 'हे नमुना वाचन आहे (डेमो मोड, AI नाही). खऱ्या अ‍ॅपमध्ये AI हस्तरेषातज्ज्ञ तुमची हृदय, मस्तक, आयुष्य आणि भाग्य रेषा व हाताचे उंचवटे यांचे वर्णन करतो, आणि परंपरेनुसार ते तुमच्या स्वभाव, नातेसंबंध आणि कामाबद्दल काय सूचित करतात ते सांगतो.',
   },
   flag: extraEnglish.flag, // TODO: translate
+  legal: extraEnglish.legal, // TODO: translate
 };
 
 export default extra;
