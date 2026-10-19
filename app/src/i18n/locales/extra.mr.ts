@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF अहवाल, स्मरण, गोपनीयता, पेमेंट आणि आवाजाचा मराठी मजकूर (mr.ts मध्ये `extra` म्हणून समाविष्ट).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम आणि विवाह', text: 'तुमच्या कुंडलीतून नातेसंबंध, विवाह आणि कुटुंब — जिव्हाळ्याने आणि काळजीने.' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पंचांग, मुहूर्त (शुभ वेळ), सण आणि साधे पारंपरिक उपाय.' },
       tara: { role: 'करिअर आणि शिक्षण', text: 'ज्योतिष आणि अंकांद्वारे काम, शिक्षण आणि जीवनाची दिशा.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लाल किताब तज्ज्ञ', text: 'लाल किताबनुसार कुंडलीचे विवेचन आणि घरीच करता येतील असे साधे, कमी खर्चाचे उपाय.' },
+      kavya: { role: 'KP आणि प्रश्न', text: 'KP पद्धती आणि प्रश्न ज्योतिष: होय-किंवा-नाही प्रश्नांवर आणि वेळेबद्दल स्पष्ट मत.' },
+      gopal: { role: 'वास्तुशास्त्र', text: 'तुमचे घर, दुकान किंवा ऑफिससाठी वास्तू — सोप्या बदलांसह, कोणतीही तोडफोड न करता.' },
+      lakshmi: { role: 'धन आणि व्यवसाय', text: 'तुमच्या कुंडलीतून पैसा, बचत आणि व्यवसाय, तसेच सुरुवात करण्यासाठी चांगला काळ.' },
+      arjun: { role: 'परदेश प्रवास आणि वास्तव्य', text: 'तुमच्या कुंडलीतून परदेशातील शिक्षण, व्हिसा, परदेशातील नोकरी आणि परदेशात स्थायिक होणे.' },
+      savitri: { role: 'मुले आणि कुटुंब', text: 'मुले, त्यांचे शिक्षण आणि स्वभाव, आणि कुटुंबातील शांती — आईच्या मायेने.' },
+      rudra: { role: 'शनि, राहू आणि केतू', text: 'साडेसाती, ढैया, राहू–केतू आणि ग्रहांचे गोचर — भीती न दाखवता समजावून सांगितले जाते.' },
     },
   },
   report: {

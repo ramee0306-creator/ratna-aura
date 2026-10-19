@@ -1,6 +1,5 @@
 // નવી સ્ક્રીનોનો ગુજરાતી પાઠ: AI પર્સોના, PDF રિપોર્ટ, રિમાઇન્ડર, ગોપનીયતા, ચુકવણી, અવાજ (gu.ts માં `extra` તરીકે સામેલ).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'પ્રેમ અને લગ્ન', text: 'તમારી કુંડળી દ્વારા સંબંધો, લગ્ન અને પરિવાર વિશે, સ્નેહ અને કાળજીથી.' },
       shastri: { role: 'પરંપરાગત પંડિત', text: 'પંચાંગ, મુહૂર્ત (શુભ સમય), તહેવારો અને સરળ પરંપરાગત ઉપાયો.' },
       tara: { role: 'કારકિર્દી અને અભ્યાસ', text: 'જ્યોતિષ અને અંકો દ્વારા કામ, અભ્યાસ અને જીવનની દિશા.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'લાલ કિતાબ નિષ્ણાત', text: 'લાલ કિતાબ મુજબ કુંડળીનું વાંચન, સાથે ઘરે જ કરી શકાય તેવા સરળ, ઓછા ખર્ચના ઉપાયો.' },
+      kavya: { role: 'KP અને પ્રશ્ન', text: 'KP પદ્ધતિ અને પ્રશ્ન જ્યોતિષ: હા-કે-ના વાળા પ્રશ્નો અને સમય વિશે સ્પષ્ટ અભિપ્રાય.' },
+      gopal: { role: 'વાસ્તુ શાસ્ત્ર', text: 'તમારા ઘર, દુકાન કે ઓફિસ માટે વાસ્તુ, સરળ ફેરફારો સાથે અને કોઈ તોડફોડ વગર.' },
+      lakshmi: { role: 'ધન અને વ્યવસાય', text: 'તમારી કુંડળી દ્વારા પૈસા, બચત અને વ્યવસાય, અને શરૂઆત માટેનો શુભ સમય.' },
+      arjun: { role: 'વિદેશ પ્રવાસ અને વસવાટ', text: 'તમારી કુંડળી દ્વારા વિદેશમાં અભ્યાસ, વિઝા, વિદેશમાં નોકરી અને વિદેશમાં સ્થાયી થવું.' },
+      savitri: { role: 'સંતાન અને પરિવાર', text: 'બાળકો, તેમનો અભ્યાસ અને સ્વભાવ, અને પરિવારમાં શાંતિ, માતાની મમતાથી.' },
+      rudra: { role: 'શનિ, રાહુ અને કેતુ', text: 'સાડાસાતી, ઢૈયા, રાહુ–કેતુ અને ગ્રહોનું ગોચર, ડર વગર સમજાવેલ.' },
     },
   },
   report: {

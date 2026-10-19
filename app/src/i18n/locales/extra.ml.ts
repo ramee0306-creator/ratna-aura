@@ -1,6 +1,5 @@
 // നാഴികക്കല്ല് 6–10-ൽ ചേർത്ത മലയാളം പാഠം (പെർസോണകൾ, റിപ്പോർട്ട്, ഓർമ്മപ്പെടുത്തൽ, സ്വകാര്യത, പേയ്മെന്റ്, ശബ്ദം).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'പ്രണയം & വിവാഹം', text: 'നിങ്ങളുടെ ജാതകത്തിലൂടെ ബന്ധങ്ങൾ, വിവാഹം, കുടുംബം എന്നിവയെക്കുറിച്ച് സ്നേഹത്തോടെയും കരുതലോടെയും.' },
       shastri: { role: 'പരമ്പരാഗത പണ്ഡിതൻ', text: 'പഞ്ചാംഗം, മുഹൂർത്തം (നല്ല സമയങ്ങൾ), ഉത്സവങ്ങൾ, ലളിതമായ പരമ്പരാഗത പരിഹാരങ്ങൾ.' },
       tara: { role: 'തൊഴിൽ & പഠനം', text: 'ജോലി, പഠനം, ജീവിതദിശ — ജ്യോതിഷത്തിലൂടെയും സംഖ്യകളിലൂടെയും.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'ലാൽ കിതാബ് വിദഗ്ധൻ', text: 'ലാൽ കിതാബ് പ്രകാരമുള്ള വിശകലനം, വീട്ടിൽത്തന്നെ ചെയ്യാവുന്ന ലളിതവും ചെലവു കുറഞ്ഞതുമായ ഉപായങ്ങളോടെ (പരിഹാരങ്ങൾ).' },
+      kavya: { role: 'KP & പ്രശ്നം', text: 'KP സമ്പ്രദായവും പ്രശ്നവും: അതെ-അല്ല ചോദ്യങ്ങളിലും സമയത്തിലും വ്യക്തമായ കാഴ്ചപ്പാട്.' },
+      gopal: { role: 'വാസ്തു ശാസ്ത്രം', text: 'നിങ്ങളുടെ വീട്, കട അല്ലെങ്കിൽ ഓഫീസിനായി വാസ്തു — എളുപ്പമുള്ള മാറ്റങ്ങളോടെ, ഒന്നും പൊളിക്കാതെ.' },
+      lakshmi: { role: 'സമ്പത്ത് & ബിസിനസ്', text: 'പണം, സമ്പാദ്യം, ബിസിനസ്, തുടങ്ങാൻ നല്ല കാലങ്ങൾ — നിങ്ങളുടെ ജാതകത്തിലൂടെ.' },
+      arjun: { role: 'വിദേശയാത്ര & പ്രവാസം', text: 'വിദേശപഠനം, വിസ, വിദേശത്ത് ജോലി, വിദേശത്ത് സ്ഥിരതാമസം — നിങ്ങളുടെ ജാതകത്തിലൂടെ.' },
+      savitri: { role: 'കുട്ടികൾ & കുടുംബം', text: 'കുട്ടികൾ, അവരുടെ പഠനവും സ്വഭാവവും, കുടുംബത്തിലെ സമാധാനവും — ഒരു അമ്മയുടെ കരുതലോടെ.' },
+      rudra: { role: 'ശനി, രാഹു & കേതു', text: 'ഏഴരശ്ശനി (സാഡേ സാതി), ഢൈയാ, രാഹു–കേതു, ഗ്രഹങ്ങളുടെ ഗോചരം — ഭയപ്പെടുത്താതെ വിശദീകരിക്കും.' },
     },
   },
   report: {

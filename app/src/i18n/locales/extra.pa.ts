@@ -1,6 +1,5 @@
 // ਨਵੀਆਂ ਸਕ੍ਰੀਨਾਂ ਦਾ ਪੰਜਾਬੀ ਪਾਠ: AI ਪਰਸੋਨਾ, PDF ਰਿਪੋਰਟ, ਰਿਮਾਈਂਡਰ, ਪਰਦੇਦਾਰੀ, ਭੁਗਤਾਨ, ਆਵਾਜ਼ (pa.ts ਵਿੱਚ `extra` ਵਜੋਂ ਸ਼ਾਮਲ)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ਪਿਆਰ ਅਤੇ ਵਿਆਹ', text: 'ਤੁਹਾਡੀ ਕੁੰਡਲੀ ਰਾਹੀਂ ਰਿਸ਼ਤੇ, ਵਿਆਹ ਅਤੇ ਪਰਿਵਾਰ ਬਾਰੇ, ਪਿਆਰ ਅਤੇ ਫ਼ਿਕਰ ਨਾਲ।' },
       shastri: { role: 'ਪਰੰਪਰਾਗਤ ਪੰਡਿਤ', text: 'ਪੰਚਾਂਗ, ਮਹੂਰਤ (ਸ਼ੁਭ ਸਮਾਂ), ਤਿਉਹਾਰ ਅਤੇ ਸਰਲ ਪਰੰਪਰਾਗਤ ਉਪਾਅ।' },
       tara: { role: 'ਕਰੀਅਰ ਅਤੇ ਪੜ੍ਹਾਈ', text: 'ਜੋਤਿਸ਼ ਅਤੇ ਅੰਕਾਂ ਰਾਹੀਂ ਕੰਮ, ਪੜ੍ਹਾਈ ਅਤੇ ਜੀਵਨ ਦੀ ਦਿਸ਼ਾ।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'ਲਾਲ ਕਿਤਾਬ ਮਾਹਿਰ', text: 'ਲਾਲ ਕਿਤਾਬ ਅਨੁਸਾਰ ਕੁੰਡਲੀ ਦਾ ਵਿਚਾਰ, ਨਾਲ ਹੀ ਘਰ ਵਿੱਚ ਕੀਤੇ ਜਾ ਸਕਣ ਵਾਲੇ ਸਰਲ, ਘੱਟ ਖ਼ਰਚ ਵਾਲੇ ਉਪਾਅ।' },
+      kavya: { role: 'KP ਅਤੇ ਪ੍ਰਸ਼ਨ', text: 'KP ਪੱਧਤੀ ਅਤੇ ਪ੍ਰਸ਼ਨ ਜੋਤਿਸ਼: ਹਾਂ-ਜਾਂ-ਨਾਂਹ ਵਾਲੇ ਸਵਾਲਾਂ ਅਤੇ ਸਮੇਂ ਬਾਰੇ ਸਪਸ਼ਟ ਰਾਏ।' },
+      gopal: { role: 'ਵਾਸਤੂ ਸ਼ਾਸਤਰ', text: 'ਤੁਹਾਡੇ ਘਰ, ਦੁਕਾਨ ਜਾਂ ਦਫ਼ਤਰ ਲਈ ਵਾਸਤੂ, ਆਸਾਨ ਬਦਲਾਵਾਂ ਨਾਲ ਅਤੇ ਬਿਨਾਂ ਕਿਸੇ ਤੋੜ-ਫੋੜ ਦੇ।' },
+      lakshmi: { role: 'ਧਨ ਅਤੇ ਕਾਰੋਬਾਰ', text: 'ਤੁਹਾਡੀ ਕੁੰਡਲੀ ਰਾਹੀਂ ਪੈਸਾ, ਬੱਚਤ ਅਤੇ ਕਾਰੋਬਾਰ, ਅਤੇ ਸ਼ੁਰੂਆਤ ਲਈ ਚੰਗਾ ਸਮਾਂ।' },
+      arjun: { role: 'ਵਿਦੇਸ਼ ਯਾਤਰਾ ਅਤੇ ਪਰਵਾਸ', text: 'ਤੁਹਾਡੀ ਕੁੰਡਲੀ ਰਾਹੀਂ ਵਿਦੇਸ਼ ਵਿੱਚ ਪੜ੍ਹਾਈ, ਵੀਜ਼ਾ, ਵਿਦੇਸ਼ ਵਿੱਚ ਨੌਕਰੀ ਅਤੇ ਵਿਦੇਸ਼ ਵਿੱਚ ਵੱਸਣਾ।' },
+      savitri: { role: 'ਬੱਚੇ ਅਤੇ ਪਰਿਵਾਰ', text: 'ਬੱਚੇ, ਉਨ੍ਹਾਂ ਦੀ ਪੜ੍ਹਾਈ ਅਤੇ ਸੁਭਾਅ, ਅਤੇ ਪਰਿਵਾਰ ਵਿੱਚ ਸ਼ਾਂਤੀ, ਮਾਂ ਵਰਗੀ ਫ਼ਿਕਰ ਨਾਲ।' },
+      rudra: { role: 'ਸ਼ਨੀ, ਰਾਹੂ ਅਤੇ ਕੇਤੂ', text: 'ਸਾਢੇ ਸਾਤੀ, ਢੈਯਾ, ਰਾਹੂ–ਕੇਤੂ ਅਤੇ ਗ੍ਰਹਿਆਂ ਦਾ ਗੋਚਰ, ਬਿਨਾਂ ਡਰ ਦੇ ਸਮਝਾਇਆ ਹੋਇਆ।' },
     },
   },
   report: {

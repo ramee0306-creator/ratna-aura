@@ -1,6 +1,5 @@
 // మిలెస్టోన్ 6–10 లో చేర్చిన తెలుగు పాఠ్యం (పర్సనాలు, నివేదిక, రిమైండర్, గోప్యత, చెల్లింపులు, వాయిస్).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ప్రేమ & వివాహం', text: 'మీ జాతకం ద్వారా బంధాలు, వివాహం, కుటుంబం గురించి ఆప్యాయతతో, శ్రద్ధతో.' },
       shastri: { role: 'సంప్రదాయ పండితుడు', text: 'పంచాంగం, ముహూర్తం (మంచి సమయాలు), పండుగలు, సులభమైన సంప్రదాయ పరిహారాలు.' },
       tara: { role: 'కెరీర్ & చదువులు', text: 'ఉద్యోగం, చదువులు, జీవిత దిశ — జ్యోతిష్యం, సంఖ్యల ద్వారా.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'లాల్ కితాబ్ నిపుణుడు', text: 'లాల్ కితాబ్ ప్రకారం జాతక విశ్లేషణ, ఇంట్లోనే చేసుకోగల సులభమైన, తక్కువ ఖర్చుతో కూడిన ఉపాయాలు (పరిహారాలు).' },
+      kavya: { role: 'KP & ప్రశ్న', text: 'KP పద్ధతి, ప్రశ్న శాస్త్రం: అవును-కాదు ప్రశ్నలు, సమయం గురించి స్పష్టమైన అభిప్రాయం.' },
+      gopal: { role: 'వాస్తు శాస్త్రం', text: 'మీ ఇల్లు, దుకాణం లేదా ఆఫీసుకు వాస్తు — సులభమైన మార్పులతో, ఏమీ కూల్చకుండా.' },
+      lakshmi: { role: 'సంపద & వ్యాపారం', text: 'డబ్బు, పొదుపు, వ్యాపారం, ప్రారంభించడానికి మంచి కాలాలు — మీ జాతకం ద్వారా.' },
+      arjun: { role: 'విదేశీ ప్రయాణం & నివాసం', text: 'విదేశాల్లో చదువు, వీసాలు, విదేశీ ఉద్యోగాలు, విదేశాల్లో స్థిరపడటం — మీ జాతకం ద్వారా.' },
+      savitri: { role: 'పిల్లలు & కుటుంబం', text: 'పిల్లలు, వారి చదువు, స్వభావం, కుటుంబంలో శాంతి — ఒక తల్లి శ్రద్ధతో.' },
+      rudra: { role: 'శని, రాహు & కేతు', text: 'ఏలినాటి శని (సాడే సాతి), ఢైయా, రాహు–కేతు, గ్రహ గోచారాలు — భయం లేకుండా వివరిస్తారు.' },
     },
   },
   report: {

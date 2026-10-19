@@ -1,6 +1,5 @@
 // নতুন স্ক্রিনগুলির বাংলা পাঠ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডার, গোপনীয়তা, পেমেন্ট, ভয়েস); bn.ts-এ `extra` হিসেবে যুক্ত।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'প্রেম ও বিবাহ', text: 'আপনার কুণ্ডলীর মাধ্যমে সম্পর্ক, বিবাহ ও পরিবার, আন্তরিকতা ও যত্নের সঙ্গে।' },
       shastri: { role: 'ঐতিহ্যবাহী পণ্ডিত', text: 'পঞ্জিকা, মুহূর্ত (শুভ সময়), উৎসব এবং সহজ ঐতিহ্যবাহী উপায়।' },
       tara: { role: 'কর্মজীবন ও পড়াশোনা', text: 'জ্যোতিষ ও সংখ্যার মাধ্যমে কাজ, পড়াশোনা ও জীবনের পথ।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'লাল কিতাব বিশেষজ্ঞ', text: 'লাল কিতাব অনুযায়ী বিচার, সঙ্গে সহজ ও কম খরচের উপায় (প্রতিকার), যা আপনি বাড়িতেই করতে পারেন।' },
+      kavya: { role: 'KP ও প্রশ্ন', text: 'KP পদ্ধতি ও প্রশ্ন জ্যোতিষ: হ্যাঁ-না প্রশ্ন এবং সময় নিয়ে স্পষ্ট মতামত।' },
+      gopal: { role: 'বাস্তুশাস্ত্র', text: 'আপনার বাড়ি, দোকান বা অফিসের জন্য বাস্তু, সহজ পরিবর্তনে এবং কোনো ভাঙাভাঙি ছাড়াই।' },
+      lakshmi: { role: 'ধন ও ব্যবসা', text: 'আপনার কুণ্ডলীর মাধ্যমে অর্থ, সঞ্চয় ও ব্যবসা, এবং শুরু করার শুভ সময়।' },
+      arjun: { role: 'বিদেশযাত্রা ও প্রবাস', text: 'আপনার কুণ্ডলীর মাধ্যমে বিদেশে পড়াশোনা, ভিসা, বিদেশে চাকরি ও বিদেশে বসবাস।' },
+      savitri: { role: 'সন্তান ও পরিবার', text: 'সন্তান, তাদের পড়াশোনা ও স্বভাব, এবং পরিবারে শান্তি, মায়ের মমতা নিয়ে।' },
+      rudra: { role: 'শনি, রাহু ও কেতু', text: 'সাড়ে সাতি, ঢাইয়া, রাহু–কেতু ও গ্রহের গোচর, ভয় ছাড়াই বুঝিয়ে বলা।' },
     },
   },
   report: {

@@ -1,6 +1,5 @@
 // ନୂଆ ସ୍କ୍ରିନଗୁଡ଼ିକର ଓଡ଼ିଆ ପାଠ (AI ପର୍ସୋନା, PDF ରିପୋର୍ଟ, ରିମାଇଣ୍ଡର, ଗୋପନୀୟତା, ପେମେଣ୍ଟ, ଭଏସ୍); or.ts ରେ `extra` ଭାବେ ଅନ୍ତର୍ଭୁକ୍ତ।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ପ୍ରେମ ଓ ବିବାହ', text: 'ଆପଣଙ୍କ କୁଣ୍ଡଳୀ ମାଧ୍ୟମରେ ସମ୍ପର୍କ, ବିବାହ ଓ ପରିବାର, ଆନ୍ତରିକତା ଓ ଯତ୍ନ ସହ।' },
       shastri: { role: 'ପାରମ୍ପରିକ ପଣ୍ଡିତ', text: 'ପଞ୍ଜିକା, ମୁହୂର୍ତ୍ତ (ଶୁଭ ସମୟ), ପର୍ବପର୍ବାଣି ଓ ସରଳ ପାରମ୍ପରିକ ଉପାୟ।' },
       tara: { role: 'କ୍ୟାରିୟର୍ ଓ ପାଠପଢ଼ା', text: 'ଜ୍ୟୋତିଷ ଓ ସଂଖ୍ୟା ମାଧ୍ୟମରେ କାମ, ପାଠପଢ଼ା ଓ ଜୀବନର ଦିଗ।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'ଲାଲ କିତାବ ବିଶେଷଜ୍ଞ', text: 'ଲାଲ କିତାବ ଅନୁସାରେ ବିଚାର, ସହିତ ଘରେ କରିହେବା ଭଳି ସରଳ ଓ କମ୍ ଖର୍ଚ୍ଚର ଉପାୟ।' },
+      kavya: { role: 'KP ଓ ପ୍ରଶ୍ନ', text: 'KP ପଦ୍ଧତି ଓ ପ୍ରଶ୍ନ ଜ୍ୟୋତିଷ: ହଁ-ନା ପ୍ରଶ୍ନ ଓ ସମୟ ବିଷୟରେ ସ୍ପଷ୍ଟ ମତାମତ।' },
+      gopal: { role: 'ବାସ୍ତୁ ଶାସ୍ତ୍ର', text: 'ଆପଣଙ୍କ ଘର, ଦୋକାନ କିମ୍ବା ଅଫିସ ପାଇଁ ବାସ୍ତୁ, ସହଜ ପରିବର୍ତ୍ତନ ସହ ଏବଂ କୌଣସି ଭଙ୍ଗାରୁଜା ବିନା।' },
+      lakshmi: { role: 'ଧନ ଓ ବ୍ୟବସାୟ', text: 'ଆପଣଙ୍କ କୁଣ୍ଡଳୀ ମାଧ୍ୟମରେ ଟଙ୍କା, ସଞ୍ଚୟ ଓ ବ୍ୟବସାୟ, ଏବଂ ଆରମ୍ଭ କରିବା ପାଇଁ ଶୁଭ ସମୟ।' },
+      arjun: { role: 'ବିଦେଶ ଯାତ୍ରା ଓ ପ୍ରବାସ', text: 'ଆପଣଙ୍କ କୁଣ୍ଡଳୀ ମାଧ୍ୟମରେ ବିଦେଶରେ ପାଠପଢ଼ା, ଭିସା, ବିଦେଶରେ ଚାକିରି ଓ ବିଦେଶରେ ବସବାସ।' },
+      savitri: { role: 'ସନ୍ତାନ ଓ ପରିବାର', text: 'ପିଲାମାନେ, ସେମାନଙ୍କ ପାଠପଢ଼ା ଓ ସ୍ୱଭାବ, ଏବଂ ପରିବାରରେ ଶାନ୍ତି, ମାଆର ମମତା ସହ।' },
+      rudra: { role: 'ଶନି, ରାହୁ ଓ କେତୁ', text: 'ସାଢ଼େସାତି, ଢୈୟା, ରାହୁ–କେତୁ ଓ ଗ୍ରହ ଗୋଚର, ଭୟ ବିନା ବୁଝାଇ କୁହାଯାଏ।' },
     },
   },
   report: {

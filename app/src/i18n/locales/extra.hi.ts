@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइंडर, गोपनीयता, भुगतान और आवाज़ का हिन्दी पाठ (hi.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम और विवाह', text: 'आपकी कुंडली के ज़रिए रिश्ते, विवाह और परिवार — अपनापन और परवाह के साथ।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पंचांग, मुहूर्त (शुभ समय), त्योहार और सरल पारंपरिक उपाय।' },
       tara: { role: 'करियर और पढ़ाई', text: 'ज्योतिष और अंकों के ज़रिए काम, पढ़ाई और जीवन की दिशा।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लाल किताब विशेषज्ञ', text: 'लाल किताब के अनुसार फलादेश, साथ में ऐसे सरल और कम खर्च वाले उपाय जो आप घर पर ही कर सकें।' },
+      kavya: { role: 'KP और प्रश्न', text: 'KP पद्धति और प्रश्न ज्योतिष: हाँ-या-ना वाले सवालों और समय पर स्पष्ट राय।' },
+      gopal: { role: 'वास्तु शास्त्र', text: 'आपके घर, दुकान या दफ़्तर के लिए वास्तु — आसान बदलावों के साथ, बिना किसी तोड़-फोड़ के।' },
+      lakshmi: { role: 'धन और व्यापार', text: 'आपकी कुंडली के ज़रिए पैसा, बचत और व्यापार, और शुरुआत के लिए अच्छे समय।' },
+      arjun: { role: 'विदेश यात्रा और प्रवास', text: 'आपकी कुंडली के ज़रिए विदेश में पढ़ाई, वीज़ा, विदेश में नौकरी और वहाँ बसना।' },
+      savitri: { role: 'संतान और परिवार', text: 'बच्चे, उनकी पढ़ाई और स्वभाव, और परिवार में शांति — एक माँ की परवाह के साथ।' },
+      rudra: { role: 'शनि, राहु और केतु', text: 'साढ़े साती, ढैया, राहु–केतु और ग्रहों का गोचर — बिना डर के समझाया गया।' },
     },
   },
   report: {

@@ -1,6 +1,5 @@
 // மைல்கல் 6–10-இல் சேர்க்கப்பட்ட தமிழ் உரை (பர்சனாக்கள், அறிக்கை, நினைவூட்டல், தனியுரிமை, பணம் செலுத்துதல், குரல்).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'காதல் & திருமணம்', text: 'உங்கள் ஜாதகம் வழியாக உறவுகள், திருமணம், குடும்பம் பற்றி அன்புடனும் அக்கறையுடனும்.' },
       shastri: { role: 'பாரம்பரிய பண்டிதர்', text: 'பஞ்சாங்கம், முகூர்த்தம் (நல்ல நேரங்கள்), பண்டிகைகள், எளிய பாரம்பரிய பரிகாரங்கள்.' },
       tara: { role: 'தொழில் & படிப்பு', text: 'வேலை, படிப்பு, வாழ்க்கைப் பாதை — ஜோதிடம் மற்றும் எண்கள் வழியாக.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'லால் கிதாப் நிபுணர்', text: 'லால் கிதாப் முறைப்படி பலன்கள், வீட்டிலேயே செய்யக்கூடிய எளிய, குறைந்த செலவிலான உபாய் (பரிகாரங்கள்) உடன்.' },
+      kavya: { role: 'KP & பிரசன்னம்', text: 'KP முறை மற்றும் பிரசன்னம்: ஆம்-இல்லை கேள்விகளுக்கும் நேரத்துக்கும் தெளிவான பார்வை.' },
+      gopal: { role: 'வாஸ்து சாஸ்திரம்', text: 'உங்கள் வீடு, கடை அல்லது அலுவலகத்துக்கு வாஸ்து — எளிய மாற்றங்களுடன், எதையும் இடிக்காமல்.' },
+      lakshmi: { role: 'செல்வம் & தொழில்', text: 'பணம், சேமிப்பு, வியாபாரம், தொடங்குவதற்கு நல்ல காலங்கள் — உங்கள் ஜாதகம் வழியாக.' },
+      arjun: { role: 'வெளிநாட்டுப் பயணம் & குடியேற்றம்', text: 'வெளிநாட்டுப் படிப்பு, விசா, வெளிநாட்டு வேலை, வெளிநாட்டில் குடியேறுதல் — உங்கள் ஜாதகம் வழியாக.' },
+      savitri: { role: 'குழந்தைகள் & குடும்பம்', text: 'குழந்தைகள், அவர்களின் படிப்பு, குணம், குடும்ப அமைதி — ஒரு தாயின் அக்கறையுடன்.' },
+      rudra: { role: 'சனி, ராகு & கேது', text: 'ஏழரைச் சனி (சாடே சாதி), டைய்யா, ராகு–கேது, கிரகப் பெயர்ச்சிகள் — பயமின்றி விளக்குவார்.' },
     },
   },
   report: {
