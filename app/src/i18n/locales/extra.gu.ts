@@ -1,6 +1,5 @@
 // નવી સ્ક્રીનોનો ગુજરાતી પાઠ: AI પર્સોના, PDF રિપોર્ટ, રિમાઇન્ડર, ગોપનીયતા, ચુકવણી, અવાજ (gu.ts માં `extra` તરીકે સામેલ).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'હસ્તરેખા',
     homeHint: 'તમારી હથેળીના ફોટા પરથી હસ્તરેખા',
     intro: 'તમારી હથેળીનો સ્પષ્ટ ફોટો લો. અમારા AI હસ્તરેખા નિષ્ણાત તમારી હૃદય રેખા, મસ્તિષ્ક રેખા, જીવન રેખા અને ભાગ્ય રેખા તથા હાથના પર્વતો જુએ છે.',
+    priceNote_one: 'કિંમત: દરેક રીડિંગ માટે {{count}} ક્રેડિટ. પહેલાં ચુકવણી કરો, પછી તમારી હથેળીના ફોટા લો અથવા પસંદ કરો.',
+    priceNote_other: 'કિંમત: દરેક રીડિંગ માટે {{count}} ક્રેડિટ. પહેલાં ચુકવણી કરો, પછી તમારી હથેળીના ફોટા લો અથવા પસંદ કરો.',
     premiumNote: 'તમારા પ્રીમિયમમાં શામેલ.',
     left: 'ડાબો હાથ',
     right: 'જમણો હાથ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'દૂર કરો',
     tips: 'સારા રીડિંગ માટે: તેજ પ્રકાશ, કૅમેરા તરફ ખુલ્લી હથેળી, અને આખી હથેળી ફોટામાં.',
     second: 'વધુ સંપૂર્ણ રીડિંગ માટે બીજા હાથનો ફોટો પણ ઉમેરો (વૈકલ્પિક).',
+    start: 'તમારું હસ્તરેખા રીડિંગ શરૂ કરો',
+    pay_one: '{{count}} ક્રેડિટ ચૂકવો અને આગળ વધો',
+    pay_other: '{{count}} ક્રેડિટ ચૂકવો અને આગળ વધો',
+    continuePremium: 'આગળ વધો (પ્રીમિયમમાં શામેલ)',
+    paid: 'ચુકવણી થઈ ગઈ. હવે તમારી હથેળીનો ફોટો લો અથવા પસંદ કરો.',
+    read: 'મારી હથેળી વાંચો',
     reading: 'તમારી હથેળી વંચાઈ રહી છે…',
+    notPalm: 'અમને હથેળી સ્પષ્ટ દેખાઈ નહીં. તમારી ચુકવણી સુરક્ષિત રાખવામાં આવી છે: કૃપા કરીને વધુ સ્પષ્ટ ફોટો લો અને ફરી પ્રયાસ કરો.',
+    retry: 'રીડિંગ બની શક્યું નહીં. તમારી ચુકવણી સુરક્ષિત રાખવામાં આવી છે: કૃપા કરીને ફરી પ્રયાસ કરો.',
     yours: 'તમારું હસ્તરેખા રીડિંગ',
     earlier: 'અગાઉનાં રીડિંગ',
     again: 'નવું રીડિંગ',

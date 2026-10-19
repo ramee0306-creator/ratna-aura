@@ -1,6 +1,5 @@
 // নতুন স্ক্রিনগুলির বাংলা পাঠ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডার, গোপনীয়তা, পেমেন্ট, ভয়েস); bn.ts-এ `extra` হিসেবে যুক্ত।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'হস্তরেখা বিচার',
     homeHint: 'আপনার হাতের তালুর ছবি থেকে হস্তরেখা',
     intro: 'আপনার হাতের তালুর একটি স্পষ্ট ছবি তুলুন। আমাদের AI হস্তরেখাবিদ আপনার হৃদয় রেখা, মস্তিষ্ক রেখা, জীবন রেখা ও ভাগ্য রেখা এবং হাতের পর্বতগুলি দেখে।',
+    priceNote_one: 'মূল্য: প্রতি বিচারে {{count}}টি ক্রেডিট। আগে পেমেন্ট করুন, তারপর আপনার হাতের তালুর ছবি তুলুন বা বেছে নিন।',
+    priceNote_other: 'মূল্য: প্রতি বিচারে {{count}}টি ক্রেডিট। আগে পেমেন্ট করুন, তারপর আপনার হাতের তালুর ছবি তুলুন বা বেছে নিন।',
     premiumNote: 'আপনার প্রিমিয়ামে অন্তর্ভুক্ত।',
     left: 'বাঁ হাত',
     right: 'ডান হাত',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'সরান',
     tips: 'ভালো বিচারের জন্য: উজ্জ্বল আলো, খোলা তালু ক্যামেরার দিকে, পুরো তালু ছবিতে।',
     second: 'আরও পূর্ণ বিচারের জন্য অন্য হাতের ছবিও যোগ করুন (ঐচ্ছিক)।',
+    start: 'আপনার হস্তরেখা বিচার শুরু করুন',
+    pay_one: '{{count}}টি ক্রেডিট দিয়ে এগিয়ে যান',
+    pay_other: '{{count}}টি ক্রেডিট দিয়ে এগিয়ে যান',
+    continuePremium: 'এগিয়ে যান (প্রিমিয়ামে অন্তর্ভুক্ত)',
+    paid: 'পেমেন্ট হয়েছে। এবার আপনার হাতের তালুর ছবি তুলুন বা বেছে নিন।',
+    read: 'আমার হাত দেখুন',
     reading: 'আপনার হাত দেখা হচ্ছে…',
+    notPalm: 'আমরা তালুটি স্পষ্ট দেখতে পাইনি। আপনার পেমেন্ট সংরক্ষিত আছে: অনুগ্রহ করে আরও স্পষ্ট ছবি তুলে আবার চেষ্টা করুন।',
+    retry: 'বিচারটি তৈরি করা যায়নি। আপনার পেমেন্ট সংরক্ষিত আছে: অনুগ্রহ করে আবার চেষ্টা করুন।',
     yours: 'আপনার হস্তরেখা বিচার',
     earlier: 'আগের বিচারগুলি',
     again: 'নতুন বিচার',

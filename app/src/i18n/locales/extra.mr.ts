@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF अहवाल, स्मरण, गोपनीयता, पेमेंट आणि आवाजाचा मराठी मजकूर (mr.ts मध्ये `extra` म्हणून समाविष्ट).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्तरेषा',
     homeHint: 'तुमच्या तळहाताच्या फोटोवरून हस्तरेषा',
     intro: 'तुमच्या तळहाताचा स्पष्ट फोटो काढा. आमचा AI हस्तरेषातज्ज्ञ तुमची हृदयरेषा, मस्तकरेषा, आयुष्यरेषा, भाग्यरेषा आणि हाताचे उंचवटे (पर्वत) पाहतो.',
+    priceNote_one: 'किंमत: प्रत्येक वाचनासाठी {{count}} क्रेडिट. आधी पैसे भरा, मग तुमच्या तळहाताचे फोटो काढा किंवा निवडा.',
+    priceNote_other: 'किंमत: प्रत्येक वाचनासाठी {{count}} क्रेडिट. आधी पैसे भरा, मग तुमच्या तळहाताचे फोटो काढा किंवा निवडा.',
     premiumNote: 'तुमच्या प्रीमियममध्ये समाविष्ट.',
     left: 'डावा हात',
     right: 'उजवा हात',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'काढून टाका',
     tips: 'चांगल्या वाचनासाठी: भरपूर उजेड, कॅमेऱ्याकडे उघडा तळहात, आणि संपूर्ण तळहात फोटोत.',
     second: 'अधिक सविस्तर वाचनासाठी दुसऱ्या हाताचा फोटोही जोडा (ऐच्छिक).',
+    start: 'तुमचे हस्तरेषा वाचन सुरू करा',
+    pay_one: '{{count}} क्रेडिट भरा आणि पुढे चला',
+    pay_other: '{{count}} क्रेडिट भरा आणि पुढे चला',
+    continuePremium: 'पुढे चला (प्रीमियममध्ये समाविष्ट)',
+    paid: 'पैसे भरले. आता तुमच्या तळहाताचा फोटो काढा किंवा निवडा.',
+    read: 'माझा हात पाहा',
     reading: 'तुमचा हात पाहिला जात आहे…',
+    notPalm: 'आम्हाला तळहात स्पष्ट दिसला नाही. तुम्ही भरलेले पैसे राखून ठेवले आहेत: कृपया अधिक स्पष्ट फोटो काढा आणि पुन्हा प्रयत्न करा.',
+    retry: 'वाचन तयार होऊ शकले नाही. तुम्ही भरलेले पैसे राखून ठेवले आहेत: कृपया पुन्हा प्रयत्न करा.',
     yours: 'तुमचे हस्तरेषा वाचन',
     earlier: 'आधीची वाचने',
     again: 'नवीन वाचन',

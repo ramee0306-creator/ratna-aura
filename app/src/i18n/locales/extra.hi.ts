@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइंडर, गोपनीयता, भुगतान और आवाज़ का हिन्दी पाठ (hi.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्त रेखा',
     homeHint: 'आपकी हथेली की फ़ोटो से हस्त रेखा',
     intro: 'अपनी हथेली की साफ़ फ़ोटो लें। हमारा AI हस्त रेखा विशेषज्ञ आपकी हृदय रेखा, मस्तिष्क रेखा, जीवन रेखा और भाग्य रेखा तथा हाथ के पर्वतों को देखता है।',
+    priceNote_one: 'कीमत: प्रति रीडिंग {{count}} क्रेडिट। पहले भुगतान करें, फिर अपनी हथेली की फ़ोटो लें या चुनें।',
+    priceNote_other: 'कीमत: प्रति रीडिंग {{count}} क्रेडिट। पहले भुगतान करें, फिर अपनी हथेली की फ़ोटो लें या चुनें।',
     premiumNote: 'आपके प्रीमियम में शामिल।',
     left: 'बायाँ हाथ',
     right: 'दायाँ हाथ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'हटाएँ',
     tips: 'अच्छी रीडिंग के लिए: तेज़ रोशनी, खुली हथेली कैमरे की ओर, और पूरी हथेली फ़ोटो में।',
     second: 'और पूरी रीडिंग के लिए दूसरे हाथ की फ़ोटो भी जोड़ें (वैकल्पिक)।',
+    start: 'अपनी हस्त रेखा रीडिंग शुरू करें',
+    pay_one: '{{count}} क्रेडिट देकर आगे बढ़ें',
+    pay_other: '{{count}} क्रेडिट देकर आगे बढ़ें',
+    continuePremium: 'आगे बढ़ें (प्रीमियम में शामिल)',
+    paid: 'भुगतान हो गया। अब अपनी हथेली की फ़ोटो लें या चुनें।',
+    read: 'मेरी हथेली पढ़ें',
     reading: 'आपकी हथेली पढ़ी जा रही है…',
+    notPalm: 'हमें हथेली साफ़ नहीं दिखी। आपका भुगतान सुरक्षित रखा गया है: कृपया और साफ़ फ़ोटो लें और फिर से कोशिश करें।',
+    retry: 'रीडिंग नहीं बन सकी। आपका भुगतान सुरक्षित रखा गया है: कृपया फिर से कोशिश करें।',
     yours: 'आपकी हस्त रेखा रीडिंग',
     earlier: 'पिछली रीडिंग',
     again: 'नई रीडिंग',
