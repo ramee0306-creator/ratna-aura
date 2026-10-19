@@ -1,6 +1,6 @@
 // संस्कृतम्. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.sa.ts)
+import ai from './ai.sa';
 import jyotish from './jyotish.sa';
 import kundli from './kundli.sa';
 import numerology from './numerology.sa';

@@ -1,6 +1,6 @@
 // ગુજરાતી. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.gu.ts)
+import ai from './ai.gu';
 import jyotish from './jyotish.gu';
 import kundli from './kundli.gu';
 import numerology from './numerology.gu';

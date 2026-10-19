@@ -1,6 +1,6 @@
 // ತುಳು (ಕನ್ನಡ ಲಿಪಿ). Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.tcy.ts)
+import ai from './ai.tcy';
 import jyotish from './jyotish.tcy';
 import kundli from './kundli.tcy';
 import numerology from './numerology.tcy';
