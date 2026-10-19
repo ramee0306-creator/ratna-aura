@@ -1,9 +1,15 @@
-# Creates the Google Play UPLOAD KEY once (README → Publishing → Upload key), so no computer setup is needed.
-# GitHub → Actions → "Make upload key" → Run workflow. Then open the finished run → Artifacts → "upload-key":
-#   1. Save upload.jks and passwords.txt in your password manager (this is the only copy).
-#   2. Add the 4 GitHub secrets listed in passwords.txt (Settings → Secrets and variables → Actions).
-#   3. Delete the "upload-key" artifact (trash icon on the run page). It also deletes itself after 1 day.
-# For safety it only runs while this repository is PRIVATE: artifacts of public repositories can be downloaded by anyone.
+# Creates the Google Play UPLOAD KEY once and saves it straight into this repository's secrets, so nobody has to
+# handle the key file by hand (README → Publishing → Upload key).
+#
+# Before running: add a repository secret SECRETS_TOKEN = a fine-grained GitHub token for this repository only, with
+# "Secrets: Read and write" permission (github.com/settings/personal-access-tokens/new, expiry 7 days).
+# Then: GitHub → Actions → "Make upload key" → Run workflow. It saves ANDROID_UPLOAD_KEYSTORE_BASE64,
+# ANDROID_UPLOAD_STORE_PASSWORD, ANDROID_UPLOAD_KEY_ALIAS and ANDROID_UPLOAD_KEY_PASSWORD.
+# Afterwards: download the "upload-key" artifact as your backup copy, delete the artifact, delete the SECRETS_TOKEN
+# secret and revoke the token.
+#
+# Safety: it only runs while this repository is PRIVATE (artifacts of public repositories can be downloaded by
+# anyone), and it refuses to replace a key that is already saved (Google Play accepts only the first upload key).
 name: Make upload key
 
 on:
@@ -21,24 +27,42 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Create the key
+      - name: Create the key and save it as repository secrets
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_TOKEN }}
+          EXISTING_KEY: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
+          if [ -n "$EXISTING_KEY" ]; then
+            echo "::error::An upload key is already saved. Not replacing it (Google Play only accepts the first one)."
+            exit 1
+          fi
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Add the SECRETS_TOKEN secret first (see the comment at the top of this workflow)."
+            exit 1
+          fi
           umask 077
           mkdir out
           PASS="$(openssl rand -base64 30 | tr -dc 'A-Za-z0-9' | head -c 32)"
+          echo "::add-mask::$PASS"
           keytool -genkeypair -keystore out/upload.jks -storetype PKCS12 -alias upload -keyalg RSA -keysize 2048 \
             -validity 10000 -storepass "$PASS" -keypass "$PASS" -dname "CN=Ratna Aura, O=Raksha, C=IN"
           base64 -w0 out/upload.jks > out/upload.jks.base64
+          gh secret set ANDROID_UPLOAD_KEYSTORE_BASE64 --repo "$REPO" < out/upload.jks.base64
+          printf '%s' "$PASS" | gh secret set ANDROID_UPLOAD_STORE_PASSWORD --repo "$REPO"
+          printf '%s' "upload" | gh secret set ANDROID_UPLOAD_KEY_ALIAS --repo "$REPO"
+          printf '%s' "$PASS" | gh secret set ANDROID_UPLOAD_KEY_PASSWORD --repo "$REPO"
           {
-            echo "Ratna Aura - Google Play upload key. Keep this file and upload.jks in your password manager."
+            echo "Ratna Aura - Google Play upload key (backup copy). Keep this file and upload.jks somewhere safe."
+            echo "These values are already saved as GitHub secrets; you only need them if you ever move the build."
             echo
-            echo "Add these 4 repository secrets (GitHub -> Settings -> Secrets and variables -> Actions -> New repository secret):"
             echo "  ANDROID_UPLOAD_KEYSTORE_BASE64 = the whole contents of upload.jks.base64"
             echo "  ANDROID_UPLOAD_STORE_PASSWORD  = $PASS"
             echo "  ANDROID_UPLOAD_KEY_ALIAS       = upload"
             echo "  ANDROID_UPLOAD_KEY_PASSWORD    = $PASS"
           } > out/passwords.txt
+          echo "Saved the 4 ANDROID_UPLOAD_* secrets."
       - uses: actions/upload-artifact@v4
         with:
           name: upload-key

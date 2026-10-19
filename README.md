@@ -384,10 +384,11 @@ once with the environment variable `ALLOW_SCREENSHOTS=1`.
 ### Google Play (AAB)
 1. ⚠️ **Decide the package ID now — it can never change after the first upload** (`brand.config.js` →
    `androidPackage`, currently `Raksha.RatnaAura`).
-2. **Upload key (once).** While the repository is still private: GitHub → **Actions** → **Make upload key** →
-   **Run workflow**. Open the finished run → Artifacts → `upload-key`: keep `upload.jks` and `passwords.txt` in your
-   password manager, add the 4 secrets it lists (`ANDROID_UPLOAD_KEYSTORE_BASE64`, `ANDROID_UPLOAD_STORE_PASSWORD`,
-   `ANDROID_UPLOAD_KEY_ALIAS`, `ANDROID_UPLOAD_KEY_PASSWORD`), then delete the artifact. Never commit the key.
+2. **Upload key (once), while the repository is still private.** Create a fine-grained GitHub token for this
+   repository only with **Secrets: Read and write** (expiry 7 days) and save it as the repository secret
+   `SECRETS_TOKEN`. Then GitHub → **Actions** → **Make upload key** → **Run workflow**: it creates the key and saves the 4
+   `ANDROID_UPLOAD_*` secrets itself. Download its `upload-key` artifact as your backup copy, delete the artifact,
+   delete `SECRETS_TOKEN` and revoke the token. It never replaces a key that is already saved.
    (Play App Signing keeps the real signing key at Google; a lost upload key can be reset through Play support.)
 3. GitHub → **Actions** → **Build for Google Play** → **Run workflow** → download `ratna-aura-aab` → upload the
    `.aab` in Play Console (Internal testing first). Each run gets a higher version code automatically.
