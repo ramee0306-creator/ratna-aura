@@ -33,6 +33,7 @@ import lang_sa from './locales/sa';
 import lang_lus from './locales/lus';
 import lang_es from './locales/es';
 import lang_zh from './locales/zh';
+import lang_zh_TW from './locales/zh-TW';
 
 export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'en': lang_en,
@@ -66,4 +67,5 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'lus': lang_lus,
   'es': lang_es,
   'zh': lang_zh,
+  'zh-TW': lang_zh_TW,
 };
