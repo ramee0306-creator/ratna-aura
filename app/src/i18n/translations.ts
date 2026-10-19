@@ -31,6 +31,7 @@ import lang_mni from './locales/mni';
 import lang_brx from './locales/brx';
 import lang_sa from './locales/sa';
 import lang_lus from './locales/lus';
+import lang_kha from './locales/kha';
 import lang_es from './locales/es';
 import lang_zh from './locales/zh';
 import lang_zh_TW from './locales/zh-TW';
@@ -65,6 +66,7 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'brx': lang_brx,
   'sa': lang_sa,
   'lus': lang_lus,
+  'kha': lang_kha,
   'es': lang_es,
   'zh': lang_zh,
   'zh-TW': lang_zh_TW,
