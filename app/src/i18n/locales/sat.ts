@@ -1,6 +1,6 @@
 // ᱥᱟᱱᱛᱟᱲᱤ (ᱚᱞ ᱪᱤᱠᱤ). Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.sat.ts)
+import ai from './ai.sat';
 import jyotish from './jyotish.sat';
 import kundli from './kundli.sat';
 import numerology from './numerology.sat';

@@ -1,6 +1,6 @@
 // ଓଡ଼ିଆ. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.or.ts)
+import ai from './ai.or';
 import jyotish from './jyotish.or';
 import kundli from './kundli.or';
 import numerology from './numerology.or';
