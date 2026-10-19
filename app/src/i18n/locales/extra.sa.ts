@@ -1,6 +1,5 @@
 // नूतनपटलानां संस्कृतपाठः: AI-पात्राणि, PDF-प्रतिवेदनम्, स्मारकम्, गोपनीयता, देयकम्, ध्वनिः (sa.ts मध्ये `extra` इति रूपेण सम्मिलितः)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'ध्वनिसंवादः',
     conversationHint: 'स्वप्रश्नं वदतु; उत्तरम् उच्चैः पठ्यते।',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'प्रतिदिनं नक्षत्राणि पृच्छतु, गणनां विना।',
+    benefits: {
+      ask_one: 'प्रश्नगणनां विना AI-मपृच्छतु (उचितोपयोगः: प्रतिदिनं {{count}} पर्यन्तम्)',
+      ask_other: 'प्रश्नगणनां विना AI-मपृच्छतु (उचितोपयोगः: प्रतिदिनं {{count}} पर्यन्तम्)',
+      bonus: 'प्रत्येकस्मिन् देयकावधौ बोनस्-क्रेडिट्स्, AI-ज्योतिषिणां कृते',
+      keep: 'Premium-समाप्तेः अनन्तरम् अपि बोनस्-क्रेडिट्स् भवतः कोशे तिष्ठन्ति',
+      cancel: 'Google Play-मध्ये कदापि निरस्यतु',
+    },
+    plans: {
+      monthly: 'मासिकम्',
+      quarterly: '3 मासाः',
+      yearly: 'वार्षिकम्',
+    },
+    billed: {
+      monthly: 'प्रतिमासं {{price}} देयम्',
+      quarterly: 'प्रत्येकं 3 मासेषु {{price}} देयम्',
+      yearly: 'प्रतिवर्षं {{price}} देयम्',
+    },
+    perMonth: '{{price}} / मासः',
+    save: '{{percent}}% सञ्चयः',
+    bestValue: 'सर्वोत्तमं मूल्यम्',
+    bonus_one: 'प्रत्यवधि +{{count}} बोनस्-क्रेडिट्',
+    bonus_other: 'प्रत्यवधि +{{count}} बोनस्-क्रेडिट्स्',
+    trial_one: '{{count}} दिनं निःशुल्कम्',
+    trial_other: '{{count}} दिनानि निःशुल्कम्',
+    startTrial: 'निःशुल्कपरीक्षणम् आरभताम्',
+    subscribe: 'अग्रे सरतु',
+    trialNote_one: '{{count}} दिनं निःशुल्कम्, ततः {{price}}। परीक्षणसमाप्तेः पूर्वं निरस्यति चेत् भवता किमपि न देयम्।',
+    trialNote_other: '{{count}} दिनानि निःशुल्कम्, ततः {{price}}। परीक्षणसमाप्तेः पूर्वं निरस्यति चेत् भवता किमपि न देयम्।',
+    status: {
+      title: 'भवान् Premium-सदस्यः अस्ति',
+      plan: 'योजना: {{plan}}',
+      renews: '{{date}} दिनाङ्के नवीक्रियते',
+      ends: '{{date}} दिनाङ्के समाप्यते। पुनः न नवीक्रियते।',
+      trialEnds: '{{date}} पर्यन्तं निःशुल्कपरीक्षणम्',
+      grace: 'भवतः अन्तिमं देयकं न सम्पन्नम्। Google Play पुनः प्रयतते — Premium स्थापयितुं कृपया स्वदेयकविधिम् अद्यतनं करोतु।',
+      leftToday_one: 'अद्य {{count}} Premium-प्रश्नः अवशिष्टः',
+      leftToday_other: 'अद्य {{count}} Premium-प्रश्नाः अवशिष्टाः',
+    },
+    manage: 'सदस्यतां प्रबन्धयतु',
+    updatePayment: 'देयकविधिम् अद्यतनं करोतु',
+    cancelTest: 'परीक्षण-सदस्यतां निरस्यतु',
+    cancelledTest: 'परीक्षण-सदस्यता निरस्ता। अवधेः अन्तपर्यन्तं Premium प्रचलति।',
+    restore: 'क्रयणानि पुनःस्थापयतु',
+    restored: 'क्रयणानि पुनःस्थापितानि।',
+    nothingToRestore: 'अस्य Google-खातस्य कृते सक्रिया सदस्यता न प्राप्ता।',
+    welcome: 'Premium-मध्ये स्वागतम्! भवतः बोनस्-क्रेडिट्स् योजितानि।',
+    welcomeTrial: 'भवतः निःशुल्कपरीक्षणम् आरब्धम्। Premium-आनन्दम् अनुभवतु! बोनस्-क्रेडिट्स् प्रथमेन सशुल्कावधिना सह आगच्छन्ति।',
+    waiting: 'देयकं प्राप्तम्। Premium प्रवर्त्यते…',
+    slow: 'देयकं प्राप्तम्। Premium एकस्मिन् निमेषे आरप्स्यते — नवीकर्तुम् इमं पटलं प्रत्यागच्छतु।',
+    cancelled: 'निरस्तम्। भवतः किमपि शुल्कं न गृहीतम्।',
+    failed: 'सदस्यताम् आरब्धुं न शक्तम्। भवतः किमपि शुल्कं न गृहीतम्।',
+    testMode: 'परीक्षणविधा: किमपि देयकं न गृह्यते, Premium च सद्यः आरभते।',
+    off: 'Premium अद्यापि उपलब्धं नास्ति।',
+    androidOnly: 'Premium Android-एप्-मध्ये Google Play इत्यतः क्रेतुं शक्यते।',
+    fine: 'मूल्येषु GST अन्तर्भूतम्। यावत् भवान् न निरस्यति तावत् सदस्यता तेनैव मूल्येन स्वयमेव नवीक्रियते। Google Play → देयकानि सदस्यताः च इत्यत्र कदापि निरस्यतु, नवीकरणदिनाङ्कात् न्यूनातिन्यूनं 24 होराः पूर्वम्, Premium च भवता दत्तशुल्कस्य अवधेः अन्तपर्यन्तं प्रचलति। निःशुल्कपरीक्षणे, ततः पूर्वं न निरस्यति चेत् परीक्षणसमाप्तौ भवतः शुल्कं गृह्यते।',
+    banner: 'Premium स्वीकरोतु',
+    bannerHint: 'प्रतिदिनं गणनां विना AI-मपृच्छतु · प्रतिमासं {{price}} इत्यतः',
+    bannerActive: 'Premium सक्रियम्',
+    askLine_one: 'Premium · अद्य {{count}} प्रश्नः अवशिष्टः',
+    askLine_other: 'Premium · अद्य {{count}} प्रश्नाः अवशिष्टाः',
+    askUpsell: 'अथवा Premium स्वीकृत्य प्रतिदिनं पृच्छतु',
+    usedToday: 'भवता अद्यतनाः Premium-प्रश्नाः उपयुक्ताः; ते श्वः पुनः आगमिष्यन्ति। तावत् निःशुल्कप्रश्नाः क्रेडिट्स् च उपयुज्यन्ते।',
+  },
 };
 
 export default extra;

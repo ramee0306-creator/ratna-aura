@@ -1,6 +1,5 @@
 // نئی اسکرینوں (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) کا اردو متن (ur.ts میں `extra` کے طور پر شامل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'صوتی گفتگو',
     conversationHint: 'اپنا سوال بولیں؛ جواب بلند آواز میں سنایا جائے گا۔',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'ہر روز ستاروں سے پوچھیں، بغیر گنے۔',
+    benefits: {
+      ask_one: 'سوال گنے بغیر AI سے پوچھیں (مناسب استعمال: روزانہ {{count}} تک)',
+      ask_other: 'سوال گنے بغیر AI سے پوچھیں (مناسب استعمال: روزانہ {{count}} تک)',
+      bonus: 'ہر بلنگ مدت میں بونس کریڈٹ، AI نجومیوں کے لیے',
+      keep: 'بونس کریڈٹ آپ کے والیٹ میں رہتے ہیں، Premium ختم ہونے کے بعد بھی',
+      cancel: 'Google Play میں کسی بھی وقت منسوخ کریں',
+    },
+    plans: {
+      monthly: 'ماہانہ',
+      quarterly: '3 مہینے',
+      yearly: 'سالانہ',
+    },
+    billed: {
+      monthly: 'ہر مہینے {{price}} کی ادائیگی',
+      quarterly: 'ہر 3 مہینے {{price}} کی ادائیگی',
+      yearly: 'ہر سال {{price}} کی ادائیگی',
+    },
+    perMonth: '{{price}} / مہینہ',
+    save: '{{percent}}% بچت',
+    bestValue: 'سب سے فائدہ مند',
+    bonus_one: 'ہر مدت میں +{{count}} بونس کریڈٹ',
+    bonus_other: 'ہر مدت میں +{{count}} بونس کریڈٹ',
+    trial_one: '{{count}} دن مفت',
+    trial_other: '{{count}} دن مفت',
+    startTrial: 'مفت آزمائش شروع کریں',
+    subscribe: 'جاری رکھیں',
+    trialNote_one: '{{count}} دن مفت، پھر {{price}}۔ آزمائش ختم ہونے سے پہلے منسوخ کر دیں تو آپ کو کچھ ادا نہیں کرنا پڑے گا۔',
+    trialNote_other: '{{count}} دن مفت، پھر {{price}}۔ آزمائش ختم ہونے سے پہلے منسوخ کر دیں تو آپ کو کچھ ادا نہیں کرنا پڑے گا۔',
+    status: {
+      title: 'آپ Premium ممبر ہیں',
+      plan: 'پلان: {{plan}}',
+      renews: '{{date}} کو تجدید ہوگی',
+      ends: '{{date}} کو ختم ہو جائے گا۔ اس کی تجدید نہیں ہوگی۔',
+      trialEnds: '{{date}} تک مفت آزمائش',
+      grace: 'آپ کی پچھلی ادائیگی نہیں ہو سکی۔ Google Play دوبارہ کوشش کر رہا ہے — Premium جاری رکھنے کے لیے براہِ کرم اپنا ادائیگی کا طریقہ اپ ڈیٹ کریں۔',
+      leftToday_one: 'آج {{count}} Premium سوال باقی ہے',
+      leftToday_other: 'آج {{count}} Premium سوال باقی ہیں',
+    },
+    manage: 'سبسکرپشن کا انتظام کریں',
+    updatePayment: 'ادائیگی کا طریقہ اپ ڈیٹ کریں',
+    cancelTest: 'ٹیسٹ سبسکرپشن منسوخ کریں',
+    cancelledTest: 'ٹیسٹ سبسکرپشن منسوخ ہو گئی۔ Premium مدت کے آخر تک جاری رہے گا۔',
+    restore: 'خریداریاں بحال کریں',
+    restored: 'خریداریاں بحال ہو گئیں۔',
+    nothingToRestore: 'اس Google اکاؤنٹ کے لیے کوئی فعال سبسکرپشن نہیں ملی۔',
+    welcome: 'Premium میں خوش آمدید! آپ کے بونس کریڈٹ شامل کر دیے گئے ہیں۔',
+    welcomeTrial: 'آپ کی مفت آزمائش شروع ہو گئی ہے۔ Premium کا لطف اٹھائیں! بونس کریڈٹ پہلی ادا شدہ مدت کے ساتھ ملیں گے۔',
+    waiting: 'ادائیگی موصول ہو گئی۔ Premium چالو کیا جا رہا ہے…',
+    slow: 'ادائیگی موصول ہو گئی۔ Premium ایک منٹ میں شروع ہو جائے گا — تازہ کرنے کے لیے اس اسکرین پر واپس آئیں۔',
+    cancelled: 'منسوخ ہو گیا۔ آپ سے کچھ نہیں لیا گیا۔',
+    failed: 'سبسکرپشن شروع نہیں ہو سکی۔ آپ سے کچھ نہیں لیا گیا۔',
+    testMode: 'ٹیسٹ موڈ: کوئی ادائیگی نہیں لی جاتی اور Premium فوراً شروع ہو جاتا ہے۔',
+    off: 'Premium ابھی دستیاب نہیں ہے۔',
+    androidOnly: 'Premium Android ایپ میں Google Play سے خریدا جا سکتا ہے۔',
+    fine: 'قیمتوں میں GST شامل ہے۔ سبسکرپشن اسی قیمت پر خود بخود تجدید ہوتی رہتی ہے جب تک آپ اسے منسوخ نہ کریں۔ Google Play → ادائیگیاں اور سبسکرپشنز میں کسی بھی وقت، تجدید کی تاریخ سے کم از کم 24 گھنٹے پہلے منسوخ کریں، اور Premium اس مدت کے آخر تک جاری رہے گا جس کی آپ نے ادائیگی کی ہے۔ مفت آزمائش کی صورت میں، آزمائش ختم ہونے پر آپ سے رقم لی جائے گی، جب تک کہ آپ اس سے پہلے منسوخ نہ کر دیں۔',
+    banner: 'Premium لیں',
+    bannerHint: 'ہر روز بغیر گنے AI سے پوچھیں · {{price}} ماہانہ سے شروع',
+    bannerActive: 'Premium چالو ہے',
+    askLine_one: 'Premium · آج {{count}} سوال باقی ہے',
+    askLine_other: 'Premium · آج {{count}} سوال باقی ہیں',
+    askUpsell: 'یا Premium لیں اور ہر روز پوچھیں',
+    usedToday: 'آپ آج کے Premium سوال استعمال کر چکے ہیں؛ یہ کل دوبارہ مل جائیں گے۔ تب تک مفت سوال اور کریڈٹ استعمال ہوں گے۔',
+  },
 };
 
 export default extra;

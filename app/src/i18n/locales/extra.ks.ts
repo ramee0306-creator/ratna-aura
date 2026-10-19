@@ -1,6 +1,5 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'آوازٕچ کتھ بات',
     conversationHint: 'پنُن سوال وَنِو؛ جواب چھُ اُچھ آوازس سٕتؠ بوزاونہٕ یوان۔',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'پرٛتھ دۄہ پرٛژھِو تارکن، گنٛزرنہٕ ورٲے۔',
+    benefits: {
+      ask_one: 'سوال گنٛزرنہٕ ورٲے AI پرٛژھِو (مناسب ورتاو: دۄہس {{count}} تام)',
+      ask_other: 'سوال گنٛزرنہٕ ورٲے AI پرٛژھِو (مناسب ورتاو: دۄہس {{count}} تام)',
+      bonus: 'پرٛتھ بِلنگ مدتس مَنٛز بونس کریڈٹ، AI جوتِشَن خٲطرٕ',
+      keep: 'بونس کریڈٹ چھِ تُہٕنٛدِس والیٹس مَنٛز روزان، Premium ختم گژھنہٕ پتہٕ تہِ',
+      cancel: 'Google Play مَنٛز کٔرِو کُنہِ تہِ وَقتہٕ منسوٗخ',
+    },
+    plans: {
+      monthly: 'ماہانہ',
+      quarterly: '3 رؠتھ',
+      yearly: 'سالانہ',
+    },
+    billed: {
+      monthly: 'پرٛتھ رؠتھ {{price}} ادائیگی',
+      quarterly: 'پرٛتھ 3 رؠتھ {{price}} ادائیگی',
+      yearly: 'پرٛتھ ؤری {{price}} ادائیگی',
+    },
+    perMonth: '{{price}} / رؠتھ',
+    save: '{{percent}}% بچت',
+    bestValue: 'سارِوٕے کھوتہٕ فائدٕمنٛد',
+    bonus_one: 'پرٛتھ مدتس +{{count}} بونس کریڈٹ',
+    bonus_other: 'پرٛتھ مدتس +{{count}} بونس کریڈٹ',
+    trial_one: '{{count}} دۄہ مفت',
+    trial_other: '{{count}} دۄہ مفت',
+    startTrial: 'مفت آزمٲیش شروٗع کٔرِو',
+    subscribe: 'جاری تھٲوِو',
+    trialNote_one: '{{count}} دۄہ مفت، پتہٕ {{price}}۔ آزمٲیش ختم گژھنہٕ برٛونٛہہ کٔرِو منسوٗخ تہٕ توٚہؠ پَزِ نہٕ کینٛہہ دِیُن۔',
+    trialNote_other: '{{count}} دۄہ مفت، پتہٕ {{price}}۔ آزمٲیش ختم گژھنہٕ برٛونٛہہ کٔرِو منسوٗخ تہٕ توٚہؠ پَزِ نہٕ کینٛہہ دِیُن۔',
+    status: {
+      title: 'توٚہؠ چھِو Premium ممبر',
+      plan: 'پلان: {{plan}}',
+      renews: '{{date}} چھُ تجدید گژھان',
+      ends: '{{date}} چھُ ختم گژھان۔ یہِ گژھِ نہٕ تجدید۔',
+      trialEnds: '{{date}} تام مفت آزمٲیش',
+      grace: 'تُہٕنٛز پٔتِم ادائیگی گٔیہ نہٕ۔ Google Play چھُ دوبارٕ کوشش کران — Premium جاری تھاونہٕ خٲطرٕ مہربٲنی کٔرِتھ پنُن ادائیگی ہُند طریقہٕ اپڈیٹ کٔرِو۔',
+      leftToday_one: 'اَز {{count}} Premium سوال چھُ باقی',
+      leftToday_other: 'اَز {{count}} Premium سوال چھِ باقی',
+    },
+    manage: 'سبسکرپشن ہُند اِنتظام کٔرِو',
+    updatePayment: 'ادائیگی ہُند طریقہٕ اپڈیٹ کٔرِو',
+    cancelTest: 'ٹیسٹ سبسکرپشن منسوٗخ کٔرِو',
+    cancelledTest: 'ٹیسٹ سبسکرپشن آو منسوٗخ کرنہٕ۔ Premium روزِ مدت ختم گژھنہٕ تام جاری۔',
+    restore: 'خرید بحال کٔرِو',
+    restored: 'خرید آیہ بحال کرنہٕ۔',
+    nothingToRestore: 'یَتھ Google اکاؤنٹس خٲطرٕ مِلیوٚو نہٕ کانٛہہ فعال سبسکرپشن۔',
+    welcome: 'Premium مَنٛز خوش آمدید! تُہٕنٛدۍ بونس کریڈٹ چھِ شٲمِل کرنہٕ آمتۍ۔',
+    welcomeTrial: 'تُہٕنٛز مفت آزمٲیش چھےٚ شروٗع گمٕژ۔ Premium ہُند مزٕ تُلِو! بونس کریڈٹ یِن گۄڈنِچہِ ادا کرنہٕ آمژِ مدتہِ سٕتؠ۔',
+    waiting: 'ادائیگی چھےٚ مِلمژ۔ Premium چھُ چالو گژھان…',
+    slow: 'ادائیگی چھےٚ مِلمژ۔ Premium گژھِ اکہِ مِنَٹس مَنٛز شروٗع — تازہ کرنہٕ خٲطرٕ واپس یِو یَتھ سکرینس پیٹھ۔',
+    cancelled: 'منسوٗخ گۆو۔ تُہٕ کھوتہٕ آو نہٕ کینٛہہ نِیتھ۔',
+    failed: 'سبسکرپشن ہیٚوٚک نہٕ شروٗع گژھتھ۔ تُہٕ کھوتہٕ آو نہٕ کینٛہہ نِیتھ۔',
+    testMode: 'ٹیسٹ موڈ: کانٛہہ ادائیگی چھےٚ نہٕ نیٚنہٕ یِوان تہٕ Premium چھُ فوراً شروٗع گژھان۔',
+    off: 'Premium چھُ وُنہِ دستیاب نہٕ۔',
+    androidOnly: 'Premium ہیٚکِو Android ایپس مَنٛز Google Play پؠٹھ خریدتھ۔',
+    fine: 'قیمتَن مَنٛز چھُ GST شٲمِل۔ سبسکرپشن چھُ پانَے سُے قیمتس پؠٹھ تجدید گژھان یوتام نہٕ توٚہؠ یہِ منسوٗخ کٔرِو۔ Google Play → ادائیگی تہٕ سبسکرپشن مَنٛز کٔرِو کُنہِ تہِ وَقتہٕ منسوٗخ، تجدیدُک تاریخہِ برٛونٛہہ کم از کم 24 گھنٹہٕ، تہٕ Premium روزِ تَتھ مدتہِ ہِنٛدِس آخرس تام جاری یَمِچ ادائیگی توٚہؠ کٔرمٕژ چھےٚ۔ مفت آزمٲیشہِ سٕتؠ، آزمٲیش ختم گژھنہٕ پؠٹھ نِنہٕ یِیہِ تُہٕ کھوتہٕ رقم، اگر نہٕ توٚہؠ تمہِ برٛونٛہہ منسوٗخ کٔرِو۔',
+    banner: 'Premium حاصل کٔرِو',
+    bannerHint: 'پرٛتھ دۄہ گنٛزرنہٕ ورٲے AI پرٛژھِو · {{price}} ماہانہ پؠٹھہٕ شروٗع',
+    bannerActive: 'Premium چھُ چالو',
+    askLine_one: 'Premium · اَز {{count}} سوال چھُ باقی',
+    askLine_other: 'Premium · اَز {{count}} سوال چھِ باقی',
+    askUpsell: 'یا Premium حاصل کٔرِو تہٕ پرٛتھ دۄہ پرٛژھِو',
+    usedToday: 'توٚہؠ چھِو اَزٕکۍ Premium سوال ورتٲوِمٕتۍ؛ یِم یِن پگاہ واپس۔ تامتھ ورتاونہٕ یِن مفت سوال تہٕ کریڈٹ۔',
+  },
 };
 
 export default extra;

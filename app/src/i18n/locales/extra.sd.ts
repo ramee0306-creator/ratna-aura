@@ -1,6 +1,5 @@
 // نون اسڪرينن (AI ڪردار، PDF رپورٽ، ياد ڏياريندڙ، رازداري، ادائگي، آواز) جو سنڌي متن (sd.ts ۾ `extra` طور شامل).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'آواز واري ڳالهه ٻولهه',
     conversationHint: 'پنهنجو سوال ڳالهايو؛ جواب وڏي آواز سان ٻڌايو ويندو.',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'هر روز تارن کان پڇو، ڳڻڻ کان سواءِ.',
+    benefits: {
+      ask_one: 'سوال ڳڻڻ کان سواءِ AI کان پڇو (مناسب استعمال: ڏينهن ۾ {{count}} تائين)',
+      ask_other: 'سوال ڳڻڻ کان سواءِ AI کان پڇو (مناسب استعمال: ڏينهن ۾ {{count}} تائين)',
+      bonus: 'هر بلنگ مدت ۾ بونس ڪريڊٽ، AI جوتشين لاءِ',
+      keep: 'بونس ڪريڊٽ اوهان جي والٽ ۾ رهن ٿا، Premium ختم ٿيڻ کان پوءِ به',
+      cancel: 'Google Play ۾ ڪنهن به وقت رد ڪريو',
+    },
+    plans: {
+      monthly: 'مهينيوار',
+      quarterly: '3 مهينا',
+      yearly: 'ساليانو',
+    },
+    billed: {
+      monthly: 'هر مهيني {{price}} ادائگي',
+      quarterly: 'هر 3 مهينن ۾ {{price}} ادائگي',
+      yearly: 'هر سال {{price}} ادائگي',
+    },
+    perMonth: '{{price}} / مهينو',
+    save: '{{percent}}% بچت',
+    bestValue: 'سڀ کان فائديمند',
+    bonus_one: 'هر مدت ۾ +{{count}} بونس ڪريڊٽ',
+    bonus_other: 'هر مدت ۾ +{{count}} بونس ڪريڊٽ',
+    trial_one: '{{count}} ڏينهن مفت',
+    trial_other: '{{count}} ڏينهن مفت',
+    startTrial: 'مفت آزمائش شروع ڪريو',
+    subscribe: 'جاري رکو',
+    trialNote_one: '{{count}} ڏينهن مفت، پوءِ {{price}}. آزمائش ختم ٿيڻ کان اڳ رد ڪريو ته اوهان کي ڪجهه به ادا نه ڪرڻو پوندو.',
+    trialNote_other: '{{count}} ڏينهن مفت، پوءِ {{price}}. آزمائش ختم ٿيڻ کان اڳ رد ڪريو ته اوهان کي ڪجهه به ادا نه ڪرڻو پوندو.',
+    status: {
+      title: 'اوهان Premium ميمبر آهيو',
+      plan: 'پلان: {{plan}}',
+      renews: '{{date}} تي تجديد ٿيندي',
+      ends: '{{date}} تي ختم ٿيندي. ان جي تجديد نه ٿيندي.',
+      trialEnds: '{{date}} تائين مفت آزمائش',
+      grace: 'اوهان جي پوئين ادائگي نه ٿي سگهي. Google Play ٻيهر ڪوشش ڪري رهيو آهي — Premium جاري رکڻ لاءِ مهرباني ڪري پنهنجو ادائگيءَ جو طريقو اپڊيٽ ڪريو.',
+      leftToday_one: 'اڄ {{count}} Premium سوال باقي آهي',
+      leftToday_other: 'اڄ {{count}} Premium سوال باقي آهن',
+    },
+    manage: 'سبسڪرپشن سنڀاليو',
+    updatePayment: 'ادائگيءَ جو طريقو اپڊيٽ ڪريو',
+    cancelTest: 'ٽيسٽ سبسڪرپشن رد ڪريو',
+    cancelledTest: 'ٽيسٽ سبسڪرپشن رد ٿي وئي. Premium مدت جي آخر تائين جاري رهندو.',
+    restore: 'خريداريون بحال ڪريو',
+    restored: 'خريداريون بحال ٿي ويون.',
+    nothingToRestore: 'هن Google اڪائونٽ لاءِ ڪا به سرگرم سبسڪرپشن نه ملي.',
+    welcome: 'Premium ۾ ڀليڪار! اوهان جا بونس ڪريڊٽ شامل ڪيا ويا آهن.',
+    welcomeTrial: 'اوهان جي مفت آزمائش شروع ٿي وئي آهي. Premium جو مزو وٺو! بونس ڪريڊٽ پهرين ادا ڪيل مدت سان ملندا.',
+    waiting: 'ادائگي ملي وئي. Premium چالو ٿي رهيو آهي…',
+    slow: 'ادائگي ملي وئي. Premium هڪ منٽ ۾ شروع ٿيندو — تازو ڪرڻ لاءِ هن اسڪرين تي واپس اچو.',
+    cancelled: 'رد ٿي ويو. اوهان کان ڪجهه به نه ورتو ويو.',
+    failed: 'سبسڪرپشن شروع نه ٿي سگهي. اوهان کان ڪجهه به نه ورتو ويو.',
+    testMode: 'ٽيسٽ موڊ: ڪا به ادائگي نه ورتي ويندي آهي ۽ Premium فوراً شروع ٿئي ٿو.',
+    off: 'Premium اڃا دستياب ناهي.',
+    androidOnly: 'Premium Android ايپ ۾ Google Play تان خريد ڪري سگهجي ٿو.',
+    fine: 'قيمتن ۾ GST شامل آهي. سبسڪرپشن ساڳي قيمت تي پاڻمرادو تجديد ٿيندي رهندي جيستائين اوهان ان کي رد نه ڪريو. Google Play → ادائگيون ۽ سبسڪرپشنون ۾ ڪنهن به وقت، تجديد جي تاريخ کان گهٽ ۾ گهٽ 24 ڪلاڪ اڳ رد ڪريو، ۽ Premium ان مدت جي آخر تائين جاري رهندو جنهن جي اوهان ادائگي ڪئي آهي. مفت آزمائش سان، آزمائش ختم ٿيڻ تي اوهان کان پئسا ورتا ويندا، جيستائين اوهان ان کان اڳ رد نه ڪريو.',
+    banner: 'Premium وٺو',
+    bannerHint: 'هر روز ڳڻڻ کان سواءِ AI کان پڇو · {{price}} في مهينو کان شروع',
+    bannerActive: 'Premium چالو آهي',
+    askLine_one: 'Premium · اڄ {{count}} سوال باقي آهي',
+    askLine_other: 'Premium · اڄ {{count}} سوال باقي آهن',
+    askUpsell: 'يا Premium وٺو ۽ هر روز پڇو',
+    usedToday: 'اوهان اڄ جا Premium سوال استعمال ڪري ورتا آهن؛ اهي سڀاڻي واپس ملندا. تيستائين مفت سوال ۽ ڪريڊٽ استعمال ٿيندا.',
+  },
 };
 
 export default extra;

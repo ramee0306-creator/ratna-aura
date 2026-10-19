@@ -1,6 +1,5 @@
 // नमियें स्क्रीनें दा डोगरी पाठ: AI पर्सोना, PDF रिपोर्ट, याद करवाना, निजता, भुगतान, अवाज़ (doi.ts च `extra` दे रूप च शामल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'अवाज़ कन्नै गल्लबात',
     conversationHint: 'अपना सुआल बोल्लो; जवाब ऊंचे सुर च पढ़ेआ जाग।',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'हर रोज़ तारें कोला पुच्छो, बगैर गिने।',
+    benefits: {
+      ask_one: 'सुआल गिने बगैर AI थमां पुच्छो (मुनासब बरतून: रोज़ {{count}} तगर)',
+      ask_other: 'सुआल गिने बगैर AI थमां पुच्छो (मुनासब बरतून: रोज़ {{count}} तगर)',
+      bonus: 'हर बिलिंग अवधि च बोनस क्रेडिट, AI ज्योतिषियें आस्ते',
+      keep: 'बोनस क्रेडिट तुंदे वॉलेट च रौंह्दे न, Premium खत्म होने परैंत बी',
+      cancel: 'Google Play च कदें बी रद्द करो',
+    },
+    plans: {
+      monthly: 'म्हीनेवार',
+      quarterly: '3 म्हीने',
+      yearly: 'सालाना',
+    },
+    billed: {
+      monthly: 'हर म्हीने {{price}} दा बिल',
+      quarterly: 'हर 3 म्हीनें {{price}} दा बिल',
+      yearly: 'हर साल {{price}} दा बिल',
+    },
+    perMonth: '{{price}} / म्हीना',
+    save: '{{percent}}% बचत',
+    bestValue: 'सबनें शा फायदेमंद',
+    bonus_one: 'हर अवधि च +{{count}} बोनस क्रेडिट',
+    bonus_other: 'हर अवधि च +{{count}} बोनस क्रेडिट',
+    trial_one: '{{count}} दिन मुफ्त',
+    trial_other: '{{count}} दिन मुफ्त',
+    startTrial: 'मुफ्त ट्रायल शुरू करो',
+    subscribe: 'अग्गें बधो',
+    trialNote_one: '{{count}} दिन मुफ्त, फ्ही {{price}}। ट्रायल मुक्कने शा पैह्लें रद्द करी देओ तां तुसें गी किश बी नेईं देना पौग।',
+    trialNote_other: '{{count}} दिन मुफ्त, फ्ही {{price}}। ट्रायल मुक्कने शा पैह्लें रद्द करी देओ तां तुसें गी किश बी नेईं देना पौग।',
+    status: {
+      title: 'तुस Premium मेंबर ओ',
+      plan: 'प्लान: {{plan}}',
+      renews: '{{date}} गी नवीनीकरण होग',
+      ends: '{{date}} गी खत्म होग। इसदा नवीनीकरण नेईं होग।',
+      trialEnds: '{{date}} तगर मुफ्त ट्रायल',
+      grace: 'तुंदा पिछला भुगतान नेईं होई सकेआ। Google Play फ्ही कोशश करा करदा ऐ — Premium जारी रक्खने आस्ते किरपा करियै अपना भुगतान तरीका अपडेट करो।',
+      leftToday_one: 'अज्ज {{count}} Premium सुआल बाकी ऐ',
+      leftToday_other: 'अज्ज {{count}} Premium सुआल बाकी न',
+    },
+    manage: 'सब्सक्रिप्शन संभालो',
+    updatePayment: 'भुगतान तरीका अपडेट करो',
+    cancelTest: 'टेस्ट सब्सक्रिप्शन रद्द करो',
+    cancelledTest: 'टेस्ट सब्सक्रिप्शन रद्द होई गेई। Premium अवधि दे अंत तगर चलदा रौह्ग।',
+    restore: 'खरीदां बहाल करो',
+    restored: 'खरीदां बहाल होई गेइयां।',
+    nothingToRestore: 'इस Google खाते आस्ते कोई चालू सब्सक्रिप्शन नेईं मिली।',
+    welcome: 'Premium च तुंदा स्वागत ऐ! तुंदे बोनस क्रेडिट जुड़ी गेदे न।',
+    welcomeTrial: 'तुंदा मुफ्त ट्रायल शुरू होई गेआ ऐ। Premium दा मज़ा लैओ! बोनस क्रेडिट पैह्ली भुगतान कीती दी अवधि कन्नै मिलङन।',
+    waiting: 'भुगतान मिली गेआ। Premium चालू कीता जा करदा ऐ…',
+    slow: 'भुगतान मिली गेआ। Premium इक मिंट च शुरू होई जाग — ताज़ा करने आस्ते इस स्क्रीन उप्पर परतोई औओ।',
+    cancelled: 'रद्द होई गेआ। तुंदे कोला किश नेईं लैता गेआ।',
+    failed: 'सब्सक्रिप्शन शुरू नेईं होई सकी। तुंदे कोला किश नेईं लैता गेआ।',
+    testMode: 'टेस्ट मोड: कोई भुगतान नेईं लैता जंदा ते Premium फौरन शुरू होई जंदा ऐ।',
+    off: 'Premium अजें उपलब्ध नेईं ऐ।',
+    androidOnly: 'Premium Android ऐप च Google Play थमां खरीदेआ जाई सकदा ऐ।',
+    fine: 'कीमतें च GST शामल ऐ। सब्सक्रिप्शन उस्सै कीमत उप्पर अपने आप नमीं होंदी रौंह्दी ऐ जिन्ना चिर तुस इसगी रद्द नेईं करदे। Google Play → भुगतान ते सब्सक्रिप्शन च कदें बी रद्द करो, नवीनीकरण दी तरीक शा घट्ट शा घट्ट 24 घैंटे पैह्लें, ते Premium उस अवधि दे अंत तगर चालू रौह्ग जिसदा तुसें भुगतान कीते दा ऐ। मुफ्त ट्रायल कन्नै, ट्रायल मुक्कने पर तुंदे कोला पैसे लैते जाङन, जेकर तुस उसशा पैह्लें रद्द नेईं करदे।',
+    banner: 'Premium लैओ',
+    bannerHint: 'हर रोज़ बगैर गिने AI थमां पुच्छो · म्हीने दे {{price}} थमां शुरू',
+    bannerActive: 'Premium चालू ऐ',
+    askLine_one: 'Premium · अज्ज {{count}} सुआल बाकी ऐ',
+    askLine_other: 'Premium · अज्ज {{count}} सुआल बाकी न',
+    askUpsell: 'जां Premium लैओ ते हर रोज़ पुच्छो',
+    usedToday: 'तुसें अज्ज दे Premium सुआल बरती लैते न; एह् कल फ्ही मिलङन। उसलै तगर मुफ्त सुआल ते क्रेडिट बरते जाङन।',
+  },
 };
 
 export default extra;

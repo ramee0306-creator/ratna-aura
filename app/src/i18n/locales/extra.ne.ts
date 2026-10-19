@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइन्डर, गोपनीयता, भुक्तानी र आवाजको नेपाली पाठ (ne.ts मा `extra` को रूपमा समावेश)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -76,7 +75,72 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'आवाजमा कुराकानी',
     conversationHint: 'आफ्नो प्रश्न बोल्नुहोस्; जवाफ ठूलो स्वरमा पढेर सुनाइन्छ।',
   },
-  premium: extraEnglish.premium, // TODO: translate
+  premium: {
+    title: 'Ratna Aura Premium',
+    tagline: 'हरेक दिन ताराहरूलाई सोध्नुहोस्, गन्ती नगरी।',
+    benefits: {
+      ask_one: 'प्रश्न गन्ती नगरी AI लाई सोध्नुहोस् (उचित प्रयोग: दिनमा {{count}} सम्म)',
+      ask_other: 'प्रश्न गन्ती नगरी AI लाई सोध्नुहोस् (उचित प्रयोग: दिनमा {{count}} सम्म)',
+      bonus: 'हरेक बिलिङ अवधिमा AI ज्योतिषीहरूका लागि बोनस क्रेडिट',
+      keep: 'Premium सकिएपछि पनि बोनस क्रेडिट तपाईंको वालेटमै रहन्छ',
+      cancel: 'Google Play मा जुनसुकै बेला रद्द गर्नुहोस्',
+    },
+    plans: {
+      monthly: 'मासिक',
+      quarterly: '3 महिना',
+      yearly: 'वार्षिक',
+    },
+    billed: {
+      monthly: 'हरेक महिना {{price}} बिल हुन्छ',
+      quarterly: 'हरेक 3 महिनामा {{price}} बिल हुन्छ',
+      yearly: 'हरेक वर्ष {{price}} बिल हुन्छ',
+    },
+    perMonth: '{{price}} / महिना',
+    save: '{{percent}}% बचत',
+    bestValue: 'सबैभन्दा फाइदाजनक',
+    bonus_one: 'हरेक अवधिमा +{{count}} बोनस क्रेडिट',
+    bonus_other: 'हरेक अवधिमा +{{count}} बोनस क्रेडिट',
+    trial_one: '{{count}} दिन निःशुल्क',
+    trial_other: '{{count}} दिन निःशुल्क',
+    startTrial: 'निःशुल्क परीक्षण सुरु गर्नुहोस्',
+    subscribe: 'जारी राख्नुहोस्',
+    trialNote_one: '{{count}} दिन निःशुल्क, त्यसपछि {{price}}। परीक्षण सकिनुअघि रद्द गर्नुभयो भने तपाईंले केही तिर्नु पर्दैन।',
+    trialNote_other: '{{count}} दिन निःशुल्क, त्यसपछि {{price}}। परीक्षण सकिनुअघि रद्द गर्नुभयो भने तपाईंले केही तिर्नु पर्दैन।',
+    status: {
+      title: 'तपाईं Premium सदस्य हुनुहुन्छ',
+      plan: 'योजना: {{plan}}',
+      renews: '{{date}} मा नवीकरण हुन्छ',
+      ends: '{{date}} मा सकिन्छ। यो नवीकरण हुने छैन।',
+      trialEnds: '{{date}} सम्म निःशुल्क परीक्षण',
+      grace: 'तपाईंको पछिल्लो भुक्तानी हुन सकेन। Google Play फेरि प्रयास गर्दैछ — Premium कायम राख्न कृपया आफ्नो भुक्तानी विधि अपडेट गर्नुहोस्।',
+      leftToday_one: 'आज {{count}} Premium प्रश्न बाँकी छ',
+      leftToday_other: 'आज {{count}} Premium प्रश्न बाँकी छन्',
+    },
+    manage: 'सदस्यता व्यवस्थापन गर्नुहोस्',
+    updatePayment: 'भुक्तानी विधि अपडेट गर्नुहोस्',
+    cancelTest: 'टेस्ट सदस्यता रद्द गर्नुहोस्',
+    cancelledTest: 'टेस्ट सदस्यता रद्द भयो। अवधिको अन्त्यसम्म Premium जारी रहन्छ।',
+    restore: 'खरिदहरू पुनर्स्थापित गर्नुहोस्',
+    restored: 'खरिदहरू पुनर्स्थापित भए।',
+    nothingToRestore: 'यो Google खाताका लागि कुनै सक्रिय सदस्यता भेटिएन।',
+    welcome: 'Premium मा स्वागत छ! तपाईंको बोनस क्रेडिट थपियो।',
+    welcomeTrial: 'तपाईंको निःशुल्क परीक्षण सुरु भयो। Premium को आनन्द लिनुहोस्! बोनस क्रेडिट पहिलो भुक्तानी गरिएको अवधिसँगै आउँछ।',
+    waiting: 'भुक्तानी प्राप्त भयो। Premium सुरु गरिँदैछ…',
+    slow: 'भुक्तानी प्राप्त भयो। Premium एक मिनेटमा सुरु हुनेछ — रिफ्रेस गर्न यही स्क्रिनमा फर्कनुहोस्।',
+    cancelled: 'रद्द भयो। तपाईंबाट कुनै शुल्क लिइएन।',
+    failed: 'सदस्यता सुरु हुन सकेन। तपाईंबाट कुनै शुल्क लिइएन।',
+    testMode: 'टेस्ट मोड: कुनै भुक्तानी लिइँदैन र Premium तुरुन्तै सुरु हुन्छ।',
+    off: 'Premium अहिले उपलब्ध छैन।',
+    androidOnly: 'Premium Android एपमा Google Play बाट किन्न सकिन्छ।',
+    fine: 'मूल्यमा GST समावेश छ। तपाईंले रद्द नगरेसम्म सदस्यता उही मूल्यमा स्वतः नवीकरण भइरहन्छ। नवीकरण मितिभन्दा कम्तीमा 24 घण्टाअघि Google Play → भुक्तानी र सदस्यताहरू मा जुनसुकै बेला रद्द गर्नुहोस्, र तपाईंले भुक्तानी गरेको अवधिको अन्त्यसम्म Premium चालु रहन्छ। निःशुल्क परीक्षणमा, त्यसअघि रद्द नगरेसम्म परीक्षण सकिँदा तपाईंबाट शुल्क लिइन्छ।',
+    banner: 'Premium लिनुहोस्',
+    bannerHint: 'हरेक दिन गन्ती नगरी AI लाई सोध्नुहोस् · {{price}} प्रति महिनादेखि',
+    bannerActive: 'Premium चालु छ',
+    askLine_one: 'Premium · आज {{count}} प्रश्न बाँकी छ',
+    askLine_other: 'Premium · आज {{count}} प्रश्न बाँकी छन्',
+    askUpsell: 'वा Premium लिनुहोस् र हरेक दिन सोध्नुहोस्',
+    usedToday: 'तपाईंले आजका Premium प्रश्न प्रयोग गरिसक्नुभयो; ती भोलि फेरि आउँछन्। त्यतिन्जेलसम्म निःशुल्क प्रश्न र क्रेडिट प्रयोग हुन्छन्।',
+  },
 };
 
 export default extra;
