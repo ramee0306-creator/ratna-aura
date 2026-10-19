@@ -29,6 +29,30 @@ const extra = {
       tara: { role: 'Career & studies', text: 'Work, studies and life direction through astrology and numbers.' },
     },
   },
+  report: {
+    download: 'Download PDF report',
+    preparing: 'Preparing the PDF…',
+    failed: 'Could not make the PDF. Please try again.',
+    footer: 'Made with Ratna Aura on {{date}} · {{engine}}',
+  },
+  reminder: {
+    title: 'Daily reminder',
+    toggle: 'Remind me to read my rashifal',
+    time: 'Every day at {{time}}',
+    earlier: 'Earlier',
+    later: 'Later',
+    denied: 'Notifications are turned off for Ratna Aura. You can allow them in your phone’s settings.',
+    notificationTitle: 'Your rashifal for today ✨',
+    notificationBody: 'See what the stars suggest for your day.',
+    channel: 'Daily rashifal',
+    webOnly: 'Reminders work in the phone app.',
+  },
+  privacy: {
+    aiTitle: 'AI answers',
+    ai: 'Ask AI, the AI personas and the daily rashifal are written by Claude, an AI from Anthropic. To answer you, your question and a summary of the chosen chart are sent to Anthropic. They are not used to train AI models.',
+    fullPolicy: 'Full privacy policy',
+    terms: 'Terms of use',
+  },
 };
 
 export default extra;

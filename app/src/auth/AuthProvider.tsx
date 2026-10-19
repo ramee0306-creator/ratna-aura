@@ -17,6 +17,8 @@ export type Profile = {
   preferred_language: string;
   age_confirmed_at: string | null;
   consent_version: number | null;
+  /** Can open the admin panel (set only in the database). */
+  is_admin?: boolean;
 };
 
 type Status = 'loading' | 'signedOut' | 'signedIn';
@@ -45,7 +47,7 @@ const DEMO_USER_ID = '00000000-0000-0000-0000-000000000000';
 async function fetchProfile(userId: string): Promise<Profile | null> {
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, display_name, preferred_language, age_confirmed_at, consent_version')
+    .select('id, display_name, preferred_language, age_confirmed_at, consent_version, is_admin')
     .eq('id', userId)
     .maybeSingle();
   if (error) throw error;
@@ -121,6 +123,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         preferred_language: 'en',
         age_confirmed_at: consent ? consent.acceptedAt : null,
         consent_version: consent ? consent.version : null,
+        // In demo mode the admin panel is shown (with sample numbers) so it can be tried out.
+        is_admin: true,
       });
       setDemoAccount(phone);
       return;

@@ -6,9 +6,11 @@ import {
 import { Hind_400Regular, Hind_500Medium, Hind_600SemiBold, useFonts as useHind } from '@expo-google-fonts/hind';
 import { Poppins_500Medium, Poppins_600SemiBold, useFonts as usePoppins } from '@expo-google-fonts/poppins';
 import { TiroDevanagariHindi_400Regular, useFonts as useTiro } from '@expo-google-fonts/tiro-devanagari-hindi';
-import { DarkTheme, SplashScreen, Stack, ThemeProvider } from 'expo-router';
+import * as Notifications from 'expo-notifications';
+import { DarkTheme, router, SplashScreen, Stack, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 
 import { AuthProvider, useAuth } from '@/auth/AuthProvider';
 import { initI18n } from '@/i18n';
@@ -16,6 +18,27 @@ import { NumerologyProvider } from '@/numerology/NumerologyProvider';
 import { colors } from '@/theme';
 
 SplashScreen.preventAutoHideAsync();
+
+if (Platform.OS !== 'web') {
+  // Show reminders even when the app is open.
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({ shouldShowBanner: true, shouldShowList: true, shouldPlaySound: false, shouldSetBadge: false }),
+  });
+}
+
+/** Opens the screen a tapped notification points to (e.g. the daily rashifal reminder). */
+function useNotificationLinks(ready: boolean) {
+  useEffect(() => {
+    if (Platform.OS === 'web' || !ready) return;
+    const open = (response: Notifications.NotificationResponse | null) => {
+      const url = response?.notification.request.content.data?.url;
+      if (typeof url === 'string' && url.startsWith('/')) router.push(url as never);
+    };
+    Notifications.getLastNotificationResponseAsync().then(open).catch(() => undefined);
+    const subscription = Notifications.addNotificationResponseReceivedListener(open);
+    return () => subscription.remove();
+  }, [ready]);
+}
 
 const navTheme = {
   ...DarkTheme,
@@ -30,6 +53,7 @@ function RootNavigator() {
   useEffect(() => {
     if (status !== 'loading') SplashScreen.hide();
   }, [status]);
+  useNotificationLinks(status === 'signedIn' && !needsConsent);
 
   if (status === 'loading') return null;
 
@@ -67,6 +91,7 @@ function RootNavigator() {
         <Stack.Screen name="credits" />
         <Stack.Screen name="personas" />
         <Stack.Screen name="persona/[id]" />
+        <Stack.Screen name="admin" />
       </Stack.Protected>
 
       {/* Always reachable */}

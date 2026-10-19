@@ -22,10 +22,14 @@ import { Card } from '@/components/Card';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { Segmented } from '@/components/Segmented';
+import { brand } from '@brand';
+
 import { dateLocale } from '@/i18n';
 import { type BirthProfile, deleteProfile, getKundli } from '@/kundli/api';
 import { type ChartStyle, KundliChart } from '@/kundli/KundliChart';
 import { isoToDisplay } from '@/numerology/details';
+import { kundliReportHtml } from '@/reports/kundliReport';
+import { sharePdf } from '@/reports/sharePdf';
 import { colors, spacing } from '@/theme';
 
 type Tab = 'chart' | 'planets' | 'dasha' | 'details';
@@ -165,6 +169,30 @@ function DashaTab({ dashas }: { dashas: Mahadasha[] }) {
   );
 }
 
+function PdfButton({ kundli, profile }: { kundli: Kundli; profile: BirthProfile }) {
+  const { t, i18n } = useTranslation();
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+  async function make() {
+    setBusy(true);
+    setFailed(false);
+    try {
+      const html = kundliReportHtml({ person: profile, kundli, t, dateLocale: dateLocale(i18n.language), now: Date.now(), appName: brand.appName });
+      await sharePdf(html, `${profile.fullName} – ${t('kundli.title')}`);
+    } catch {
+      setFailed(true);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <>
+      {failed ? <Notice text={t('extra.report.failed')} /> : null}
+      <Button variant="outline" title={busy ? t('extra.report.preparing') : t('extra.report.download')} onPress={make} loading={busy} />
+    </>
+  );
+}
+
 function DetailsTab({ kundli, profile }: { kundli: Kundli; profile: BirthProfile }) {
   const { t } = useTranslation();
   const moon = kundli.planets.find((p) => p.body === 'moon')!;
@@ -260,6 +288,7 @@ export default function KundliScreen() {
           {tab === 'details' ? (
             <>
               <DetailsTab kundli={data.kundli} profile={data.profile} />
+              <PdfButton kundli={data.kundli} profile={data.profile} />
               {!confirmDelete ? (
                 <Button variant="danger" title={t('kundli.delete')} onPress={() => setConfirmDelete(true)} />
               ) : (

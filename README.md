@@ -25,8 +25,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | ✅ Done |
 | 5 | AI chat ("Ask AI") with free questions and credits (test payments) | ✅ Done |
 | 6 | AI astrologer / numerologist personas with per-minute / per-message billing | ✅ Done |
-| 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | ⏳ Next |
-| 8 | Debug APK to install on your phone | |
+| 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | ✅ Done |
+| 8 | Debug APK to install on your phone | ⏳ Next |
 | 9 | Signed release (AAB) for Google Play + store listing + checklist | |
 | 10 | Voice conversations | |
 
@@ -166,6 +166,24 @@ all the Ask AI safety rules apply. Their instructions are in `supabase/functions
 - **Per minute** (Meera, Tara): the user starts a 5, 10 or 15 minute session (1 credit per minute) and chats freely
   until it ends (fair-use cap: 4 messages per minute).
 - Personas use credits only (the 3 free questions are for Ask AI). If the AI fails, the credit is given back.
+
+## Reports, reminders, admin panel, privacy (Milestone 7)
+
+- **PDF kundli report:** Kundli → a person → Details → *Download PDF report*. The phone makes the PDF itself
+  (chart, planets, dasha periods, numbers, disclaimer) in the app's language and opens the share sheet.
+- **Daily reminder:** Settings → *Daily reminder*. A notification scheduled on the phone (no server, no cost)
+  that opens the rashifal. Server-sent push notifications need a Firebase project and can be added later.
+- **Admin panel:** Settings → *Admin panel* (only for admin accounts). Shows users, AI questions, AI cost estimate
+  and credits; lets you switch AI models, change free questions, payments mode, and gift credits.
+  **Make yourself admin** once, in Supabase → SQL Editor:
+  ```sql
+  update public.profiles set is_admin = true
+   where id = (select id from auth.users where email = 'velqorasupport99@gmail.com');
+  ```
+- **Privacy policy & terms:** drafts in [`docs/privacy-policy.md`](docs/privacy-policy.md) and
+  [`docs/terms-of-use.md`](docs/terms-of-use.md) (have a lawyer review them). Google Play needs them at a public web
+  address; once published, put the links in `brand.config.js` (`privacyPolicyUrl`, `termsUrl`) and they appear in
+  the app's privacy screen.
 
 ## Languages
 

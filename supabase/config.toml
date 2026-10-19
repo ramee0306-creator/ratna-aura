@@ -33,3 +33,6 @@ verify_jwt = false
 [functions.persona]
 verify_jwt = false
 static_files = ["./functions/persona/swiss_eph.wasm"]
+
+[functions.admin]
+verify_jwt = false

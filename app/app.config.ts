@@ -39,6 +39,7 @@ const config: ExpoConfig = {
     'expo-localization',
     'expo-font',
     'expo-web-browser',
+    ['expo-notifications', { icon: './assets/images/android-icon-monochrome.png', color: brand.colors.gold }],
     [
       'expo-splash-screen',
       {

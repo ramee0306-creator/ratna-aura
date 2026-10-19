@@ -1,9 +1,10 @@
 import { brand } from '@brand';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
+import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { Screen } from '@/components/Screen';
 import { spacing } from '@/theme';
@@ -25,6 +26,12 @@ export default function PrivacyScreen() {
             <AppText>{t(`privacy.${key}`)}</AppText>
           </Card>
         ))}
+        <Card style={styles.card}>
+          <AppText variant="heading">{t('extra.privacy.aiTitle')}</AppText>
+          <AppText>{t('extra.privacy.ai')}</AppText>
+        </Card>
+        {brand.privacyPolicyUrl ? <Button variant="outline" title={t('extra.privacy.fullPolicy')} onPress={() => Linking.openURL(brand.privacyPolicyUrl)} /> : null}
+        {brand.termsUrl ? <Button variant="outline" title={t('extra.privacy.terms')} onPress={() => Linking.openURL(brand.termsUrl)} /> : null}
       </View>
       <AppText variant="caption" style={styles.contact}>
         {t('privacy.contact', { email: brand.supportEmail })}

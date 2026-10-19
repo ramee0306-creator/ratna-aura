@@ -36,6 +36,9 @@ const brand = /** @type {const} */ ({
   iosBundleId: 'com.velqorastudios.ratnaaura',
   /** Support e-mail shown in the privacy policy and store listing */
   supportEmail: 'velqorasupport99@gmail.com',
+  /** Public web addresses of the full privacy policy and terms (docs/*.md), once published. Empty = not shown. */
+  privacyPolicyUrl: '',
+  termsUrl: '',
   /** Users must be at least this old */
   minimumAge: 18,
 
