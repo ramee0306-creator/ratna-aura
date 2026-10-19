@@ -84,3 +84,83 @@ export async function buyTestPack(pack: CreditPack): Promise<Wallet> {
   }
   return (await call<{ wallet: Wallet }>('credits', 'POST', { packId: pack.id })).wallet;
 }
+
+// ---- AI personas ----
+export type PersonaSession = { id: string; endsAt: string; minutes: number; messagesLeft: number } | null;
+
+const demoSessions = new Map<string, PersonaSession>();
+const demoRunning = (personaId: string) => {
+  const s = demoSessions.get(personaId);
+  return s && Date.parse(s.endsAt) > Date.now() ? s : null;
+};
+
+export async function getPersonaChat(personaId: string, profileId: string | null): Promise<{ wallet: Wallet; session: PersonaSession; thread: Thread | null }> {
+  if (isDemoMode) {
+    return { wallet: { ...demo.wallet }, session: demoRunning(personaId), thread: demo.threads.get(`${personaId}:${demoKey(profileId)}`) ?? null };
+  }
+  const query = new URLSearchParams({ personaId, ...(profileId ? { profileId } : {}) });
+  return call(`persona?${query}`, 'GET');
+}
+
+export type StartResult = { kind: 'started'; session: PersonaSession; wallet: Wallet } | { kind: 'noCredits' };
+
+export async function startPersonaSession(personaId: string, minutes: number, credits: number): Promise<StartResult> {
+  if (isDemoMode) {
+    if (demo.wallet.credits < credits) return { kind: 'noCredits' };
+    demo.wallet.credits -= credits;
+    const session = { id: newId(), endsAt: new Date(Date.now() + minutes * 60_000).toISOString(), minutes, messagesLeft: minutes * 4 };
+    demoSessions.set(personaId, session);
+    return { kind: 'started', session, wallet: { ...demo.wallet } };
+  }
+  try {
+    const result = await call<{ session: PersonaSession; wallet: Wallet }>('persona', 'POST', { personaId, action: 'start', minutes });
+    return { kind: 'started', ...result };
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 402) return { kind: 'noCredits' };
+    throw err;
+  }
+}
+
+export type PersonaReply =
+  | { kind: 'answered'; threadId: string; answer: string; distress: boolean; wallet: Wallet; session: PersonaSession }
+  | { kind: 'noCredits' }
+  | { kind: 'needSession' };
+
+export async function sendPersonaMessage(
+  input: { personaId: string; billing: 'message' | 'minute'; price: number; message: string; language: string; profileId: string | null; threadId: string | null },
+  demoAnswer: string,
+): Promise<PersonaReply> {
+  if (isDemoMode) {
+    if (input.billing === 'message') {
+      if (demo.wallet.credits < input.price) return { kind: 'noCredits' };
+      demo.wallet.credits -= input.price;
+    } else {
+      const s = demoRunning(input.personaId);
+      if (!s || s.messagesLeft <= 0) return { kind: 'needSession' };
+      s.messagesLeft -= 1;
+    }
+    const key = `${input.personaId}:${demoKey(input.profileId)}`;
+    const thread = demo.threads.get(key) ?? { id: newId(), profileId: input.profileId, messages: [] };
+    const now = new Date().toISOString();
+    thread.messages.push(
+      { id: newId(), role: 'user', text: input.message, distress: false, createdAt: now },
+      { id: newId(), role: 'assistant', text: demoAnswer, distress: false, createdAt: now },
+    );
+    demo.threads.set(key, thread);
+    return { kind: 'answered', threadId: thread.id, answer: demoAnswer, distress: false, wallet: { ...demo.wallet }, session: demoRunning(input.personaId) };
+  }
+  try {
+    const result = await call<{ threadId: string; answer: string; distress: boolean; wallet: Wallet; session: PersonaSession }>('persona', 'POST', {
+      personaId: input.personaId,
+      message: input.message,
+      language: input.language,
+      profileId: input.profileId,
+      threadId: input.threadId,
+    });
+    return { kind: 'answered', ...result };
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 402) return { kind: 'noCredits' };
+    if (err instanceof ApiError && err.status === 409) return { kind: 'needSession' };
+    throw err;
+  }
+}

@@ -151,7 +151,7 @@ export default function HomeScreen() {
 
       <View style={styles.bigCards}>
         <BigCard icon="chat-processing-outline" title={t('home.askAi')} hint={t('home.askAiHint')} href="/ask" />
-        <BigCard icon="account-voice" title={t('home.talk')} hint={t('home.talkHint')} />
+        <BigCard icon="account-voice" title={t('home.talk')} hint={t('home.talkHint')} href="/personas" />
       </View>
     </Screen>
   );

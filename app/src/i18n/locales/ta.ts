@@ -1,6 +1,7 @@
 // தமிழ். en.ts-இல் உள்ள அதே விசைகள் — ஏதாவது விடுபட்டால் TypeScript எச்சரிக்கும்.
 import type { Translation } from './en';
 import ai from './ai.ta';
+import extra from './extra.en'; // TODO: translate (extra.ta.ts)
 import jyotish from './jyotish.ta';
 import kundli from './kundli.ta';
 import numerology from './numerology.ta';
@@ -142,6 +143,7 @@ const ta: Translation = {
   kundli,
   jyotish,
   ai,
+  extra,
 };
 
 export default ta;

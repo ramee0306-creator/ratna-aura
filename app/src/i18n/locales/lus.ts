@@ -1,6 +1,7 @@
 // Mizo ṭawng. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.lus';
+import extra from './extra.en'; // TODO: translate (extra.lus.ts)
 import jyotish from './jyotish.lus';
 import kundli from './kundli.lus';
 import numerology from './numerology.lus';
@@ -142,6 +143,7 @@ const translation: Translation = {
   kundli,
   jyotish,
   ai,
+  extra,
 };
 
 export default translation;

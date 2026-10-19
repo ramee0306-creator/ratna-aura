@@ -1,6 +1,7 @@
 // ਪੰਜਾਬੀ. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.pa';
+import extra from './extra.en'; // TODO: translate (extra.pa.ts)
 import jyotish from './jyotish.pa';
 import kundli from './kundli.pa';
 import numerology from './numerology.pa';
@@ -142,6 +143,7 @@ const pa: Translation = {
   kundli,
   jyotish,
   ai,
+  extra,
 };
 
 export default pa;

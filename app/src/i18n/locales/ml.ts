@@ -1,6 +1,7 @@
 // മലയാളം. en.ts-ലെ അതേ കീകൾ — ഒന്ന് വിട്ടുപോയാൽ TypeScript മുന്നറിയിപ്പ് നൽകും.
 import type { Translation } from './en';
 import ai from './ai.ml';
+import extra from './extra.en'; // TODO: translate (extra.ml.ts)
 import jyotish from './jyotish.ml';
 import kundli from './kundli.ml';
 import numerology from './numerology.ml';
@@ -142,6 +143,7 @@ const ml: Translation = {
   kundli,
   jyotish,
   ai,
+  extra,
 };
 
 export default ml;

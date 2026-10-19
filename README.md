@@ -24,8 +24,8 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | 3 | Kundli calculations with tests, North & South Indian charts | ✅ Done |
 | 4 | Daily rashifal, panchang, kundli matching, numerology compatibility | ✅ Done |
 | 5 | AI chat ("Ask AI") with free questions and credits (test payments) | ✅ Done |
-| 6 | AI astrologer / numerologist personas with per-minute / per-message billing | ⏳ Next |
-| 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | |
+| 6 | AI astrologer / numerologist personas with per-minute / per-message billing | ✅ Done |
+| 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | ⏳ Next |
 | 8 | Debug APK to install on your phone | |
 | 9 | Signed release (AAB) for Google Play + store listing + checklist | |
 | 10 | Voice conversations | |
@@ -154,6 +154,18 @@ Birth details are stored **encrypted** on the server; the kundli is calculated f
   (max 5 test purchases a day per user). ⚠️ **Before launch**, Google Play billing replaces this (Milestone 9);
   until then you can set `payments_mode` to `off` to hide buying. Pack sizes and ₹ prices are placeholders in
   `app_settings` → `credit_packs`.
+
+## AI personas ("Talk to an Astrologer")
+
+Five AI characters, each with a specialty and speaking style: **Acharya Vidya** (Vedic astrology), **Guru Anand**
+(numerology), **Meera** (love & marriage), **Pandit Shastri** (panchang, muhurta, remedies) and **Tara** (career &
+studies). They are always shown with the **AI** badge, introduce themselves as AI and never claim to be human;
+all the Ask AI safety rules apply. Their instructions are in `supabase/functions/_shared/personas.ts`.
+
+- **Per message** (Vidya, Anand, Shastri): 1 credit per message.
+- **Per minute** (Meera, Tara): the user starts a 5, 10 or 15 minute session (1 credit per minute) and chats freely
+  until it ends (fair-use cap: 4 messages per minute).
+- Personas use credits only (the 3 free questions are for Ask AI). If the AI fails, the credit is given back.
 
 ## Languages
 

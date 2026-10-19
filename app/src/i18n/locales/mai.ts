@@ -1,6 +1,7 @@
 // मैथिली. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.mai';
+import extra from './extra.en'; // TODO: translate (extra.mai.ts)
 import jyotish from './jyotish.mai';
 import kundli from './kundli.mai';
 import numerology from './numerology.mai';
@@ -142,6 +143,7 @@ const translation: Translation = {
   kundli,
   jyotish,
   ai,
+  extra,
 };
 
 export default translation;

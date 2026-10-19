@@ -1,6 +1,7 @@
 // অসমীয়া. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.as';
+import extra from './extra.en'; // TODO: translate (extra.as.ts)
 import jyotish from './jyotish.as';
 import kundli from './kundli.as';
 import numerology from './numerology.as';
@@ -142,6 +143,7 @@ const assamese: Translation = {
   kundli,
   jyotish,
   ai,
+  extra,
 };
 
 export default assamese;

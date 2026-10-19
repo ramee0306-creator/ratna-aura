@@ -2,9 +2,10 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import { ask, type ChatMessage, getChat, type Wallet } from '@/ai/api';
+import { Bubble, ChatInput, MAX_MESSAGE, PersonChips } from '@/ai/ChatParts';
 import { AIBadge } from '@/components/AIBadge';
 import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
@@ -13,9 +14,8 @@ import { Card } from '@/components/Card';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { ApiError, type BirthProfile, listProfiles } from '@/kundli/api';
-import { colors, fonts, radius, spacing } from '@/theme';
+import { colors, radius, spacing } from '@/theme';
 
-const MAX_QUESTION = 1000;
 const SUGGESTIONS = ['career', 'marriage', 'year', 'numbers'] as const;
 type ErrorKey = 'failed' | 'notEnabled' | 'busy' | 'declined' | 'tooLong';
 
@@ -26,63 +26,6 @@ function errorKey(err: unknown): ErrorKey {
   if (err.status === 422) return 'declined';
   if (err.status === 400) return 'tooLong';
   return 'failed';
-}
-
-function Helpline() {
-  const { t } = useTranslation();
-  return (
-    <Card style={[styles.gapSm, { borderColor: colors.emerald }]}>
-      <AppText variant="bodyStrong">{t('ai.ask.helplineTitle')}</AppText>
-      <AppText>{t('ai.ask.helpline')}</AppText>
-      <Button variant="outline" title={t('ai.ask.callHelpline')} onPress={() => Linking.openURL('tel:14416')} />
-    </Card>
-  );
-}
-
-function Bubble({ message }: { message: ChatMessage }) {
-  const { t } = useTranslation();
-  const mine = message.role === 'user';
-  return (
-    <View style={styles.gapSm}>
-      <View style={[styles.bubble, mine ? styles.mine : styles.theirs]}>
-        {!mine ? (
-          <View style={styles.aiHead}>
-            <AppText variant="label" style={{ color: colors.gold }}>
-              {t('ai.ask.aiName')}
-            </AppText>
-            <AIBadge />
-          </View>
-        ) : null}
-        <AppText selectable>{message.text}</AppText>
-      </View>
-      {message.distress ? <Helpline /> : null}
-    </View>
-  );
-}
-
-function PersonChips({ people, value, onChange }: { people: BirthProfile[]; value: string | null; onChange: (id: string | null) => void }) {
-  const { t } = useTranslation();
-  const options = [...people.map((p) => ({ id: p.id as string | null, label: p.fullName })), { id: null, label: t('ai.ask.general') }];
-  return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips} accessibilityLabel={t('ai.ask.aboutWhom')}>
-      {options.map((o) => {
-        const active = o.id === value;
-        return (
-          <Pressable
-            key={o.id ?? 'general'}
-            accessibilityRole="radio"
-            accessibilityState={{ selected: active }}
-            onPress={() => onChange(o.id)}
-            style={[styles.chip, active && styles.chipActive]}
-          >
-            <AppText variant="label" style={{ color: active ? colors.backgroundDeep : colors.text }}>
-              {o.label}
-            </AppText>
-          </Pressable>
-        );
-      })}
-    </ScrollView>
-  );
 }
 
 export default function AskScreen() {
@@ -140,7 +83,7 @@ export default function AskScreen() {
   async function send(text: string) {
     const q = text.trim();
     if (!q || busy) return;
-    if (q.length > MAX_QUESTION) return setError('tooLong');
+    if (q.length > MAX_MESSAGE) return setError('tooLong');
     setBusy(true);
     setError(null);
     const pending: ChatMessage = { id: `pending-${Date.now()}`, role: 'user', text: q, distress: false, createdAt: new Date().toISOString() };
@@ -182,28 +125,7 @@ export default function AskScreen() {
           <Button title={t('ai.ask.buy')} onPress={() => router.push('/credits')} />
         </Card>
       ) : (
-        <View style={styles.inputRow}>
-          <TextInput
-            value={question}
-            onChangeText={setQuestion}
-            placeholder={t('ai.ask.placeholder')}
-            placeholderTextColor={colors.textFaint}
-            style={styles.input}
-            multiline
-            maxLength={MAX_QUESTION}
-            editable={!busy}
-            accessibilityLabel={t('ai.ask.placeholder')}
-          />
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t('ai.ask.send')}
-            disabled={busy || !question.trim()}
-            onPress={() => send(question)}
-            style={[styles.send, (busy || !question.trim()) && styles.sendOff]}
-          >
-            <MaterialCommunityIcons name="send" size={22} color={colors.backgroundDeep} />
-          </Pressable>
-        </View>
+        <ChatInput value={question} onChange={setQuestion} onSend={() => send(question)} busy={busy} />
       )}
       <AppText variant="caption" style={styles.center}>
         {t('ai.ask.disclaimer')}
@@ -294,9 +216,6 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   center: { textAlign: 'center' },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  chips: { gap: spacing.sm, paddingVertical: 2 },
-  chip: { paddingHorizontal: spacing.lg, paddingVertical: spacing.sm, borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border },
-  chipActive: { backgroundColor: colors.gold, borderColor: colors.gold },
   walletRow: { flexDirection: 'row', alignItems: 'center' },
   suggestion: {
     flexDirection: 'row',
@@ -308,27 +227,6 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     backgroundColor: colors.surface + 'CC',
   },
-  bubble: { padding: spacing.md, borderRadius: radius.lg, gap: spacing.xs, maxWidth: '92%' },
-  mine: { alignSelf: 'flex-end', backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.goldDeep },
-  theirs: { alignSelf: 'flex-start', backgroundColor: colors.backgroundDeep, borderWidth: 1, borderColor: colors.border },
-  aiHead: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   thinking: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
   newChat: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs, alignSelf: 'center', padding: spacing.sm },
-  inputRow: { flexDirection: 'row', alignItems: 'flex-end', gap: spacing.sm },
-  input: {
-    flex: 1,
-    minHeight: 50,
-    maxHeight: 140,
-    color: colors.text,
-    fontFamily: fonts.bodyMedium,
-    fontSize: 16,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-  },
-  send: { width: 50, height: 50, borderRadius: 25, backgroundColor: colors.gold, alignItems: 'center', justifyContent: 'center' },
-  sendOff: { opacity: 0.4 },
 });
