@@ -1,6 +1,6 @@
 // Ka Ktien Khasi. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.kha.ts)
+import ai from './ai.kha';
 import jyotish from './jyotish.kha';
 import kundli from './kundli.kha';
 import numerology from './numerology.kha';

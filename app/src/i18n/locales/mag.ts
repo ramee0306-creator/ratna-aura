@@ -1,6 +1,6 @@
 // मगही. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import ai from './ai.en'; // TODO: translate (ai.mag.ts)
+import ai from './ai.mag';
 import jyotish from './jyotish.mag';
 import kundli from './kundli.mag';
 import numerology from './numerology.mag';
