@@ -1,6 +1,6 @@
 // The yearly, monthly and daily cycles that change over time.
-import type { CalendarDate } from './date';
-import { digitSum, reduce } from './reduce';
+import type { CalendarDate } from './date.ts';
+import { digitSum, reduce } from './reduce.ts';
 
 /** Personal year: birth day + birth month + the calendar year, reduced to 1–9. */
 export function personalYear(birth: CalendarDate, year: number): number {

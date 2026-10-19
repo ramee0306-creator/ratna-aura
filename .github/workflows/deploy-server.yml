@@ -13,6 +13,7 @@ on:
     paths:
       - 'supabase/**'
       - 'packages/kundli/**'
+      - 'packages/numerology/**'
       - 'scripts/sync-shared.mjs'
       - '.github/workflows/deploy-server.yml'
   workflow_dispatch:

@@ -1,9 +1,9 @@
 // The "vibration" of everyday numbers — mobile, vehicle, house — and business names,
 // and how well each suits a person.
-import { nameNumber } from './core';
-import { CHALDEAN } from './letters';
-import { type Harmony, harmony, type PersonNumbers } from './planets';
-import { reduce, sumDigitsIn } from './reduce';
+import { nameNumber } from './core.ts';
+import { CHALDEAN } from './letters.ts';
+import { type Harmony, harmony, type PersonNumbers } from './planets.ts';
+import { reduce, sumDigitsIn } from './reduce.ts';
 
 export type Vibration = {
   /** Total before reducing */

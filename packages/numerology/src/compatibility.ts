@@ -1,5 +1,5 @@
 // Compatibility between two people from their Mulank and Bhagyank.
-import { numberRelation, type PersonNumbers, type Relation } from './planets';
+import { numberRelation, type PersonNumbers, type Relation } from './planets.ts';
 
 const POINTS: Record<Relation, number> = { same: 2, friend: 2, neutral: 1, enemy: 0 };
 

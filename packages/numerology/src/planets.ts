@@ -1,6 +1,6 @@
 // Indian numerology links each number to a planet (graha), and uses the classical
 // Vedic planetary friendships (naisargika maitri) to judge which numbers support each other.
-import { reduce } from './reduce';
+import { reduce } from './reduce.ts';
 
 export type Planet = 'sun' | 'moon' | 'jupiter' | 'rahu' | 'mercury' | 'venus' | 'ketu' | 'saturn' | 'mars';
 export type Relation = 'same' | 'friend' | 'neutral' | 'enemy';

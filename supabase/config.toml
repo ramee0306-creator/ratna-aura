@@ -22,3 +22,10 @@ static_files = ["./functions/panchang/swiss_eph.wasm"]
 [functions.rashifal]
 verify_jwt = false
 static_files = ["./functions/rashifal/swiss_eph.wasm"]
+
+[functions.ask]
+verify_jwt = false
+static_files = ["./functions/ask/swiss_eph.wasm"]
+
+[functions.credits]
+verify_jwt = false

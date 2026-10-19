@@ -1,8 +1,8 @@
 // Suggests small spelling changes that give a name number which suits the person
 // (Chaldean system, as is usual for name correction in India).
-import { nameNumber } from './core';
-import { nameWords } from './letters';
-import { type Harmony, harmony, harmonyScore, type PersonNumbers } from './planets';
+import { nameNumber } from './core.ts';
+import { nameWords } from './letters.ts';
+import { type Harmony, harmony, harmonyScore, type PersonNumbers } from './planets.ts';
 
 export type NameOption = {
   spelling: string;

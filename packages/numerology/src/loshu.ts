@@ -1,8 +1,8 @@
 // The Lo Shu grid: a 3×3 magic square (every row, column and diagonal adds to 15)
 // filled with the digits of the date of birth, as used in Indian numerology.
-import { bhagyank, mulank } from './core';
-import { type CalendarDate, dateDigits } from './date';
-import { reduce } from './reduce';
+import { bhagyank, mulank } from './core.ts';
+import { type CalendarDate, dateDigits } from './date.ts';
+import { reduce } from './reduce.ts';
 
 /** The fixed layout of the Lo Shu square, top row first. */
 export const LO_SHU_LAYOUT = [

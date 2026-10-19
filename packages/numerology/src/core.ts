@@ -1,7 +1,7 @@
 // The main personal numbers.
-import { type CalendarDate, dateDigits } from './date';
-import { isVowelAt, letterValue, nameWords, type NumerologySystem } from './letters';
-import { digitSum, reduce } from './reduce';
+import { type CalendarDate, dateDigits } from './date.ts';
+import { isVowelAt, letterValue, nameWords, type NumerologySystem } from './letters.ts';
+import { digitSum, reduce } from './reduce.ts';
 
 /** Mulank (psychic / root number): the day of birth reduced to 1–9. Born on the 29th -> 2+9 = 11 -> 2. */
 export function mulank(birth: CalendarDate): number {

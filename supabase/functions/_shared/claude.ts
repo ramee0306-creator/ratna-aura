@@ -2,7 +2,7 @@
 // (ANTHROPIC_API_KEY in Supabase → Edge Functions → Secrets); it never reaches the app.
 import Anthropic from 'npm:@anthropic-ai/sdk@0.131.0';
 
-import { admin } from './supabase.ts';
+import { setting } from './settings.ts';
 
 /** The model used unless the admin changes it (app_settings table) or the AI_MODEL secret is set.
  *  Haiku is the cheapest Claude model (about ₹0.1 per rashifal); Sonnet or Opus write richer text for more. */
@@ -21,28 +21,29 @@ function anthropic(): Anthropic {
 
 /** Model for a feature: app_settings row `<feature>_model`, else the AI_MODEL secret, else the default. */
 export async function modelFor(feature: 'rashifal' | 'chat'): Promise<string> {
-  const { data } = await admin().from('app_settings').select('value').eq('key', `${feature}_model`).maybeSingle();
-  const fromTable = typeof data?.value === 'string' ? data.value : null;
-  return fromTable || Deno.env.get('AI_MODEL') || DEFAULT_MODEL;
+  return (await setting(`${feature}_model`, '')) || Deno.env.get('AI_MODEL') || DEFAULT_MODEL;
 }
 
 export const hasServerFallback = (model: string) => !model.startsWith('claude-haiku');
 
-/** Asks Claude for a JSON answer that follows `schema`. */
+export type ChatTurn = { role: 'user' | 'assistant'; content: string };
+
+/** Asks Claude for a JSON answer that follows `schema`. `prompt` is one question, or a conversation ending with the user. */
 export async function generateJson(opts: {
   model: string;
   system: string;
-  prompt: string;
+  prompt: string | ChatTurn[];
   schema: Record<string, unknown>;
   maxTokens?: number;
+  effort?: 'low' | 'medium' | 'high';
 }): Promise<{ data: unknown; model: string; inputTokens: number; outputTokens: number }> {
   const response = await anthropic().beta.messages.create({
     model: opts.model,
     max_tokens: opts.maxTokens ?? 8000,
     system: opts.system,
-    messages: [{ role: 'user', content: opts.prompt }],
-    // Short, everyday writing: low effort is enough and keeps it quick and cheap.
-    output_config: { effort: 'low', format: { type: 'json_schema', schema: opts.schema } },
+    messages: typeof opts.prompt === 'string' ? [{ role: 'user', content: opts.prompt }] : opts.prompt,
+    // Everyday writing: low effort is usually enough and keeps it quick and cheap.
+    output_config: { effort: opts.effort ?? 'low', format: { type: 'json_schema', schema: opts.schema } },
     // On Opus/Sonnet, if the safety system declines, the API retries on its recommended fallback model.
     // Haiku has no server-side fallback (the option would be ignored or rejected), so it is left out there.
     ...(hasServerFallback(opts.model) ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' as const } : {}),
