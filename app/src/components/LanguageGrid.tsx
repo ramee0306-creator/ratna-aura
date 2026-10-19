@@ -26,7 +26,7 @@ export function LanguageGrid({ onChoose }: { onChoose: (code: LanguageCode) => v
   return (
     <View style={styles.wrap}>
       {AVAILABLE_LANGUAGES.length > 8 ? (
-        <TextField label={t('language.search')} value={query} onChangeText={setQuery} autoCorrect={false} placeholder="Hindi, தமிழ், Español…" />
+        <TextField label={t('language.search')} value={query} onChangeText={setQuery} autoCorrect={false} placeholder="Hindi, தமிழ், বাংলা…" />
       ) : null}
       {matches.length === 0 ? <AppText variant="caption">{t('language.noMatch')}</AppText> : null}
       <View style={styles.grid} accessibilityRole="radiogroup">
