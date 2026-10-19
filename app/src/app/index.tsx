@@ -1,6 +1,6 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { type Href, router } from 'expo-router';
-import type { ComponentProps } from 'react';
+import { type Href, router, useFocusEffect } from 'expo-router';
+import { type ComponentProps, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
@@ -11,24 +11,26 @@ import { AppText } from '@/components/AppText';
 import { Card } from '@/components/Card';
 import { Screen } from '@/components/Screen';
 import { Wordmark } from '@/components/Wordmark';
+import { type Feature as PaidFeature, getPrices, type Prices } from '@/paid/api';
 import { colors, radius, spacing } from '@/theme';
 
 type IconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
-type Feature = { key: string; icon: IconName; href?: Href; hint?: string };
+type Feature = { key: string; icon: IconName; href?: Href; title?: string; hint?: string; paid?: PaidFeature };
 
 // Tiles without a screen yet would show "Soon".
 const ASTROLOGY: Feature[] = [
-  { key: 'kundli', icon: 'star-four-points-outline', href: '/kundli' },
-  { key: 'rashifal', icon: 'zodiac-leo', href: '/rashifal', hint: 'jyotish.rashifal.homeHint' },
-  { key: 'panchang', icon: 'weather-sunset', href: '/panchang' },
-  { key: 'matching', icon: 'hand-heart-outline', href: '/milan' },
+  { key: 'kundli', icon: 'star-four-points-outline', href: '/kundli', paid: 'kundli' },
+  { key: 'rashifal', icon: 'zodiac-leo', href: '/rashifal', hint: 'jyotish.rashifal.homeHint', paid: 'rashifal' },
+  { key: 'panchang', icon: 'weather-sunset', href: '/panchang', paid: 'panchang' },
+  { key: 'matching', icon: 'hand-heart-outline', href: '/milan', paid: 'milan' },
+  { key: 'palm', icon: 'hand-back-right-outline', href: '/palm', title: 'extra.palm.title', hint: 'extra.palm.homeHint', paid: 'palm' },
 ];
 const NUMEROLOGY: Feature[] = [
-  { key: 'coreNumbers', icon: 'numeric-9-circle-outline', href: '/numerology/core' },
-  { key: 'loShu', icon: 'grid', href: '/numerology/lo-shu' },
-  { key: 'nameCorrection', icon: 'format-letter-case', href: '/numerology/name-correction' },
-  { key: 'mobileNumber', icon: 'cellphone', href: '/numerology/vibrations' },
-  { key: 'compatibility', icon: 'cards-heart-outline', href: '/numerology/compatibility' },
+  { key: 'coreNumbers', icon: 'numeric-9-circle-outline', href: '/numerology/core', paid: 'numbers' },
+  { key: 'loShu', icon: 'grid', href: '/numerology/lo-shu', paid: 'loshu' },
+  { key: 'nameCorrection', icon: 'format-letter-case', href: '/numerology/name-correction', paid: 'name' },
+  { key: 'mobileNumber', icon: 'cellphone', href: '/numerology/vibrations', paid: 'vibrations' },
+  { key: 'compatibility', icon: 'cards-heart-outline', href: '/numerology/compatibility', paid: 'compatibility' },
 ];
 
 // Astrology is marked in gold, numerology in emerald, so the two halves are easy to tell apart.
@@ -44,10 +46,11 @@ function SectionTitle({ title, accent }: { title: string; accent: string }) {
   );
 }
 
-function Tile({ feature, accent }: { feature: Feature; accent: string }) {
+function Tile({ feature, accent, prices }: { feature: Feature; accent: string; prices: Prices | null }) {
   const { t } = useTranslation();
   const ready = feature.href !== undefined;
-  const title = t(`home.${feature.key}`);
+  const title = t(feature.title ?? `home.${feature.key}`);
+  const price = feature.paid ? prices?.[feature.paid] : undefined;
   const content = (
     <>
       <View style={styles.tileTop}>
@@ -62,6 +65,9 @@ function Tile({ feature, accent }: { feature: Feature; accent: string }) {
       <AppText variant="caption" numberOfLines={2}>
         {t(feature.hint ?? `home.${feature.key}Hint`)}
       </AppText>
+      {price ? (
+        <AppText style={[styles.price, { color: accent, borderColor: accent + '66' }]}>{t('extra.paid.price', { count: price })}</AppText>
+      ) : null}
     </>
   );
   if (!ready) {
@@ -116,6 +122,15 @@ export default function HomeScreen() {
   const { t } = useTranslation();
   const { profile } = useAuth();
   const name = profile?.display_name;
+  // Prices on the tiles, so it is clear before opening a tool what it costs.
+  const [prices, setPrices] = useState<Prices | null>(null);
+  useFocusEffect(
+    useCallback(() => {
+      getPrices()
+        .then((p) => setPrices(p.prices))
+        .catch(() => undefined);
+    }, []),
+  );
 
   return (
     <Screen>
@@ -139,14 +154,14 @@ export default function HomeScreen() {
       <SectionTitle title={t('home.astrology')} accent={colors.gold} />
       <View style={styles.grid}>
         {ASTROLOGY.map((f) => (
-          <Tile key={f.key} feature={f} accent={colors.gold} />
+          <Tile key={f.key} feature={f} accent={colors.gold} prices={prices} />
         ))}
       </View>
 
       <SectionTitle title={t('home.numerology')} accent={colors.emeraldBright} />
       <View style={styles.grid}>
         {NUMEROLOGY.map((f) => (
-          <Tile key={f.key} feature={f} accent={colors.emeraldBright} />
+          <Tile key={f.key} feature={f} accent={colors.emeraldBright} prices={prices} />
         ))}
       </View>
 
@@ -178,6 +193,16 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
   tileTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: spacing.sm },
+  price: {
+    alignSelf: 'flex-start',
+    marginTop: spacing.sm,
+    fontSize: 12,
+    lineHeight: 18,
+    borderWidth: 1,
+    borderRadius: radius.pill,
+    paddingHorizontal: 8,
+    overflow: 'hidden',
+  },
   soon: {
     fontSize: 11,
     lineHeight: 16,

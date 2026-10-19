@@ -27,6 +27,8 @@ export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    /** The server's JSON answer, when there was one */
+    readonly details?: unknown,
   ) {
     super(message);
   }

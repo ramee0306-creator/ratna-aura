@@ -1,5 +1,6 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'Ne long Premium bad kylli man la ka sngi',
     usedToday: 'Phi la pyndonkam kyllum ia ki jingkylli Premium jong mynta ka sngi; ki wan biang lashai. Haduh kata, yn pyndonkam ia ki jingkylli free bad ki credit.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

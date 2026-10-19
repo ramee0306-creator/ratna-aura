@@ -1,5 +1,6 @@
 // ತುಳು (ಕನ್ನಡ ಲಿಪಿ): ಪರ್ಸೋನಾ, ರಿಪೋರ್ಟ್, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿದ ಪಾಠ (tcy.ts ಡ್ `extra` ಆದ್ ಸೇರ್ದುಂಡು).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'ಅತ್ತಂಡ ಪ್ರೀಮಿಯಂ ದೆತ್ತೊಂದು ಪ್ರತಿ ದಿನೊ ಕೇನುಲೆ',
     usedToday: 'ಈರ್ ಇನಿತ ಪ್ರೀಮಿಯಂ ಪ್ರಶ್ನೆಲೆನ್ ಉಪಯೋಗ ಮಲ್ತಾರ್; ಅವು ಎಲ್ಲೆ ಪಿರ ಬರ್ಪುಂಡು. ಎಲ್ಲೆ ಮುಟ್ಟ ಉಚಿತ ಪ್ರಶ್ನೆಲು ಬೊಕ್ಕ ಕ್ರೆಡಿಟ್‌ಲೆನ್ ಉಪಯೋಗ ಮಲ್ಪುವೆರ್.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

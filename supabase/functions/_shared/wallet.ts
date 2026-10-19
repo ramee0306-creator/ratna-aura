@@ -2,6 +2,7 @@
 import { setting } from './settings.ts';
 import { cleanPlans, type Plan } from './subscriptions.ts';
 import { admin } from './supabase.ts';
+import { cleanPrices } from './unlocks.ts';
 
 export type Premium = {
   planId: string;
@@ -26,6 +27,9 @@ export type CreditPack = { id: string; credits: number; priceInr: number };
 
 export const freeLimit = () => setting('free_questions', 3);
 export const premiumDaily = () => setting('premium_daily_questions', 30);
+/** Prices of the paid tools (app_settings.feature_prices), and whether Premium includes them. */
+export const featurePrices = async () => cleanPrices(await setting<unknown>('feature_prices', {}));
+export const premiumIncludesTools = () => setting('premium_includes_tools', true);
 export const subscriptionPlans = async (): Promise<Plan[]> => cleanPlans(await setting<unknown[]>('subscription_plans', []));
 
 async function runningPremium(userId: string): Promise<Premium | null> {

@@ -1,5 +1,6 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'یا Premium حاصل کٔرِو تہٕ پرٛتھ دۄہ پرٛژھِو',
     usedToday: 'توٚہؠ چھِو اَزٕکۍ Premium سوال ورتٲوِمٕتۍ؛ یِم یِن پگاہ واپس۔ تامتھ ورتاونہٕ یِن مفت سوال تہٕ کریڈٹ۔',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

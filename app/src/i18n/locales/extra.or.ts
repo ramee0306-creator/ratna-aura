@@ -1,5 +1,6 @@
 // ନୂଆ ସ୍କ୍ରିନଗୁଡ଼ିକର ଓଡ଼ିଆ ପାଠ (AI ପର୍ସୋନା, PDF ରିପୋର୍ଟ, ରିମାଇଣ୍ଡର, ଗୋପନୀୟତା, ପେମେଣ୍ଟ, ଭଏସ୍); or.ts ରେ `extra` ଭାବେ ଅନ୍ତର୍ଭୁକ୍ତ।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'କିମ୍ବା ପ୍ରିମିୟମ୍ ନିଅନ୍ତୁ ଏବଂ ପ୍ରତିଦିନ ପଚାରନ୍ତୁ',
     usedToday: 'ଆପଣ ଆଜିର ପ୍ରିମିୟମ୍ ପ୍ରଶ୍ନ ବ୍ୟବହାର କରିସାରିଛନ୍ତି; କାଲି ପୁଣି ମିଳିବ। ସେପର୍ଯ୍ୟନ୍ତ ମାଗଣା ପ୍ରଶ୍ନ ଓ କ୍ରେଡିଟ୍ ବ୍ୟବହାର ହେବ।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

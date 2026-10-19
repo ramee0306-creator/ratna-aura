@@ -1,5 +1,6 @@
 // मगही पाठ: पर्सोना, रिपोर्ट, रिमाइंडर, प्राइवेसी, भुगतान आउ आवाज (mag.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'या प्रीमियम लेके रोज पूछथिन',
     usedToday: 'अपने आज के प्रीमियम सवाल पूरा कर लेलथिन; ई कल फिन मिलतइ। तब तक मुफ्त सवाल आउ क्रेडिट इस्तेमाल होतइ।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

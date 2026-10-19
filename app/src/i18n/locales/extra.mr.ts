@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF अहवाल, स्मरण, गोपनीयता, पेमेंट आणि आवाजाचा मराठी मजकूर (mr.ts मध्ये `extra` म्हणून समाविष्ट).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'किंवा प्रीमियम घ्या आणि दररोज विचारा',
     usedToday: 'तुम्ही आजचे प्रीमियम प्रश्न वापरले आहेत; ते उद्या परत मिळतील. तोपर्यंत मोफत प्रश्न आणि क्रेडिट वापरले जातील.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

@@ -140,6 +140,29 @@ export default function AdminScreen() {
               : null}
           </Card>
 
+          <AppText variant="overline">Tool prices (credits)</AppText>
+          <Card style={styles.card}>
+            {Object.entries((settings.feature_prices ?? {}) as Record<string, number>).map(([tool, price]) => (
+              <View key={tool} style={styles.row}>
+                <AppText style={styles.flex}>{tool}</AppText>
+                <Button
+                  variant="outline"
+                  title="−"
+                  onPress={() => change('feature_prices', { ...(settings.feature_prices as object), [tool]: Math.max(price - 5, 0) })}
+                />
+                <AppText variant="bodyStrong" style={[styles.digits, styles.price]}>
+                  {price}
+                </AppText>
+                <Button
+                  variant="outline"
+                  title="+"
+                  onPress={() => change('feature_prices', { ...(settings.feature_prices as object), [tool]: Math.min(price + 5, 1000) })}
+                />
+              </View>
+            ))}
+            <AppText variant="caption">0 = free. 1 credit ≈ ₹3.5–₹4.9 depending on the pack. Premium includes every tool.</AppText>
+          </Card>
+
           <AppText variant="overline">Gift credits</AppText>
           <Card style={styles.card}>
             <TextField label="User's e-mail or phone (+91…)" value={contact} onChangeText={setContact} autoCapitalize="none" />
@@ -170,4 +193,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface + 'CC',
   },
   digits: { fontVariant: ['lining-nums'] },
+  price: { width: 44, textAlign: 'center' },
 });

@@ -1,5 +1,6 @@
 // नूतनपटलानां संस्कृतपाठः: AI-पात्राणि, PDF-प्रतिवेदनम्, स्मारकम्, गोपनीयता, देयकम्, ध्वनिः (sa.ts मध्ये `extra` इति रूपेण सम्मिलितः)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'अथवा Premium स्वीकृत्य प्रतिदिनं पृच्छतु',
     usedToday: 'भवता अद्यतनाः Premium-प्रश्नाः उपयुक्ताः; ते श्वः पुनः आगमिष्यन्ति। तावत् निःशुल्कप्रश्नाः क्रेडिट्स् च उपयुज्यन्ते।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

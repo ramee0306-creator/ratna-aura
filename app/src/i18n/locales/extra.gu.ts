@@ -1,5 +1,6 @@
 // નવી સ્ક્રીનોનો ગુજરાતી પાઠ: AI પર્સોના, PDF રિપોર્ટ, રિમાઇન્ડર, ગોપનીયતા, ચુકવણી, અવાજ (gu.ts માં `extra` તરીકે સામેલ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'અથવા પ્રીમિયમ લો અને દરરોજ પૂછો',
     usedToday: 'તમે આજના પ્રીમિયમ પ્રશ્નો વાપરી લીધા છે; તે કાલે પાછા મળશે. ત્યાં સુધી મફત પ્રશ્નો અને ક્રેડિટ વપરાશે.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

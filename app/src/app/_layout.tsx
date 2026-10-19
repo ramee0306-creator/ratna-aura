@@ -90,6 +90,7 @@ function RootNavigator() {
         <Stack.Screen name="ask" />
         <Stack.Screen name="credits" />
         <Stack.Screen name="premium" />
+        <Stack.Screen name="palm" />
         <Stack.Screen name="personas" />
         <Stack.Screen name="persona/[id]" />
         <Stack.Screen name="admin" />

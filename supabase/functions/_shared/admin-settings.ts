@@ -1,6 +1,7 @@
 // Which settings the admin panel may change, and how each value is checked.
 
 import { cleanPlans } from './subscriptions.ts';
+import { cleanPrices, FEATURES } from './unlocks.ts';
 
 export const MODELS = ['claude-haiku-5-5', 'claude-sonnet-5-5', 'claude-opus-5-5'] as const;
 
@@ -35,6 +36,8 @@ export const EDITABLE: Record<string, Check> = {
   payments_mode: (v) => v === 'test' || v === 'off' || v === 'live',
   subscription_plans: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 4 && cleanPlans(v).length === v.length && new Set(v.map((p) => p.id)).size === v.length,
   premium_daily_questions: (v) => Number.isInteger(v) && (v as number) >= 1 && (v as number) <= 200,
+  feature_prices: (v) => !!v && typeof v === 'object' && !Array.isArray(v) && Object.keys(cleanPrices(v)).length === Object.keys(v).length && Object.keys(v).every((k) => (FEATURES as readonly string[]).includes(k)),
+  premium_includes_tools: (v) => typeof v === 'boolean',
   credit_packs: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 6 && v.every(isPack) && new Set(v.map((p) => p.id)).size === v.length,
 };
 

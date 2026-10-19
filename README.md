@@ -414,6 +414,18 @@ once with the environment variable `ALLOW_SCREENSHOTS=1`.
 5. Rebuild the app (Build for Google Play), then Admin panel → Payments → **Live**.
 Credits are added by the server only after RevenueCat confirms the Google Play payment, once per order.
 
+### Paid tools (pay before use) and palm reading
+Every tool on the home screen shows its price in credits on its tile and asks for payment before showing the
+result: the user fills in the details, then sees a pay card ("Pay 40 credits and see it"). One payment unlocks
+that thing for good — a person's kundli, a matching pair, a name, a number, or a month of rashifal / panchang.
+Premium includes every tool (`premium_includes_tools`). Prices are in `app_settings.feature_prices`
+(Admin panel → Tool prices; 0 = free). The server records unlocks in `unlocks` (only a hash of what was unlocked)
+through `functions/unlock`.
+
+**Palm reading** (`/palm`, `functions/palm`): the user takes or chooses one or two palm photos (the price is shown
+on the screen first), then pays, then Claude reads the palm from the photos. If the photos don't show a clear palm,
+the credits are given back. Photos are never stored; readings are stored encrypted. Limit: 5 readings a day.
+
 ### Premium subscription
 The **Premium** screen (home banner, Settings, Credits, and Ask AI when questions run out) offers three plans.
 Premium gives Ask AI without counting (fair use: `premium_daily_questions` a day, Indian date) and bonus credits

@@ -26,7 +26,11 @@ export async function modelFor(feature: 'rashifal' | 'chat'): Promise<string> {
 
 export const hasServerFallback = (model: string) => !model.startsWith('claude-haiku');
 
-export type ChatTurn = { role: 'user' | 'assistant'; content: string };
+/** A photo sent to Claude (base64), or a piece of text, inside one message. */
+export type ContentPart =
+  | { type: 'text'; text: string }
+  | { type: 'image'; source: { type: 'base64'; media_type: 'image/jpeg' | 'image/png' | 'image/webp'; data: string } };
+export type ChatTurn = { role: 'user' | 'assistant'; content: string | ContentPart[] };
 
 /** Asks Claude for a JSON answer that follows `schema`. `prompt` is one question, or a conversation ending with the user. */
 export async function generateJson(opts: {

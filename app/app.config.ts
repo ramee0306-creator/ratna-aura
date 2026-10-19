@@ -56,6 +56,14 @@ const config: ExpoConfig = {
         androidSpeechServicePackages: ['com.google.android.googlequicksearchbox'],
       },
     ],
+    [
+      'expo-image-picker',
+      {
+        cameraPermission: 'Ratna Aura uses the camera only when you tap it, to photograph your palm for a palm reading.',
+        photosPermission: 'Ratna Aura opens your photos only when you choose a palm photo for a palm reading.',
+        microphonePermission: false,
+      },
+    ],
     ['expo-notifications', { icon: './assets/images/android-icon-monochrome.png', color: brand.colors.gold }],
     [
       'expo-splash-screen',

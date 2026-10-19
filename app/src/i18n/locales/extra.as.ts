@@ -1,5 +1,6 @@
 // নতুন স্ক্ৰীনসমূহৰ অসমীয়া পাঠ (AI পাৰ্ছোনা, PDF ৰিপ’ৰ্ট, ৰিমাইণ্ডাৰ, গোপনীয়তা, পেমেণ্ট, ভইচ); as.ts ত `extra` হিচাপে অন্তৰ্ভুক্ত।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'নাইবা প্ৰিমিয়াম লৈ প্ৰতিদিনে সোধক',
     usedToday: 'আপুনি আজিৰ প্ৰিমিয়াম প্ৰশ্নবোৰ ব্যৱহাৰ কৰিলে; কাইলৈ সেইবোৰ আকৌ পাব। তেতিয়ালৈকে বিনামূলীয়া প্ৰশ্ন আৰু ক্ৰেডিট ব্যৱহাৰ কৰা হ’ব।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

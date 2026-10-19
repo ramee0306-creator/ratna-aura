@@ -1,5 +1,6 @@
 // ಮೈಲಿಗಲ್ಲು 6–10 ರಲ್ಲಿ ಸೇರಿಸಿದ ಕನ್ನಡ ಪಠ್ಯ (ಪರ್ಸೋನಾಗಳು, ವರದಿ, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'ಅಥವಾ ಪ್ರೀಮಿಯಂ ಪಡೆದು ಪ್ರತಿದಿನ ಕೇಳಿ',
     usedToday: 'ಇಂದಿನ ಪ್ರೀಮಿಯಂ ಪ್ರಶ್ನೆಗಳನ್ನು ನೀವು ಬಳಸಿದ್ದೀರಿ; ಅವು ನಾಳೆ ಮತ್ತೆ ಸಿಗುತ್ತವೆ. ಅಲ್ಲಿಯವರೆಗೆ ಉಚಿತ ಪ್ರಶ್ನೆಗಳು ಮತ್ತು ಕ್ರೆಡಿಟ್‌ಗಳನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

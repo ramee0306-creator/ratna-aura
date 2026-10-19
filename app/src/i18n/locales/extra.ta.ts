@@ -1,5 +1,6 @@
 // மைல்கல் 6–10-இல் சேர்க்கப்பட்ட தமிழ் உரை (பர்சனாக்கள், அறிக்கை, நினைவூட்டல், தனியுரிமை, பணம் செலுத்துதல், குரல்).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'அல்லது பிரீமியத்துக்கு மாறி தினமும் கேளுங்கள்',
     usedToday: 'இன்றைய பிரீமியம் கேள்விகளைப் பயன்படுத்திவிட்டீர்கள்; அவை நாளை மீண்டும் கிடைக்கும். அதுவரை இலவசக் கேள்விகளும் கிரெடிட்களும் பயன்படுத்தப்படும்.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

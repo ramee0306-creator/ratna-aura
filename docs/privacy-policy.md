@@ -21,17 +21,21 @@ delete it.
 | Display name, preferred language, consent date and version, 18+ confirmation | To run your account and record your consent | Supabase |
 | Names, gender, date, time and place of birth of you and the people you add | To calculate kundlis, matching and numerology | Supabase, **encrypted** with a key only our server holds |
 | Your "Ask AI" and persona chat messages and the AI's answers | To answer you and show your conversation history | Supabase, **encrypted** |
-| Credits, purchases and credit use | To provide paid features and prevent fraud | Supabase |
+| Palm photos you take or choose for a palm reading | To make that one reading | **Not stored**: sent once to Anthropic for the reading, then discarded |
+| Your palm readings (the text) | To show you your earlier readings | Supabase, **encrypted** |
+| Credits, purchases, credit use and which tools you unlocked | To provide paid features and prevent fraud | Supabase (unlocked items are stored only as a one-way code, not as names or numbers) |
 | Technical logs (time of request, errors, AI token counts) | To keep the service working and measure costs | Supabase / our server logs, kept up to 30 days |
 
-We do **not** collect your contacts, photos, precise location, or advertising ID, and we do not show ads.
+We do **not** collect your contacts, precise location, or advertising ID, and we do not show ads. The camera and
+your photos are used **only** when you tap to take or choose a palm photo; nothing else from your gallery is read.
 The daily reminder is scheduled **on your phone**; it sends nothing to us.
 Voice input (if you use it) is converted to text by your phone's own speech service; we receive only the text.
 
 ## 3. AI processing
-Answers in "Ask AI", the AI personas and the daily rashifal are written by **Claude**, an AI model from
+Answers in "Ask AI", the AI personas, palm readings and the daily rashifal are written by **Claude**, an AI model from
 **Anthropic, PBC**. To answer you, our server sends Anthropic your question, the recent messages of that
-conversation, and a summary of the chosen chart (name, birth details, planet positions and numbers). Anthropic
+conversation, and a summary of the chosen chart (name, birth details, planet positions and numbers); for a palm
+reading, the palm photos you chose. Anthropic
 processes this only to produce the answer and, under its commercial terms, does not use it to train its models.
 AI answers are for guidance and reflection only and can be wrong. They are not medical, legal or financial advice.
 

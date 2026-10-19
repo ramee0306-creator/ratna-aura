@@ -41,6 +41,15 @@ const demo = {
   wallet: { credits: 0, freeLeft: 3, freeLimit: 3, premium: null, premiumLeftToday: 0, premiumDaily: 30 } as Wallet,
   threads: new Map<string, Thread>(),
 };
+/** Demo mode only: the in-memory wallet, shared with the paid tools and palm reading. */
+export const demoWallet = () => ({ ...demo.wallet });
+/** Demo mode only: takes credits if there are enough (Premium pays for everything). */
+export function demoPay(credits: number): 'premium' | 'paid' | 'none' {
+  if (demo.wallet.premium) return 'premium';
+  if (demo.wallet.credits < credits) return 'none';
+  demo.wallet.credits -= credits;
+  return 'paid';
+}
 const demoKey = (profileId: string | null) => profileId ?? 'general';
 const newId = () => Math.random().toString(36).slice(2);
 

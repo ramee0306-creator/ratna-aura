@@ -1,5 +1,6 @@
 // नूंवी स्क्रीनां रो राजस्थानी पाठ: AI पर्सोना, PDF रिपोर्ट, याद दिरावण, निजता, भुगतान, आवाज (raj.ts में `extra` रै रूप में सामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'या प्रीमियम लेय नै रोजीना पूछो',
     usedToday: 'आप आज रा प्रीमियम सवाल पूरा कर लिया है; ऐ काल पाछा मिलैला। तद तांई मुफत सवाल अर क्रेडिट काम में लिया जावैला।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

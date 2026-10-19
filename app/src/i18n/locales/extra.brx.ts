@@ -1,5 +1,6 @@
 // बर\' (बड़ो) राव: पार्सोना, रिपोर्ट, रिमाइन्डार, प्राइभेसि, पेमेन्ट आरो आवाजनि बर\' (brx.ts-आव `extra` महरै हाबनाय)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'एबा प्रिमियाम लानानै सानफ्रोमबो सों',
     usedToday: 'नोंथाङआ दिनैनि प्रिमियाम सोंनायफोर बाहायनाय जाबाय; बेफोर गाबोन फिन फैगोन। बे समसिम फ्री सोंनाय आरो क्रेडिटफोर बाहायनाय जागोन।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

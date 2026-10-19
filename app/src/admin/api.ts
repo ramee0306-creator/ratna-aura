@@ -26,6 +26,7 @@ const demoSettings: Record<string, unknown> = {
   rashifal_model: 'claude-haiku-5-5',
   free_questions: 3,
   payments_mode: 'test',
+  feature_prices: { kundli: 40, milan: 30, rashifal: 10, panchang: 5, numbers: 20, loshu: 20, name: 30, vibrations: 10, compatibility: 20, palm: 30 },
   credit_packs: [
     { id: 'q10', credits: 10, priceInr: 49 },
     { id: 'q30', credits: 30, priceInr: 129 },

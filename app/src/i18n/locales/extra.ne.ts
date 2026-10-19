@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइन्डर, गोपनीयता, भुक्तानी र आवाजको नेपाली पाठ (ne.ts मा `extra` को रूपमा समावेश)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'वा Premium लिनुहोस् र हरेक दिन सोध्नुहोस्',
     usedToday: 'तपाईंले आजका Premium प्रश्न प्रयोग गरिसक्नुभयो; ती भोलि फेरि आउँछन्। त्यतिन्जेलसम्म निःशुल्क प्रश्न र क्रेडिट प्रयोग हुन्छन्।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

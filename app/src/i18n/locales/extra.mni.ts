@@ -1,5 +1,6 @@
 // অনৌবা স্ক্রীনশিংগী মৈতৈলোন্ পাউ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডর, প্রাইভেসি, পেমেন্ট, ভইস); mni.ts দা `extra` ওইনা হাপচিল্লি।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'নত্ত্রগা প্রিমিয়ম লৌরগা নুমিৎ খুদিংদা প্রশ্ন তৌবিয়ু',
     usedToday: 'নহাক্না ঙসিগী প্রিমিয়ম প্রশ্নশিং শিজিন্নখ্রে; হয়েং অমুক লাকগনি। মদু ফাওবা ফ্রী প্রশ্ন অমসুং ক্রেডিটশিং শিজিন্নগনি।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

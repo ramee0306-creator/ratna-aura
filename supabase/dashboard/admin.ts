@@ -84,6 +84,35 @@ const periodEnd = (months: number, from = new Date()) => {
   return end.toISOString();
 };
 
+// ---- _shared/unlocks.ts ----
+// Paid tools: which tools cost credits, their prices, and the hash that names what was unlocked.
+const FEATURES = ['kundli', 'milan', 'rashifal', 'panchang', 'numbers', 'loshu', 'name', 'vibrations', 'compatibility', 'palm'] as const;
+type Feature = (typeof FEATURES)[number];
+type Prices = Record<Feature, number>;
+
+const isFeature = (value: unknown): value is Feature => typeof value === 'string' && (FEATURES as readonly string[]).includes(value);
+
+/** Prices from app_settings.feature_prices; a missing or broken price means the tool is not sold (null). */
+function cleanPrices(raw: unknown): Partial<Prices> {
+  const out: Partial<Prices> = {};
+  if (!raw || typeof raw !== 'object') return out;
+  for (const f of FEATURES) {
+    const v = (raw as Record<string, unknown>)[f];
+    if (Number.isInteger(v) && (v as number) >= 0 && (v as number) <= 1000) out[f] = v as number;
+  }
+  return out;
+}
+
+/** What the app says was unlocked (e.g. "name|1990-05-14"): 1–300 characters. */
+const isUnlockKey = (value: unknown): value is string => typeof value === 'string' && value.length >= 1 && value.length <= 300;
+
+/** sha-256 (hex) of the feature and key, so names and numbers are not stored. */
+async function keyHash(feature: Feature, key: string): Promise<string> {
+  const bytes = new TextEncoder().encode(`${feature}\u0000${key.normalize('NFC').trim().toLowerCase()}`);
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+  return Array.from(digest, (b) => b.toString(16).padStart(2, '0')).join('');
+}
+
 // ---- _shared/admin-settings.ts ----
 // Which settings the admin panel may change, and how each value is checked.
 
@@ -121,6 +150,8 @@ const EDITABLE: Record<string, Check> = {
   payments_mode: (v) => v === 'test' || v === 'off' || v === 'live',
   subscription_plans: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 4 && cleanPlans(v).length === v.length && new Set(v.map((p) => p.id)).size === v.length,
   premium_daily_questions: (v) => Number.isInteger(v) && (v as number) >= 1 && (v as number) <= 200,
+  feature_prices: (v) => !!v && typeof v === 'object' && !Array.isArray(v) && Object.keys(cleanPrices(v)).length === Object.keys(v).length && Object.keys(v).every((k) => (FEATURES as readonly string[]).includes(k)),
+  premium_includes_tools: (v) => typeof v === 'boolean',
   credit_packs: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 6 && v.every(isPack) && new Set(v.map((p) => p.id)).size === v.length,
 };
 

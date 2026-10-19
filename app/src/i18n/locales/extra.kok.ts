@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF अहवाल, याद, खाजगी धोरण, पयशे भरप आनी आवाजाचो कोंकणी (देवनागरी) मजकूर (kok.ts त `extra` म्हणून).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'वा प्रीमियम घेयात आनी दर दिसा विचारात',
     usedToday: 'आयच्या प्रीमियम प्रस्नांचो तुमी वापर केला; ते फाल्यां परत मेळटले. तोमेरेन फुकट प्रस्न आनी क्रेडिट वापरतात.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

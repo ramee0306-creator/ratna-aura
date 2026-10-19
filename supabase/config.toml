@@ -39,3 +39,9 @@ verify_jwt = false
 
 [functions.revenuecat]
 verify_jwt = false
+
+[functions.unlock]
+verify_jwt = false
+
+[functions.palm]
+verify_jwt = false

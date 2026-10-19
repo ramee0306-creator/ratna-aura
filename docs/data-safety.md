@@ -15,13 +15,14 @@ account and data) and by e-mail.
 | Personal info → Other info (date/time/place of birth, gender) | Yes | No | Required for kundli | App functionality |
 | Financial info → Purchase history | Yes | No | Optional | App functionality |
 | Messages → Other in-app messages (AI chats) | Yes | No | Optional | App functionality |
-| App activity → App interactions (credits used) | Yes | No | Required | App functionality, Fraud prevention |
+| App activity → App interactions (credits used, tools unlocked) | Yes | No | Required | App functionality, Fraud prevention |
+| Photos and videos → Photos (palm photos) | Yes, processed ephemerally (not stored) | No | Optional (only for palm reading) | App functionality |
 | App info and performance → Crash logs / diagnostics | Yes (server logs) | No | Required | App functionality |
 
 *Sending data to **service providers** that process it on our behalf (Supabase, Anthropic, RevenueCat, Google) is
 **not** "sharing" under Google's definition, as long as they only process it for us.
 
-Not collected: location, contacts, photos/videos, audio files (voice is turned into text on the phone),
+Not collected: location, contacts, other photos or videos, audio files (voice is turned into text on the phone),
 calendar, device or other IDs, web browsing.
 
 ## Content rating questionnaire (IARC)

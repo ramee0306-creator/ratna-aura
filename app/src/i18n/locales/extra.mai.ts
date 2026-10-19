@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, स्मरण, गोपनीयता, भुगतान आ आवाजक मैथिली पाठ (mai.ts मे `extra` रूप मे शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'वा प्रीमियम लिअ आ सब दिन पूछू',
     usedToday: 'अहाँ आजुक प्रीमियम प्रश्न पूरा कऽ लेलहुँ; ई काल्हि फेर भेटत। ता धरि निःशुल्क प्रश्न आ क्रेडिट उपयोग होएत।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

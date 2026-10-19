@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइंडर, गोपनीयता, भुगतान और आवाज़ का हिन्दी पाठ (hi.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'या प्रीमियम लें और हर दिन पूछें',
     usedToday: 'आपने आज के प्रीमियम प्रश्न इस्तेमाल कर लिए हैं; ये कल फिर मिलेंगे। तब तक निःशुल्क प्रश्न और क्रेडिट इस्तेमाल होंगे।',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;

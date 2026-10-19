@@ -1,5 +1,6 @@
 // మిలెస్టోన్ 6–10 లో చేర్చిన తెలుగు పాఠ్యం (పర్సనాలు, నివేదిక, రిమైండర్, గోప్యత, చెల్లింపులు, వాయిస్).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -148,6 +149,8 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'లేదా ప్రీమియం తీసుకుని ప్రతిరోజూ అడగండి',
     usedToday: 'ఈరోజు ప్రీమియం ప్రశ్నలన్నీ మీరు వాడేశారు; అవి రేపు మళ్లీ వస్తాయి. అప్పటివరకు ఉచిత ప్రశ్నలు, క్రెడిట్లు వాడబడతాయి.',
   },
+  paid: extraEnglish.paid, // TODO: translate
+  palm: extraEnglish.palm, // TODO: translate
 };
 
 export default extra;
