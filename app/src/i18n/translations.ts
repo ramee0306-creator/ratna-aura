@@ -25,6 +25,7 @@ import lang_kok from './locales/kok';
 import lang_ks from './locales/ks';
 import lang_sd from './locales/sd';
 import lang_doi from './locales/doi';
+import lang_brx from './locales/brx';
 import lang_sa from './locales/sa';
 
 export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
@@ -51,5 +52,6 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'ks': lang_ks,
   'sd': lang_sd,
   'doi': lang_doi,
+  'brx': lang_brx,
   'sa': lang_sa,
 };
