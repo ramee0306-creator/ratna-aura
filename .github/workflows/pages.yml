@@ -9,6 +9,7 @@ on:
     paths:
       - 'docs/privacy-policy.md'
       - 'docs/terms-of-use.md'
+      - 'docs/refund-policy.md'
       - 'scripts/make-site.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
