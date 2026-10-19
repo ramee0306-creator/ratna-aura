@@ -1,6 +1,5 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'Jingpule Kti',
     homeHint: 'Hast rekha na ka dur ka pdeng kti jong phi',
     intro: 'Shim ia ka dur ba shai jong ka pdeng kti jong phi. U nongpule kti AI jong ngi u khmih ia ki line jong ka dohnud, ka jabieng, ka jingim bad ka fate, bad ki lum (mount) jong ka kti jong phi.',
+    priceNote_one: 'Ka dor: {{count}} credit na ka bynta kawei ka jingpule. Siew nyngkong, nangta shim ne jied ia ki dur ka pdeng kti jong phi.',
+    priceNote_other: 'Ka dor: {{count}} credit na ka bynta kawei ka jingpule. Siew nyngkong, nangta shim ne jied ia ki dur ka pdeng kti jong phi.',
     premiumNote: 'Ka ïadon lem ha ka Premium jong phi.',
     left: 'Ka kti diang',
     right: 'Ka kti kamon',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'Weng',
     tips: 'Na ka bynta ka jingpule ba bha: ka jingshai ba khraw, ka pdeng kti ba plie pyrshah ia ka camera, baroh ka pdeng kti ha ka dur.',
     second: 'Pynbun ruh ia kawei pat ka kti (lada phi kwah) na ka bynta ka jingpule kaba kham dap.',
+    start: 'Sdang ia ka jingpule kti jong phi',
+    pay_one: 'Siew {{count}} credit bad bteng',
+    pay_other: 'Siew {{count}} credit bad bteng',
+    continuePremium: 'Bteng (ka ïadon lem ha ka Premium)',
+    paid: 'La siew. Mynta shim ne jied ia ka dur ka pdeng kti jong phi.',
+    read: 'Pule ia ka kti jong nga',
     reading: 'Ka pule ia ka kti jong phi…',
+    notPalm: 'Ngi ym lah ban khmih shai ia ka pdeng kti. Ka jingsiew jong phi ka dang sah: kumpai shim ia ka dur kaba kham shai bad pyrshang shuh.',
+    retry: 'Ym lah ban shna ia ka jingpule. Ka jingsiew jong phi ka dang sah: kumpai pyrshang shuh.',
     yours: 'Ka jingpule kti jong phi',
     earlier: 'Ki jingpule kiba mynshuwa',
     again: 'Jingpule thymmai',

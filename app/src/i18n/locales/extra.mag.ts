@@ -1,6 +1,5 @@
 // मगही पाठ: पर्सोना, रिपोर्ट, रिमाइंडर, प्राइवेसी, भुगतान आउ आवाज (mag.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'हस्तरेखा',
     homeHint: 'हथेली के फोटो से हस्तरेखा',
     intro: 'अपन हथेली के एगो साफ फोटो लेथिन। हमन्हीं के AI हस्तरेखा पढ़े वाला अपने के दिल, दिमाग, जीवन आउ भाग्य रेखा आउ हाथ के पर्वत देखऽ हइ।',
+    priceNote_one: 'दाम: हर रीडिंग पर {{count}} क्रेडिट। पहिले भुगतान करथिन, फिन अपन हथेली के फोटो लेथिन या चुनथिन।',
+    priceNote_other: 'दाम: हर रीडिंग पर {{count}} क्रेडिट। पहिले भुगतान करथिन, फिन अपन हथेली के फोटो लेथिन या चुनथिन।',
     premiumNote: 'अपने के प्रीमियम में सामिल हइ।',
     left: 'बायाँ हाथ',
     right: 'दाहिना हाथ',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'हटावथिन',
     tips: 'बढ़िया रीडिंग खातिर: तेज रोसनी, खुलल हथेली कैमरा दने, आउ पूरा हथेली फोटो में।',
     second: 'आउ पूरा रीडिंग खातिर दोसरो हाथ जोड़थिन (मरजी से)।',
+    start: 'अपन हस्तरेखा रीडिंग सुरू करथिन',
+    pay_one: '{{count}} क्रेडिट देके आगे बढ़थिन',
+    pay_other: '{{count}} क्रेडिट देके आगे बढ़थिन',
+    continuePremium: 'आगे बढ़थिन (प्रीमियम में सामिल)',
+    paid: 'भुगतान हो गेल। अब अपन हथेली के फोटो लेथिन या चुनथिन।',
+    read: 'हमर हाथ पढ़थिन',
     reading: 'अपने के हाथ पढ़ल जा रहल हइ…',
+    notPalm: 'हथेली साफ नञ् देखाय देलक। अपने के भुगतान सुरक्षित हइ: कृपा करके आउ साफ फोटो लेके फेर से कोसिस करथिन।',
+    retry: 'रीडिंग नञ् बन सकल। अपने के भुगतान सुरक्षित हइ: कृपा करके फेर से कोसिस करथिन।',
     yours: 'अपने के हस्तरेखा रीडिंग',
     earlier: 'पहिले के रीडिंग',
     again: 'नया रीडिंग',

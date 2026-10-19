@@ -1,6 +1,5 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new palm keys (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -177,10 +176,11 @@ const extra: DeepStringRecord<typeof extraEn> = {
     },
   },
   palm: {
-    ...extraEnglish.palm, // TODO: translate the palm keys still in English (pay first, then photos)
     title: 'Kutphah Chhiarna',
     homeHint: 'I kutphah thlalak atanga hast rekha',
     intro: 'I kutphah thlalak chiang tak la rawh. Kan AI kutphah chhiartu chuan i thinlung line, lu line, nun line leh vanneihna line te leh i kut tlang (mount) te a en ang.',
+    priceNote_one: 'Man: chhiar vawi khatah credit {{count}}. Pe hmasa la, chumi hnuah i kutphah thlalak la emaw thlang rawh.',
+    priceNote_other: 'Man: chhiar vawi khatah credit {{count}}. Pe hmasa la, chumi hnuah i kutphah thlalak la emaw thlang rawh.',
     premiumNote: 'I Premium-ah a tel.',
     left: 'Kut vei',
     right: 'Kut ding',
@@ -189,7 +189,15 @@ const extra: DeepStringRecord<typeof extraEn> = {
     remove: 'Paih',
     tips: 'Chhiar ṭha nân: êng chhuak tak, kutphah zau camera lam hawi, kutphah pumpui thlalakah.',
     second: 'Chhiar famkim zawk nân kut dang pawh belh rawh (i duh chuan).',
+    start: 'I kutphah chhiarna ṭan rawh',
+    pay_one: 'Credit {{count}} pe la chhunzawm rawh',
+    pay_other: 'Credit {{count}} pe la chhunzawm rawh',
+    continuePremium: 'Chhunzawm rawh (Premium-ah a tel)',
+    paid: 'I pe zo ta. Tunah i kutphah thlalak la emaw thlang rawh.',
+    read: 'Ka kutphah chhiar rawh',
     reading: 'I kutphah chhiar mek…',
+    notPalm: 'Kutphah chiang takin kan hmu thei lo. I sum pek chu a la awm reng: thlalak chiang zawk la la, ti leh rawh.',
+    retry: 'Chhiarna siam theih a ni lo. I sum pek chu a la awm reng: ti leh rawh.',
     yours: 'I kutphah chhiarna',
     earlier: 'Chhiar tawh te',
     again: 'Chhiar thar',
