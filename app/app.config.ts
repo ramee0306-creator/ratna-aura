@@ -47,6 +47,14 @@ const config: ExpoConfig = {
     'expo-font',
     'expo-web-browser',
     './plugins/withReleaseSigning',
+    [
+      'expo-speech-recognition',
+      {
+        microphonePermission: 'Ratna Aura uses the microphone only when you tap it, to type your question by voice.',
+        speechRecognitionPermission: 'Ratna Aura turns your spoken question into text on your phone.',
+        androidSpeechServicePackages: ['com.google.android.googlequicksearchbox'],
+      },
+    ],
     ['expo-notifications', { icon: './assets/images/android-icon-monochrome.png', color: brand.colors.gold }],
     [
       'expo-splash-screen',

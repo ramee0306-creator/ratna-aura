@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import { ask, type ChatMessage, getChat, type Wallet } from '@/ai/api';
-import { Bubble, ChatInput, MAX_MESSAGE, PersonChips } from '@/ai/ChatParts';
+import { Bubble, ChatInput, MAX_MESSAGE, PersonChips, VoiceToggle } from '@/ai/ChatParts';
 import { AIBadge } from '@/components/AIBadge';
 import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
@@ -14,6 +14,7 @@ import { Card } from '@/components/Card';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { ApiError, type BirthProfile, listProfiles } from '@/kundli/api';
+import { useSpeaker, useVoiceConversation } from '@/voice/useVoice';
 import { colors, radius, spacing } from '@/theme';
 
 const SUGGESTIONS = ['career', 'marriage', 'year', 'numbers'] as const;
@@ -42,6 +43,8 @@ export default function AskScreen() {
   const [error, setError] = useState<ErrorKey | null>(null);
   const [noCredits, setNoCredits] = useState(false);
   const [loadFailed, setLoadFailed] = useState(false);
+  const speaker = useSpeaker(i18n.language);
+  const [voiceOn, setVoiceOn] = useVoiceConversation();
 
   const loadChat = useCallback((id: string | null) => {
     setLoadFailed(false);
@@ -100,7 +103,9 @@ export default function AskScreen() {
       setThreadId(result.threadId);
       setWallet(result.wallet);
       setNoCredits(result.wallet.freeLeft === 0 && result.wallet.credits === 0);
-      setMessages((m) => [...m, { id: `a-${Date.now()}`, role: 'assistant', text: result.answer, distress: result.distress, createdAt: new Date().toISOString() }]);
+      const id = `a-${Date.now()}`;
+      setMessages((m) => [...m, { id, role: 'assistant', text: result.answer, distress: result.distress, createdAt: new Date().toISOString() }]);
+      if (voiceOn) speaker.speak(id, result.answer);
     } catch (err) {
       setMessages((m) => m.filter((x) => x.id !== pending.id));
       setQuestion(q);
@@ -125,7 +130,7 @@ export default function AskScreen() {
           <Button title={t('ai.ask.buy')} onPress={() => router.push('/credits')} />
         </Card>
       ) : (
-        <ChatInput value={question} onChange={setQuestion} onSend={() => send(question)} busy={busy} />
+        <ChatInput value={question} onChange={setQuestion} onSend={(spoken) => send(spoken ?? question)} busy={busy} language={i18n.language} autoSend={voiceOn} />
       )}
       <AppText variant="caption" style={styles.center}>
         {t('ai.ask.disclaimer')}
@@ -171,6 +176,8 @@ export default function AskScreen() {
           </View>
         ) : null}
 
+        {speaker.available ? <VoiceToggle on={voiceOn} onChange={setVoiceOn} /> : null}
+
         {messages.length === 0 && wallet ? (
           <View style={styles.gapSm}>
             <AppText variant="overline">{t('ai.ask.suggestionsTitle')}</AppText>
@@ -184,7 +191,12 @@ export default function AskScreen() {
         ) : null}
 
         {messages.map((m) => (
-          <Bubble key={m.id} message={m} />
+          <Bubble
+            key={m.id}
+            message={m}
+            speaking={speaker.speakingId === m.id}
+            onSpeak={speaker.available ? () => (speaker.speakingId === m.id ? speaker.stop() : speaker.speak(m.id, m.text)) : undefined}
+          />
         ))}
         {busy ? (
           <View style={styles.thinking}>

@@ -28,7 +28,7 @@ uses clean Poppins and Hind for comfortable long reading. Astrology is marked in
 | 7 | PDF reports, full Hindi, push notifications, admin panel, privacy policy | ✅ Done |
 | 8 | Debug APK to install on your phone | ✅ Done (GitHub → Actions → Build APK) |
 | 9 | Signed release (AAB) for Google Play + store listing + checklist | ✅ Done (needs your Play account + upload key) |
-| 10 | Voice conversations | |
+| 10 | Voice conversations | ✅ Done |
 
 ---
 
@@ -188,6 +188,14 @@ all the Ask AI safety rules apply. Their instructions are in `supabase/functions
   [`docs/terms-of-use.md`](docs/terms-of-use.md) (have a lawyer review them). Google Play needs them at a public web
   address; once published, put the links in `brand.config.js` (`privacyPolicyUrl`, `termsUrl`) and they appear in
   the app's privacy screen.
+
+## Voice (Milestone 10)
+
+In Ask AI and the persona chats: the **microphone** turns a spoken question into text, the **speaker** on each answer
+reads it aloud, and **Voice conversation** does both automatically (speak → answer is read out). It uses the phone's
+own speech services (free; the audio is not sent to our server). Voices: all big Indian languages; languages close
+to Hindi use a Hindi voice, Tulu a Kannada voice, Kashmiri/Sindhi an Urdu voice; Santali (Ol Chiki) has no voice yet.
+The microphone needs the installed app (APK), not Expo Go.
 
 ## Languages
 

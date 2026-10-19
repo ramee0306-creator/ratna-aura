@@ -61,6 +61,16 @@ const extra = {
     failed: 'The purchase could not be completed. You were not charged.',
     androidOnly: 'Credits can be bought in the Android app from Google Play.',
   },
+  voice: {
+    speak: 'Read aloud',
+    stop: 'Stop reading',
+    mic: 'Speak your question',
+    listening: 'Listening… speak now',
+    denied: 'Please allow the microphone for Ratna Aura in your phone’s settings.',
+    error: 'Could not hear that. Please try again or type your question.',
+    conversation: 'Voice conversation',
+    conversationHint: 'Speak your question; the answer is read aloud.',
+  },
 };
 
 export default extra;

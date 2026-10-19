@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import { type ChatMessage, getPersonaChat, type PersonaSession, sendPersonaMessage, startPersonaSession, type Wallet } from '@/ai/api';
-import { Bubble, ChatInput, MAX_MESSAGE, PersonChips } from '@/ai/ChatParts';
+import { Bubble, ChatInput, MAX_MESSAGE, PersonChips, VoiceToggle } from '@/ai/ChatParts';
 import { PersonaAvatar } from '@/ai/PersonaAvatar';
 import { personaInfo, SESSION_MINUTES } from '@/ai/personas';
 import { AIBadge } from '@/components/AIBadge';
@@ -15,6 +15,7 @@ import { Card } from '@/components/Card';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { ApiError, type BirthProfile, listProfiles } from '@/kundli/api';
+import { useSpeaker, useVoiceConversation } from '@/voice/useVoice';
 import { colors, spacing } from '@/theme';
 
 type Problem = 'failed' | 'notEnabled' | 'busy' | 'declined' | 'tooLong' | 'notEnough' | 'ended' | 'capReached';
@@ -53,6 +54,8 @@ export default function PersonaChatScreen() {
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [problem, setProblem] = useState<Problem | null>(null);
+  const speaker = useSpeaker(i18n.language);
+  const [voiceOn, setVoiceOn] = useVoiceConversation();
 
   const load = useCallback(
     (who: string | null) => {
@@ -117,9 +120,9 @@ export default function PersonaChatScreen() {
     }
   }
 
-  async function send() {
+  async function send(spoken?: string) {
     if (!persona) return;
-    const message = text.trim();
+    const message = (spoken ?? text).trim();
     if (!message || busy) return;
     if (message.length > MAX_MESSAGE) return setProblem('tooLong');
     setBusy(true);
@@ -145,7 +148,9 @@ export default function PersonaChatScreen() {
       setThreadId(reply.threadId);
       setWallet(reply.wallet);
       setSession(reply.session);
-      setMessages((m) => [...m, { id: `a-${Date.now()}`, role: 'assistant', text: reply.answer, distress: reply.distress, createdAt: new Date().toISOString() }]);
+      const id = `a-${Date.now()}`;
+      setMessages((m) => [...m, { id, role: 'assistant', text: reply.answer, distress: reply.distress, createdAt: new Date().toISOString() }]);
+      if (voiceOn) speaker.speak(id, reply.answer);
     } catch (err) {
       setMessages((m) => m.filter((x) => x.id !== pending.id));
       setText(message);
@@ -190,7 +195,7 @@ export default function PersonaChatScreen() {
           <Button title={t('ai.ask.buy')} onPress={() => router.push('/credits')} />
         </Card>
       ) : (
-        <ChatInput value={text} onChange={setText} onSend={send} busy={busy} />
+        <ChatInput value={text} onChange={setText} onSend={send} busy={busy} language={i18n.language} autoSend={voiceOn} />
       )}
       <AppText variant="caption" style={styles.center}>
         {t('ai.ask.disclaimer')}
@@ -241,8 +246,15 @@ export default function PersonaChatScreen() {
           </View>
         ) : null}
 
+        {speaker.available ? <VoiceToggle on={voiceOn} onChange={setVoiceOn} /> : null}
         {messages.map((m) => (
-          <Bubble key={m.id} message={m} aiName={persona.name} />
+          <Bubble
+            key={m.id}
+            message={m}
+            aiName={persona.name}
+            speaking={speaker.speakingId === m.id}
+            onSpeak={speaker.available ? () => (speaker.speakingId === m.id ? speaker.stop() : speaker.speak(m.id, m.text)) : undefined}
+          />
         ))}
         {busy ? (
           <View style={styles.row}>
