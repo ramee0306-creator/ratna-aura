@@ -36,4 +36,5 @@ calendar, device or other IDs, web browsing.
 - Target age group: **18 and over** only.
 - Ads: **No ads**.
 - Government app: No. Financial features: No (credits are a digital good sold through Google Play billing).
-- AI-generated content: Yes — the app shows AI-generated text; users can report problems via the support e-mail.
+- AI-generated content: Yes — AI answers, palm readings and the daily rashifal. Every AI answer has a flag button
+  ("Report this answer"); reports reach the Admin panel. Disclose this in Play Console → App content → AI-generated content.
