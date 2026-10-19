@@ -1,0 +1,41 @@
+# Copies the newest test APK into the Git branch "apk" (one file, replaced each time), so it can also be fetched
+# with plain Git — for example by Claude, whose workspace cannot reach GitHub's artifact downloads.
+# Runs by itself after each successful "Build APK"; can also be started by hand for a given run id.
+name: APK to branch
+
+on:
+  workflow_run:
+    workflows: [Build APK]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Id of a successful "Build APK" run
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  copy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ratna-aura-apk
+          run-id: ${{ inputs.run_id || github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: apk
+      - name: Replace the branch "apk" with this APK
+        working-directory: apk
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git init -q -b apk
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Test APK from run ${{ inputs.run_id || github.event.workflow_run.id }}"
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git" apk
