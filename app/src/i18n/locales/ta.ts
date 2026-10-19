@@ -1,6 +1,6 @@
 // தமிழ். en.ts-இல் உள்ள அதே விசைகள் — ஏதாவது விடுபட்டால் TypeScript எச்சரிக்கும்.
 import type { Translation } from './en';
-import jyotish from './jyotish.en'; // TODO: translate (jyotish.ta.ts)
+import jyotish from './jyotish.ta';
 import kundli from './kundli.ta';
 import numerology from './numerology.ta';
 

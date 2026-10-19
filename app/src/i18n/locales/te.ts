@@ -1,6 +1,6 @@
 // తెలుగు. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import jyotish from './jyotish.en'; // TODO: translate (jyotish.te.ts)
+import jyotish from './jyotish.te';
 import kundli from './kundli.te';
 import numerology from './numerology.te';
 

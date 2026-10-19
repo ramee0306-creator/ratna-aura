@@ -1,6 +1,6 @@
 // മലയാളം. en.ts-ലെ അതേ കീകൾ — ഒന്ന് വിട്ടുപോയാൽ TypeScript മുന്നറിയിപ്പ് നൽകും.
 import type { Translation } from './en';
-import jyotish from './jyotish.en'; // TODO: translate (jyotish.ml.ts)
+import jyotish from './jyotish.ml';
 import kundli from './kundli.ml';
 import numerology from './numerology.ml';
 
