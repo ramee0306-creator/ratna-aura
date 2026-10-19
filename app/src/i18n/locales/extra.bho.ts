@@ -1,5 +1,6 @@
 // नया स्क्रीन (AI पर्सोना, PDF रिपोर्ट, याद दिलावे वाला, प्राइवेसी, भुगतान, आवाज) के भोजपुरी पाठ (bho.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'आज के हस्तरेखा रीडिंग के सीमा पूरा हो गइल बा। कृपा करके काल्ह फेर से कोशिश करीं।',
     demoReading: 'ई एगो नमूना रीडिंग ह (डेमो मोड, AI ना)। असली ऐप में AI हस्तरेखा पढ़े वाला रउरा दिल, दिमाग, जीवन आ भाग्य रेखा आ हाथ के पर्वत के बारे में बतावेला, आ परंपरा के हिसाब से ई रउरा सुभाव, रिश्ता आ काम के बारे में का इशारा करेला।',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

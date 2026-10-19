@@ -45,3 +45,6 @@ verify_jwt = false
 
 [functions.palm]
 verify_jwt = false
+
+[functions.report]
+verify_jwt = false

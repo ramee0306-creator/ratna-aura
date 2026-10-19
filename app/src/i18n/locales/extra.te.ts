@@ -1,5 +1,6 @@
 // మిలెస్టోన్ 6–10 లో చేర్చిన తెలుగు పాఠ్యం (పర్సనాలు, నివేదిక, రిమైండర్, గోప్యత, చెల్లింపులు, వాయిస్).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'ఈరోజు హస్తరేఖ పఠనాల పరిమితిని మీరు చేరుకున్నారు. దయచేసి రేపు మళ్లీ ప్రయత్నించండి.',
     demoReading: 'ఇది నమూనా పఠనం (డెమో మోడ్, AI లేదు). అసలు యాప్‌లో, AI మీ హృదయ, మస్తిష్క, ఆయుష్షు, భాగ్య రేఖలను, చేతిలోని పర్వతాలను వివరించి, అవి సంప్రదాయంగా మీ స్వభావం, సంబంధాలు, పని గురించి ఏమి సూచిస్తాయో చెబుతుంది.',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

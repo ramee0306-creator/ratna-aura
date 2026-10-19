@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइंडर, गोपनीयता, भुगतान और आवाज़ का हिन्दी पाठ (hi.ts में `extra` के रूप में शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'आज की हस्त रेखा रीडिंग की सीमा पूरी हो गई है। कृपया कल फिर से कोशिश करें।',
     demoReading: 'यह एक नमूना रीडिंग है (डेमो मोड, AI नहीं)। असली ऐप में AI हस्त रेखा विशेषज्ञ आपकी हृदय, मस्तिष्क, जीवन और भाग्य रेखाओं तथा हाथ के पर्वतों का वर्णन करता है, और बताता है कि परंपरा के अनुसार ये आपके स्वभाव, रिश्तों और काम के बारे में क्या संकेत देते हैं।',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

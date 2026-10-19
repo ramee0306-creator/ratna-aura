@@ -200,6 +200,7 @@ export default function AskScreen() {
           <Bubble
             key={m.id}
             message={m}
+            reportAs="ask"
             speaking={speaker.speakingId === m.id}
             onSpeak={speaker.available ? () => (speaker.speakingId === m.id ? speaker.stop() : speaker.speak(m.id, m.text)) : undefined}
           />

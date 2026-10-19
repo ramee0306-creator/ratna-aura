@@ -1,5 +1,6 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'Vawiin kutphah chhiar theih zat i tling tawh. Naktukah ti leh rawh.',
     demoReading: 'Hei hi entawn chhiarna a ni (demo mode, AI tel lo). App dik takah chuan, AI kutphah chhiartu chuan i thinlung, lu, nun leh vanneihna line te leh i kut tlang te a sawi a, tihdan pangngai angin i nungchang, inlaichînna leh hnathawh chungchangah eng nge an tilan tih a sawi bawk.',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

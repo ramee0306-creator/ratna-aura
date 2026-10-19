@@ -1,6 +1,7 @@
 // AUTO-GENERATED from supabase/functions/admin — do not edit by hand.
 // Paste this whole file into the Supabase dashboard function editor.
 // Regenerate with: npm run bundle-functions
+import type { SupabaseClient } from 'npm:@supabase/supabase-js@2';
 import { createClient, type SupabaseClient, type User } from 'npm:@supabase/supabase-js@2';
 
 // ---- _shared/subscriptions.ts ----
@@ -158,6 +159,84 @@ const EDITABLE: Record<string, Check> = {
 const validSetting = (key: unknown, value: unknown): key is string =>
   typeof key === 'string' && Object.hasOwn(EDITABLE, key) && EDITABLE[key](value);
 
+// ---- _shared/crypto.ts ----
+// Field encryption for personal data (names, birth details).
+//
+// AES-256-GCM via the standard Web Crypto API, so the same code runs in
+// Supabase Edge Functions (Deno) and in our Node tests.
+//
+// The key lives ONLY in the server secret DATA_ENCRYPTION_KEY (base64, 32 bytes).
+// Stored format:  v<keyVersion>.<base64 iv>.<base64 ciphertext+tag>
+// The owner's user id is bound in as "additional data", so a ciphertext copied
+// onto another user's row will refuse to decrypt.
+
+const ALGORITHM = 'AES-GCM';
+const IV_BYTES = 12;
+
+type KeyRing = { current: number; keys: Record<number, CryptoKey> };
+
+function toBase64(bytes: Uint8Array): string {
+  let binary = '';
+  for (const b of bytes) binary += String.fromCharCode(b);
+  return btoa(binary);
+}
+
+function fromBase64(text: string): Uint8Array<ArrayBuffer> {
+  const binary = atob(text);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+async function importKey(base64Key: string): Promise<CryptoKey> {
+  const raw = fromBase64(base64Key.trim());
+  if (raw.length !== 32) {
+    throw new Error('DATA_ENCRYPTION_KEY must be 32 random bytes, base64-encoded');
+  }
+  return crypto.subtle.importKey('raw', raw, ALGORITHM, false, ['encrypt', 'decrypt']);
+}
+
+/**
+ * Builds the key ring from environment values.
+ * DATA_ENCRYPTION_KEY is version 1. To rotate later, add DATA_ENCRYPTION_KEY_V2
+ * (and so on); new data uses the highest version, old data still decrypts.
+ */
+async function keyRingFromEnv(get: (name: string) => string | undefined): Promise<KeyRing> {
+  const keys: Record<number, CryptoKey> = {};
+  const v1 = get('DATA_ENCRYPTION_KEY');
+  if (!v1) throw new Error('Server secret DATA_ENCRYPTION_KEY is not set');
+  keys[1] = await importKey(v1);
+  for (let v = 2; v <= 9; v++) {
+    const value = get(`DATA_ENCRYPTION_KEY_V${v}`);
+    if (value) keys[v] = await importKey(value);
+  }
+  return { current: Math.max(...Object.keys(keys).map(Number)), keys };
+}
+
+async function encryptJson(ring: KeyRing, value: unknown, ownerId: string): Promise<string> {
+  const iv = crypto.getRandomValues(new Uint8Array(IV_BYTES));
+  const plaintext = new TextEncoder().encode(JSON.stringify(value));
+  const ciphertext = await crypto.subtle.encrypt(
+    { name: ALGORITHM, iv, additionalData: new TextEncoder().encode(ownerId) },
+    ring.keys[ring.current],
+    plaintext,
+  );
+  return `v${ring.current}.${toBase64(iv)}.${toBase64(new Uint8Array(ciphertext))}`;
+}
+
+async function decryptJson<T>(ring: KeyRing, stored: string, ownerId: string): Promise<T> {
+  const match = /^v(\d+)\.([A-Za-z0-9+/=]+)\.([A-Za-z0-9+/=]+)$/.exec(stored);
+  if (!match) throw new Error('Encrypted value has an unknown format');
+  const key = ring.keys[Number(match[1])];
+  if (!key) throw new Error(`No key available for version ${match[1]}`);
+  const plaintext = await crypto.subtle.decrypt(
+    { name: ALGORITHM, iv: fromBase64(match[2]), additionalData: new TextEncoder().encode(ownerId) },
+    key,
+    fromBase64(match[3]),
+  );
+  return JSON.parse(new TextDecoder().decode(plaintext)) as T;
+}
+
 // ---- _shared/http.ts ----
 // Small helpers shared by all server functions.
 
@@ -185,6 +264,145 @@ async function readJson(req: Request): Promise<unknown> {
     return undefined;
   }
 }
+
+// ---- _shared/birth-details.ts ----
+// Checks and cleans the birth details a user submits, before they are encrypted.
+
+const RELATIONS = ['self', 'spouse', 'partner', 'child', 'parent', 'sibling', 'friend', 'other'] as const;
+const GENDERS = ['male', 'female', 'other'] as const;
+
+type Relation = (typeof RELATIONS)[number];
+type Gender = (typeof GENDERS)[number];
+
+/** The personal part that gets encrypted. */
+type BirthDetails = {
+  fullName: string;
+  gender: Gender;
+  /** YYYY-MM-DD (local date at the birth place) */
+  birthDate: string;
+  /** HH:MM 24-hour local time, or null if the user does not know it */
+  birthTime: string | null;
+  birthPlace: {
+    name: string;
+    latitude: number;
+    longitude: number;
+    /** IANA time-zone name, e.g. Asia/Kolkata */
+    timezone: string;
+  };
+};
+
+type BirthProfileInput = BirthDetails & { relation: Relation; isPrimary: boolean };
+
+type ValidationResult<T> = { ok: true; value: T } | { ok: false; errors: string[] };
+
+const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+
+function isValidTimeZone(tz: string): boolean {
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone: tz });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isRealDate(text: string, today: Date): boolean {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text);
+  if (!m) return false;
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const date = new Date(Date.UTC(y, mo - 1, d));
+  const real = date.getUTCFullYear() === y && date.getUTCMonth() === mo - 1 && date.getUTCDate() === d;
+  // Allow up to one day ahead to cover time-zone differences around midnight.
+  const tomorrow = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 1);
+  return real && y >= 1800 && date.getTime() <= tomorrow;
+}
+
+function validateBirthProfile(input: unknown, today = new Date()): ValidationResult<BirthProfileInput> {
+  const errors: string[] = [];
+  if (!isObject(input)) return { ok: false, errors: ['Body must be a JSON object'] };
+
+  const fullName = typeof input.fullName === 'string' ? input.fullName.normalize('NFC').trim().replace(/\s+/g, ' ') : '';
+  if (fullName.length < 1 || fullName.length > 100) errors.push('fullName must be 1–100 characters');
+
+  const gender = input.gender as Gender;
+  if (!GENDERS.includes(gender)) errors.push(`gender must be one of ${GENDERS.join(', ')}`);
+
+  const relation = (input.relation ?? 'self') as Relation;
+  if (!RELATIONS.includes(relation)) errors.push(`relation must be one of ${RELATIONS.join(', ')}`);
+
+  const isPrimary = input.isPrimary === true;
+
+  const birthDate = typeof input.birthDate === 'string' ? input.birthDate : '';
+  if (!isRealDate(birthDate, today)) errors.push('birthDate must be a real past date in YYYY-MM-DD format');
+
+  let birthTime: string | null = null;
+  if (input.birthTime !== null && input.birthTime !== undefined) {
+    if (typeof input.birthTime === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(input.birthTime)) {
+      birthTime = input.birthTime;
+    } else {
+      errors.push('birthTime must be HH:MM (24-hour) or null');
+    }
+  }
+
+  const place = isObject(input.birthPlace) ? input.birthPlace : null;
+  let birthPlace: BirthDetails['birthPlace'] | null = null;
+  if (!place) {
+    errors.push('birthPlace is required');
+  } else {
+    const name = typeof place.name === 'string' ? place.name.trim() : '';
+    const { latitude, longitude, timezone } = place;
+    if (name.length < 1 || name.length > 200) errors.push('birthPlace.name must be 1–200 characters');
+    if (typeof latitude !== 'number' || !Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
+      errors.push('birthPlace.latitude must be between -90 and 90');
+    }
+    if (typeof longitude !== 'number' || !Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
+      errors.push('birthPlace.longitude must be between -180 and 180');
+    }
+    if (typeof timezone !== 'string' || !isValidTimeZone(timezone)) {
+      errors.push('birthPlace.timezone must be a valid IANA time zone, e.g. Asia/Kolkata');
+    }
+    birthPlace = { name, latitude: latitude as number, longitude: longitude as number, timezone: timezone as string };
+  }
+
+  if (errors.length > 0 || !birthPlace) return { ok: false, errors };
+  return { ok: true, value: { fullName, gender, relation, isPrimary, birthDate, birthTime, birthPlace } };
+}
+
+/** Splits validated input into the encrypted part and the plain database columns. */
+function splitForStorage(input: BirthProfileInput): {
+  details: BirthDetails;
+  columns: { relation: Relation; is_primary: boolean };
+} {
+  const { relation, isPrimary, ...details } = input;
+  return { details, columns: { relation, is_primary: isPrimary } };
+}
+
+// ---- _shared/profiles.ts ----
+// Reading saved birth profiles (their personal details are stored encrypted).
+
+
+type ProfileRow = { id: string; relation: string; is_primary: boolean; data_enc: string; created_at: string };
+
+const PROFILE_COLUMNS = 'id, relation, is_primary, data_enc, created_at';
+
+type PublicProfile = BirthDetails & { id: string; relation: string; isPrimary: boolean; createdAt: string };
+
+let ring: KeyRing | null = null;
+const keyRing = async () => (ring ??= await keyRingFromEnv((name) => Deno.env.get(name)));
+
+async function toPublic(row: ProfileRow, ownerId: string): Promise<PublicProfile> {
+  const details = await decryptJson<BirthDetails>(await keyRing(), row.data_enc, ownerId);
+  return { id: row.id, relation: row.relation, isPrimary: row.is_primary, createdAt: row.created_at, ...details };
+}
+
+/** One profile belonging to this user, or null. */
+async function loadProfile(db: SupabaseClient, ownerId: string, id: string): Promise<PublicProfile | null> {
+  const { data, error } = await db.from('birth_profiles').select(PROFILE_COLUMNS).eq('id', id).eq('owner_id', ownerId).maybeSingle();
+  if (error) throw error;
+  return data ? toPublic(data as ProfileRow, ownerId) : null;
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // ---- _shared/supabase.ts ----
 // Server-side Supabase access. Uses the SECRET service key, which exists only
@@ -214,7 +432,7 @@ async function getUser(req: Request): Promise<User | null> {
 // ---- admin/index.ts ----
 // Admin panel (only for accounts with profiles.is_admin = true).
 //
-//   GET  /admin                                         -> { stats, settings, costUsd7d }
+//   GET  /admin                                         -> { stats, settings, costUsd7d, reports }
 //   POST /admin { action: "setting", key, value }        -> { settings }
 //   POST /admin { action: "gift", contact, credits }     -> { credits }   contact = e-mail or phone with country code
 
@@ -222,6 +440,29 @@ async function settings() {
   const { data, error } = await admin().from('app_settings').select('key, value').order('key');
   if (error) throw error;
   return Object.fromEntries((data ?? []).map((r) => [r.key, r.value]));
+}
+
+type ReportRow = { id: string; user_id: string; feature: string; reason: string; note: string | null; content_enc: string | null; created_at: string };
+
+/** The latest reported AI answers, for review. */
+async function recentReports() {
+  const { data, error } = await admin()
+    .from('ai_reports')
+    .select('id, user_id, feature, reason, note, content_enc, created_at')
+    .order('created_at', { ascending: false })
+    .limit(20);
+  if (error) throw error;
+  const ring = await keyRing();
+  return Promise.all(
+    (data as ReportRow[]).map(async (r) => ({
+      id: r.id,
+      feature: r.feature,
+      reason: r.reason,
+      note: r.note,
+      createdAt: r.created_at,
+      text: r.content_enc ? (await decryptJson<{ text: string }>(ring, r.content_enc, r.user_id).catch(() => ({ text: '' }))).text : '',
+    })),
+  );
 }
 
 Deno.serve(async (req) => {
@@ -238,7 +479,7 @@ Deno.serve(async (req) => {
       const { data: stats, error } = await db.rpc('admin_stats');
       if (error) throw error;
       const usage = (stats?.aiUsage7d ?? []) as { model: string | null; inputTokens: number; outputTokens: number }[];
-      return json({ stats, settings: await settings(), costUsd7d: estimateCostUsd(usage) });
+      return json({ stats, settings: await settings(), costUsd7d: estimateCostUsd(usage), reports: await recentReports() });
     }
     if (req.method !== 'POST') return errorResponse(405, 'Method not allowed');
 

@@ -1,5 +1,6 @@
 // ಮೈಲಿಗಲ್ಲು 6–10 ರಲ್ಲಿ ಸೇರಿಸಿದ ಕನ್ನಡ ಪಠ್ಯ (ಪರ್ಸೋನಾಗಳು, ವರದಿ, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'ಇಂದಿನ ಹಸ್ತರೇಖೆ ವಿಶ್ಲೇಷಣೆಗಳ ಮಿತಿಯನ್ನು ನೀವು ತಲುಪಿದ್ದೀರಿ. ದಯವಿಟ್ಟು ನಾಳೆ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.',
     demoReading: 'ಇದು ಮಾದರಿ ವಿಶ್ಲೇಷಣೆ (ಡೆಮೊ ಮೋಡ್, AI ಇಲ್ಲ). ನಿಜವಾದ ಆ್ಯಪ್‌ನಲ್ಲಿ, AI ನಿಮ್ಮ ಹೃದಯ, ಮಸ್ತಿಷ್ಕ, ಆಯುಷ್ಯ ಮತ್ತು ಭಾಗ್ಯ ರೇಖೆಗಳನ್ನು ಹಾಗೂ ಕೈಯ ಪರ್ವತಗಳನ್ನು ವಿವರಿಸಿ, ಅವು ಸಂಪ್ರದಾಯದ ಪ್ರಕಾರ ನಿಮ್ಮ ಸ್ವಭಾವ, ಸಂಬಂಧಗಳು ಮತ್ತು ಕೆಲಸದ ಬಗ್ಗೆ ಏನು ಸೂಚಿಸುತ್ತವೆ ಎಂದು ಹೇಳುತ್ತದೆ.',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

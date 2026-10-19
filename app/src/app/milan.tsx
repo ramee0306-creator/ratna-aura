@@ -1,26 +1,21 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { type Manglik, type MatchReport, matchKundlis } from "@ratna/kundli";
-import { router, useFocusEffect } from "expo-router";
-import { useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { type Manglik, type MatchReport, matchKundlis } from '@ratna/kundli';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
-import { AppText } from "@/components/AppText";
-import { BackHeader } from "@/components/BackHeader";
-import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
-import { Notice } from "@/components/Notice";
-import { Screen } from "@/components/Screen";
-import {
-  type BirthProfile,
-  demoSecondKundli,
-  getKundli,
-  listProfiles,
-} from "@/kundli/api";
-import { colors, radius, spacing } from "@/theme";
-import { PaidGate } from "@/paid/PaidGate";
+import { AppText } from '@/components/AppText';
+import { BackHeader } from '@/components/BackHeader';
+import { Button } from '@/components/Button';
+import { Card } from '@/components/Card';
+import { Notice } from '@/components/Notice';
+import { Screen } from '@/components/Screen';
+import { type BirthProfile, demoSecondKundli, getKundli, listProfiles } from '@/kundli/api';
+import { colors, radius, spacing } from '@/theme';
+import { PaidGate } from '@/paid/PaidGate';
 
-type Role = "groom" | "bride";
+type Role = 'groom' | 'bride';
 
 function PersonPicker({
   role,
@@ -35,11 +30,7 @@ function PersonPicker({
 }) {
   const { t } = useTranslation();
   return (
-    <View
-      style={styles.gapSm}
-      accessibilityRole="radiogroup"
-      accessibilityLabel={t(`jyotish.milan.${role}`)}
-    >
+    <View style={styles.gapSm} accessibilityRole="radiogroup" accessibilityLabel={t(`jyotish.milan.${role}`)}>
       <AppText variant="overline">{t(`jyotish.milan.${role}`)}</AppText>
       {people.map((p) => {
         const active = p.id === value;
@@ -52,7 +43,7 @@ function PersonPicker({
             style={[styles.person, active && styles.personActive]}
           >
             <MaterialCommunityIcons
-              name={active ? "radiobox-marked" : "radiobox-blank"}
+              name={active ? 'radiobox-marked' : 'radiobox-blank'}
               size={22}
               color={active ? colors.gold : colors.textFaint}
             />
@@ -68,11 +59,9 @@ function PersonPicker({
 function useKootaValue() {
   const { t } = useTranslation();
   return (koota: string, value: string) => {
-    if (koota === "grahaMaitri") return t(`kundli.bodies.${value}`);
-    if (koota === "tara")
-      return t("jyotish.milan.taraCount", { count: Number(value) });
-    if (koota === "bhakoot")
-      return t("jyotish.milan.bhakootCount", { count: Number(value) });
+    if (koota === 'grahaMaitri') return t(`kundli.bodies.${value}`);
+    if (koota === 'tara') return t('jyotish.milan.taraCount', { count: Number(value) });
+    if (koota === 'bhakoot') return t('jyotish.milan.bhakootCount', { count: Number(value) });
     return t(`jyotish.milan.values.${value}`);
   };
 }
@@ -91,58 +80,35 @@ function ManglikCard({ name, m }: { name: string; m: Manglik }) {
             color: m.manglik ? colors.goldBright : colors.emeraldBright,
           }}
         >
-          {t(
-            m.manglik ? "jyotish.milan.manglikYes" : "jyotish.milan.manglikNo",
-          )}
+          {t(m.manglik ? 'jyotish.milan.manglikYes' : 'jyotish.milan.manglikNo')}
         </AppText>
       </View>
       {m.fromLagna ? (
-        <AppText variant="caption">
-          {t("jyotish.milan.fromLagna", { house: m.fromLagna.house })}
-        </AppText>
+        <AppText variant="caption">{t('jyotish.milan.fromLagna', { house: m.fromLagna.house })}</AppText>
       ) : (
-        <AppText variant="caption">{t("jyotish.milan.noTime")}</AppText>
+        <AppText variant="caption">{t('jyotish.milan.noTime')}</AppText>
       )}
-      <AppText variant="caption">
-        {t("jyotish.milan.fromMoon", { house: m.fromMoon.house })}
-      </AppText>
-      {m.softened ? (
-        <AppText variant="caption">{t("jyotish.milan.softened")}</AppText>
-      ) : null}
+      <AppText variant="caption">{t('jyotish.milan.fromMoon', { house: m.fromMoon.house })}</AppText>
+      {m.softened ? <AppText variant="caption">{t('jyotish.milan.softened')}</AppText> : null}
     </View>
   );
 }
 
-function Result({
-  report,
-  groom,
-  bride,
-}: {
-  report: MatchReport;
-  groom: string;
-  bride: string;
-}) {
+function Result({ report, groom, bride }: { report: MatchReport; groom: string; bride: string }) {
   const { t } = useTranslation();
   const value = useKootaValue();
   const { milan } = report;
-  const good = report.verdict !== "low";
+  const good = report.verdict !== 'low';
   return (
     <View style={styles.gap}>
-      <Card
-        style={[
-          styles.total,
-          { borderColor: good ? colors.gold : colors.border },
-        ]}
-      >
-        <AppText variant="overline">{t("jyotish.milan.total")}</AppText>
-        <AppText variant="display">
-          {t("jyotish.milan.points", { points: milan.total, max: 36 })}
-        </AppText>
+      <Card style={[styles.total, { borderColor: good ? colors.gold : colors.border }]}>
+        <AppText variant="overline">{t('jyotish.milan.total')}</AppText>
+        <AppText variant="display">{t('jyotish.milan.points', { points: milan.total, max: 36 })}</AppText>
         <AppText variant="heading" style={styles.center}>
           {t(`jyotish.milan.verdicts.${report.verdict}`)}
         </AppText>
         <AppText variant="caption" style={styles.center}>
-          {t("jyotish.milan.verdictNote")}
+          {t('jyotish.milan.verdictNote')}
         </AppText>
       </Card>
 
@@ -155,12 +121,8 @@ function Result({
         {milan.kootas.map((k) => (
           <View key={k.koota} style={styles.koota}>
             <View style={styles.flex}>
-              <AppText variant="bodyStrong">
-                {t(`jyotish.milan.kootas.${k.koota}`)}
-              </AppText>
-              <AppText variant="caption">
-                {t(`jyotish.milan.kootaHints.${k.koota}`)}
-              </AppText>
+              <AppText variant="bodyStrong">{t(`jyotish.milan.kootas.${k.koota}`)}</AppText>
+              <AppText variant="caption">{t(`jyotish.milan.kootaHints.${k.koota}`)}</AppText>
               <AppText variant="caption" style={{ color: colors.textFaint }}>
                 {value(k.koota, k.groom)} · {value(k.koota, k.bride)}
               </AppText>
@@ -168,43 +130,34 @@ function Result({
             <AppText
               variant="bodyStrong"
               style={{
-                color:
-                  k.points === k.max
-                    ? colors.emeraldBright
-                    : k.points === 0
-                      ? colors.textFaint
-                      : colors.gold,
+                color: k.points === k.max ? colors.emeraldBright : k.points === 0 ? colors.textFaint : colors.gold,
               }}
             >
-              {t("jyotish.milan.points", { points: k.points, max: k.max })}
+              {t('jyotish.milan.points', { points: k.points, max: k.max })}
             </AppText>
           </View>
         ))}
         {milan.nadiDosha.present ? (
           <AppText variant="caption">
-            {t("jyotish.milan.nadiDosha")}{" "}
-            {milan.nadiDosha.cancelled ? t("jyotish.milan.nadiSoftened") : ""}
+            {t('jyotish.milan.nadiDosha')} {milan.nadiDosha.cancelled ? t('jyotish.milan.nadiSoftened') : ''}
           </AppText>
         ) : null}
         {milan.bhakootDosha.present ? (
           <AppText variant="caption">
-            {t("jyotish.milan.bhakootDosha")}{" "}
-            {milan.bhakootDosha.cancelled
-              ? t("jyotish.milan.bhakootSoftened")
-              : ""}
+            {t('jyotish.milan.bhakootDosha')} {milan.bhakootDosha.cancelled ? t('jyotish.milan.bhakootSoftened') : ''}
           </AppText>
         ) : null}
       </Card>
 
       <Card style={styles.gapMd}>
-        <AppText variant="overline">{t("jyotish.milan.manglikTitle")}</AppText>
+        <AppText variant="overline">{t('jyotish.milan.manglikTitle')}</AppText>
         <ManglikCard name={groom} m={report.groom} />
         <ManglikCard name={bride} m={report.bride} />
         <AppText>{t(`jyotish.milan.balance.${report.manglikBalance}`)}</AppText>
       </Card>
 
       <AppText variant="caption" style={styles.center}>
-        {t("jyotish.milan.disclaimer")}
+        {t('jyotish.milan.disclaimer')}
       </AppText>
     </View>
   );
@@ -228,10 +181,8 @@ export default function MilanScreen() {
       .then((list) => {
         setPeople(list);
         // Suggest the first man and the first woman.
-        setGroom((g) => g ?? list.find((p) => p.gender === "male")?.id ?? null);
-        setBride(
-          (b) => b ?? list.find((p) => p.gender === "female")?.id ?? null,
-        );
+        setGroom((g) => g ?? list.find((p) => p.gender === 'male')?.id ?? null);
+        setBride((b) => b ?? list.find((p) => p.gender === 'female')?.id ?? null);
       })
       .catch(() => setFailed(true));
   }, []);
@@ -256,86 +207,47 @@ export default function MilanScreen() {
     }
   }
 
-  const name = (id: string | null) =>
-    people?.find((p) => p.id === id)?.fullName ?? "";
+  const name = (id: string | null) => people?.find((p) => p.id === id)?.fullName ?? '';
 
   return (
     <Screen>
-      <BackHeader title={t("jyotish.milan.title")} />
+      <BackHeader title={t('jyotish.milan.title')} />
       <View style={styles.gap}>
-        <AppText variant="caption">{t("jyotish.milan.intro")}</AppText>
-        {failed ? <Notice text={t("jyotish.milan.failed")} /> : null}
+        <AppText variant="caption">{t('jyotish.milan.intro')}</AppText>
+        {failed ? <Notice text={t('jyotish.milan.failed')} /> : null}
         {people === null ? (
           failed ? (
-            <Button
-              variant="outline"
-              title={t("kundli.retry")}
-              onPress={load}
-            />
+            <Button variant="outline" title={t('kundli.retry')} onPress={load} />
           ) : (
             <ActivityIndicator color={colors.gold} style={styles.loading} />
           )
         ) : result ? (
           <>
-            {result.sample ? (
-              <Notice tone="info" text={t("jyotish.milan.demoNotice")} />
-            ) : null}
+            {result.sample ? <Notice tone="info" text={t('jyotish.milan.demoNotice')} /> : null}
             <PaidGate
               feature="milan"
               unlockKey={`${groom}|${bride}`}
-              what={t("extra.paid.what.milan", {
+              what={t('extra.paid.what.milan', {
                 groom: name(groom),
                 bride: name(bride),
               })}
             >
-              <Result
-                report={result.report}
-                groom={name(groom)}
-                bride={name(bride)}
-              />
+              <Result report={result.report} groom={name(groom)} bride={name(bride)} />
             </PaidGate>
-            <Button
-              variant="outline"
-              title={t("jyotish.milan.again")}
-              onPress={() => setResult(null)}
-            />
+            <Button variant="outline" title={t('jyotish.milan.again')} onPress={() => setResult(null)} />
           </>
         ) : people.length < 2 ? (
           <>
-            <AppText>{t("jyotish.milan.needTwo")}</AppText>
-            <Button
-              title={t("jyotish.milan.addPerson")}
-              onPress={() => router.push("/kundli/new")}
-            />
+            <AppText>{t('jyotish.milan.needTwo')}</AppText>
+            <Button title={t('jyotish.milan.addPerson')} onPress={() => router.push('/kundli/new')} />
           </>
         ) : (
           <>
-            <PersonPicker
-              role="groom"
-              people={people}
-              value={groom}
-              onChange={setGroom}
-            />
-            <PersonPicker
-              role="bride"
-              people={people}
-              value={bride}
-              onChange={setBride}
-            />
-            {groom && groom === bride ? (
-              <Notice tone="info" text={t("jyotish.milan.samePerson")} />
-            ) : null}
-            <Button
-              title={t("jyotish.milan.match")}
-              onPress={match}
-              loading={busy}
-              disabled={!groom || !bride || groom === bride}
-            />
-            <Button
-              variant="ghost"
-              title={t("jyotish.milan.addPerson")}
-              onPress={() => router.push("/kundli/new")}
-            />
+            <PersonPicker role="groom" people={people} value={groom} onChange={setGroom} />
+            <PersonPicker role="bride" people={people} value={bride} onChange={setBride} />
+            {groom && groom === bride ? <Notice tone="info" text={t('jyotish.milan.samePerson')} /> : null}
+            <Button title={t('jyotish.milan.match')} onPress={match} loading={busy} disabled={!groom || !bride || groom === bride} />
+            <Button variant="ghost" title={t('jyotish.milan.addPerson')} onPress={() => router.push('/kundli/new')} />
           </>
         )}
       </View>
@@ -349,20 +261,20 @@ const styles = StyleSheet.create({
   gapSm: { gap: spacing.sm },
   gapXs: { gap: 2 },
   flex: { flex: 1 },
-  center: { textAlign: "center" },
+  center: { textAlign: 'center' },
   loading: { marginTop: spacing.xl },
   person: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: spacing.md,
     padding: spacing.md,
     borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
-    backgroundColor: colors.surface + "CC",
+    backgroundColor: colors.surface + 'CC',
   },
   personActive: { borderColor: colors.gold },
-  total: { alignItems: "center", gap: spacing.xs },
-  titleRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  koota: { flexDirection: "row", alignItems: "center", gap: spacing.md },
+  total: { alignItems: 'center', gap: spacing.xs },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  koota: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
 });

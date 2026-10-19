@@ -202,6 +202,20 @@ const extra = {
     limit: 'You have reached today’s limit of palm readings. Please try again tomorrow.',
     demoReading: 'This is a sample reading (demo mode, no AI). In the real app, the AI palm reader describes your heart, head, life and fate lines and the mounts of your hand, and what they traditionally suggest about your nature, relationships and work.',
   },
+  flag: {
+    title: 'Report this answer',
+    intro: 'Tell us what is wrong with this AI answer. We review every report.',
+    reasons: {
+      harmful: 'Offensive, harmful or frightening',
+      wrong: 'Wrong or misleading',
+      other: 'Something else',
+    },
+    note: 'More details (optional)',
+    send: 'Send report',
+    thanks: 'Thank you. We will review this answer.',
+    failed: 'Could not send the report. Please try again.',
+    close: 'Close',
+  },
 };
 
 export default extra;

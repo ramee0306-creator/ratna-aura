@@ -1,5 +1,6 @@
 // नमियें स्क्रीनें दा डोगरी पाठ: AI पर्सोना, PDF रिपोर्ट, याद करवाना, निजता, भुगतान, अवाज़ (doi.ts च `extra` दे रूप च शामल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'तुस अज्ज दी हस्त रेखा रीडिंगें दी हद्द तगर पुज्जी गेदे ओ। किरपा करियै कल फ्ही कोशश करो।',
     demoReading: 'एह् इक नमूना रीडिंग ऐ (डेमो मोड, कोई AI नेईं)। असली ऐप च, AI हस्त रेखा माहर तुंदे हत्थ दी दिल, दमाग, जीवन ते किस्मत दी रेखें ते पर्वतें दा ब्यौरा दिंदा ऐ, ते एह् बी जे परंपरा मताबक एह् तुंदे स्वभाव, रिश्तें ते कम्म बारै केह् दसदियां न।',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

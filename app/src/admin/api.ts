@@ -13,7 +13,8 @@ export type AdminStats = {
   testCredits7d: number;
   creditsSpent7d: number;
 };
-export type AdminData = { stats: AdminStats; settings: Record<string, unknown>; costUsd7d: number };
+export type AiReport = { id: string; feature: string; reason: string; note: string | null; createdAt: string; text: string };
+export type AdminData = { stats: AdminStats; settings: Record<string, unknown>; costUsd7d: number; reports: AiReport[] };
 
 async function call<T>(method: 'GET' | 'POST', body?: object): Promise<T> {
   const { data, error } = await supabase.functions.invoke('admin', { method, body });
@@ -50,6 +51,7 @@ export async function getAdmin(): Promise<AdminData> {
       },
       settings: { ...demoSettings },
       costUsd7d: 0.23,
+      reports: [],
     };
   }
   return call('GET');

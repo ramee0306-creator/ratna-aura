@@ -1,5 +1,6 @@
 // نئی اسکرینوں (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) کا اردو متن (ur.ts میں `extra` کے طور پر شامل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'آپ آج کی ہاتھ کی ریڈنگز کی حد تک پہنچ گئے ہیں۔ براہِ کرم کل دوبارہ کوشش کریں۔',
     demoReading: 'یہ ایک نمونہ ریڈنگ ہے (ڈیمو موڈ، کوئی AI نہیں)۔ اصل ایپ میں AI دست شناس آپ کے ہاتھ کی دل، دماغ، زندگی اور قسمت کی لکیروں اور ابھاروں کو بیان کرتا ہے، اور یہ بھی کہ روایتی طور پر یہ آپ کے مزاج، رشتوں اور کام کے بارے میں کیا اشارہ دیتے ہیں۔',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

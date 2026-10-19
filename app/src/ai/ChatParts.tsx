@@ -11,6 +11,7 @@ import { Card } from '@/components/Card';
 import type { BirthProfile } from '@/kundli/api';
 import { colors, fonts, radius, spacing } from '@/theme';
 import { useDictation } from '@/voice/useVoice';
+import { type ReportFeature, ReportButton } from './ReportButton';
 
 export const MAX_MESSAGE = 1000;
 
@@ -30,9 +31,12 @@ export function Bubble({
   aiName,
   speaking,
   onSpeak,
+  reportAs,
 }: {
   message: ChatMessage;
   aiName?: string;
+  /** Shows "Report this answer" on AI answers */
+  reportAs?: ReportFeature;
   /** This answer is being read aloud */
   speaking?: boolean;
   /** Read aloud / stop; undefined when speech is not available */
@@ -60,6 +64,7 @@ export function Bubble({
                 <MaterialCommunityIcons name={speaking ? 'stop-circle-outline' : 'volume-high'} size={20} color={colors.goldBright} />
               </Pressable>
             ) : null}
+            {reportAs ? <ReportButton feature={reportAs} itemId={message.id} text={message.text} /> : null}
           </View>
         ) : null}
         <AppText selectable>{message.text}</AppText>

@@ -1,5 +1,6 @@
 // ਨਵੀਆਂ ਸਕ੍ਰੀਨਾਂ ਦਾ ਪੰਜਾਬੀ ਪਾਠ: AI ਪਰਸੋਨਾ, PDF ਰਿਪੋਰਟ, ਰਿਮਾਈਂਡਰ, ਪਰਦੇਦਾਰੀ, ਭੁਗਤਾਨ, ਆਵਾਜ਼ (pa.ts ਵਿੱਚ `extra` ਵਜੋਂ ਸ਼ਾਮਲ)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'ਅੱਜ ਦੀਆਂ ਹਸਤ ਰੇਖਾ ਰੀਡਿੰਗਾਂ ਦੀ ਹੱਦ ਪੂਰੀ ਹੋ ਗਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਕੱਲ੍ਹ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
     demoReading: 'ਇਹ ਇੱਕ ਨਮੂਨਾ ਰੀਡਿੰਗ ਹੈ (ਡੈਮੋ ਮੋਡ, AI ਨਹੀਂ)। ਅਸਲ ਐਪ ਵਿੱਚ AI ਹਸਤ ਰੇਖਾ ਮਾਹਿਰ ਤੁਹਾਡੀਆਂ ਦਿਲ, ਦਿਮਾਗ਼, ਜੀਵਨ ਅਤੇ ਭਾਗ ਰੇਖਾਵਾਂ ਅਤੇ ਹੱਥ ਦੇ ਪਰਬਤਾਂ ਦਾ ਵਰਣਨ ਕਰਦਾ ਹੈ, ਅਤੇ ਦੱਸਦਾ ਹੈ ਕਿ ਰਵਾਇਤ ਅਨੁਸਾਰ ਇਹ ਤੁਹਾਡੇ ਸੁਭਾਅ, ਰਿਸ਼ਤਿਆਂ ਅਤੇ ਕੰਮ ਬਾਰੇ ਕੀ ਸੰਕੇਤ ਦਿੰਦੇ ਹਨ।',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

@@ -1,5 +1,6 @@
 // નવી સ્ક્રીનોનો ગુજરાતી પાઠ: AI પર્સોના, PDF રિપોર્ટ, રિમાઇન્ડર, ગોપનીયતા, ચુકવણી, અવાજ (gu.ts માં `extra` તરીકે સામેલ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'આજની હસ્તરેખા રીડિંગની મર્યાદા પૂરી થઈ ગઈ છે. કૃપા કરીને કાલે ફરી પ્રયાસ કરો.',
     demoReading: 'આ એક નમૂના રીડિંગ છે (ડેમો મોડ, AI નહીં). સાચી ઍપમાં AI હસ્તરેખા નિષ્ણાત તમારી હૃદય, મસ્તિષ્ક, જીવન અને ભાગ્ય રેખાઓ તથા હાથના પર્વતોનું વર્ણન કરે છે, અને પરંપરા મુજબ તે તમારા સ્વભાવ, સંબંધો અને કામ વિશે શું સૂચવે છે તે જણાવે છે.',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

@@ -1,5 +1,6 @@
 // छत्तीसगढ़ी पाठ: पर्सोना, रिपोर्ट, रिमाइंडर, प्राइवेसी, भुगतान अउ आवाज (hne.ts मं `extra` के रूप मं शामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'आज के हस्तरेखा रीडिंग के सीमा पूरा होगे। कृपया काली फेर कोसिस करव।',
     demoReading: 'ए एक नमूना रीडिंग हे (डेमो मोड, AI नइ)। असली ऐप मं AI हस्तरेखा पढ़इया आपके हिरदे, दिमाग, जीवन अउ भाग्य रेखा अउ हाथ के पर्वत के बारे मं बताथे, अउ परंपरा के मुताबिक ए मन आपके सुभाव, रिस्ता अउ काम के बारे मं का इसारा करथें।',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

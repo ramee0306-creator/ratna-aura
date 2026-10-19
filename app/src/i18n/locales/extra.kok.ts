@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF अहवाल, याद, खाजगी धोरण, पयशे भरप आनी आवाजाचो कोंकणी (देवनागरी) मजकूर (kok.ts त `extra` म्हणून).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'आयच्या हस्तरेखा वाचनांची मर्यादा तुमी पुराय केल्या. उपकार करून फाल्यां परत यत्न करात.',
     demoReading: 'हें एक नमुन्याचें वाचन (डेमो मोड, AI ना). खऱ्या अ‍ॅपांत, AI हस्तरेखा वाचपी तुमची हृदय, मस्तक, आयुश्य आनी भाग्य रेखा आनी हाताचे पर्वत वर्णन करता, आनी परंपरे प्रमाण ते तुमच्या सभावा, नात्यां आनी कामा विशीं कितें सुचयतात तें सांगता.',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

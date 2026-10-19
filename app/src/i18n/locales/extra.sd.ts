@@ -1,5 +1,6 @@
 // نون اسڪرينن (AI ڪردار، PDF رپورٽ، ياد ڏياريندڙ، رازداري، ادائگي، آواز) جو سنڌي متن (sd.ts ۾ `extra` طور شامل).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'اوهان اڄ جي هٿ جي ريڊنگن جي حد تائين پهچي ويا آهيو. مهرباني ڪري سڀاڻي ٻيهر ڪوشش ڪريو.',
     demoReading: 'هي هڪ نمونو ريڊنگ آهي (ڊيمو موڊ، ڪو AI ناهي). اصل ايپ ۾، AI دست شناس اوهان جي هٿ جي دل، دماغ، زندگي ۽ قسمت جي ليڪن ۽ اڀارن کي بيان ڪري ٿو، ۽ اهو به ته روايتي طور اهي اوهان جي طبيعت، رشتن ۽ ڪم بابت ڇا ٿا ڏيکارين.',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

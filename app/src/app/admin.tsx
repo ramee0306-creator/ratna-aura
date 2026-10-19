@@ -163,6 +163,22 @@ export default function AdminScreen() {
             <AppText variant="caption">0 = free. 1 credit ≈ ₹5.2–₹7.4 depending on the pack. Premium includes every tool.</AppText>
           </Card>
 
+          <AppText variant="overline">Reported AI answers (latest 20)</AppText>
+          <Card style={styles.card}>
+            {(data.reports ?? []).length === 0 ? <AppText variant="caption">No reports.</AppText> : null}
+            {(data.reports ?? []).map((r) => (
+              <View key={r.id} style={styles.report}>
+                <AppText variant="label">
+                  {new Date(r.createdAt).toLocaleString('en-IN')} · {r.feature} · {r.reason}
+                </AppText>
+                {r.note ? <AppText variant="caption">“{r.note}”</AppText> : null}
+                <AppText variant="caption" numberOfLines={6}>
+                  {r.text}
+                </AppText>
+              </View>
+            ))}
+          </Card>
+
           <AppText variant="overline">Gift credits</AppText>
           <Card style={styles.card}>
             <TextField label="User's e-mail or phone (+91…)" value={contact} onChangeText={setContact} autoCapitalize="none" />
@@ -194,4 +210,5 @@ const styles = StyleSheet.create({
   },
   digits: { fontVariant: ['lining-nums'] },
   price: { width: 44, textAlign: 'center' },
+  report: { gap: 2, borderTopWidth: 1, borderColor: colors.border, paddingTop: spacing.sm },
 });

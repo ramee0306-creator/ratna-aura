@@ -1,16 +1,41 @@
 // Admin panel (only for accounts with profiles.is_admin = true).
 //
-//   GET  /admin                                         -> { stats, settings, costUsd7d }
+//   GET  /admin                                         -> { stats, settings, costUsd7d, reports }
 //   POST /admin { action: "setting", key, value }        -> { settings }
 //   POST /admin { action: "gift", contact, credits }     -> { credits }   contact = e-mail or phone with country code
 import { estimateCostUsd, validSetting } from '../_shared/admin-settings.ts';
+import { decryptJson } from '../_shared/crypto.ts';
 import { corsHeaders, errorResponse, json, readJson } from '../_shared/http.ts';
+import { keyRing } from '../_shared/profiles.ts';
 import { admin, getUser } from '../_shared/supabase.ts';
 
 async function settings() {
   const { data, error } = await admin().from('app_settings').select('key, value').order('key');
   if (error) throw error;
   return Object.fromEntries((data ?? []).map((r) => [r.key, r.value]));
+}
+
+type ReportRow = { id: string; user_id: string; feature: string; reason: string; note: string | null; content_enc: string | null; created_at: string };
+
+/** The latest reported AI answers, for review. */
+async function recentReports() {
+  const { data, error } = await admin()
+    .from('ai_reports')
+    .select('id, user_id, feature, reason, note, content_enc, created_at')
+    .order('created_at', { ascending: false })
+    .limit(20);
+  if (error) throw error;
+  const ring = await keyRing();
+  return Promise.all(
+    (data as ReportRow[]).map(async (r) => ({
+      id: r.id,
+      feature: r.feature,
+      reason: r.reason,
+      note: r.note,
+      createdAt: r.created_at,
+      text: r.content_enc ? (await decryptJson<{ text: string }>(ring, r.content_enc, r.user_id).catch(() => ({ text: '' }))).text : '',
+    })),
+  );
 }
 
 Deno.serve(async (req) => {
@@ -27,7 +52,7 @@ Deno.serve(async (req) => {
       const { data: stats, error } = await db.rpc('admin_stats');
       if (error) throw error;
       const usage = (stats?.aiUsage7d ?? []) as { model: string | null; inputTokens: number; outputTokens: number }[];
-      return json({ stats, settings: await settings(), costUsd7d: estimateCostUsd(usage) });
+      return json({ stats, settings: await settings(), costUsd7d: estimateCostUsd(usage), reports: await recentReports() });
     }
     if (req.method !== 'POST') return errorResponse(405, 'Method not allowed');
 

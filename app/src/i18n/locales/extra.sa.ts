@@ -1,5 +1,6 @@
 // नूतनपटलानां संस्कृतपाठः: AI-पात्राणि, PDF-प्रतिवेदनम्, स्मारकम्, गोपनीयता, देयकम्, ध्वनिः (sa.ts मध्ये `extra` इति रूपेण सम्मिलितः)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate flag (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -206,6 +207,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     limit: 'अद्यतनानां हस्तरेखाविचाराणां सीमां भवान् प्राप्तवान्। कृपया श्वः पुनः प्रयतताम्।',
     demoReading: 'अयं निदर्शनविचारः (प्रदर्शनविधा, AI नास्ति)। वास्तविके एप्-मध्ये AI-हस्तरेखाविद् भवतः हस्तस्य हृदय-मस्तिष्क-जीवन-भाग्यरेखाः पर्वतान् च वर्णयति, ताः परम्परया भवतः स्वभावस्य सम्बन्धानां कार्यस्य च विषये किं सूचयन्ति इति अपि।',
   },
+  flag: extraEnglish.flag, // TODO: translate
 };
 
 export default extra;

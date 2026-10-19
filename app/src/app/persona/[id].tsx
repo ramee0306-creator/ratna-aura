@@ -252,6 +252,7 @@ export default function PersonaChatScreen() {
             key={m.id}
             message={m}
             aiName={persona.name}
+            reportAs="persona"
             speaking={speaker.speakingId === m.id}
             onSpeak={speaker.available ? () => (speaker.speakingId === m.id ? speaker.stop() : speaker.speak(m.id, m.text)) : undefined}
           />
