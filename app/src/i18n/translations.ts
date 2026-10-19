@@ -17,6 +17,7 @@ import lang_pa from './locales/pa';
 import lang_as from './locales/as';
 import lang_mai from './locales/mai';
 import lang_bho from './locales/bho';
+import lang_raj from './locales/raj';
 import lang_ne from './locales/ne';
 import lang_kok from './locales/kok';
 import lang_ks from './locales/ks';
@@ -40,6 +41,7 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'as': lang_as,
   'mai': lang_mai,
   'bho': lang_bho,
+  'raj': lang_raj,
   'ne': lang_ne,
   'kok': lang_kok,
   'ks': lang_ks,
