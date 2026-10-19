@@ -1,5 +1,6 @@
 // ନୂଆ ସ୍କ୍ରିନଗୁଡ଼ିକର ଓଡ଼ିଆ ପାଠ (AI ପର୍ସୋନା, PDF ରିପୋର୍ଟ, ରିମାଇଣ୍ଡର, ଗୋପନୀୟତା, ପେମେଣ୍ଟ, ଭଏସ୍); or.ts ରେ `extra` ଭାବେ ଅନ୍ତର୍ଭୁକ୍ତ।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'ଭଏସ୍ କଥୋପକଥନ',
     conversationHint: 'ପ୍ରଶ୍ନ କହନ୍ତୁ; ଉତ୍ତର ଜୋରରେ ପଢ଼ି ଶୁଣାଯିବ।',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

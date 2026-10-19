@@ -1,5 +1,6 @@
 // ਨਵੀਆਂ ਸਕ੍ਰੀਨਾਂ ਦਾ ਪੰਜਾਬੀ ਪਾਠ: AI ਪਰਸੋਨਾ, PDF ਰਿਪੋਰਟ, ਰਿਮਾਈਂਡਰ, ਪਰਦੇਦਾਰੀ, ਭੁਗਤਾਨ, ਆਵਾਜ਼ (pa.ts ਵਿੱਚ `extra` ਵਜੋਂ ਸ਼ਾਮਲ)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'ਆਵਾਜ਼ ਨਾਲ ਗੱਲਬਾਤ',
     conversationHint: 'ਆਪਣਾ ਸਵਾਲ ਬੋਲੋ; ਜਵਾਬ ਉੱਚੀ ਪੜ੍ਹਿਆ ਜਾਵੇਗਾ।',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

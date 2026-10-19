@@ -391,8 +391,12 @@ asked. This test build is signed with a test key, so it cannot go on Google Play
 ### Real payments (Google Play billing through RevenueCat)
 1. Play Console → Monetize → Products → **In-app products**: create one-time products with ids **`q10`**, **`q30`**,
    **`q100`** (they must equal the pack ids in `app_settings.credit_packs`) and your prices.
+   Then Monetize → Products → **Subscriptions**: create one subscription with id **`premium`** and three
+   auto-renewing **base plans**: **`monthly`** (1 month), **`quarterly`** (3 months), **`yearly`** (1 year), with the
+   prices from `app_settings.subscription_plans`. On the `yearly` base plan add an **offer**: free trial, 7 days,
+   eligibility "new customer acquisition". Turn on the grace period (Monetize → Subscriptions settings).
 2. revenuecat.com → new project → add a **Google Play** app (package ID above; follow their service-account steps).
-   Import the three products.
+   Import the three products and the `premium` subscription.
 3. RevenueCat → **API keys**: copy the **public Android SDK key** (starts with `goog_`) into GitHub → Settings →
    Secrets and variables → Actions → **Variables** → `REVENUECAT_ANDROID_KEY`.
 4. RevenueCat → Integrations → **Webhooks**: URL `https://rthnktnardwvpngivlpg.supabase.co/functions/v1/revenuecat`,
@@ -400,6 +404,15 @@ asked. This test build is signed with a test key, so it cannot go on Google Play
    `REVENUECAT_WEBHOOK_SECRET`.
 5. Rebuild the app (Build for Google Play), then Admin panel → Payments → **Live**.
 Credits are added by the server only after RevenueCat confirms the Google Play payment, once per order.
+
+### Premium subscription
+The **Premium** screen (home banner, Settings, Credits, and Ask AI when questions run out) offers three plans.
+Premium gives Ask AI without counting (fair use: `premium_daily_questions` a day, Indian date) and bonus credits
+each paid period for the AI astrologers. Plans, prices, bonus credits and trial days live in
+`app_settings.subscription_plans` (Admin panel → Settings); the prices shown in the live app come from Google Play, so
+change a price in **both** places. Google Play renews, retries failed payments (grace period) and handles
+cancelling; RevenueCat tells the server (`functions/revenuecat`), which keeps `subscriptions` up to date. In test
+mode a plan starts at once without payment (a plan with a trial starts as a trial).
 
 ---
 

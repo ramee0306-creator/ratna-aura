@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF अहवाल, याद, खाजगी धोरण, पयशे भरप आनी आवाजाचो कोंकणी (देवनागरी) मजकूर (kok.ts त `extra` म्हणून).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'आवाजांतलो संवाद',
     conversationHint: 'तुमचो प्रस्न उलयात; जाप व्हडाल्यान वाचून दाखयतले.',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

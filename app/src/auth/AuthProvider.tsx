@@ -34,7 +34,8 @@ type AuthContextValue = {
   accountLabel: string | null;
   sendOtp: (phoneE164: string) => Promise<void>;
   verifyOtp: (phoneE164: string, code: string) => Promise<void>;
-  signInWithGoogle: () => Promise<'success' | 'cancelled'>;
+  /** In demo mode, the sample account picked in the demo account chooser. */
+  signInWithGoogle: (demoAccount?: string) => Promise<'success' | 'cancelled'>;
   acceptTerms: () => Promise<void>;
   signOut: () => Promise<void>;
   deleteAccount: () => Promise<void>;
@@ -135,15 +136,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   }, [demoSignIn]);
 
-  const signInWithGoogle = useCallback(async (): Promise<'success' | 'cancelled'> => {
+  const signInWithGoogle = useCallback(async (demoAccount?: string): Promise<'success' | 'cancelled'> => {
     if (isDemoMode) {
-      await demoSignIn('demo@gmail.com');
+      await demoSignIn(demoAccount ?? 'demo@gmail.com');
       return 'success';
     }
     const redirectTo = Linking.createURL('auth/callback');
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo, skipBrowserRedirect: true },
+      // select_account: Google always asks which account to use, instead of silently picking the last one.
+      options: { redirectTo, skipBrowserRedirect: true, queryParams: { prompt: 'select_account' } },
     });
     if (error) throw error;
     const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);

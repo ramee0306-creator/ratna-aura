@@ -1,5 +1,6 @@
 // नए स्क्रीन (AI पर्सोना, PDF रिपोर्ट, याद दिलावै वाला, निजता, भुगतान, आवाज) कै अवधी पाठ (awa.ts मा `extra` के रूप मा सामिल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'आवाज मा बातचीत',
     conversationHint: 'आपन सवाल बोलैं; जवाब जोर से सुनावा जाई।',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

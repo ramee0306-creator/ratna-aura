@@ -20,6 +20,9 @@ import { colors, radius, spacing } from '@/theme';
 const SUGGESTIONS = ['career', 'marriage', 'year', 'numbers'] as const;
 type ErrorKey = 'failed' | 'notEnabled' | 'busy' | 'declined' | 'tooLong';
 
+/** True when the next question cannot be paid for (no Premium questions, free questions or credits left). */
+const cannotAsk = (w: Wallet) => w.freeLeft === 0 && w.credits === 0 && !(w.premium && w.premiumLeftToday > 0);
+
 function errorKey(err: unknown): ErrorKey {
   if (!(err instanceof ApiError)) return 'failed';
   if (err.status === 429) return 'busy';
@@ -53,7 +56,7 @@ export default function AskScreen() {
         setWallet(w);
         setThreadId(thread?.id ?? null);
         setMessages(thread?.messages ?? []);
-        setNoCredits(w.freeLeft === 0 && w.credits === 0);
+        setNoCredits(cannotAsk(w));
       })
       .catch(() => setLoadFailed(true));
   }, []);
@@ -102,7 +105,7 @@ export default function AskScreen() {
       }
       setThreadId(result.threadId);
       setWallet(result.wallet);
-      setNoCredits(result.wallet.freeLeft === 0 && result.wallet.credits === 0);
+      setNoCredits(cannotAsk(result.wallet));
       const id = `a-${Date.now()}`;
       setMessages((m) => [...m, { id, role: 'assistant', text: result.answer, distress: result.distress, createdAt: new Date().toISOString() }]);
       if (voiceOn) speaker.speak(id, result.answer);
@@ -116,7 +119,9 @@ export default function AskScreen() {
   }
 
   const balance = wallet
-    ? wallet.freeLeft > 0
+    ? wallet.premium
+      ? t('extra.premium.askLine', { count: wallet.premiumLeftToday })
+      : wallet.freeLeft > 0
       ? t('ai.ask.freeLeft', { count: wallet.freeLeft })
       : t('ai.ask.credits', { count: wallet.credits })
     : '';
@@ -126,8 +131,9 @@ export default function AskScreen() {
       {error ? <Notice text={t(`ai.ask.errors.${error}`)} /> : null}
       {noCredits ? (
         <Card style={styles.gapSm}>
-          <AppText>{t('ai.ask.noneLeft')}</AppText>
+          <AppText>{wallet?.premium ? t('extra.premium.usedToday') : t('ai.ask.noneLeft')}</AppText>
           <Button title={t('ai.ask.buy')} onPress={() => router.push('/credits')} />
+          {wallet?.premium ? null : <Button variant="outline" title={t('extra.premium.askUpsell')} onPress={() => router.push('/premium')} />}
         </Card>
       ) : (
         <ChatInput value={question} onChange={setQuestion} onSend={(spoken) => send(spoken ?? question)} busy={busy} language={i18n.language} autoSend={voiceOn} />

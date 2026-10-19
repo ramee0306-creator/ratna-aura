@@ -1,5 +1,6 @@
 // ᱱᱟᱶᱟ ᱥᱠᱨᱤᱱ ᱠᱚ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱛᱟᱲᱤ ᱚᱞ (AI ᱯᱚᱨᱥᱳᱱᱟ, PDF ᱨᱤᱯᱳᱨᱴ, ᱨᱤᱢᱟᱭᱱᱰᱟᱨ, ᱜᱚᱯᱚᱱ, ᱯᱮᱢᱮᱱᱴ, ᱥᱟᱰᱮ); sat.ts ᱨᱮ `extra` ᱞᱮᱠᱟ ᱥᱮᱞᱮᱫ ᱠᱟᱱᱟ᱾
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'ᱥᱟᱰᱮ ᱨᱚᱲ',
     conversationHint: 'ᱟᱢᱟᱜ ᱠᱩᱞᱤ ᱨᱚᱲ ᱢᱮ; ᱡᱵᱟᱵ ᱫᱚ ᱡᱚᱨ ᱥᱟᱶ ᱯᱟᱲᱦᱟᱣ ᱟ᱾',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

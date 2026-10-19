@@ -1,5 +1,6 @@
 // नमियें स्क्रीनें दा डोगरी पाठ: AI पर्सोना, PDF रिपोर्ट, याद करवाना, निजता, भुगतान, अवाज़ (doi.ts च `extra` दे रूप च शामल)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'अवाज़ कन्नै गल्लबात',
     conversationHint: 'अपना सुआल बोल्लो; जवाब ऊंचे सुर च पढ़ेआ जाग।',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

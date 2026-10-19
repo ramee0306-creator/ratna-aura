@@ -1,5 +1,6 @@
 // নতুন স্ক্রিনগুলির বাংলা পাঠ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডার, গোপনীয়তা, পেমেন্ট, ভয়েস); bn.ts-এ `extra` হিসেবে যুক্ত।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'ভয়েস কথোপকথন',
     conversationHint: 'মুখে প্রশ্ন বলুন; উত্তর জোরে পড়ে শোনানো হবে।',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

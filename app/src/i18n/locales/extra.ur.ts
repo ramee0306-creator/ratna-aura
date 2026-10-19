@@ -1,5 +1,6 @@
 // نئی اسکرینوں (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) کا اردو متن (ur.ts میں `extra` کے طور پر شامل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'صوتی گفتگو',
     conversationHint: 'اپنا سوال بولیں؛ جواب بلند آواز میں سنایا جائے گا۔',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

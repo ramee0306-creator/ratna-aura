@@ -4,6 +4,7 @@ import type { ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
+import { PremiumBanner } from '@/ai/PremiumBanner';
 import { useAuth } from '@/auth/AuthProvider';
 import { AIBadge } from '@/components/AIBadge';
 import { AppText } from '@/components/AppText';
@@ -152,6 +153,7 @@ export default function HomeScreen() {
       <View style={styles.bigCards}>
         <BigCard icon="chat-processing-outline" title={t('home.askAi')} hint={t('home.askAiHint')} href="/ask" />
         <BigCard icon="account-voice" title={t('home.talk')} hint={t('home.talkHint')} href="/personas" />
+        <PremiumBanner />
       </View>
     </Screen>
   );

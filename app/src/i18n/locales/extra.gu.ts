@@ -1,5 +1,6 @@
 // નવી સ્ક્રીનોનો ગુજરાતી પાઠ: AI પર્સોના, PDF રિપોર્ટ, રિમાઇન્ડર, ગોપનીયતા, ચુકવણી, અવાજ (gu.ts માં `extra` તરીકે સામેલ).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'અવાજથી વાતચીત',
     conversationHint: 'તમારો પ્રશ્ન બોલો; જવાબ મોટેથી વંચાશે.',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

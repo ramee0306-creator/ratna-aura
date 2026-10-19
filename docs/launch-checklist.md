@@ -27,5 +27,7 @@ uploading anything.
 - [ ] Upload key: create it once (README → Publishing → Upload key) and keep a backup; add the 4 GitHub secrets.
 - [ ] Play App Signing: accept (Google keeps the app signing key; your upload key can be reset if lost).
 - [ ] In-app products (Monetize → Products → In-app products): `q10`, `q30`, `q100` as **one-time** products.
+- [ ] Subscription `premium` with base plans `monthly`, `quarterly`, `yearly` (+ 7-day free-trial offer on `yearly`);
+      prices must match `subscription_plans` in the Admin panel. Turn on the grace period.
 - [ ] Store listing (`docs/store-listing.md`), Data safety (`docs/data-safety.md`), content rating, target audience 18+.
 - [ ] GitHub → Actions → *Build for Google Play* → upload the `.aab` to **Internal testing** first, then closed testing.

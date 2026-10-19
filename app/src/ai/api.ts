@@ -2,7 +2,26 @@
 import { ApiError } from '@/kundli/api';
 import { isDemoMode, supabase } from '@/lib/supabase';
 
-export type Wallet = { credits: number; freeLeft: number; freeLimit: number };
+export type Premium = {
+  planId: string;
+  status: 'active' | 'in_grace' | 'expired';
+  willRenew: boolean;
+  isTrial: boolean;
+  periodEnd: string;
+  store: 'play' | 'test';
+};
+export type Wallet = {
+  credits: number;
+  freeLeft: number;
+  freeLimit: number;
+  /** The running Premium subscription, or null */
+  premium: Premium | null;
+  /** Premium Ask AI questions left today (fair use) */
+  premiumLeftToday: number;
+  /** Premium Ask AI questions per day (fair use) */
+  premiumDaily: number;
+};
+export type Plan = { id: string; productId: string; months: number; priceInr: number; bonusCredits: number; trialDays: number };
 export type ChatMessage = { id: string; role: 'user' | 'assistant'; text: string; distress: boolean; createdAt: string };
 export type Thread = { id: string; profileId: string | null; messages: ChatMessage[] };
 export type CreditPack = { id: string; credits: number; priceInr: number };
@@ -19,7 +38,7 @@ async function call<T>(path: string, method: 'GET' | 'POST', body?: object): Pro
 
 // ---- demo mode ----
 const demo = {
-  wallet: { credits: 0, freeLeft: 3, freeLimit: 3 } as Wallet,
+  wallet: { credits: 0, freeLeft: 3, freeLimit: 3, premium: null, premiumLeftToday: 0, premiumDaily: 30 } as Wallet,
   threads: new Map<string, Thread>(),
 };
 const demoKey = (profileId: string | null) => profileId ?? 'general';
@@ -39,7 +58,8 @@ export type AskResult =
 export async function ask(input: { question: string; language: string; profileId: string | null; threadId: string | null }, demoAnswer: string): Promise<AskResult> {
   if (isDemoMode) {
     const w = demo.wallet;
-    if (w.freeLeft > 0) w.freeLeft -= 1;
+    if (w.premium && w.premiumLeftToday > 0) w.premiumLeftToday -= 1;
+    else if (w.freeLeft > 0) w.freeLeft -= 1;
     else if (w.credits > 0) w.credits -= 1;
     else return { kind: 'noCredits' };
     const key = demoKey(input.profileId);
@@ -61,7 +81,13 @@ export async function ask(input: { question: string; language: string; profileId
   }
 }
 
-export async function getCredits(): Promise<{ wallet: Wallet; packs: CreditPack[]; mode: PaymentsMode }> {
+export const DEMO_PLANS: Plan[] = [
+  { id: 'monthly', productId: 'premium:monthly', months: 1, priceInr: 199, bonusCredits: 20, trialDays: 0 },
+  { id: 'quarterly', productId: 'premium:quarterly', months: 3, priceInr: 499, bonusCredits: 60, trialDays: 0 },
+  { id: 'yearly', productId: 'premium:yearly', months: 12, priceInr: 1499, bonusCredits: 240, trialDays: 7 },
+];
+
+export async function getCredits(): Promise<{ wallet: Wallet; packs: CreditPack[]; plans: Plan[]; mode: PaymentsMode }> {
   if (isDemoMode) {
     return {
       wallet: { ...demo.wallet },
@@ -70,10 +96,36 @@ export async function getCredits(): Promise<{ wallet: Wallet; packs: CreditPack[
         { id: 'q30', credits: 30, priceInr: 129 },
         { id: 'q100', credits: 100, priceInr: 349 },
       ],
+      plans: DEMO_PLANS,
       mode: 'test',
     };
   }
   return call('credits', 'GET');
+}
+
+/** Test mode only: starts Premium without payment. */
+export async function subscribeTest(plan: Plan): Promise<Wallet> {
+  if (isDemoMode) {
+    // Like the server's test mode: a free trial first, bonus credits with the first paid period.
+    const trial = plan.trialDays > 0;
+    const end = new Date();
+    if (trial) end.setDate(end.getDate() + plan.trialDays);
+    else end.setMonth(end.getMonth() + plan.months);
+    demo.wallet.premium = { planId: plan.id, status: 'active', willRenew: true, isTrial: trial, periodEnd: end.toISOString(), store: 'test' };
+    demo.wallet.premiumLeftToday = demo.wallet.premiumDaily;
+    if (!trial) demo.wallet.credits += plan.bonusCredits;
+    return { ...demo.wallet };
+  }
+  return (await call<{ wallet: Wallet }>('credits', 'POST', { planId: plan.id })).wallet;
+}
+
+/** Test mode only: like cancelling in Google Play — Premium continues until the period ends. */
+export async function cancelTestSubscription(): Promise<Wallet> {
+  if (isDemoMode) {
+    if (demo.wallet.premium) demo.wallet.premium = { ...demo.wallet.premium, willRenew: false };
+    return { ...demo.wallet };
+  }
+  return (await call<{ wallet: Wallet }>('credits', 'POST', { action: 'cancelTest' })).wallet;
 }
 
 /** Test mode only: adds the pack's credits without payment. */

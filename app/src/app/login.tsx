@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { useAuth } from '@/auth/AuthProvider';
+import { DemoAccountChooser } from '@/auth/DemoAccountChooser';
 import { normalizeIndianMobile } from '@/auth/phone';
 import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
@@ -21,6 +22,7 @@ export default function LoginScreen() {
   const [phone, setPhone] = useState('');
   const [busy, setBusy] = useState<'otp' | 'google' | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [choosingAccount, setChoosingAccount] = useState(false);
   const serverReady = isSupabaseConfigured || isDemoMode;
 
   async function onSendOtp() {
@@ -41,11 +43,17 @@ export default function LoginScreen() {
     }
   }
 
-  async function onGoogle() {
+  async function onGoogle(demoAccount?: string) {
+    // Demo mode has no Google: show a stand-in for Google's account chooser first.
+    if (isDemoMode && !demoAccount) {
+      setChoosingAccount(true);
+      return;
+    }
+    setChoosingAccount(false);
     setBusy('google');
     setError(null);
     try {
-      const result = await signInWithGoogle();
+      const result = await signInWithGoogle(demoAccount);
       if (result === 'cancelled') setError(t('login.googleCancelled'));
     } catch (err) {
       setError(err instanceof Error ? err.message : t('common.tryAgain'));
@@ -88,11 +96,21 @@ export default function LoginScreen() {
       <Button
         title={t('login.google')}
         variant="outline"
-        onPress={onGoogle}
+        onPress={() => onGoogle()}
         loading={busy === 'google'}
         disabled={!serverReady || !!busy}
         icon={<MaterialCommunityIcons name="google" size={20} color={colors.goldBright} />}
       />
+      {isDemoMode ? (
+        <DemoAccountChooser
+          visible={choosingAccount}
+          onChoose={(email) => onGoogle(email)}
+          onCancel={() => {
+            setChoosingAccount(false);
+            setError(t('login.googleCancelled'));
+          }}
+        />
+      ) : null}
     </Screen>
   );
 }

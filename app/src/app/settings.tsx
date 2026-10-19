@@ -129,6 +129,7 @@ export default function SettingsScreen() {
         <AppText variant="overline">{t('settings.account')}</AppText>
         <Card style={styles.card}>
           {accountLabel ? <AppText>{t('settings.signedInAs', { who: accountLabel })}</AppText> : null}
+          <Button title={t('extra.premium.title')} variant="outline" onPress={() => router.push('/premium')} />
           <Button title={t('settings.privacy')} variant="outline" onPress={() => router.push('/privacy')} />
           <Button title={t('settings.signOut')} variant="outline" onPress={signOut} />
           {profile?.is_admin ? <Button title="Admin panel" variant="outline" onPress={() => router.push('/admin')} /> : null}

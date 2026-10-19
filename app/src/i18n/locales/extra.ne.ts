@@ -1,5 +1,6 @@
 // AI पर्सोना, PDF रिपोर्ट, रिमाइन्डर, गोपनीयता, भुक्तानी र आवाजको नेपाली पाठ (ne.ts मा `extra` को रूपमा समावेश)।
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'आवाजमा कुराकानी',
     conversationHint: 'आफ्नो प्रश्न बोल्नुहोस्; जवाफ ठूलो स्वरमा पढेर सुनाइन्छ।',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

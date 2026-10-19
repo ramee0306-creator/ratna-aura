@@ -1,5 +1,6 @@
 // നാഴികക്കല്ല് 6–10-ൽ ചേർത്ത മലയാളം പാഠം (പെർസോണകൾ, റിപ്പോർട്ട്, ഓർമ്മപ്പെടുത്തൽ, സ്വകാര്യത, പേയ്മെന്റ്, ശബ്ദം).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'ശബ്ദ സംഭാഷണം',
     conversationHint: 'നിങ്ങളുടെ ചോദ്യം പറയൂ; ഉത്തരം ഉറക്കെ വായിക്കും.',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

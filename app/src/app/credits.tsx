@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { buyTestPack, type CreditPack, getCredits, type PaymentsMode, type Wallet } from '@/ai/api';
+import { PremiumBanner } from '@/ai/PremiumBanner';
 import { useAuth } from '@/auth/AuthProvider';
 import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
@@ -100,6 +101,7 @@ export default function CreditsScreen() {
               </AppText>
             ) : null}
           </Card>
+          <PremiumBanner />
           <AppText variant="caption">{t('ai.credits.intro')}</AppText>
           {message ? <Notice tone={message.tone} text={message.text} /> : null}
           {data.mode === 'off' || (live && !storeBillingAvailable) ? (

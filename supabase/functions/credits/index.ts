@@ -56,18 +56,20 @@ Deno.serve(async (req) => {
     if (body.planId !== undefined) {
       const plan = (await subscriptionPlans()).find((p) => p.id === body.planId);
       if (!plan) return errorResponse(400, 'Unknown plan');
+      // Like Google Play: a plan with a free trial starts with the trial, and bonus credits come with the first paid period.
+      const trial = plan.trialDays > 0;
       const { error } = await db.rpc('set_subscription', {
         p_user: user.id,
         p_plan: plan.id,
         p_status: 'active',
-        p_period_end: periodEnd(plan.months),
+        p_period_end: trial ? new Date(Date.now() + plan.trialDays * 86_400_000).toISOString() : periodEnd(plan.months),
         p_will_renew: true,
-        p_is_trial: false,
+        p_is_trial: trial,
         p_store: 'test',
         p_original_transaction_id: null,
       });
       if (error) throw error;
-      if (plan.bonusCredits > 0) {
+      if (!trial && plan.bonusCredits > 0) {
         const { error: bonusError } = await db.rpc('add_credits', { p_user: user.id, p_credits: plan.bonusCredits, p_reason: 'test_subscription', p_reference: null });
         if (bonusError) throw bonusError;
       }

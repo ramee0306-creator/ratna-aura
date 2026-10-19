@@ -166,6 +166,8 @@ type Wallet = {
   premium: Premium | null;
   /** Premium Ask AI questions left today (fair use) */
   premiumLeftToday: number;
+  /** Premium Ask AI questions per day (fair use) */
+  premiumDaily: number;
 };
 type CreditPack = { id: string; credits: number; priceInr: number };
 
@@ -200,6 +202,7 @@ async function getWallet(userId: string): Promise<Wallet> {
     freeLimit: limit,
     premium,
     premiumLeftToday: premium ? Math.max(daily - usedToday, 0) : 0,
+    premiumDaily: daily,
   };
 }
 

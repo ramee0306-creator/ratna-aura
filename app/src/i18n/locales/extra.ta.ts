@@ -1,5 +1,6 @@
 // மைல்கல் 6–10-இல் சேர்க்கப்பட்ட தமிழ் உரை (பர்சனாக்கள், அறிக்கை, நினைவூட்டல், தனியுரிமை, பணம் செலுத்துதல், குரல்).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'குரல் உரையாடல்',
     conversationHint: 'உங்கள் கேள்வியைப் பேசுங்கள்; பதில் சத்தமாகப் படிக்கப்படும்.',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

@@ -1,5 +1,6 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'آوازٕچ کتھ بات',
     conversationHint: 'پنُن سوال وَنِو؛ جواب چھُ اُچھ آوازس سٕتؠ بوزاونہٕ یوان۔',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;

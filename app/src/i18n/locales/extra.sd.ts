@@ -1,5 +1,6 @@
 // نون اسڪرينن (AI ڪردار، PDF رپورٽ، ياد ڏياريندڙ، رازداري، ادائگي، آواز) جو سنڌي متن (sd.ts ۾ `extra` طور شامل).
 import type extraEn from './extra.en';
+import extraEnglish from './extra.en'; // TODO: translate premium (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -75,6 +76,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     conversation: 'آواز واري ڳالهه ٻولهه',
     conversationHint: 'پنهنجو سوال ڳالهايو؛ جواب وڏي آواز سان ٻڌايو ويندو.',
   },
+  premium: extraEnglish.premium, // TODO: translate
 };
 
 export default extra;
