@@ -91,7 +91,7 @@ export async function answer(opts: {
   profile: PublicProfile | null;
   persona: Persona | null;
   wasm: URL;
-  paidWith?: 'free' | 'credit';
+  paidWith?: 'free' | 'credit' | 'premium';
 }): Promise<{ threadId: string; answer: string; distress: boolean }> {
   const { ownerId, profile, persona } = opts;
   const db = admin();

@@ -1,5 +1,7 @@
 // Which settings the admin panel may change, and how each value is checked.
 
+import { cleanPlans } from './subscriptions.ts';
+
 export const MODELS = ['claude-haiku-5-5', 'claude-sonnet-5-5', 'claude-opus-5-5'] as const;
 
 /** Price per million tokens in US dollars (input, output), for the cost estimate. */
@@ -31,6 +33,8 @@ export const EDITABLE: Record<string, Check> = {
   chat_model: (v) => (MODELS as readonly unknown[]).includes(v),
   free_questions: (v) => Number.isInteger(v) && (v as number) >= 0 && (v as number) <= 20,
   payments_mode: (v) => v === 'test' || v === 'off' || v === 'live',
+  subscription_plans: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 4 && cleanPlans(v).length === v.length && new Set(v.map((p) => p.id)).size === v.length,
+  premium_daily_questions: (v) => Number.isInteger(v) && (v as number) >= 1 && (v as number) <= 200,
   credit_packs: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 6 && v.every(isPack) && new Set(v.map((p) => p.id)).size === v.length,
 };
 

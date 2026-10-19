@@ -66,19 +66,141 @@ async function setting<T>(key: string, fallback: T): Promise<T> {
   return value !== undefined && value !== null && typeof value === typeof fallback ? (value as T) : fallback;
 }
 
+// ---- _shared/subscriptions.ts ----
+// Premium subscription plans and RevenueCat subscription events. No network here, so it can be tested.
+// Docs: https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields
+
+type Plan = {
+  id: string;
+  /** Google Play "product:base plan" id, as RevenueCat reports it */
+  productId: string;
+  months: number;
+  priceInr: number;
+  /** Credits added at the start of every paid period */
+  bonusCredits: number;
+  /** Free trial length in days (0 = none) */
+  trialDays: number;
+};
+
+/** Keeps only well-formed plans from app_settings.subscription_plans. */
+function cleanPlans(value: unknown): Plan[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (p): p is Plan =>
+      !!p && typeof p === 'object' &&
+      typeof p.id === 'string' && /^[a-z0-9_]{1,30}$/.test(p.id) &&
+      typeof p.productId === 'string' && p.productId.length > 0 &&
+      [1, 3, 6, 12].includes(p.months) &&
+      typeof p.priceInr === 'number' && p.priceInr > 0 &&
+      Number.isInteger(p.bonusCredits) && p.bonusCredits >= 0 &&
+      Number.isInteger(p.trialDays) && p.trialDays >= 0 && p.trialDays <= 31,
+  );
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+type SubscriptionAction = {
+  kind: 'subscription';
+  userId: string;
+  planId: string;
+  status: 'active' | 'in_grace' | 'expired';
+  periodEnd: string;
+  willRenew: boolean;
+  isTrial: boolean;
+  originalTransactionId: string | null;
+  /** Bonus credits for a newly paid period (not for free trials) */
+  bonus: { credits: number; reference: string } | null;
+};
+
+/** What a RevenueCat subscription event means for us, or null if it is not one we handle. */
+function subscriptionAction(body: unknown, plans: Plan[]): SubscriptionAction | null {
+  const e = (body as { event?: Record<string, unknown> } | null)?.event;
+  if (!e || typeof e !== 'object') return null;
+  const type = String(e.type);
+  if (!['INITIAL_PURCHASE', 'RENEWAL', 'UNCANCELLATION', 'CANCELLATION', 'BILLING_ISSUE', 'EXPIRATION'].includes(type)) return null;
+  const userId = e.app_user_id;
+  if (typeof userId !== 'string' || !UUID.test(userId)) return null;
+  const plan = plans.find((p) => p.productId === e.product_id || p.id === e.product_id);
+  if (!plan) return null;
+  const expires = e.expiration_at_ms;
+  if (typeof expires !== 'number' || !Number.isFinite(expires) || expires <= 0) return null;
+  const isTrial = e.period_type === 'TRIAL';
+  const transaction = typeof e.transaction_id === 'string' ? e.transaction_id : '';
+  const paidPeriod = (type === 'INITIAL_PURCHASE' || type === 'RENEWAL') && !isTrial && transaction && plan.bonusCredits > 0;
+  return {
+    kind: 'subscription',
+    userId: userId.toLowerCase(),
+    planId: plan.id,
+    status: type === 'EXPIRATION' ? 'expired' : type === 'BILLING_ISSUE' ? 'in_grace' : 'active',
+    periodEnd: new Date(expires).toISOString(),
+    willRenew: type !== 'CANCELLATION' && type !== 'EXPIRATION',
+    isTrial,
+    originalTransactionId: typeof e.original_transaction_id === 'string' ? e.original_transaction_id : null,
+    bonus: paidPeriod ? { credits: plan.bonusCredits, reference: `play:${transaction}` } : null,
+  };
+}
+
+/** End of a test subscription period that starts now. */
+const periodEnd = (months: number, from = new Date()) => {
+  const end = new Date(from);
+  end.setUTCMonth(end.getUTCMonth() + months);
+  return end.toISOString();
+};
+
 // ---- _shared/wallet.ts ----
 // Question credits: how many a user has, and the price list.
 
-type Wallet = { credits: number; freeLeft: number; freeLimit: number };
+type Premium = {
+  planId: string;
+  status: 'active' | 'in_grace' | 'expired';
+  willRenew: boolean;
+  isTrial: boolean;
+  periodEnd: string;
+  store: 'play' | 'test';
+};
+type Wallet = {
+  credits: number;
+  freeLeft: number;
+  freeLimit: number;
+  /** The running Premium subscription, or null */
+  premium: Premium | null;
+  /** Premium Ask AI questions left today (fair use) */
+  premiumLeftToday: number;
+};
 type CreditPack = { id: string; credits: number; priceInr: number };
 
 const freeLimit = () => setting('free_questions', 3);
+const premiumDaily = () => setting('premium_daily_questions', 30);
+const subscriptionPlans = async (): Promise<Plan[]> => cleanPlans(await setting<unknown[]>('subscription_plans', []));
+
+async function runningPremium(userId: string): Promise<Premium | null> {
+  const { data, error } = await admin()
+    .from('subscriptions')
+    .select('plan_id, status, will_renew, is_trial, current_period_end, store')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data || data.status === 'expired' || Date.parse(data.current_period_end) <= Date.now()) return null;
+  return { planId: data.plan_id, status: data.status, willRenew: data.will_renew, isTrial: data.is_trial, periodEnd: data.current_period_end, store: data.store };
+}
 
 async function getWallet(userId: string): Promise<Wallet> {
-  const limit = await freeLimit();
-  const { data, error } = await admin().from('wallets').select('credits, free_questions_used').eq('user_id', userId).maybeSingle();
+  const [limit, daily, premium] = await Promise.all([freeLimit(), premiumDaily(), runningPremium(userId)]);
+  const { data, error } = await admin()
+    .from('wallets')
+    .select('credits, free_questions_used, premium_day, premium_day_used')
+    .eq('user_id', userId)
+    .maybeSingle();
   if (error) throw error;
-  return { credits: data?.credits ?? 0, freeLeft: Math.max(limit - (data?.free_questions_used ?? 0), 0), freeLimit: limit };
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata' }).format(new Date());
+  const usedToday = data?.premium_day === today ? data.premium_day_used : 0;
+  return {
+    credits: data?.credits ?? 0,
+    freeLeft: Math.max(limit - (data?.free_questions_used ?? 0), 0),
+    freeLimit: limit,
+    premium,
+    premiumLeftToday: premium ? Math.max(daily - usedToday, 0) : 0,
+  };
 }
 
 /** Packs from app_settings.credit_packs, keeping only well-formed entries. */
@@ -129,7 +251,8 @@ function sameSecret(given: string | null, expected: string | undefined): boolean
 }
 
 // ---- revenuecat/index.ts ----
-// Receives purchase notifications from RevenueCat (which checks Google Play) and adds the bought credits.
+// Receives purchase notifications from RevenueCat (which checks Google Play): adds bought credits and
+// keeps the Premium subscription up to date (purchase, renewal, cancellation, payment problem, expiry).
 //
 //   POST /revenuecat   Authorization: Bearer <REVENUECAT_WEBHOOK_SECRET>   body: RevenueCat webhook event
 //
@@ -140,12 +263,45 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') return errorResponse(405, 'Method not allowed');
   if (!sameSecret(req.headers.get('Authorization'), Deno.env.get('REVENUECAT_WEBHOOK_SECRET'))) return errorResponse(401, 'Unauthorized');
 
-  const action = webhookAction(await readJson(req), await creditPacks());
+  const body = await readJson(req);
+  const db = admin();
+
+  // Premium subscription events
+  const sub = subscriptionAction(body, await subscriptionPlans());
+  if (sub) {
+    const { error } = await db.rpc('set_subscription', {
+      p_user: sub.userId,
+      p_plan: sub.planId,
+      p_status: sub.status,
+      p_period_end: sub.periodEnd,
+      p_will_renew: sub.willRenew,
+      p_is_trial: sub.isTrial,
+      p_store: 'play',
+      p_original_transaction_id: sub.originalTransactionId,
+    });
+    if (error) {
+      if (error.code === '23503') return json({ ok: true, unknownUser: true });
+      console.error('revenuecat subscription failed', error.message);
+      return errorResponse(500, 'Could not update the subscription'); // RevenueCat will retry
+    }
+    if (sub.bonus) {
+      const { error: bonusError } = await db.rpc('add_credits', { p_user: sub.userId, p_credits: sub.bonus.credits, p_reason: 'subscription', p_reference: sub.bonus.reference });
+      if (bonusError && bonusError.code !== '23505') {
+        console.error('revenuecat bonus failed', bonusError.message);
+        return errorResponse(500, 'Could not add bonus credits');
+      }
+    }
+    console.log('revenuecat subscription', { plan: sub.planId, status: sub.status, willRenew: sub.willRenew });
+    return json({ ok: true });
+  }
+
+  // One-time credit packs
+  const action = webhookAction(body, await creditPacks());
   if (action.kind === 'ignore') {
     console.log('revenuecat ignored', action.reason);
     return json({ ok: true });
   }
-  const { error } = await admin().rpc('add_credits', { p_user: action.userId, p_credits: action.credits, p_reason: 'purchase', p_reference: action.reference });
+  const { error } = await db.rpc('add_credits', { p_user: action.userId, p_credits: action.credits, p_reason: 'purchase', p_reference: action.reference });
   if (error) {
     if (error.code === '23505') return json({ ok: true, duplicate: true }); // already credited
     if (error.code === '23503') {

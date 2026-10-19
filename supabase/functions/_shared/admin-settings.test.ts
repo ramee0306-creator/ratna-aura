@@ -14,6 +14,9 @@ describe('admin settings', () => {
     expect(validSetting('credit_packs', [{ id: 'q10', credits: 10, priceInr: 49 }])).toBe(true);
     expect(validSetting('credit_packs', [{ id: 'q10', credits: 10, priceInr: 49 }, { id: 'q10', credits: 20, priceInr: 89 }])).toBe(false);
     expect(validSetting('credit_packs', [{ id: 'q10', credits: -1, priceInr: 49 }])).toBe(false);
+    expect(validSetting('subscription_plans', [{ id: 'monthly', productId: 'premium:monthly', months: 1, priceInr: 249, bonusCredits: 20, trialDays: 0 }])).toBe(true);
+    expect(validSetting('subscription_plans', [{ id: 'monthly', productId: 'premium:monthly', months: 2, priceInr: 249, bonusCredits: 20, trialDays: 0 }])).toBe(false);
+    expect(validSetting('premium_daily_questions', 30)).toBe(true);
     expect(validSetting('is_admin', true)).toBe(false);
     expect(validSetting('toString', 'x')).toBe(false);
   });

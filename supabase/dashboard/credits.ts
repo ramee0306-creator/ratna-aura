@@ -66,19 +66,141 @@ async function setting<T>(key: string, fallback: T): Promise<T> {
   return value !== undefined && value !== null && typeof value === typeof fallback ? (value as T) : fallback;
 }
 
+// ---- _shared/subscriptions.ts ----
+// Premium subscription plans and RevenueCat subscription events. No network here, so it can be tested.
+// Docs: https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields
+
+type Plan = {
+  id: string;
+  /** Google Play "product:base plan" id, as RevenueCat reports it */
+  productId: string;
+  months: number;
+  priceInr: number;
+  /** Credits added at the start of every paid period */
+  bonusCredits: number;
+  /** Free trial length in days (0 = none) */
+  trialDays: number;
+};
+
+/** Keeps only well-formed plans from app_settings.subscription_plans. */
+function cleanPlans(value: unknown): Plan[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (p): p is Plan =>
+      !!p && typeof p === 'object' &&
+      typeof p.id === 'string' && /^[a-z0-9_]{1,30}$/.test(p.id) &&
+      typeof p.productId === 'string' && p.productId.length > 0 &&
+      [1, 3, 6, 12].includes(p.months) &&
+      typeof p.priceInr === 'number' && p.priceInr > 0 &&
+      Number.isInteger(p.bonusCredits) && p.bonusCredits >= 0 &&
+      Number.isInteger(p.trialDays) && p.trialDays >= 0 && p.trialDays <= 31,
+  );
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+type SubscriptionAction = {
+  kind: 'subscription';
+  userId: string;
+  planId: string;
+  status: 'active' | 'in_grace' | 'expired';
+  periodEnd: string;
+  willRenew: boolean;
+  isTrial: boolean;
+  originalTransactionId: string | null;
+  /** Bonus credits for a newly paid period (not for free trials) */
+  bonus: { credits: number; reference: string } | null;
+};
+
+/** What a RevenueCat subscription event means for us, or null if it is not one we handle. */
+function subscriptionAction(body: unknown, plans: Plan[]): SubscriptionAction | null {
+  const e = (body as { event?: Record<string, unknown> } | null)?.event;
+  if (!e || typeof e !== 'object') return null;
+  const type = String(e.type);
+  if (!['INITIAL_PURCHASE', 'RENEWAL', 'UNCANCELLATION', 'CANCELLATION', 'BILLING_ISSUE', 'EXPIRATION'].includes(type)) return null;
+  const userId = e.app_user_id;
+  if (typeof userId !== 'string' || !UUID.test(userId)) return null;
+  const plan = plans.find((p) => p.productId === e.product_id || p.id === e.product_id);
+  if (!plan) return null;
+  const expires = e.expiration_at_ms;
+  if (typeof expires !== 'number' || !Number.isFinite(expires) || expires <= 0) return null;
+  const isTrial = e.period_type === 'TRIAL';
+  const transaction = typeof e.transaction_id === 'string' ? e.transaction_id : '';
+  const paidPeriod = (type === 'INITIAL_PURCHASE' || type === 'RENEWAL') && !isTrial && transaction && plan.bonusCredits > 0;
+  return {
+    kind: 'subscription',
+    userId: userId.toLowerCase(),
+    planId: plan.id,
+    status: type === 'EXPIRATION' ? 'expired' : type === 'BILLING_ISSUE' ? 'in_grace' : 'active',
+    periodEnd: new Date(expires).toISOString(),
+    willRenew: type !== 'CANCELLATION' && type !== 'EXPIRATION',
+    isTrial,
+    originalTransactionId: typeof e.original_transaction_id === 'string' ? e.original_transaction_id : null,
+    bonus: paidPeriod ? { credits: plan.bonusCredits, reference: `play:${transaction}` } : null,
+  };
+}
+
+/** End of a test subscription period that starts now. */
+const periodEnd = (months: number, from = new Date()) => {
+  const end = new Date(from);
+  end.setUTCMonth(end.getUTCMonth() + months);
+  return end.toISOString();
+};
+
 // ---- _shared/wallet.ts ----
 // Question credits: how many a user has, and the price list.
 
-type Wallet = { credits: number; freeLeft: number; freeLimit: number };
+type Premium = {
+  planId: string;
+  status: 'active' | 'in_grace' | 'expired';
+  willRenew: boolean;
+  isTrial: boolean;
+  periodEnd: string;
+  store: 'play' | 'test';
+};
+type Wallet = {
+  credits: number;
+  freeLeft: number;
+  freeLimit: number;
+  /** The running Premium subscription, or null */
+  premium: Premium | null;
+  /** Premium Ask AI questions left today (fair use) */
+  premiumLeftToday: number;
+};
 type CreditPack = { id: string; credits: number; priceInr: number };
 
 const freeLimit = () => setting('free_questions', 3);
+const premiumDaily = () => setting('premium_daily_questions', 30);
+const subscriptionPlans = async (): Promise<Plan[]> => cleanPlans(await setting<unknown[]>('subscription_plans', []));
+
+async function runningPremium(userId: string): Promise<Premium | null> {
+  const { data, error } = await admin()
+    .from('subscriptions')
+    .select('plan_id, status, will_renew, is_trial, current_period_end, store')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data || data.status === 'expired' || Date.parse(data.current_period_end) <= Date.now()) return null;
+  return { planId: data.plan_id, status: data.status, willRenew: data.will_renew, isTrial: data.is_trial, periodEnd: data.current_period_end, store: data.store };
+}
 
 async function getWallet(userId: string): Promise<Wallet> {
-  const limit = await freeLimit();
-  const { data, error } = await admin().from('wallets').select('credits, free_questions_used').eq('user_id', userId).maybeSingle();
+  const [limit, daily, premium] = await Promise.all([freeLimit(), premiumDaily(), runningPremium(userId)]);
+  const { data, error } = await admin()
+    .from('wallets')
+    .select('credits, free_questions_used, premium_day, premium_day_used')
+    .eq('user_id', userId)
+    .maybeSingle();
   if (error) throw error;
-  return { credits: data?.credits ?? 0, freeLeft: Math.max(limit - (data?.free_questions_used ?? 0), 0), freeLimit: limit };
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata' }).format(new Date());
+  const usedToday = data?.premium_day === today ? data.premium_day_used : 0;
+  return {
+    credits: data?.credits ?? 0,
+    freeLeft: Math.max(limit - (data?.free_questions_used ?? 0), 0),
+    freeLimit: limit,
+    premium,
+    premiumLeftToday: premium ? Math.max(daily - usedToday, 0) : 0,
+  };
 }
 
 /** Packs from app_settings.credit_packs, keeping only well-formed entries. */
@@ -92,44 +214,81 @@ async function creditPacks(): Promise<CreditPack[]> {
 }
 
 // ---- credits/index.ts ----
-// Question credits.
+// Question credits and the Premium subscription.
 //
-//   GET  /credits                    -> { wallet, packs, mode }
-//   POST /credits  { "packId": "q10" } -> { wallet }   (TEST MODE ONLY: adds credits without payment)
+//   GET  /credits                              -> { wallet, packs, plans, mode }
+//   POST /credits  { "packId": "q10" }          -> { wallet }   TEST MODE: adds credits without payment
+//   POST /credits  { "planId": "monthly" }      -> { wallet }   TEST MODE: starts Premium without payment
+//   POST /credits  { "action": "cancelTest" }   -> { wallet }   TEST MODE: turns off auto-renew (Premium runs to period end)
 //
-// Real payments (Google Play through RevenueCat) replace the POST in a later milestone. Until then
-// app_settings.payments_mode is 'test'; set it to 'off' to hide buying completely.
+// Real payments go through Google Play (RevenueCat → supabase/functions/revenuecat). Until then
+// app_settings.payments_mode is 'test'; 'off' hides buying; 'live' uses Google Play.
 
 /** Test purchases per user per day, so the test mode can't be used to pile up free credits. */
 const TEST_PURCHASES_PER_DAY = 5;
+
+async function testPurchasesToday(userId: string) {
+  const since = new Date(Date.now() - 24 * 3600_000).toISOString();
+  const { count, error } = await admin()
+    .from('credit_ledger')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .in('reason', ['test_purchase', 'test_subscription'])
+    .gte('created_at', since);
+  if (error) throw error;
+  return count ?? 0;
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   const user = await getUser(req);
   if (!user) return errorResponse(401, 'Please sign in again');
+  const db = admin();
 
   try {
     const mode = await setting('payments_mode', 'off');
-    if (req.method === 'GET') return json({ wallet: await getWallet(user.id), packs: await creditPacks(), mode });
+    if (req.method === 'GET') {
+      return json({ wallet: await getWallet(user.id), packs: await creditPacks(), plans: await subscriptionPlans(), mode });
+    }
     if (req.method !== 'POST') return errorResponse(405, 'Method not allowed');
 
-    if (mode !== 'test') return errorResponse(403, 'Buying credits is not available yet');
-    const body = (await readJson(req)) as { packId?: unknown } | undefined;
-    const pack = (await creditPacks()).find((p) => p.id === body?.packId);
+    if (mode !== 'test') return errorResponse(403, 'Test purchases are switched off');
+    const body = ((await readJson(req)) ?? {}) as { packId?: unknown; planId?: unknown; action?: unknown };
+
+    if (body.action === 'cancelTest') {
+      const { error } = await db.from('subscriptions').update({ will_renew: false, updated_at: new Date().toISOString() }).match({ user_id: user.id, store: 'test' });
+      if (error) throw error;
+      return json({ wallet: await getWallet(user.id) });
+    }
+
+    if ((await testPurchasesToday(user.id)) >= TEST_PURCHASES_PER_DAY) return errorResponse(429, 'Test purchase limit reached for today');
+
+    if (body.planId !== undefined) {
+      const plan = (await subscriptionPlans()).find((p) => p.id === body.planId);
+      if (!plan) return errorResponse(400, 'Unknown plan');
+      const { error } = await db.rpc('set_subscription', {
+        p_user: user.id,
+        p_plan: plan.id,
+        p_status: 'active',
+        p_period_end: periodEnd(plan.months),
+        p_will_renew: true,
+        p_is_trial: false,
+        p_store: 'test',
+        p_original_transaction_id: null,
+      });
+      if (error) throw error;
+      if (plan.bonusCredits > 0) {
+        const { error: bonusError } = await db.rpc('add_credits', { p_user: user.id, p_credits: plan.bonusCredits, p_reason: 'test_subscription', p_reference: null });
+        if (bonusError) throw bonusError;
+      }
+      return json({ wallet: await getWallet(user.id) });
+    }
+
+    const pack = (await creditPacks()).find((p) => p.id === body.packId);
     if (!pack) return errorResponse(400, 'Unknown pack');
-
-    const since = new Date(Date.now() - 24 * 3600_000).toISOString();
-    const { count, error } = await admin()
-      .from('credit_ledger')
-      .select('id', { count: 'exact', head: true })
-      .match({ user_id: user.id, reason: 'test_purchase' })
-      .gte('created_at', since);
+    const { error } = await db.rpc('add_credits', { p_user: user.id, p_credits: pack.credits, p_reason: 'test_purchase', p_reference: null });
     if (error) throw error;
-    if ((count ?? 0) >= TEST_PURCHASES_PER_DAY) return errorResponse(429, 'Test purchase limit reached for today');
-
-    const { error: addError } = await admin().rpc('add_credits', { p_user: user.id, p_credits: pack.credits, p_reason: 'test_purchase', p_reference: null });
-    if (addError) throw addError;
     return json({ wallet: await getWallet(user.id) });
   } catch (err) {
     console.error('credits failed', err instanceof Error ? err.message : err);

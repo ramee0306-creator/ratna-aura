@@ -6,7 +6,8 @@
 //        -> { threadId, answer, distress, wallet }
 //        -> 402 { error, wallet } when no free questions or credits are left
 //
-// Each question uses one of the free questions, otherwise one credit; if the AI cannot answer, it is given back.
+// Premium members ask without counting (fair-use daily limit); others use a free question, otherwise one credit.
+// If the AI cannot answer, the question is given back.
 // Questions and answers are stored encrypted, like birth details.
 import { cleanQuestion } from '../_shared/ask.ts';
 import { answer, latestThread, resolveConversation } from '../_shared/chat.ts';
@@ -15,7 +16,7 @@ import { corsHeaders, errorResponse, json, readJson } from '../_shared/http.ts';
 import { isLanguage } from '../_shared/languages.ts';
 import { UUID } from '../_shared/profiles.ts';
 import { admin, getUser } from '../_shared/supabase.ts';
-import { freeLimit, getWallet } from '../_shared/wallet.ts';
+import { freeLimit, getWallet, premiumDaily } from '../_shared/wallet.ts';
 
 const WASM = new URL('./swiss_eph.wasm', import.meta.url);
 
@@ -28,7 +29,11 @@ async function handlePost(userId: string, req: Request) {
 
   // Pay for the question first (atomic in the database), give it back if anything fails.
   const db = admin();
-  const { data: paidWith, error } = await db.rpc('spend_question', { p_user: userId, p_free_limit: await freeLimit() });
+  const { data: paidWith, error } = await db.rpc('spend_question', {
+    p_user: userId,
+    p_free_limit: await freeLimit(),
+    p_premium_daily: await premiumDaily(),
+  });
   if (error) throw error;
   if (paidWith === 'none') return json({ error: 'No questions left', wallet: await getWallet(userId) }, 402);
   try {
