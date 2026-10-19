@@ -1,6 +1,6 @@
 // मराठी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import jyotish from './jyotish.en'; // TODO: translate (jyotish.mr.ts)
+import jyotish from './jyotish.mr';
 import kundli from './kundli.mr';
 import numerology from './numerology.mr';
 

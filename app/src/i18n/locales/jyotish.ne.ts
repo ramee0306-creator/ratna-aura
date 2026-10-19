@@ -199,8 +199,8 @@ const jyotish: DeepStringRecord<typeof jyotishEn> = {
     manglikTitle: 'मांगलिक (मङ्गल दोष)',
     manglikYes: 'मांगलिक',
     manglikNo: 'मांगलिक होइन',
-    fromLagna: 'मङ्गल लग्नबाट {{house}} औँ भावमा',
-    fromMoon: 'मङ्गल चन्द्रमाबाट {{house}} औँ भावमा',
+    fromLagna: 'मङ्गल लग्नबाट {{house}}औँ भावमा',
+    fromMoon: 'मङ्गल चन्द्रमाबाट {{house}}औँ भावमा',
     noTime: 'जन्म समय थाहा छैन, त्यसैले चन्द्रमाबाट मात्र जाँचिएको हो।',
     softened: 'मङ्गल आफ्नै वा उच्च राशिमा छ, जसले परम्पराअनुसार यसको प्रभाव हल्का बनाउँछ।',
     balance: {
