@@ -9,6 +9,7 @@ import lang_mr from './locales/mr';
 import lang_te from './locales/te';
 import lang_ta from './locales/ta';
 import lang_gu from './locales/gu';
+import lang_ur from './locales/ur';
 import lang_kn from './locales/kn';
 import lang_or from './locales/or';
 import lang_ml from './locales/ml';
@@ -23,6 +24,7 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'te': lang_te,
   'ta': lang_ta,
   'gu': lang_gu,
+  'ur': lang_ur,
   'kn': lang_kn,
   'or': lang_or,
   'ml': lang_ml,
