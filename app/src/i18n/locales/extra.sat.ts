@@ -1,6 +1,5 @@
 // ᱱᱟᱶᱟ ᱥᱠᱨᱤᱱ ᱠᱚ ᱨᱮᱱᱟᱜ ᱥᱟᱱᱛᱟᱲᱤ ᱚᱞ (AI ᱯᱚᱨᱥᱳᱱᱟ, PDF ᱨᱤᱯᱳᱨᱴ, ᱨᱤᱢᱟᱭᱱᱰᱟᱨ, ᱜᱚᱯᱚᱱ, ᱯᱮᱢᱮᱱᱴ, ᱥᱟᱰᱮ); sat.ts ᱨᱮ `extra` ᱞᱮᱠᱟ ᱥᱮᱞᱮᱫ ᱠᱟᱱᱟ᱾
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ᱨᱩᱠᱷᱤᱭᱟᱹ ᱟᱨ ᱵᱟᱯᱞᱟ', text: 'ᱟᱢᱟᱜ ᱠᱩᱱᱰᱞᱤ ᱛᱮ ᱥᱚᱢᱵᱚᱱᱫᱷᱚ, ᱵᱟᱯᱞᱟ ᱟᱨ ᱯᱚᱨᱤᱵᱟᱨ ᱵᱟᱵᱚᱛ, ᱢᱚᱛᱮ ᱟᱨ ᱡᱟᱛᱚᱱ ᱥᱟᱶ᱾' },
       shastri: { role: 'ᱨᱤᱛᱤ ᱨᱮᱱᱟᱜ ᱯᱚᱱᱰᱤᱛ', text: 'ᱯᱚᱸᱪᱟᱸᱜ, ᱢᱩᱦᱩᱨᱛᱚ (ᱵᱮᱥ ᱚᱠᱛᱚ), ᱯᱚᱨᱚᱵ ᱟᱨ ᱥᱚᱡᱷᱮ ᱨᱤᱛᱤ ᱨᱮᱱᱟᱜ ᱩᱯᱟᱭ ᱠᱚ᱾' },
       tara: { role: 'ᱠᱟᱹᱢᱤ ᱟᱨ ᱞᱟᱹᱠᱛᱤ ᱯᱟᱲᱦᱟᱣ', text: 'ᱡᱳᱛᱤᱥ ᱟᱨ ᱟᱸᱠ ᱛᱮ ᱠᱟᱹᱢᱤ, ᱯᱟᱲᱦᱟᱣ ᱟᱨ ᱡᱤᱣᱤ ᱨᱮᱱᱟᱜ ᱪᱟᱞᱟᱜ ᱵᱟᱵᱚᱛ᱾' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'ᱞᱟᱞ ᱠᱤᱛᱟᱵᱽ ᱜᱭᱟᱱᱤ', text: 'ᱞᱟᱞ ᱠᱤᱛᱟᱵᱽ ᱨᱮᱱᱟᱜ ᱯᱟᱲᱦᱟᱣ, ᱚᱲᱟᱜ ᱨᱮ ᱠᱟᱹᱢᱤ ᱫᱟᱲᱮᱭᱟᱜ ᱥᱚᱡᱷᱮ ᱟᱨ ᱠᱚᱢ ᱠᱷᱚᱨᱚᱪ ᱩᱯᱟᱭ ᱥᱟᱶ᱾' },
+      kavya: { role: 'KP ᱟᱨ ᱯᱨᱚᱥᱱᱚ', text: 'KP ᱥᱤᱥᱴᱚᱢ ᱟᱨ ᱯᱨᱚᱥᱱᱚ: ᱦᱮᱸ-ᱵᱟᱝ ᱠᱩᱠᱞᱤ ᱟᱨ ᱚᱠᱛᱚ ᱵᱟᱵᱚᱛ ᱥᱟᱯᱷᱟ ᱵᱤᱪᱟᱹᱨ᱾' },
+      gopal: { role: 'ᱵᱟᱥᱛᱩ ᱥᱟᱥᱛᱨᱚ', text: 'ᱟᱢᱟᱜ ᱚᱲᱟᱜ, ᱫᱚᱠᱟᱱ ᱥᱮ ᱚᱯᱷᱤᱥ ᱞᱟᱹᱜᱤᱫ ᱵᱟᱥᱛᱩ, ᱟᱞᱜᱟ ᱵᱚᱫᱚᱞ ᱥᱟᱶ, ᱡᱟᱦᱟᱸ ᱨᱟᱹᱯᱩᱫ ᱵᱮᱜᱚᱨ᱾' },
+      lakshmi: { role: 'ᱫᱷᱚᱱ ᱟᱨ ᱠᱟᱨᱵᱟᱨ', text: 'ᱟᱢᱟᱜ ᱠᱩᱱᱰᱞᱤ ᱛᱮ ᱴᱟᱠᱟ, ᱴᱟᱠᱟ ᱫᱚᱦᱚ ᱟᱨ ᱠᱟᱨᱵᱟᱨ, ᱟᱨ ᱮᱛᱦᱚᱵ ᱞᱟᱹᱜᱤᱫ ᱵᱮᱥ ᱚᱠᱛᱚ ᱠᱚ᱾' },
+      arjun: { role: 'ᱵᱤᱫᱮᱥ ᱪᱟᱞᱟᱜ', text: 'ᱟᱢᱟᱜ ᱠᱩᱱᱰᱞᱤ ᱛᱮ ᱵᱤᱫᱮᱥ ᱨᱮ ᱯᱟᱲᱦᱟᱣ, ᱵᱷᱤᱥᱟ, ᱵᱤᱫᱮᱥ ᱨᱮ ᱠᱟᱹᱢᱤ ᱟᱨ ᱵᱤᱫᱮᱥ ᱨᱮ ᱛᱟᱦᱮᱸ ᱵᱟᱵᱚᱛ᱾' },
+      savitri: { role: 'ᱜᱤᱫᱽᱨᱤ ᱟᱨ ᱯᱚᱨᱤᱵᱟᱨ', text: 'ᱜᱤᱫᱽᱨᱤ ᱠᱚ, ᱩᱱᱠᱩᱣᱟᱜ ᱯᱟᱲᱦᱟᱣ ᱟᱨ ᱥᱩᱵᱷᱟᱣ, ᱟᱨ ᱯᱚᱨᱤᱵᱟᱨ ᱨᱮ ᱥᱟᱱᱛᱤ, ᱟᱭᱳ ᱞᱮᱠᱟ ᱡᱟᱛᱚᱱ ᱥᱟᱶ᱾' },
+      rudra: { role: 'ᱥᱚᱱᱤ, ᱨᱟᱦᱩ ᱟᱨ ᱠᱮᱛᱩ', text: 'ᱥᱟᱰᱮ ᱥᱟᱛᱤ, ᱰᱷᱟᱭᱭᱟ, ᱨᱟᱦᱩ–ᱠᱮᱛᱩ ᱟᱨ ᱜᱨᱟᱦᱚ ᱠᱚᱣᱟᱜ ᱜᱚᱪᱚᱨ, ᱵᱚᱛᱚᱨ ᱵᱮᱜᱚᱨ ᱵᱟᱛᱟᱣ ᱠᱟᱱᱟ᱾' },
     },
   },
   report: {

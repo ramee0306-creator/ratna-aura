@@ -1,6 +1,5 @@
 // नूतनपटलानां संस्कृतपाठः: AI-पात्राणि, PDF-प्रतिवेदनम्, स्मारकम्, गोपनीयता, देयकम्, ध्वनिः (sa.ts मध्ये `extra` इति रूपेण सम्मिलितः)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम विवाहश्च', text: 'भवतः कुण्डल्या सम्बन्धाः, विवाहः, कुटुम्बं च, स्नेहेन आदरेण च।' },
       shastri: { role: 'पारम्परिकः पण्डितः', text: 'पञ्चाङ्गम्, मुहूर्तः (शुभसमयः), उत्सवाः सरलाः पारम्परिकोपायाः च।' },
       tara: { role: 'वृत्तिः अध्ययनं च', text: 'ज्योतिषेण अङ्कैः च कार्यं, अध्ययनं, जीवनदिशा च।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लालकिताब-विशेषज्ञः', text: 'लालकिताबानुसारं फलकथनं, गृहे एव कर्तुं शक्याः सरलाः अल्पव्ययाः उपायाः च।' },
+      kavya: { role: 'KP प्रश्नश्च', text: 'KP-पद्धतिः प्रश्नशास्त्रं च: आम् वा न इति प्रश्नानां समयस्य च विषये स्पष्टः दृष्टिकोणः।' },
+      gopal: { role: 'वास्तुशास्त्रम्', text: 'भवतः गृहस्य, आपणस्य, कार्यालयस्य वा कृते वास्तु, सुकरैः परिवर्तनैः, किमपि भञ्जनं विना।' },
+      lakshmi: { role: 'धनं वाणिज्यं च', text: 'भवतः कुण्डल्या धनं, सञ्चयः, वाणिज्यं च, आरम्भाय शुभकालाः च।' },
+      arjun: { role: 'विदेशयात्रा प्रवासश्च', text: 'भवतः कुण्डल्या विदेशे अध्ययनं, प्रवेशपत्रम् (वीसा), विदेशे वृत्तिः, विदेशे निवासः च।' },
+      savitri: { role: 'सन्ततिः कुटुम्बं च', text: 'सन्ततिः, तस्याः अध्ययनं स्वभावः च, कुटुम्बे शान्तिः च, मातुः वात्सल्येन।' },
+      rudra: { role: 'शनिः, राहुः केतुः च', text: 'साढेसाती, ढैय्या, राहु–केतू ग्रहगोचरः च, भयं विना विशदीकृताः।' },
     },
   },
   report: {

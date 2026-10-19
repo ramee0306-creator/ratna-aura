@@ -1,6 +1,5 @@
 // छत्तीसगढ़ी पाठ: पर्सोना, रिपोर्ट, रिमाइंडर, प्राइवेसी, भुगतान अउ आवाज (hne.ts मं `extra` के रूप मं शामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम अउ बिहाव', text: 'आपके चार्ट के जरिया ले रिश्ता, बिहाव अउ परिवार, मया अउ फिकर के संग।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पंचांग, मुहूर्त (सुघ्घर बखत), तिहार अउ सरल पारंपरिक उपाय।' },
       tara: { role: 'करियर अउ पढ़ई', text: 'ज्योतिष अउ अंक के जरिया ले काम, पढ़ई अउ जिनगी के रद्दा।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लाल किताब जानकार', text: 'लाल किताब ले फलादेस, घर मं करे लाइक सरल अउ कम खरचा वाले उपाय के संग।' },
+      kavya: { role: 'KP अउ प्रश्न', text: 'KP पद्धति अउ प्रश्न: हव-नइ वाले सवाल अउ बखत ऊपर साफ-साफ राय।' },
+      gopal: { role: 'वास्तु शास्त्र', text: 'आपके घर, दुकान या ऑफिस बर वास्तु, सहज बदलाव के संग, बिन कुछु टोरे-फोरे।' },
+      lakshmi: { role: 'धन अउ बेपार', text: 'आपके चार्ट के जरिया ले पइसा, बचत अउ बेपार, अउ सुरू करे बर सुघ्घर बखत।' },
+      arjun: { role: 'बिदेस यातरा', text: 'आपके चार्ट के जरिया ले बिदेस मं पढ़ई, वीजा, बिदेस मं नौकरी अउ उहाँ बसे के बात।' },
+      savitri: { role: 'लइका अउ परिवार', text: 'लइका मन, ओमन के पढ़ई अउ सुभाव, अउ परिवार मं सांति, महतारी जइसे मया के संग।' },
+      rudra: { role: 'शनि, राहु अउ केतु', text: 'साढ़े साती, ढैया, राहु–केतु अउ ग्रह मन के गोचर, बिन डर के समझाए गे।' },
     },
   },
   report: {

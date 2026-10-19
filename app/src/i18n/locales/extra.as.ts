@@ -1,6 +1,5 @@
 // নতুন স্ক্ৰীনসমূহৰ অসমীয়া পাঠ (AI পাৰ্ছোনা, PDF ৰিপ’ৰ্ট, ৰিমাইণ্ডাৰ, গোপনীয়তা, পেমেণ্ট, ভইচ); as.ts ত `extra` হিচাপে অন্তৰ্ভুক্ত।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'প্ৰেম আৰু বিবাহ', text: 'আপোনাৰ কোষ্ঠীৰ জৰিয়তে সম্পৰ্ক, বিবাহ আৰু পৰিয়াল, আন্তৰিকতা আৰু যত্নৰে।' },
       shastri: { role: 'পৰম্পৰাগত পণ্ডিত', text: 'পঞ্জিকা, মুহূৰ্ত (শুভ সময়), উৎসৱ আৰু সহজ পৰম্পৰাগত উপায়।' },
       tara: { role: 'কৰ্মজীৱন আৰু পঢ়াশুনা', text: 'জ্যোতিষ আৰু সংখ্যাৰ জৰিয়তে কাম, পঢ়াশুনা আৰু জীৱনৰ বাট।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'লাল কিতাব বিশেষজ্ঞ', text: 'লাল কিতাব অনুসৰি বিশ্লেষণ, ঘৰতে কৰিব পৰা সহজ আৰু কম খৰচৰ উপায়ৰে।' },
+      kavya: { role: 'KP আৰু প্ৰশ্ন', text: 'KP পদ্ধতি আৰু প্ৰশ্ন: হয় নে নহয় ধৰণৰ প্ৰশ্ন আৰু সময়ৰ বিষয়ে স্পষ্ট মতামত।' },
+      gopal: { role: 'বাস্তু শাস্ত্ৰ', text: 'আপোনাৰ ঘৰ, দোকান বা কাৰ্যালয়ৰ বাবে বাস্তু, সহজ সলনিৰে আৰু একো ভঙাভঙি নকৰাকৈ।' },
+      lakshmi: { role: 'ধন আৰু ব্যৱসায়', text: 'আপোনাৰ কোষ্ঠীৰ জৰিয়তে টকা-পইচা, সঞ্চয় আৰু ব্যৱসায়, লগতে আৰম্ভ কৰিবলৈ শুভ সময়।' },
+      arjun: { role: 'বিদেশ ভ্ৰমণ আৰু প্ৰবাস', text: 'আপোনাৰ কোষ্ঠীৰ জৰিয়তে বিদেশত অধ্যয়ন, ভিছা, বিদেশত চাকৰি আৰু বিদেশত বসবাস।' },
+      savitri: { role: 'সন্তান আৰু পৰিয়াল', text: 'সন্তান, তেওঁলোকৰ পঢ়াশুনা আৰু স্বভাৱ, আৰু পৰিয়ালত শান্তি, মাতৃৰ দৰে যত্নৰে।' },
+      rudra: { role: 'শনি, ৰাহু আৰু কেতু', text: 'সাড়েসাতী, ঢৈয়া, ৰাহু–কেতু আৰু গ্ৰহৰ গোচৰ, ভয় নোদেখুৱাকৈ বুজাই দিয়া।' },
     },
   },
   report: {

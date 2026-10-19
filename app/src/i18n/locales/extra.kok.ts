@@ -1,6 +1,5 @@
 // AI पर्सोना, PDF अहवाल, याद, खाजगी धोरण, पयशे भरप आनी आवाजाचो कोंकणी (देवनागरी) मजकूर (kok.ts त `extra` म्हणून).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'मोग आनी लग्न', text: 'तुमच्या कुंडली वरवीं नातीं, लग्न आनी कुटुंब — मोगान आनी काळजीन.' },
       shastri: { role: 'पारंपरीक पंडित', text: 'पंचांग, मुहूर्त (बरो वेळ), सण आनी सादे पारंपरीक उपाय.' },
       tara: { role: 'करियर आनी शिकप', text: 'ज्योतिश आनी अंकां वरवीं काम, शिकप आनी जिणेची दिशा.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लाल किताब तज्ञ', text: 'लाल किताबा प्रमाण वाचन — घरा बसून करूं येता अशे सादे आनी उणे खर्चाचे उपाय.' },
+      kavya: { role: 'KP आनी प्रश्न', text: 'KP पद्धत आनी प्रश्न — हय वा ना अशा प्रस्नांचेर आनी वेळाचेर स्पश्ट नदर.' },
+      gopal: { role: 'वास्तुशास्त्र', text: 'तुमच्या घरा, दुकाना वा कार्यालया खातीर वास्तु — सोप्या बदलांनी, कसलीच मोडतोड करिनासतना.' },
+      lakshmi: { role: 'धन आनी वेवसाय', text: 'तुमच्या कुंडली वरवीं पयशे, बचत आनी वेवसाय, आनी सुरवात करपाक बरो काळ.' },
+      arjun: { role: 'परदेश प्रवास आनी वसती', text: 'तुमच्या कुंडली वरवीं परदेशांत शिकप, व्हिजा, परदेशांत नोकरी आनी थंयच स्थायीक जावप.' },
+      savitri: { role: 'भुरगीं आनी कुटुंब', text: 'भुरगीं, तांचें शिकप आनी सभाव, आनी कुटुंबांत शांती — आवयच्या काळजीन.' },
+      rudra: { role: 'शनी, राहू आनी केतू', text: 'साडेसाती, ढैय्या, राहू–केतू आनी ग्रहांचें गोचर — भंय नासतना सांगिल्लें.' },
     },
   },
   report: {

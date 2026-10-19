@@ -1,6 +1,5 @@
 // অনৌবা স্ক্রীনশিংগী মৈতৈলোন্ পাউ (AI পার্সোনা, PDF রিপোর্ট, রিমাইন্ডর, প্রাইভেসি, পেমেন্ট, ভইস); mni.ts দা `extra` ওইনা হাপচিল্লি।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'নুংশিবা অমসুং বিবাহ', text: 'নহাক্কী কুণ্ডলীগী মতাংদা সম্পর্ক, বিবাহ অমসুং ইমা-ইপা-ইপমশিং, নুংশিবা অমসুং কেয়ার ফংনা।' },
       shastri: { role: 'অরিবা পণ্ডিত', text: 'পঞ্চাঙ্গ, মুহূর্ত (ফজবা মতম), লাইহরাউবা অমসুং ফগৎহন্নবা লম্বী ঙাক-ঙাকশিং।' },
       tara: { role: 'কেরিয়র অমসুং ইশিংনবা', text: 'জ্যোতিষ অমসুং মশিংগী মতাংদা কাম, ইশিংনবা অমসুং মীয়ামগী লম্বী।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'লাল কিতাব বিশেষজ্ঞ', text: 'লাল কিতাবগী মতাংদা পাউ, য়ুমদা তৌবা ঙম্বা লাইবা অমসুং শেল য়াম চংদবা উপায়শিংগা লোয়ননা।' },
+      kavya: { role: 'KP অমসুং প্রশ্ন', text: 'KP পদ্ধতি অমসুং প্রশ্ন: হোয় নত্ত্রগা নত্তে হায়বা হংবশিং অমসুং মতমগী মতাংদা ময়েক শেংবা ৱাখল।' },
+      gopal: { role: 'বাস্তু শাস্ত্র', text: 'নহাক্কী য়ুম, দুকান নত্ত্রগা অফিসকী বাস্তু, লাইবা হোংদোকপশিংগা লোয়ননা অমসুং কিমত্তা থুগাইদনা।' },
+      lakshmi: { role: 'লন-থুম অমসুং কারবার', text: 'নহাক্কী কুণ্ডলীগী মতাংদা শেল, থমজিনবা অমসুং কারবার, অমসুং হৌদোকপগীদমক ফজবা মতম।' },
+      arjun: { role: 'বিদেশ চৎপা অমসুং লৈবা', text: 'নহাক্কী কুণ্ডলীগী মতাংদা বিদেশতা তম্বা, ভিসা, বিদেশতা থবক অমসুং মফম অদুদা লৈহৌবা।' },
+      savitri: { role: 'অঙাংশিং অমসুং ইমুং', text: 'অঙাংশিং, মখোয়গী তম্বা অমসুং মওং-মতৌ, অমসুং ইমুংদা শান্তি, ইমা অমগুম্বা যত্নগা লোয়ননা।' },
+      rudra: { role: 'শনি, রাহু অমসুং কেতু', text: 'সাড়েসাতী, ঢৈয়া, রাহু–কেতু অমসুং গ্রহশিংগী গোচর, কিহন্দনা ফংহন্নবা।' },
     },
   },
   report: {

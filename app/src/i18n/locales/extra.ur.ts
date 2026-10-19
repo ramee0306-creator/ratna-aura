@@ -1,6 +1,5 @@
 // نئی اسکرینوں (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) کا اردو متن (ur.ts میں `extra` کے طور پر شامل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'محبت اور شادی', text: 'آپ کی کنڈلی کے ذریعے رشتے، شادی اور خاندان، اپنائیت اور فکر کے ساتھ۔' },
       shastri: { role: 'روایتی پنڈت', text: 'پنچانگ، مہورت (اچھے اوقات)، تہوار اور سادہ روایتی تدابیر۔' },
       tara: { role: 'کیریئر اور تعلیم', text: 'نجوم اور اعداد کے ذریعے کام، تعلیم اور زندگی کی سمت۔' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'لال کتاب کے ماہر', text: 'لال کتاب کے مطابق رہنمائی، سادہ اور کم خرچ اپائے (تدابیر) کے ساتھ جو آپ گھر پر کر سکتے ہیں۔' },
+      kavya: { role: 'کے پی اور پرشن', text: 'کے پی سسٹم اور پرشن: ہاں یا نہیں والے سوالوں اور وقت کے بارے میں واضح رائے۔' },
+      gopal: { role: 'واستو شاستر', text: 'آپ کے گھر، دکان یا دفتر کے لیے واستو، آسان تبدیلیوں کے ساتھ اور بغیر کسی توڑ پھوڑ کے۔' },
+      lakshmi: { role: 'دولت اور کاروبار', text: 'آپ کی کنڈلی کے ذریعے پیسہ، بچت اور کاروبار، اور شروعات کے لیے اچھے ادوار۔' },
+      arjun: { role: 'بیرونِ ملک سفر اور قیام', text: 'آپ کی کنڈلی کے ذریعے بیرونِ ملک تعلیم، ویزا، بیرونِ ملک ملازمت اور وہاں بسنا۔' },
+      savitri: { role: 'اولاد اور خاندان', text: 'بچے، ان کی تعلیم اور مزاج، اور گھر میں سکون، ماں جیسی فکر کے ساتھ۔' },
+      rudra: { role: 'شنی، راہو اور کیتو', text: 'ساڑھے ساتی، ڈھیّا، راہو–کیتو اور سیاروں کی گردش، بغیر کسی خوف کے سمجھایا گیا۔' },
     },
   },
   report: {

@@ -1,6 +1,5 @@
 // बर\' (बड़ो) राव: पार्सोना, रिपोर्ट, रिमाइन्डार, प्राइभेसि, पेमेन्ट आरो आवाजनि बर\' (brx.ts-आव `extra` महरै हाबनाय)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'सोमोन्दै आरो हाबा', text: 'नोंथाङनि चार्टजों सोमोन्दै, हाबा आरो बिखुङ, गोजोन लामाजों।' },
       shastri: { role: 'पारम्परिक पंडित', text: 'पंचांग, मुहूर्त (गोजाम समाय), उत्सवफोर आरो सोलोंथाय पारम्परिक उपाय।' },
       tara: { role: 'खामानि आरो फोरोंनाय', text: 'ज्योतिष आरो अनजिमाजों खामानि, फोरोंनाय आरो जिउनि लामा।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लाल किताब मिथिगिरि', text: 'लाल किताबनि फरायनाय, न\'आव मावनो हानाय गोरलै आरो बेसेन खम उपायजों।' },
+      kavya: { role: 'KP आरो प्रश्न', text: 'KP सिस्टेम आरो प्रश्न: नंगौ-नङा सोंनायफोर आरो समायनि थाखाय गोरां बिजिरनाय।' },
+      gopal: { role: 'वास्तु शास्त्र', text: 'नोंथाङनि न\', दोकान एबा अफिसनि थाखाय वास्तु, गोरलै सोलायनायजों आरो जेबो बायनाय गैयै।' },
+      lakshmi: { role: 'रां आरो बेपार', text: 'नोंथाङनि चार्टजों रां, जमा खालामनाय आरो बेपार, आरो जागायनो मोजां समायफोर।' },
+      arjun: { role: 'बिदेश थांनाय', text: 'नोंथाङनि चार्टजों बिदेशआव फोरोंनाय, भिसा, बिदेशआव खामानि आरो बिदेशआव थानाय।' },
+      savitri: { role: 'फिसा आरो न\'खर', text: 'फिसाफोर, बिसोरनि फोरोंनाय आरो सुभाव, आरो न\'खरआव शान्ति, बिमानि गोसोजों।' },
+      rudra: { role: 'शनि, राहु आरो केतु', text: 'साढ़े साती, ढैया, राहु–केतु आरो ग्रहफोरनि गोचर, गिनाय गैयै बुजिनाय।' },
     },
   },
   report: {

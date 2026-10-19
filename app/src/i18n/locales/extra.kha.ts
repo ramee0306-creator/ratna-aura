@@ -1,6 +1,5 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'Ka jingieit bad marriage', text: 'Ki jingïasnoh, marriage bad ka kur ka khat da ka chart jong phi, bad ka jingieit bad ka jingkyrmen.' },
       shastri: { role: 'Pandit ka dustur', text: 'Panchang, muhurta (ki por ba bha), ki festival bad ki jingïarap ba sngew ka dustur.' },
       tara: { role: 'Ka kam bad ka jingpule', text: 'Ka kam, ka jingpule bad ka lynti ka jingim da astrology bad ki nambar.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'Nongtip Lal Kitab', text: 'Ki jingpule Lal Kitab bad ki upay (jingïarap) ba suk bad ba khlem bun pisa, ba phi lah ban leh ha ïing.' },
+      kavya: { role: 'KP bad prashna', text: 'Ka KP system bad prashna: ki jingïathuh ba shai shaphang ki jingkylli hooid-ne-em bad ka por.' },
+      gopal: { role: 'Vastu Shastra', text: 'Vastu na ka ïing, ka dukan ne ka ophis jong phi, da ki jingkylla ba suk bad khlem pynjot ei ei.' },
+      lakshmi: { role: 'Ka spah bad ka khaii', text: 'Ka pisa, ka jingthep pisa bad ka khaii-pateng da ka chart jong phi, bad ki por ba bha ban sdang.' },
+      arjun: { role: 'Ka jingleit sha bar ri', text: 'Ka jingpule sha bar ri, visa, ki kam sha bar ri bad ka jingsah sha bar ri da ka chart jong phi.' },
+      savitri: { role: 'Ki khun bad ka kur', text: 'Ki khun, ka jingpule bad ka rukom jong ki, bad ka jingsuk ha ka kur ka khat, da ka jingsumar kum ka kmie.' },
+      rudra: { role: 'Shani, Rahu bad Ketu', text: 'Sade Sati, Dhaiya, Rahu–Ketu bad ka jingiaid ki planet, la pynsngewthuh khlem jingtieng.' },
     },
   },
   report: {

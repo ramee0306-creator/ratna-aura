@@ -1,6 +1,5 @@
 // नए स्क्रीन (AI पर्सोना, PDF रिपोर्ट, याद दिलावै वाला, निजता, भुगतान, आवाज) कै अवधी पाठ (awa.ts मा `extra` के रूप मा सामिल)।
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'प्रेम अउर बियाह', text: 'आपकै कुंडली से रिस्ता, बियाह अउर परिवार कै बात, अपनापन अउर फिकिर के साथ।' },
       shastri: { role: 'पारंपरिक पंडित', text: 'पतरा (पंचांग), मुहूरत (नीक समय), तीज-तिउहार अउर सीधे-सादे पारंपरिक उपाय।' },
       tara: { role: 'करियर अउर पढ़ाई', text: 'ज्योतिष अउर अंकन से काम, पढ़ाई अउर जिनगी कै राह के बारे मा।' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'लाल किताब जानकार', text: 'लाल किताब से फलादेस, घरै पै करै लायक सीधे-सादे अउर कम खरचा वाले उपाय के साथ।' },
+      kavya: { role: 'KP अउर प्रश्न', text: 'KP पद्धति अउर प्रश्न: हाँ-ना वाले सवाल अउर समय पै साफ-साफ राय।' },
+      gopal: { role: 'वास्तु शास्त्र', text: 'आपकै घर, दुकान या दफ्तर बरे वास्तु, आसान बदलाव के साथ, बिना कुछ तोड़-फोड़ के।' },
+      lakshmi: { role: 'धन अउर कारोबार', text: 'आपकै कुंडली से पइसा, बचत अउर कारोबार, अउर सुरुआत करै बरे नीक समय।' },
+      arjun: { role: 'बिदेस जात्रा', text: 'आपकै कुंडली से बिदेस मा पढ़ाई, वीजा, बिदेस मा नौकरी अउर हुआँ बसै कै बात।' },
+      savitri: { role: 'लरिका अउर परिवार', text: 'लरिका-बच्चा, उनकै पढ़ाई अउर सुभाव, अउर परिवार मा सांति, महतारी जइसी फिकिर के साथ।' },
+      rudra: { role: 'शनि, राहु अउर केतु', text: 'साढ़े साती, ढैया, राहु–केतु अउर ग्रहन कै गोचर, बिना डर के समझाय के।' },
     },
   },
   report: {

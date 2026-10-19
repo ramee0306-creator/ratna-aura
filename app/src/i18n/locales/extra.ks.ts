@@ -1,6 +1,5 @@
 // نٔوِ سکرینَن (AI کردار، PDF رپورٹ، یاد دہانی، رازداری، ادائیگی، آواز) ہُند کٲشُر متن (ks.ts مَنٛز `extra` ہِنٛدِ طور شٲمِل)۔
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ماے تہٕ خانٛدر', text: 'تُہٕنٛزِ کُنڈلی ہِنٛدِ ذریعہٕ رِشتہٕ، خانٛدر تہٕ کۄٹُم، اپنایَت تہٕ فکر سٕتؠ۔' },
       shastri: { role: 'رِوایتی پنڈت', text: 'پنچانگ، مہورت (ژھوکھ وَقت)، تہوار تہٕ سادٕ رِوایتی اُپاے۔' },
       tara: { role: 'کیریر تہٕ تعلیم', text: 'جوتِش تہٕ نمبرَن ہِنٛدِ ذریعہٕ کٲم، تعلیم تہٕ زندگی ہُند رُخ۔' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'لال کتابُک ماہِر', text: 'لال کتابٕچ رَہنُمٲیی، سادٕ تہٕ کم خرچ اُپاے سٕتؠ، یِم توٚہؠ گَرِ مَنٛز کٔرِتھ ہیٚکِو۔' },
+      kavya: { role: 'کے پی تہٕ پرشن', text: 'کے پی سِسٹم تہٕ پرشن: آ یا نہٕ والیٚن سوالَن تہٕ وَقتس مُتعلِق صاف راے۔' },
+      gopal: { role: 'واستو شاستر', text: 'تُہٕنٛدِس گَرس، دُکانس یا دفترس خٲطرٕ واستو، آسان تبدیلیَو سٕتؠ تہٕ بغٲر کُنہِ توڑ پھوڑ۔' },
+      lakshmi: { role: 'دولت تہٕ کاروبار', text: 'تُہٕنٛزِ کُنڈلی ہِنٛدِ ذریعہٕ پونٛسہٕ، بچت تہٕ کاروبار، تہٕ شروعات کرنہٕ خٲطرٕ جان وَقت۔' },
+      arjun: { role: 'بیرونِ مُلک سفر تہٕ قیام', text: 'تُہٕنٛزِ کُنڈلی ہِنٛدِ ذریعہٕ بیرونِ مُلک تعلیم، ویزا، بیرونِ مُلک نوکری تہٕ بیرونِ مُلک بسُن۔' },
+      savitri: { role: 'شُری تہٕ کۄٹُم', text: 'شُری، تِہُنٛد پَرُن تہٕ مِزاج، تہٕ گَرس مَنٛز سُکوٗن، ماجِ ہِنٛزِ فکرِ سٕتؠ۔' },
+      rudra: { role: 'شنی، راہو تہٕ کیتو', text: 'ساڑھے ساتی، ڈھیا، راہو–کیتو تہٕ گرہَن ہُند گوچر، بغٲر کُنہِ خوفٕ سمجھاونہٕ آمُت۔' },
     },
   },
   report: {

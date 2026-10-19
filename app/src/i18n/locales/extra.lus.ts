@@ -1,6 +1,5 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'Hmangaihna leh inneihna', text: 'I chart hmangin inlaichînna, inneihna leh chhungkua chungchang, ngilneihna leh fimkhurna nen.' },
       shastri: { role: 'Hnam dan pandit', text: 'Panchang, muhurta (hun ṭha), kuthnghah leh hnam dan anga tihdan ngaihnawm.' },
       tara: { role: 'Hnathawh leh zirna', text: 'Astrology leh number hmangin hnathawh, zirna leh nunphung kawng.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'Lal Kitab thiam', text: 'Lal Kitab chhiarna, in lama i tih theih upay (tihdan) awlsam leh senso tlem nen.' },
+      kavya: { role: 'KP leh prashna', text: 'KP system leh prashna: aw emaw ni lo zawhna leh hun chungchanga ngaihdan chiang tak.' },
+      gopal: { role: 'Vastu Shastra', text: 'I in, dawr emaw office atan Vastu, thlak danglam awlsam tak nen, tihchhiat ngai lovin.' },
+      lakshmi: { role: 'Hausakna leh sumdawnna', text: 'I chart hmangin pawisa, sum khawl leh sumdawnna, leh ṭan nan hun ṭha.' },
+      arjun: { role: 'Ram dang zin', text: 'I chart hmangin ram dangah zirna, visa, ram dangah hnathawh leh ram dangah awm nghet.' },
+      savitri: { role: 'Fate leh chhungkua', text: 'Fate te, an zirna leh an mizia, leh chhungkaw remna, nu ngaihsakna nen.' },
+      rudra: { role: 'Shani, Rahu leh Ketu', text: 'Sade Sati, Dhaiya, Rahu–Ketu leh planet kalna (transit), hlauhna tel lovin hrilhfiah.' },
     },
   },
   report: {

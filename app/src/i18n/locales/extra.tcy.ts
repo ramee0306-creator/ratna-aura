@@ -1,6 +1,5 @@
 // ತುಳು (ಕನ್ನಡ ಲಿಪಿ): ಪರ್ಸೋನಾ, ರಿಪೋರ್ಟ್, ರಿಮೈಂಡರ್, ಗೋಪ್ಯತೆ, ಪಾವತಿ, ಧ್ವನಿದ ಪಾಠ (tcy.ts ಡ್ `extra` ಆದ್ ಸೇರ್ದುಂಡು).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate new personas (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -32,13 +31,13 @@ const extra: DeepStringRecord<typeof extraEn> = {
       meera: { role: 'ಪ್ರೀತಿ & ಮದ್ಮೆ', text: 'ಈರೆನ ಕುಂಡಲಿ ಮುಖಾಂತರ ಸಂಬಂಧೊಲು, ಮದ್ಮೆ ಬೊಕ್ಕ ಕುಟುಂಬದ ಬಗ್ಗೆ ಪ್ರೀತಿ ಬೊಕ್ಕ ಕಾಳಜಿಡ್.' },
       shastri: { role: 'ಸಾಂಪ್ರದಾಯಿಕ ಪಂಡಿತೆ', text: 'ಪಂಚಾಂಗ, ಮುಹೂರ್ತ (ಒಳ್ಳೆದ ಸಮಯೊಲು), ಹಬ್ಬೊಲು ಬೊಕ್ಕ ಸರಳ ಸಾಂಪ್ರದಾಯಿಕ ಪರಿಹಾರೊಲು.' },
       tara: { role: 'ಉದ್ಯೋಗ & ಕಲಿಪು', text: 'ಕೆಲಸ, ಕಲಿಪು ಬೊಕ್ಕ ಜೀವನದ ದಿಕ್ಕ್ — ಜ್ಯೋತಿಷ್ಯ ಬೊಕ್ಕ ಅಂಕೆಲೆನ ಮುಖಾಂತರ.' },
-      devraj: extraEnglish.personas.about.devraj, // TODO: translate
-      kavya: extraEnglish.personas.about.kavya, // TODO: translate
-      gopal: extraEnglish.personas.about.gopal, // TODO: translate
-      lakshmi: extraEnglish.personas.about.lakshmi, // TODO: translate
-      arjun: extraEnglish.personas.about.arjun, // TODO: translate
-      savitri: extraEnglish.personas.about.savitri, // TODO: translate
-      rudra: extraEnglish.personas.about.rudra, // TODO: translate
+      devraj: { role: 'ಲಾಲ್ ಕಿತಾಬ್ ತಜ್ಞೆ', text: 'ಲಾಲ್ ಕಿತಾಬ್ ಪ್ರಕಾರ ವಿವರ — ಈರ್ ಇಲ್ಲಡೇ ಮಲ್ಪೊಲಿ ಆಪಿನ ಸರಳ ಬೊಕ್ಕ ಕಮ್ಮಿ ಖರ್ಚ್‌ದ ಉಪಾಯೊಲು (ಪರಿಹಾರೊಲು).' },
+      kavya: { role: 'KP & ಪ್ರಶ್ನೆ', text: 'KP ಪದ್ಧತಿ ಬೊಕ್ಕ ಪ್ರಶ್ನೆ — ಅಂದ್/ಅತ್ತ್ ಪನ್ಪಿನ ಪ್ರಶ್ನೆಲು ಬೊಕ್ಕ ಸಮಯದ ಬಗ್ಗೆ ಸ್ಪಷ್ಟ ನೋಟ.' },
+      gopal: { role: 'ವಾಸ್ತು ಶಾಸ್ತ್ರ', text: 'ಈರೆನ ಇಲ್ಲ್, ಅಂಗಡಿ ಅತ್ತ್ಂಡ ಆಫೀಸ್‌ಗ್ ವಾಸ್ತು — ಸುಲಭದ ಬದಲಾವಣೆಲೆಡ್, ಏತ್ಲಾ ಕೆಡಪುನ ಅಗತ್ಯ ಇಜ್ಜಿ.' },
+      lakshmi: { role: 'ಸಂಪತ್ತ್ & ವ್ಯಾಪಾರ', text: 'ಈರೆನ ಕುಂಡಲಿ ಮುಖಾಂತರ ಪೈಸೆ, ಉಳಿತಾಯ ಬೊಕ್ಕ ವ್ಯಾಪಾರ, ಬೊಕ್ಕ ಸುರು ಮಲ್ಪೆರೆ ಒಳ್ಳೆದ ಕಾಲ.' },
+      arjun: { role: 'ವಿದೇಶ ಪ್ರಯಾಣ & ವಾಸ', text: 'ಈರೆನ ಕುಂಡಲಿ ಮುಖಾಂತರ ವಿದೇಶೊಡು ಕಲಿಪು, ವೀಸಾ, ವಿದೇಶೊಡು ಕೆಲಸ ಬೊಕ್ಕ ಅಲ್ಪನೇ ನೆಲೆಸುನಿ.' },
+      savitri: { role: 'ಜೋಕುಲು & ಕುಟುಂಬ', text: 'ಜೋಕುಲು, ಅಕುಲೆನ ಕಲಿಪು ಬೊಕ್ಕ ಸ್ವಭಾವ, ಬೊಕ್ಕ ಕುಟುಂಬೊಡು ಶಾಂತಿ — ಅಪ್ಪೆನ ಕಾಳಜಿಡ್.' },
+      rudra: { role: 'ಶನಿ, ರಾಹು & ಕೇತು', text: 'ಸಾಡೇಸಾತಿ, ಢೈಯಾ, ರಾಹು–ಕೇತು ಬೊಕ್ಕ ಗ್ರಹೊಲೆನ ಗೋಚಾರ — ಅಂಜಿಕೆ ಇಜ್ಜಂದೆ ವಿವರ ಕೊರ್ಪೆರ್.' },
     },
   },
   report: {
