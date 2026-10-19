@@ -1,6 +1,5 @@
 // Ka ktien Khasi: persona, report, reminder, privacy, jingpaw pisa bad ka jingkren (la pynlong ha kha.ts kum `extra`).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -149,8 +148,61 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'Ne long Premium bad kylli man la ka sngi',
     usedToday: 'Phi la pyndonkam kyllum ia ki jingkylli Premium jong mynta ka sngi; ki wan biang lashai. Haduh kata, yn pyndonkam ia ki jingkylli free bad ki credit.',
   },
-  paid: extraEnglish.paid, // TODO: translate
-  palm: extraEnglish.palm, // TODO: translate
+  paid: {
+    title: 'Plie ia ka jingmih jong phi',
+    price_one: '{{count}} credit',
+    price_other: '{{count}} credit',
+    once: 'Siew shisien, ka sah plie junom',
+    balance_one: 'Phi don {{count}} credit',
+    balance_other: 'Phi don {{count}} credit',
+    pay_one: 'Siew {{count}} credit bad khmih',
+    pay_other: 'Siew {{count}} credit bad khmih',
+    seePremium: 'Khmih (ka ïadon lem ha ka Premium)',
+    includedInPremium: 'Ka ïadon lem ha ka Premium jong phi',
+    withPremium: 'Ne ïoh ia baroh ki tool lem bad ka Premium',
+    notEnough: 'Ki credit ym lah. Ïoh ki credit, nangta wan biang hangne.',
+    failed: 'Ym lah ban plie. Ym la shim pisa na phi. Kumpai pyrshang shuh.',
+    loadFailed: 'Ym lah ban peit ia kane. Kumpai pyrshang shuh.',
+    what: {
+      kundli: 'Ka Kundli kaba dap: ka chart jingkha, ki planet, ki dasha, ki yoga bad ka report PDF.',
+      milan: 'Ka Kundli Milan kaba dap jong {{groom}} bad {{bride}}: baroh 8 ki koota, ka jingkhmih Manglik bad ka score na 36.',
+      rashifal: 'Ka rashifal sngi-sngi na ka bynta baroh ki rashi, mynta ka sngi bad lashai, na ka bynta {{period}}.',
+      panchang: 'Ka panchang sngi-sngi na ka bynta kano kano ka jaka: tithi, nakshatra, yoga, Rahu Kaal bad ki por ba bha, na ka bynta {{period}}.',
+      numbers: 'Ka report numerology jong phi: Mulank, Bhagyank, ka nambar kyrteng, ka snem jong phi hi, bad ki nambar, ki rong bad ki sngi ba bha.',
+      loshu: 'Ka Lo Shu grid jong phi bad ki nambar kiba ym don bad kiba paw kham ban shisien, ki line bad ki jingpynbha ba suk.',
+      name: 'Jingpynbha kyrteng: peit ia ki spelling jong ka kyrteng jong phi bad wad ia kaba bha tam na ka bynta ki nambar jong phi.',
+      vibrations: 'Ka vibration kaba dap jong kane ka nambar bad katno ka biang bad phi.',
+      compatibility: 'Ka jingïasoh numerology kaba dap bad {{name}}.',
+    },
+  },
+  palm: {
+    title: 'Jingpule Kti',
+    homeHint: 'Hast rekha na ka dur ka pdeng kti jong phi',
+    intro: 'Shim ia ka dur ba shai jong ka pdeng kti jong phi. U nongpule kti AI jong ngi u khmih ia ki line jong ka dohnud, ka jabieng, ka jingim bad ka fate, bad ki lum (mount) jong ka kti jong phi.',
+    priceNote_one: 'Ka dor: {{count}} credit na ka bynta kawei ka jingpule. Phi siew hadien ba phi la shim ia ki dur, shuwa ka jingpule.',
+    priceNote_other: 'Ka dor: {{count}} credit na ka bynta kawei ka jingpule. Phi siew hadien ba phi la shim ia ki dur, shuwa ka jingpule.',
+    premiumNote: 'Ka ïadon lem ha ka Premium jong phi.',
+    left: 'Ka kti diang',
+    right: 'Ka kti kamon',
+    takePhoto: 'Shim dur',
+    gallery: 'Jied dur',
+    remove: 'Weng',
+    tips: 'Na ka bynta ka jingpule ba bha: ka jingshai ba khraw, ka pdeng kti ba plie pyrshah ia ka camera, baroh ka pdeng kti ha ka dur.',
+    second: 'Pynbun ruh ia kawei pat ka kti (lada phi kwah) na ka bynta ka jingpule kaba kham dap.',
+    ready: 'Ki dur jong phi ki la khreh',
+    pay_one: 'Siew {{count}} credit bad pule ia ka kti jong nga',
+    pay_other: 'Siew {{count}} credit bad pule ia ka kti jong nga',
+    readPremium: 'Pule ia ka kti jong nga (ka ïadon lem ha ka Premium)',
+    reading: 'Ka pule ia ka kti jong phi…',
+    notPalm: 'Ngim lah ban khmih shai ia ka pdeng kti, te ym la shim pisa na phi.',
+    yours: 'Ka jingpule kti jong phi',
+    earlier: 'Ki jingpule kiba mynshuwa',
+    again: 'Jingpule thymmai',
+    privacy: 'Ki dur jong phi la phah ha ka rukom ba shngain sha u Anthropic (uba shna ia u Claude, u AI jong ngi) na ka bynta kane kawei ka jingpule, bad ngim buh ia ki; ym pyndonkam ia ki ban hikai ia ka AI. Ka jingpule la buh na ka bynta jong phi.',
+    cameraDenied: 'Kumpai pyllait ia ka camera na ka bynta Ratna Aura ha ki setting ka phone jong phi, ne jied ia kawei ka dur.',
+    limit: 'Phi la poi sha ka limit jong mynta ka sngi na ka bynta ki jingpule kti. Kumpai pyrshang shuh lashai.',
+    demoReading: 'Kane ka dei ka jingpule nuksa (demo mode, ym don AI). Ha ka app shisha, u nongpule kti AI u batai ia ki line jong ka dohnud, ka jabieng, ka jingim bad ka fate bad ki lum jong ka kti jong phi, bad kaei ba ki pynpaw kum ka dustur shaphang ka mynsiem, ki jingïadei bad ka kam jong phi.',
+  },
 };
 
 export default extra;

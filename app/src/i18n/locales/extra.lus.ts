@@ -1,6 +1,5 @@
 // Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
 import type extraEn from './extra.en';
-import extraEnglish from './extra.en'; // TODO: translate paid + palm (remove this line when done)
 
 type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
 
@@ -149,8 +148,61 @@ const extra: DeepStringRecord<typeof extraEn> = {
     askUpsell: 'Emaw Premium la la, ni tin zawt rawh',
     usedToday: 'Vawiin Premium zawhna te i hmang zo tawh; naktukah an lo awm leh ang. Chu chen chu zawhna free leh credit te hman a ni ang.',
   },
-  paid: extraEnglish.paid, // TODO: translate
-  palm: extraEnglish.palm, // TODO: translate
+  paid: {
+    title: 'I result hawng rawh',
+    price_one: 'Credit {{count}}',
+    price_other: 'Credit {{count}}',
+    once: 'Vawi khat pe la, a hawng reng ang',
+    balance_one: 'Credit {{count}} i nei',
+    balance_other: 'Credit {{count}} i nei',
+    pay_one: 'Credit {{count}} pe la en rawh',
+    pay_other: 'Credit {{count}} pe la en rawh',
+    seePremium: 'En rawh (Premium-ah a tel)',
+    includedInPremium: 'I Premium-ah a tel',
+    withPremium: 'Emaw Premium hmangin hmanrua zawng zawng nei rawh',
+    notEnough: 'Credit a tling lo. Credit la la, he lai hi lo kir leh rawh.',
+    failed: 'Hawn theih a ni lo. Engmah i sen lo. Ti leh rawh.',
+    loadFailed: 'Hei hi en theih a ni lo. Ti leh rawh.',
+    what: {
+      kundli: 'Kundli famkim: pian lai chart, planet te, dasha te, yoga te leh PDF report.',
+      milan: '{{groom}} leh {{bride}} te Kundli Milan famkim: koota 8 zawng zawng, Manglik en leh point 36 chhunga score.',
+      rashifal: '{{period}} atân rashi tin ni tin rashifal, vawiin leh naktuk.',
+      panchang: '{{period}} atân hmun eng pawh ni tin panchang: tithi, nakshatra, yoga, Rahu Kaal leh hun ṭha te.',
+      numbers: 'I numerology report: Mulank, Bhagyank, hming number, personal year leh vanneihna number, rawng leh ni te.',
+      loshu: 'Number tlachham leh number inlehnawn te, line te leh siamṭhatna awlsam te nen i Lo Shu grid.',
+      name: 'Hming siamṭhatna: i hming spelling te en la, i number te tân a ṭha ber zawng rawh.',
+      vibrations: 'He number vibration famkim leh i tân a inmil dan.',
+      compatibility: '{{name}} nena numerology inmil dân famkim.',
+    },
+  },
+  palm: {
+    title: 'Kutphah Chhiarna',
+    homeHint: 'I kutphah thlalak atanga hast rekha',
+    intro: 'I kutphah thlalak chiang tak la rawh. Kan AI kutphah chhiartu chuan i thinlung line, lu line, nun line leh vanneihna line te leh i kut tlang (mount) te a en ang.',
+    priceNote_one: 'Man: chhiar vawi khatah credit {{count}}. Thlalak i lak zawh hnuah, chhiar hmain i pe ang.',
+    priceNote_other: 'Man: chhiar vawi khatah credit {{count}}. Thlalak i lak zawh hnuah, chhiar hmain i pe ang.',
+    premiumNote: 'I Premium-ah a tel.',
+    left: 'Kut vei',
+    right: 'Kut ding',
+    takePhoto: 'Thlalak la',
+    gallery: 'Thlalak thlang',
+    remove: 'Paih',
+    tips: 'Chhiar ṭha nân: êng chhuak tak, kutphah zau camera lam hawi, kutphah pumpui thlalakah.',
+    second: 'Chhiar famkim zawk nân kut dang pawh belh rawh (i duh chuan).',
+    ready: 'I thlalak te a inpeih e',
+    pay_one: 'Credit {{count}} pe la ka kutphah chhiar rawh',
+    pay_other: 'Credit {{count}} pe la ka kutphah chhiar rawh',
+    readPremium: 'Ka kutphah chhiar rawh (Premium-ah a tel)',
+    reading: 'I kutphah chhiar mek…',
+    notPalm: 'Kutphah chiang takin kan hmu thei lo, chuvangin engmah i sen lo.',
+    yours: 'I kutphah chhiarna',
+    earlier: 'Chhiar tawh te',
+    again: 'Chhiar thar',
+    privacy: 'I thlalak te hi he chhiar vawi khat atân Anthropic (Claude siamtu, kan AI) hnenah him takin thawn a ni a, keini chuan kan dah lo; AI zirtîr nân hman a ni lo. Chhiarna chu i tân dah a ni.',
+    cameraDenied: 'I phone setting-ah Ratna Aura atân camera phalsak rawh, emaw thlalak thlang rawh.',
+    limit: 'Vawiin kutphah chhiar theih zat i tling tawh. Naktukah ti leh rawh.',
+    demoReading: 'Hei hi entawn chhiarna a ni (demo mode, AI tel lo). App dik takah chuan, AI kutphah chhiartu chuan i thinlung, lu, nun leh vanneihna line te leh i kut tlang te a sawi a, tihdan pangngai angin i nungchang, inlaichînna leh hnathawh chungchangah eng nge an tilan tih a sawi bawk.',
+  },
 };
 
 export default extra;
