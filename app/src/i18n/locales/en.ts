@@ -15,8 +15,16 @@ const en = {
   welcome: {
     title: 'Vedic astrology and numerology, together',
     body: 'Kundli, rashifal, panchang, Lo Shu grid, name correction and more. Calm guidance for your everyday choices.',
+    tagline: 'Astrology & numerology, beautifully guided',
     chooseLanguage: 'Choose your language',
+    languageNow: 'Language: {{language}}',
+    change: 'Change',
     getStarted: 'Get started',
+  },
+  language: {
+    title: 'Which language are you comfortable in?',
+    subtitle: 'The whole app, and your readings, will be in this language. You can change it any time in Settings.',
+    note: 'Translations are new. If something reads oddly, please tell us.',
   },
   consent: {
     title: 'Before we begin',

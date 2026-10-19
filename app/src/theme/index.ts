@@ -23,3 +23,14 @@ export const spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 } as cons
 export const radius = { sm: 8, md: 14, lg: 20, pill: 999 } as const;
 
 export const MAX_CONTENT_WIDTH = 520;
+
+/**
+ * Font for drawings (charts) in the current language: our bundled fonts cover English and
+ * Devanagari; other Indian scripts use the phone's own font.
+ */
+export function chartFont(language: string, weight: 'regular' | 'medium' | 'semibold' = 'regular'): string | undefined {
+  if (language === 'en' || language === 'hi' || language === 'mr') {
+    return weight === 'semibold' ? fonts.bodySemiBold : weight === 'medium' ? fonts.bodyMedium : fonts.body;
+  }
+  return undefined;
+}

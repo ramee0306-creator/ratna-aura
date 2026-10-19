@@ -10,13 +10,13 @@ import { AppText } from '@/components/AppText';
 import { BackHeader } from '@/components/BackHeader';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
-import { LanguagePicker } from '@/components/LanguagePicker';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
+import { AVAILABLE_LANGUAGES } from '@/i18n';
 import { colors, spacing } from '@/theme';
 
 export default function SettingsScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { accountLabel, signOut, deleteAccount } = useAuth();
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -39,7 +39,14 @@ export default function SettingsScreen() {
 
       <View style={styles.section}>
         <AppText variant="overline">{t('settings.language')}</AppText>
-        <LanguagePicker />
+        <Card style={styles.card}>
+          <AppText variant="bodyStrong">{AVAILABLE_LANGUAGES.find((l) => l.code === i18n.language)?.nativeName ?? 'English'}</AppText>
+          <Button
+            title={t('welcome.change')}
+            variant="outline"
+            onPress={() => router.push({ pathname: '/language', params: { from: 'settings' } })}
+          />
+        </Card>
       </View>
 
       <View style={styles.section}>

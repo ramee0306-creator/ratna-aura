@@ -22,6 +22,7 @@ import { Card } from '@/components/Card';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { Segmented } from '@/components/Segmented';
+import { dateLocale } from '@/i18n';
 import { type BirthProfile, deleteProfile, getKundli } from '@/kundli/api';
 import { type ChartStyle, KundliChart } from '@/kundli/KundliChart';
 import { isoToDisplay } from '@/numerology/details';
@@ -32,7 +33,7 @@ const STYLE_KEY = 'kundli.chartStyle';
 
 function useDateFormat() {
   const { i18n } = useTranslation();
-  const format = new Intl.DateTimeFormat(i18n.language === 'hi' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const format = new Intl.DateTimeFormat(dateLocale(i18n.language), { day: 'numeric', month: 'short', year: 'numeric' });
   return (ms: number) => format.format(new Date(ms));
 }
 

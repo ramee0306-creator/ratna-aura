@@ -3,28 +3,26 @@ import { getLocales } from 'expo-localization';
 import { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import en from './locales/en';
+import { LANGUAGES, type LanguageCode } from './languages';
+import en, { type Translation } from './locales/en';
 import hi from './locales/hi';
 
-/**
- * To add a language (e.g. Marathi):
- *  1. copy locales/hi.ts to locales/mr.ts and translate it,
- *  2. import it below and add it to `resources` and `LANGUAGES`.
- */
-export const LANGUAGES = [
-  { code: 'en', nativeName: 'English' },
-  { code: 'hi', nativeName: 'हिन्दी' },
-] as const;
+export { dateLocale, type LanguageCode } from './languages';
 
-export type LanguageCode = (typeof LANGUAGES)[number]['code'];
+/** Every finished translation. Languages in languages.ts without a file here are not offered yet. */
+const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = { en, hi };
 
-const resources = { en: { translation: en }, hi: { translation: hi } };
+/** The languages offered on the language screen, in display order. */
+export const AVAILABLE_LANGUAGES = LANGUAGES.filter((l) => TRANSLATIONS[l.code]);
+
 const i18n = createInstance();
 const STORAGE_KEY = 'app.language';
+let chosen = false;
 
-function isSupported(code: string | null | undefined): code is LanguageCode {
-  return LANGUAGES.some((l) => l.code === code);
-}
+const isAvailable = (code: string | null | undefined): code is LanguageCode => AVAILABLE_LANGUAGES.some((l) => l.code === code);
+
+/** True once the person has picked a language (on this phone). */
+export const isLanguageChosen = () => chosen;
 
 export async function initI18n(): Promise<void> {
   let saved: string | null = null;
@@ -33,11 +31,12 @@ export async function initI18n(): Promise<void> {
   } catch {
     // Storage unavailable — fall back to the phone's language.
   }
+  chosen = isAvailable(saved);
   const device = getLocales()[0]?.languageCode;
-  const lng = isSupported(saved) ? saved : isSupported(device) ? device : 'en';
+  const lng = isAvailable(saved) ? saved : isAvailable(device) ? device : 'en';
 
   await i18n.use(initReactI18next).init({
-    resources,
+    resources: Object.fromEntries(Object.entries(TRANSLATIONS).map(([code, translation]) => [code, { translation }])),
     lng,
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
@@ -45,6 +44,7 @@ export async function initI18n(): Promise<void> {
 }
 
 export async function setLanguage(code: LanguageCode): Promise<void> {
+  chosen = true;
   await i18n.changeLanguage(code);
   try {
     await AsyncStorage.setItem(STORAGE_KEY, code);

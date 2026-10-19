@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import Svg, { G, Line, Polygon, Rect, Text as SvgText } from 'react-native-svg';
 
-import { colors, fonts } from '@/theme';
+import { chartFont, colors, fonts } from '@/theme';
 
 export type ChartStyle = 'north' | 'south';
 
@@ -25,6 +25,7 @@ function useLabels() {
 
 /** Writes labels in rows of `perRow`, centred on (x, y). */
 function Labels({ labels, x, y, perRow, size = 17 }: { labels: Label[]; x: number; y: number; perRow: number; size?: number }) {
+  const { i18n } = useTranslation();
   const rows: Label[][] = [];
   for (let i = 0; i < labels.length; i += perRow) rows.push(labels.slice(i, i + perRow));
   const lineHeight = size + 4;
@@ -41,7 +42,8 @@ function Labels({ labels, x, y, perRow, size = 17 }: { labels: Label[]; x: numbe
             y={top + r * lineHeight}
             fill={label.color}
             fontSize={size}
-            fontFamily={fonts.bodySemiBold}
+            fontFamily={chartFont(i18n.language, 'semibold')}
+            fontWeight="600"
             textAnchor="middle"
             alignmentBaseline="middle"
           >
@@ -72,6 +74,7 @@ const NORTH: { x: number; y: number; perRow: number; sx: number; sy: number }[] 
 
 function NorthChart({ boxes }: { boxes: ChartBox[] }) {
   const labelsFor = useLabels();
+  const { i18n } = useTranslation();
   return (
     <>
       <Rect x={1} y={1} width={SIZE - 2} height={SIZE - 2} fill={colors.backgroundDeep} stroke={LINE} strokeWidth={2} rx={6} />
@@ -82,7 +85,7 @@ function NorthChart({ boxes }: { boxes: ChartBox[] }) {
         const pos = NORTH[i];
         return (
           <G key={box.house}>
-            <SvgText x={pos.sx} y={pos.sy} fill={colors.goldDeep} fontSize={15} fontFamily={fonts.bodyMedium} textAnchor="middle" alignmentBaseline="middle">
+            <SvgText x={pos.sx} y={pos.sy} fill={colors.goldDeep} fontSize={15} fontFamily={chartFont(i18n.language, 'medium')} textAnchor="middle" alignmentBaseline="middle">
               {box.sign + 1}
             </SvgText>
             <Labels labels={labelsFor(box)} x={pos.x} y={pos.y} perRow={pos.perRow} />
@@ -100,6 +103,7 @@ const SOUTH_CELL: [number, number][] = [
 
 function SouthChart({ boxes, title }: { boxes: ChartBox[]; title: string }) {
   const labelsFor = useLabels();
+  const { i18n } = useTranslation();
   const cell = SIZE / 4;
   const bySign = new Map(boxes.map((b) => [b.sign, b]));
   return (
@@ -113,14 +117,14 @@ function SouthChart({ boxes, title }: { boxes: ChartBox[]; title: string }) {
           <G key={sign}>
             <Rect x={x} y={y} width={cell} height={cell} fill="none" stroke={LINE} strokeWidth={1.2} />
             {box.isAscendant ? <Line x1={x} y1={y + 26} x2={x + 26} y2={y} stroke={colors.goldBright} strokeWidth={2} /> : null}
-            <SvgText x={x + cell - 8} y={y + 14} fill={colors.goldDeep} fontSize={12} fontFamily={fonts.bodyMedium} textAnchor="end" alignmentBaseline="middle">
+            <SvgText x={x + cell - 8} y={y + 14} fill={colors.goldDeep} fontSize={12} fontFamily={chartFont(i18n.language, 'medium')} textAnchor="end" alignmentBaseline="middle">
               {sign + 1}
             </SvgText>
             <Labels labels={labelsFor(box)} x={x + cell / 2} y={y + cell / 2 + 6} perRow={2} size={16} />
           </G>
         );
       })}
-      <SvgText x={200} y={200} fill={colors.gold} fontSize={22} fontFamily={fonts.displaySemi} textAnchor="middle" alignmentBaseline="middle">
+      <SvgText x={200} y={200} fill={colors.gold} fontSize={22} fontFamily={i18n.language === 'en' ? fonts.displaySemi : chartFont(i18n.language, 'semibold')} textAnchor="middle" alignmentBaseline="middle">
         {title}
       </SvgText>
     </>

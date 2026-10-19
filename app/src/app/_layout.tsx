@@ -63,6 +63,7 @@ function RootNavigator() {
       </Stack.Protected>
 
       {/* Always reachable */}
+      <Stack.Screen name="language" />
       <Stack.Screen name="privacy" />
       <Stack.Screen name="auth/callback" />
     </Stack>
