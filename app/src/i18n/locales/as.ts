@@ -1,6 +1,6 @@
 // অসমীয়া. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
-import jyotish from './jyotish.en'; // TODO: translate (jyotish.as.ts)
+import jyotish from './jyotish.as';
 import kundli from './kundli.as';
 import numerology from './numerology.as';
 
