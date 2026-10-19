@@ -8,8 +8,9 @@ import hi from './locales/hi';
 import kn from './locales/kn';
 import ml from './locales/ml';
 import mr from './locales/mr';
+import or from './locales/or';
 import pa from './locales/pa';
 import ta from './locales/ta';
 import te from './locales/te';
 
-export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = { en, hi, mr, bn, te, ta, gu, kn, ml, pa };
+export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = { en, hi, mr, bn, te, ta, gu, kn, ml, or, pa };
