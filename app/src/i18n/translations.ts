@@ -35,6 +35,7 @@ import lang_kha from './locales/kha';
 import lang_es from './locales/es';
 import lang_zh from './locales/zh';
 import lang_zh_TW from './locales/zh-TW';
+import lang_pt from './locales/pt';
 
 export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'en': lang_en,
@@ -70,4 +71,5 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'es': lang_es,
   'zh': lang_zh,
   'zh-TW': lang_zh_TW,
+  'pt': lang_pt,
 };
