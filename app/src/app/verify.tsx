@@ -11,13 +11,15 @@ import { Button } from '@/components/Button';
 import { Notice } from '@/components/Notice';
 import { Screen } from '@/components/Screen';
 import { TextField } from '@/components/TextField';
+import { isDemoMode } from '@/lib/supabase';
 import { spacing } from '@/theme';
 
 export default function VerifyScreen() {
   const { t } = useTranslation();
   const { phone = '' } = useLocalSearchParams<{ phone: string }>();
   const { verifyOtp, sendOtp } = useAuth();
-  const [code, setCode] = useState('');
+  // Demo mode sends no SMS: the code is filled in so the demo can be tried straight away.
+  const [code, setCode] = useState(isDemoMode ? '123456' : '');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ text: string; tone: 'error' | 'success' } | null>(null);
 

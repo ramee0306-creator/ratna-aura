@@ -90,7 +90,7 @@ export default function LoginScreen() {
         variant="outline"
         onPress={onGoogle}
         loading={busy === 'google'}
-        disabled={!isSupabaseConfigured || !!busy}
+        disabled={!serverReady || !!busy}
         icon={<MaterialCommunityIcons name="google" size={20} color={colors.goldBright} />}
       />
     </Screen>

@@ -114,26 +114,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   }, []);
 
-  const verifyOtp = useCallback(async (phone: string, code: string) => {
-    if (isDemoMode) {
-      const consent = await getPendingConsent();
-      setDemoProfile({
-        id: DEMO_USER_ID,
-        display_name: null,
-        preferred_language: 'en',
-        age_confirmed_at: consent ? consent.acceptedAt : null,
-        consent_version: consent ? consent.version : null,
-        // In demo mode the admin panel is shown (with sample numbers) so it can be tried out.
-        is_admin: true,
-      });
-      setDemoAccount(phone);
-      return;
-    }
-    const { error } = await supabase.auth.verifyOtp({ phone, token: code.trim(), type: 'sms' });
-    if (error) throw error;
+  /** Demo mode (no server): "signs in" a sample account. */
+  const demoSignIn = useCallback(async (account: string) => {
+    const consent = await getPendingConsent();
+    setDemoProfile({
+      id: DEMO_USER_ID,
+      display_name: null,
+      preferred_language: 'en',
+      age_confirmed_at: consent ? consent.acceptedAt : null,
+      consent_version: consent ? consent.version : null,
+      // In demo mode the admin panel is shown (with sample numbers) so it can be tried out.
+      is_admin: true,
+    });
+    setDemoAccount(account);
   }, []);
 
+  const verifyOtp = useCallback(async (phone: string, code: string) => {
+    if (isDemoMode) return demoSignIn(phone);
+    const { error } = await supabase.auth.verifyOtp({ phone, token: code.trim(), type: 'sms' });
+    if (error) throw error;
+  }, [demoSignIn]);
+
   const signInWithGoogle = useCallback(async (): Promise<'success' | 'cancelled'> => {
+    if (isDemoMode) {
+      await demoSignIn('demo@gmail.com');
+      return 'success';
+    }
     const redirectTo = Linking.createURL('auth/callback');
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -148,7 +154,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const exchange = await supabase.auth.exchangeCodeForSession(params.code);
     if (exchange.error) throw exchange.error;
     return 'success';
-  }, []);
+  }, [demoSignIn]);
 
   const acceptTerms = useCallback(async () => {
     if (isDemoMode) {
