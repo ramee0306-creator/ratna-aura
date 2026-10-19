@@ -41,6 +41,8 @@ import lang_fr from './locales/fr';
 import lang_pt from './locales/pt';
 import lang_ru from './locales/ru';
 import lang_id from './locales/id';
+import lang_de from './locales/de';
+import lang_ja from './locales/ja';
 
 export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'en': lang_en,
@@ -82,4 +84,6 @@ export const TRANSLATIONS: Partial<Record<LanguageCode, Translation>> = {
   'pt': lang_pt,
   'ru': lang_ru,
   'id': lang_id,
+  'de': lang_de,
+  'ja': lang_ja,
 };
