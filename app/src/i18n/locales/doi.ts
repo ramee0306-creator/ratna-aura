@@ -1,7 +1,7 @@
 // डोगरी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.doi';
-import extra from './extra.en'; // TODO: translate (extra.doi.ts)
+import extra from './extra.doi';
 import jyotish from './jyotish.doi';
 import kundli from './kundli.doi';
 import numerology from './numerology.doi';

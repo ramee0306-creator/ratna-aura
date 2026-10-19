@@ -47,7 +47,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
     later: 'बाद मं',
     denied: 'Ratna Aura बर सूचना बंद हे। आप एला अपन फोन के सेटिंग मं चालू कर सकथव।',
     notificationTitle: 'आज के आपके राशिफल ✨',
-    notificationBody: 'देखव, आज आपके दिन बर तारा मन का कहिथें।',
+    notificationBody: 'देखव, आज आपके दिन बर ग्रह-नक्षत्र मन का कहिथें।',
     channel: 'रोज के राशिफल',
     webOnly: 'रिमाइंडर फोन ऐप मं चलथे।',
   },

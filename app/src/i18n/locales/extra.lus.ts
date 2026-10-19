@@ -1,0 +1,80 @@
+// Mizo ṭawng: persona, report, reminder, privacy, sum pek leh aw chungchang (lus.ts-ah `extra` angin telh a ni).
+import type extraEn from './extra.en';
+
+type DeepStringRecord<T> = { [K in keyof T]: T[K] extends string ? string : DeepStringRecord<T[K]> };
+
+const extra: DeepStringRecord<typeof extraEn> = {
+  personas: {
+    title: 'Astrologer nen Sawi',
+    intro: 'Kan AI astrologer leh numerologist te nen inbia rawh. An tinte hian a ṭhat zawng an nei a, AI an ni a — mihring dik tak an ni lo.',
+    perMessage_one: 'Thuthawn khat tinah credit {{count}}',
+    perMessage_other: 'Thuthawn khat tinah credit {{count}}',
+    perMinute_one: 'Minute khat tinah credit {{count}}',
+    perMinute_other: 'Minute khat tinah credit {{count}}',
+    chat: 'Inbiak',
+    aiNote: '{{name}} hi AI persona a ni a, mihring a ni lo.',
+    noFree: 'Persona te hian credit an hmang. Zawhna free te hi "AI zawt" atân chauh a ni.',
+    session: {
+      title: 'Session intan',
+      intro: 'Hun a tawp hma loh chuan i duh ang zat inbiak rawh.',
+      option_one: 'Minute {{count}} · credit {{credits}}',
+      option_other: 'Minute {{count}} · credit {{credits}}',
+      left_one: 'Minute {{count}} a la awm',
+      left_other: 'Minute {{count}} a la awm',
+      ended: 'Session a tawp tawh. Chhunzawm nan session thar intan rawh.',
+      capReached: 'He session hian thuthawn chin a thleng tawh. Chhunzawm nan session thar intan rawh.',
+    },
+    notEnough: 'Credit a tling lo.',
+    about: {
+      vidya: { role: 'Vedic astrologer', text: 'Kundli, planet, bhava, yoga leh dasha hun, pawl zel zelin hrilhfiah.' },
+      anand: { role: 'Numerologist', text: 'Mulank, Bhagyank, hming number, Lo Shu grid, number leh rawng ṭha.' },
+      meera: { role: 'Hmangaihna leh inneihna', text: 'I chart hmangin inlaichînna, inneihna leh chhungkua chungchang, ngilneihna leh fimkhurna nen.' },
+      shastri: { role: 'Pandit hnam dan', text: 'Panchang, muhurta (hun ṭha), kuthnghah leh hnam dan anga tihdan ngaihnawm.' },
+      tara: { role: 'Hnathawh leh zirna', text: 'Astrology leh number hmangin hnathawh, zirna leh nunphung kawng.' },
+    },
+  },
+  report: {
+    download: 'PDF report la rawh',
+    preparing: 'PDF buatsaih mek…',
+    failed: 'PDF siam theih a ni lo. Ti leh rawh.',
+    footer: '{{date}} khân Ratna Aura hmangin siam a ni · {{engine}}',
+  },
+  reminder: {
+    title: 'Ni tin hriattirna',
+    toggle: 'Ka rashifal chhiar tûrin min hriat nawn rawh',
+    time: 'Ni tin {{time}} ah',
+    earlier: 'Hma zawk',
+    later: 'Hnua zawk',
+    denied: 'Ratna Aura atân notification chu khap a ni. I phone setting-ah i phal thei.',
+    notificationTitle: 'Vawiin i rashifal ✨',
+    notificationBody: 'Vawiin i ni tân arsi te hian eng nge an sawi en rawh.',
+    channel: 'Ni tin rashifal',
+    webOnly: 'Hriattirna hi phone app-ah chauh a hman theih.',
+  },
+  privacy: {
+    aiTitle: 'AI chhanna',
+    ai: 'AI zawt, AI persona te leh ni tin rashifal te hi Claude, Anthropic AI-in a ziak a ni. I chhan nân i zawhna leh chart thlan summary chu Anthropic-ah thawn a ni. AI model zirtîr nân hman a ni lo.',
+    fullPolicy: 'Privacy policy zawng zawng',
+    terms: 'Hman dan',
+  },
+  store: {
+    waiting: 'Sum pek dawn a ni. I credit belh mek…',
+    added: 'I credit belh a ni tawh. Ka lawm e!',
+    slow: 'Sum pek dawn a ni. I credit chu minute khat chhunga a lang ang — he screen-ah lo kir leh la, thar rawh.',
+    cancelled: 'Lei chu tihtawp a ni. Engmah i sen lo.',
+    failed: 'Lei hi tihfel theih a ni lo. Engmah i sen lo.',
+    androidOnly: 'Credit hi Google Play atanga Android app-ah lei theih a ni.',
+  },
+  voice: {
+    speak: 'Aw chhuahin chhiar',
+    stop: 'Chhiar tawp',
+    mic: 'I zawhna sawi rawh',
+    listening: 'Ngaithla mek… sawi rawh',
+    denied: 'I phone setting-ah Ratna Aura atân microphone phalsak rawh.',
+    error: 'Hre thei lo. Ti leh rawh emaw i zawhna ziak rawh.',
+    conversation: 'Aw hmanga inbiakna',
+    conversationHint: 'I zawhna sawi rawh; chhanna chu aw chhuahin chhiar a ni ang.',
+  },
+};
+
+export default extra;
