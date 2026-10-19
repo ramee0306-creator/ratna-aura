@@ -1,7 +1,7 @@
 // अवधी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.awa';
-import extra from './extra.en'; // TODO: translate (extra.awa.ts)
+import extra from './extra.awa';
 import jyotish from './jyotish.awa';
 import kundli from './kundli.awa';
 import numerology from './numerology.awa';

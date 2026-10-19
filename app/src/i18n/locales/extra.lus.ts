@@ -29,7 +29,7 @@ const extra: DeepStringRecord<typeof extraEn> = {
       vidya: { role: 'Vedic astrologer', text: 'Kundli, planet, bhava, yoga leh dasha hun, pawl zel zelin hrilhfiah.' },
       anand: { role: 'Numerologist', text: 'Mulank, Bhagyank, hming number, Lo Shu grid, number leh rawng ṭha.' },
       meera: { role: 'Hmangaihna leh inneihna', text: 'I chart hmangin inlaichînna, inneihna leh chhungkua chungchang, ngilneihna leh fimkhurna nen.' },
-      shastri: { role: 'Pandit hnam dan', text: 'Panchang, muhurta (hun ṭha), kuthnghah leh hnam dan anga tihdan ngaihnawm.' },
+      shastri: { role: 'Hnam dan pandit', text: 'Panchang, muhurta (hun ṭha), kuthnghah leh hnam dan anga tihdan ngaihnawm.' },
       tara: { role: 'Hnathawh leh zirna', text: 'Astrology leh number hmangin hnathawh, zirna leh nunphung kawng.' },
     },
   },

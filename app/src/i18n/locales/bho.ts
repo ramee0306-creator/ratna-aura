@@ -1,7 +1,7 @@
 // भोजपुरी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.bho';
-import extra from './extra.en'; // TODO: translate (extra.bho.ts)
+import extra from './extra.bho';
 import jyotish from './jyotish.bho';
 import kundli from './kundli.bho';
 import numerology from './numerology.bho';

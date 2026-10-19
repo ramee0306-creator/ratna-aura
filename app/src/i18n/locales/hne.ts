@@ -1,7 +1,7 @@
 // छत्तीसगढ़ी. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.hne';
-import extra from './extra.en'; // TODO: translate (extra.hne.ts)
+import extra from './extra.hne';
 import jyotish from './jyotish.hne';
 import kundli from './kundli.hne';
 import numerology from './numerology.hne';

@@ -1,7 +1,7 @@
 // ಕನ್ನಡ. Same keys as en.ts — TypeScript will complain if one is missing.
 import type { Translation } from './en';
 import ai from './ai.kn';
-import extra from './extra.en'; // TODO: translate (extra.kn.ts)
+import extra from './extra.kn';
 import jyotish from './jyotish.kn';
 import kundli from './kundli.kn';
 import numerology from './numerology.kn';
