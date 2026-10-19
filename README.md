@@ -1,7 +1,8 @@
 # Ratna Aura
 
 A Vedic astrology + numerology app for Android (iOS later), by **VELQORA STUDIOS**.
-English and Hindi, built so Marathi and other languages can be added.
+Available in **12 languages**: English, हिन्दी, मराठी, বাংলা, తెలుగు, தமிழ், ગુજરાતી, ಕನ್ನಡ, മലയാളം, ଓଡ଼ିଆ,
+ਪੰਜਾਬੀ and অসমীয়া. The first screen on a new phone asks which language the person is comfortable in.
 
 > The name, logo words, package ID and colours all live in **one file: [`brand.config.js`](brand.config.js)**.
 > See [Renaming the app](#renaming-the-app).
@@ -36,7 +37,7 @@ brand.config.js          ← app name, logo words, package ID, colours (the ONE 
 app/                     ← the phone app (React Native + Expo, TypeScript)
   src/app/               ← screens (each file is one screen)
   src/components/        ← buttons, cards, the night-sky background, etc.
-  src/i18n/locales/      ← all text: en.ts (English), hi.ts (Hindi)
+  src/i18n/locales/      ← all text, one set of files per language (en.ts is the master copy)
   src/auth/              ← sign-in, consent, phone-number checks
   src/numerology/        ← numerology forms, number cards, Lo Shu grid drawing
   src/kundli/            ← kundli form checks, server calls, North/South Indian chart drawing
@@ -106,6 +107,21 @@ and are removed by "Delete my account".
   conjunction) and check the lagna against the textbook formula.
 
 Birth details are stored **encrypted** on the server; the kundli is calculated fresh each time and never stored.
+
+## Languages
+
+- All text lives in `app/src/i18n/locales/`. **English (`en.ts`, `numerology.en.ts`, `kundli.en.ts`) is the master
+  copy**; every other language has the same three files.
+- An automatic test (`app/src/i18n/translations.test.ts`) fails if any language is missing a text or drops a
+  `{{placeholder}}`, so new English text can't be forgotten in another language.
+- Hindi and Marathi use the bundled Devanagari fonts; the other Indian scripts use the phone's own fonts
+  (Noto on Android), which keeps the app small.
+- The translations were written by AI and checked automatically, **not yet by native speakers**. Before launch,
+  ask a fluent speaker of each language to read through the app (especially astrology terms and the
+  "guidance, not advice" wording).
+- To add a language (e.g. Urdu or Konkani): add it to `app/src/i18n/languages.ts`, copy the three English files to
+  `<code>.ts`, `numerology.<code>.ts`, `kundli.<code>.ts`, translate them, and import them in
+  `app/src/i18n/translations.ts`.
 
 ## Rules about secrets (important)
 
@@ -233,7 +249,7 @@ You can follow each run in the repository's **Actions** tab, and start one by ha
 
 ## Renaming the app
 
-1. Edit [`brand.config.js`](brand.config.js): `appName`, `appNameHi`, `logo` (the gold and emerald words), `tagline`, `slug`, `scheme`, `androidPackage`, colours.
+1. Edit [`brand.config.js`](brand.config.js): `appName`, `appNameHi`, `logo` (the gold and emerald words), `slug`, `scheme`, `androidPackage`, colours. (The tagline under the logo is `welcome.tagline` in each language file.)
 2. Run `npm run make-icons` (redraws the gem icon and splash in the new colours).
 3. If `scheme` changed, update the Redirect URLs in Supabase (step 4.8).
 
