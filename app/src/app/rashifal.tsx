@@ -19,6 +19,7 @@ import { dateLocale } from '@/i18n';
 import { currentMonth, monthLabel } from '@/paid/month';
 import { PaidScreen } from '@/paid/PaidGate';
 import { ReportButton } from '@/ai/ReportButton';
+import { showDemoNotices } from '@/lib/supabase';
 
 const SIGN_KEY = 'rashifal.sign';
 type Day = 'today' | 'tomorrow';
@@ -181,7 +182,7 @@ function RashifalContent() {
               </View>
             ) : (
               <>
-                {state.sample ? <Notice tone="info" text={t('jyotish.rashifal.demoNotice')} /> : null}
+                {state.sample && showDemoNotices ? <Notice tone="info" text={t('jyotish.rashifal.demoNotice')} /> : null}
                 <Reading rashifal={state.rashifal} />
                 <AppText variant="caption" style={styles.center}>
                   {t('jyotish.rashifal.writtenByAi')}

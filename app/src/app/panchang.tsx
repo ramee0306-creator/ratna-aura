@@ -18,6 +18,7 @@ import type { Place } from '@/places/search';
 import { colors, radius, spacing } from '@/theme';
 import { currentMonth, monthLabel } from '@/paid/month';
 import { PaidScreen } from '@/paid/PaidGate';
+import { showDemoNotices } from '@/lib/supabase';
 
 const PLACE_KEY = 'panchang.place';
 const NEW_DELHI: Place = {
@@ -286,7 +287,7 @@ function PanchangContent() {
           <ActivityIndicator color={colors.gold} style={styles.loading} />
         ) : (
           <>
-            {data.sample ? <Notice tone="info" text={t('jyotish.panchang.demoNotice')} /> : null}
+            {data.sample && showDemoNotices ? <Notice tone="info" text={t('jyotish.panchang.demoNotice')} /> : null}
             <PanchangView panchang={data.panchang} />
             <AppText variant="caption" style={styles.center}>
               {t('jyotish.panchang.timesNote', {

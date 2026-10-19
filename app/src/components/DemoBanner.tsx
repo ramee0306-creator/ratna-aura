@@ -1,12 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 
-import { isDemoMode } from '@/lib/supabase';
+import { showDemoNotices } from '@/lib/supabase';
 import { colors, spacing } from '@/theme';
 
 import { AppText } from './AppText';
 
 export function DemoBanner() {
-  if (!isDemoMode) return null;
+  if (!showDemoNotices) return null;
   return (
     <View style={styles.banner}>
       <AppText variant="caption" style={styles.text}>

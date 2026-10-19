@@ -32,6 +32,7 @@ import { kundliReportHtml } from '@/reports/kundliReport';
 import { sharePdf } from '@/reports/sharePdf';
 import { colors, spacing } from '@/theme';
 import { PaidScreen } from '@/paid/PaidGate';
+import { showDemoNotices } from '@/lib/supabase';
 
 type Tab = 'chart' | 'planets' | 'dasha' | 'details';
 const STYLE_KEY = 'kundli.chartStyle';
@@ -314,7 +315,7 @@ function KundliScreenContent() {
         <ActivityIndicator color={colors.gold} style={styles.loading} />
       ) : (
         <View style={styles.gap}>
-          {data.sample ? <Notice tone="info" text={t('kundli.demoNotice')} /> : null}
+          {data.sample && showDemoNotices ? <Notice tone="info" text={t('kundli.demoNotice')} /> : null}
           {!data.kundli.timeKnown ? <Notice tone="info" text={t('kundli.details.timeUnknown')} /> : null}
           <Segmented<Tab>
             accent={colors.gold}

@@ -17,6 +17,9 @@ export const isSupabaseConfigured = Boolean(url && publishableKey);
  * bypass a real login.
  */
 export const isDemoMode = !isSupabaseConfigured && process.env.EXPO_PUBLIC_DEMO_MODE === '1';
+/** The demo build used to make the Play Store screenshots hides the demo banners and notices. */
+export const isStoreScreenshots = isDemoMode && process.env.EXPO_PUBLIC_STORE_SCREENSHOTS === '1';
+export const showDemoNotices = isDemoMode && !isStoreScreenshots;
 
 export const supabase = createClient(url || 'https://not-configured.invalid', publishableKey || 'not-configured', {
   auth: {

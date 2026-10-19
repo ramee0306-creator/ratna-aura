@@ -29,9 +29,15 @@ vehicle number vibrations, and compatibility.
 🤖 **Ask AI** — ask questions about your chart and numbers and get thoughtful answers in your language. Your first
 3 questions are free.
 
+✋ **Palm reading** — photograph your palm and get a warm hast rekha reading of your heart, head, life and fate lines
+and the mounts of your hand. Your photos are never stored.
+
 🧘 **Talk to AI astrologers** — chat with twelve AI guides, each with a specialty: Vedic astrology, numerology, love &
 marriage, panchang & muhurta, career, Lal Kitab, KP & prashna, Vastu, wealth, foreign travel, children & family,
 and Shani–Rahu–Ketu. They are clearly AI — never pretending to be human.
+
+👑 **Premium** — every report and tool included, Ask AI without counting, and bonus credits each month.
+Reports and tools can also be unlocked one by one with credits; prices are shown before you pay.
 
 🔒 **Private by design** — birth details and chats are encrypted; delete your account and data any time from Settings.
 
@@ -45,7 +51,8 @@ For adults (18+). If you are going through a hard time, Tele-MANAS is free and a
 ## Graphics you need (Play Console → Main store listing)
 - App icon 512×512 PNG — export from `app/assets/images/icon.png` (resize to 512).
 - Feature graphic 1024×500 PNG — gold "Ratna Aura" wordmark on the sapphire night sky.
-- At least 2 phone screenshots (1080×1920 or similar): home, kundli chart, rashifal, panchang, Ask AI, personas.
+- Phone screenshots 1080×1920: ready-made in `docs/store/` (made from the web demo, because the app blocks
+  screenshots). Feature graphic and 512 icon are there too.
 
 ## Contact details
 - E-mail: velqorasupport99@gmail.com

@@ -14,6 +14,7 @@ import { Screen } from '@/components/Screen';
 import { type BirthProfile, demoSecondKundli, getKundli, listProfiles } from '@/kundli/api';
 import { colors, radius, spacing } from '@/theme';
 import { PaidGate } from '@/paid/PaidGate';
+import { showDemoNotices } from '@/lib/supabase';
 
 type Role = 'groom' | 'bride';
 
@@ -223,7 +224,7 @@ export default function MilanScreen() {
           )
         ) : result ? (
           <>
-            {result.sample ? <Notice tone="info" text={t('jyotish.milan.demoNotice')} /> : null}
+            {result.sample && showDemoNotices ? <Notice tone="info" text={t('jyotish.milan.demoNotice')} /> : null}
             <PaidGate
               feature="milan"
               unlockKey={`${groom}|${bride}`}

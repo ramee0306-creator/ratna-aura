@@ -25,6 +25,7 @@ import {
   subscriptionPrices,
 } from '@/payments/billing';
 import { colors, radius, spacing } from '@/theme';
+import { isStoreScreenshots } from '@/lib/supabase';
 
 type Message = { text: string; tone: 'success' | 'error' | 'info' };
 
@@ -228,7 +229,7 @@ export default function PremiumScreen() {
           <Notice tone="info" text={t(live ? 'extra.premium.androidOnly' : 'extra.premium.off')} />
         ) : (
           <>
-            {!live ? <Notice tone="info" text={t('extra.premium.testMode')} /> : null}
+            {!live && !isStoreScreenshots ? <Notice tone="info" text={t('extra.premium.testMode')} /> : null}
             <View accessibilityRole="radiogroup" style={styles.gapSm}>
               {plans.map((plan) => {
                 const selected = plan.id === chosen?.id;
