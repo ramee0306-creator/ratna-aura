@@ -31,7 +31,7 @@ const brand = /** @type {const} */ ({
   /** Deep-link prefix, e.g. ratnaaura://auth/callback */
   scheme: 'ratnaaura',
   /** Google Play package ID (permanent after first upload!) */
-  androidPackage: 'Raksha.RatnaAura',
+  androidPackage: 'raksha.ratnaaura',
   /** Apple bundle ID (for a future iOS version) */
   iosBundleId: 'Raksha.RatnaAura',
   /** Support e-mail shown in the privacy policy and store listing */
