@@ -10,6 +10,7 @@ on:
       - 'docs/privacy-policy.md'
       - 'docs/terms-of-use.md'
       - 'docs/refund-policy.md'
+      - 'docs/delete-account.md'
       - 'scripts/make-site.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:

@@ -1,4 +1,4 @@
-// Builds the public web pages (privacy policy, terms of use, refund policy) from docs/*.md into site/,
+// Builds the public web pages (privacy policy, terms of use, refund policy, account deletion) from docs/*.md into site/,
 // published by .github/workflows/pages.yml at https://ramee0306-creator.github.io/ratna-aura/.
 // A small Markdown converter for what these documents use: headings, paragraphs, lists, tables, bold, links.
 import { execSync } from 'node:child_process';
@@ -90,7 +90,7 @@ const page = (title, body) => `<!doctype html>
   th, td { border: 1px solid #2F2E72; padding: 8px; text-align: left; vertical-align: top; } th { background: #141543; }
   nav { margin-bottom: 24px; } nav a { margin-right: 16px; }
 </style></head>
-<body><main><nav><a href="index.html">Ratna Aura</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of use</a><a href="refund.html">Refunds</a></nav>
+<body><main><nav><a href="index.html">Ratna Aura</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of use</a><a href="refund.html">Refunds</a><a href="delete-account.html">Delete account</a></nav>
 ${body}
 </main></body></html>
 `;
@@ -99,6 +99,7 @@ mkdirSync(out, { recursive: true });
 writeFileSync(new URL('privacy.html', out), page('Ratna Aura — Privacy Policy', markdownToHtml(readFileSync(new URL('../docs/privacy-policy.md', import.meta.url), 'utf8'), changedOn('docs/privacy-policy.md'))));
 writeFileSync(new URL('terms.html', out), page('Ratna Aura — Terms of Use', markdownToHtml(readFileSync(new URL('../docs/terms-of-use.md', import.meta.url), 'utf8'), changedOn('docs/terms-of-use.md'))));
 writeFileSync(new URL('refund.html', out), page('Ratna Aura — Refund & Cancellation Policy', markdownToHtml(readFileSync(new URL('../docs/refund-policy.md', import.meta.url), 'utf8'), changedOn('docs/refund-policy.md'))));
+writeFileSync(new URL('delete-account.html', out), page('Ratna Aura — Delete your account', markdownToHtml(readFileSync(new URL('../docs/delete-account.md', import.meta.url), 'utf8'), changedOn('docs/delete-account.md'))));
 writeFileSync(
   new URL('index.html', out),
   page(
@@ -106,7 +107,7 @@ writeFileSync(
     `<h1>Ratna Aura</h1>
 <p>Vedic astrology and numerology in English and 30 Indian languages: kundli, rashifal, panchang, Kundli Milan,
 numerology, palm reading and AI astrologers.</p>
-<ul><li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms of use</a></li><li><a href="refund.html">Refund &amp; cancellation policy</a></li>
+<ul><li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms of use</a></li><li><a href="refund.html">Refund &amp; cancellation policy</a></li><li><a href="delete-account.html">Delete your account and data</a></li>
 <li><a href="https://github.com/ramee0306-creator/ratna-aura">Source code</a> (GNU AGPL v3)</li></ul>
 <p>Contact: <a href="mailto:velqorasupport99@gmail.com">velqorasupport99@gmail.com</a></p>`,
   ),
