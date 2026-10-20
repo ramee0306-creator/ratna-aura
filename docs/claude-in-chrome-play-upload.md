@@ -67,7 +67,10 @@ Complete each declaration:
 - **Ads:** No.
 - **Content rating:** start the questionnaire; e-mail velqorasupport99@gmail.com; category "All other app types";
   answer **No** to violence, sexuality, language, controlled substances, gambling, user interaction/sharing,
-  location sharing, digital purchases… **except** "Does the app allow users to purchase digital goods?" → **Yes**.
+  location sharing… **except** "Does the app allow users to purchase digital goods?" → **Yes**, and "content that
+  isn't part of the initial app download (e.g. generated AI content)" → **Yes** (AI answers, AI astrologers, palm
+  readings, rashifal). Its follow-ups: the AI content has no violence, sexuality, bad language, drugs or gambling →
+  **No**; the AI is told to refuse such content, and users can report any answer with the flag button.
 - **Target audience and content:** age groups **18 and over** only. Not designed for children.
 - **News app:** No. **COVID-19 tracing:** No. **Data safety:** fill using the table in data-safety.md
   (data is encrypted in transit: Yes; users can request deletion: Yes; account deletion URL: the app itself and
