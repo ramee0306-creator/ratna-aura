@@ -1,45 +1,49 @@
 # Prompt for Claude in Chrome — Ratna Aura on Google Play, up to closed testing
 
-Copy everything below the line into Claude in Chrome. Before that, do **Step A** yourself (about 5 minutes).
+Do **Step A** yourself first (about 5 minutes), then copy everything below the line into Claude in Chrome.
 
-## Step A — you, by hand (the upload key; Claude in Chrome cannot read files on your computer)
+## Step A — you, by hand (backup of the upload key)
+The "Make upload key" workflow has already created the key and saved the 4 `ANDROID_UPLOAD_*` secrets. Its backup
+copy is kept by GitHub for **one day only**.
 1. Open https://github.com/ramee0306-creator/ratna-aura/actions/workflows/make-upload-key.yml → open the latest run
    with a green tick → at the bottom, **Artifacts → upload-key** → download, then unzip it.
-2. Save `upload.jks` and `passwords.txt` in your password manager or a safe folder. This is the only copy.
-3. Open https://github.com/ramee0306-creator/ratna-aura/settings/secrets/actions → **New repository secret**, four times:
-   - `ANDROID_UPLOAD_KEYSTORE_BASE64` → open `upload.jks.base64` in Notepad, select all, copy, paste.
-   - `ANDROID_UPLOAD_STORE_PASSWORD` → the password shown in `passwords.txt`.
-   - `ANDROID_UPLOAD_KEY_ALIAS` → `upload`
-   - `ANDROID_UPLOAD_KEY_PASSWORD` → the same password.
-4. Back on the run page, click the trash icon next to **upload-key** to delete it from GitHub.
+2. Save `upload.jks`, `upload.jks.base64` and `passwords.txt` in your password manager or a safe folder (for example
+   a private Google Drive folder). This is the only backup copy.
+3. On the same run page, click the trash icon next to **upload-key** to delete it from GitHub. Do the same on any
+   older run that still shows an **upload-key** artifact.
+4. Open https://github.com/ramee0306-creator/ratna-aura/settings/secrets/actions → delete the secret
+   **SECRETS_TOKEN** (it is no longer needed).
+5. Open https://github.com/settings/personal-access-tokens → find the token you made for the key → **Revoke**.
 
 ---
 
 You are helping me (the owner) publish my Android app **Ratna Aura** on Google Play, up to **closed testing**. I am
 signed in to GitHub (account ramee0306-creator) and to Google Play Console and Google Cloud Console in this browser.
 Work step by step, in order. **Stop and ask me before** anything that costs money, anything you cannot undo, and any
-file upload (you cannot pick files from my computer — tell me exactly which file to choose, then wait). Do not invent
-answers: use the texts given here or in the documents linked. Report briefly after each part.
+file upload (you cannot pick files from my computer — tell me exactly which file to choose, then wait). Never show
+passwords, keys or tokens in the chat. Do not invent answers: use the texts given here or in the documents linked.
+Report briefly after each part.
 
-Reference documents (readable once Part B1 makes the repository public):
+Reference documents (readable once Part B makes the repository public):
 - Guide: https://github.com/ramee0306-creator/ratna-aura/blob/main/docs/play-console-guide.md
 - Store texts: https://github.com/ramee0306-creator/ratna-aura/blob/main/docs/store-listing.md
 - Data safety and content rating answers: https://github.com/ramee0306-creator/ratna-aura/blob/main/docs/data-safety.md
 
 ### Part B — GitHub
 1. Check https://github.com/ramee0306-creator/ratna-aura/settings/secrets/actions lists the 4 secrets
-   ANDROID_UPLOAD_KEYSTORE_BASE64, ANDROID_UPLOAD_STORE_PASSWORD, ANDROID_UPLOAD_KEY_ALIAS, ANDROID_UPLOAD_KEY_PASSWORD.
-   If any is missing, stop and tell me.
-2. Check https://github.com/ramee0306-creator/ratna-aura/actions/workflows/make-upload-key.yml: the latest run must
-   have **no** "upload-key" artifact left. If it is still there, stop and ask me to delete it.
+   ANDROID_UPLOAD_KEYSTORE_BASE64, ANDROID_UPLOAD_STORE_PASSWORD, ANDROID_UPLOAD_KEY_ALIAS, ANDROID_UPLOAD_KEY_PASSWORD,
+   and that **SECRETS_TOKEN is gone**. If a key secret is missing, or SECRETS_TOKEN is still there, stop and tell me.
+2. Open https://github.com/ramee0306-creator/ratna-aura/actions/workflows/make-upload-key.yml and open **every** run
+   in the list: none may still show an **upload-key** artifact. If one does, stop and ask me to delete it (it holds
+   the key and would become downloadable by anyone once the repository is public).
 3. **Ask me to confirm**, then make the repository public: Settings → General → Danger zone → Change repository
    visibility → Public (type the repository name to confirm). (The app is open source under the AGPL; no secrets are
    in the code.)
 4. Settings → Pages → Build and deployment → Source: **GitHub Actions**.
 5. Actions → **Publish policy pages** → Run workflow (branch main). Wait until it is green, then open
-   https://ramee0306-creator.github.io/ratna-aura/privacy.html and check the privacy policy shows.
-6. Actions → **Build for Google Play** → Run workflow (branch main). It takes about 30 minutes; continue with Part C
-   meanwhile.
+   https://ramee0306-creator.github.io/ratna-aura/privacy.html, …/terms.html and …/refund.html and check each page
+   shows. If the run fails, tell me the error shown.
+6. The app file is already built — no new build needed (see Part G).
 
 ### Part C — Google Cloud Console (Google sign-in for everyone)
 1. Open https://console.cloud.google.com/apis/credentials/consent and pick the project used for the app's Google
@@ -85,8 +89,9 @@ Complete each declaration:
 - Save.
 
 ### Part G — Closed testing release
-1. Check the GitHub run **Build for Google Play** (Part B6) is green. **Ask me** to download its artifact
-   **ratna-aura-aab**, unzip it, and keep the `.aab` file ready.
+1. **Ask me** to download the app file: open
+   https://github.com/ramee0306-creator/ratna-aura/actions/workflows/build-aab.yml → latest run with a green tick →
+   **Artifacts → ratna-aura-aab** → download and unzip it, and keep the `.aab` file ready.
 2. Play Console → **Test and release → Testing → Closed testing** → open the default track (e.g. "Closed testing -
    Alpha") → **Create new release**.
 3. If asked, accept **Play App Signing** with Google's default key.
