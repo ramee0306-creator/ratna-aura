@@ -43,7 +43,8 @@ Reference documents (readable once Part B makes the repository public):
 5. Actions → **Publish policy pages** → Run workflow (branch main). Wait until it is green, then open
    https://ramee0306-creator.github.io/ratna-aura/privacy.html, …/terms.html and …/refund.html and check each page
    shows. If the run fails, tell me the error shown.
-6. The app file is already built — no new build needed (see Part G).
+6. Actions → **Build for Google Play** → Run workflow (branch main). (The package ID changed to raksha.ratnaaura, so
+   the earlier build cannot be used.) It takes about 30 minutes; continue with Part C meanwhile.
 
 ### Part C — Google Cloud Console (Google sign-in for everyone)
 1. Open https://console.cloud.google.com/apis/credentials/consent and pick the project used for the app's Google
@@ -93,12 +94,13 @@ Complete each declaration:
 
 ### Part G — Closed testing release
 1. **Ask me** to download the app file: open
-   https://github.com/ramee0306-creator/ratna-aura/actions/workflows/build-aab.yml → latest run with a green tick →
+   https://github.com/ramee0306-creator/ratna-aura/actions/workflows/build-aab.yml → the run from Part B6 (green tick,
+   started today after the package ID change — not an older one) →
    **Artifacts → ratna-aura-aab** → download and unzip it, and keep the `.aab` file ready.
 2. Play Console → **Test and release → Testing → Closed testing** → open the default track (e.g. "Closed testing -
    Alpha") → **Create new release**.
 3. If asked, accept **Play App Signing** with Google's default key.
-4. ⚠️ **Ask me to confirm** before the first upload: it makes the package name **Raksha.RatnaAura** permanent. Then
+4. ⚠️ **Ask me to confirm** before the first upload: it makes the package name **raksha.ratnaaura** permanent. Then
    ask me to upload the `.aab` file.
 5. Release name `1.0.0`. Release notes (en-IN): *First test release of Ratna Aura.* → Next → Save.
 6. **Testers** tab: create an e-mail list "Ratna Aura testers" with the e-mails I give you (ask me; at least my own

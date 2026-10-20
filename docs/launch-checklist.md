@@ -1,6 +1,6 @@
 # Launch checklist (before the first Google Play release)
 
-⚠️ **The package ID `Raksha.RatnaAura` can NEVER change after the first upload to Google Play.**
+⚠️ **The package ID `raksha.ratnaaura` can NEVER change after the first upload to Google Play.**
 If you want a different one (for example with "raksha" in it), change `androidPackage` in `brand.config.js` *before*
 uploading anything.
 

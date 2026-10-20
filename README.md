@@ -366,7 +366,7 @@ You can follow each run in the repository's **Actions** tab, and start one by ha
 2. Run `npm run make-icons` (redraws the gem icon and splash in the new colours).
 3. If `scheme` changed, update the Redirect URLs in Supabase (step 4.8).
 
-⚠️ **The Android package ID (`Raksha.RatnaAura`) can never change after the first upload to
+⚠️ **The Android package ID (`raksha.ratnaaura`) can never change after the first upload to
 Google Play.** Confirm the final name and package ID **before Milestone 9**.
 
 ## Publishing (Milestones 8–9)
@@ -383,7 +383,7 @@ once with the environment variable `ALLOW_SCREENSHOTS=1`.
 
 ### Google Play (AAB)
 1. ⚠️ **Decide the package ID now — it can never change after the first upload** (`brand.config.js` →
-   `androidPackage`, currently `Raksha.RatnaAura`).
+   `androidPackage`, currently `raksha.ratnaaura`).
 2. **Upload key (once), while the repository is still private.** Create a fine-grained GitHub token for this
    repository only with **Secrets: Read and write** (expiry 7 days) and save it as the repository secret
    `SECRETS_TOKEN`. Then GitHub → **Actions** → **Make upload key** → **Run workflow**: it creates the key and saves the 4

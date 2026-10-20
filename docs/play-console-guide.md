@@ -4,7 +4,7 @@ You can follow this yourself, or give it to **Claude in Chrome** ("Follow docs/p
 ratna-aura repository, part by part, and stop to ask me before anything that costs money or is permanent").
 Everything below is free on an existing Play Console account.
 
-⚠️ **The package ID `Raksha.RatnaAura` becomes permanent with the first upload in Part 3.**
+⚠️ **The package ID `raksha.ratnaaura` becomes permanent with the first upload in Part 3.**
 
 ## Part 0 — before Play Console (GitHub, once)
 1. **Upload key.** GitHub → ratna-aura → **Actions** → **Make upload key** → open the latest run (green tick) →
@@ -48,7 +48,7 @@ Play Console → **Create app**:
 1. GitHub → ratna-aura → **Actions → Build for Google Play → Run workflow**. When it finishes (about 30 minutes),
    download the artifact **ratna-aura-aab** and unzip it (a `.aab` file).
 2. Play Console → **Testing → Internal testing → Create new release** → upload the `.aab`.
-   ⚠️ This fixes the package ID `Raksha.RatnaAura` forever.
+   ⚠️ This fixes the package ID `raksha.ratnaaura` forever.
 3. Release name: `1.0.0 (1)` · Release notes (en-IN): *First test release.* → **Next → Save → Start rollout**.
 4. **Testers** tab → create a list with your Gmail (and anyone helping test) → copy the **opt-in link**, open it on
    your phone, accept, and install Ratna Aura from Google Play.
